@@ -1,0 +1,156 @@
+home:
+  - title: <span class="display-4">Python Bootwrap</span>
+    subtitle: Wraps one of the most popular front-end open-source toolkit Bootstrap for quick and easy prototyping of web-based user interfaces purely in Python
+
+  - title: Installation
+    description: |
+      Use the following command to install Bootwrap:
+    code:
+      pip install bootwrap
+
+  - title: Hello World Application
+    description:
+      A "Hello world" Bootwrap application looks something like this
+    code: |
+      @left
+      from flask import Flask, Markup
+      from bootwrap import Page, Text
+
+      app = Flask(__name__)
+
+      @app.route('/')
+      def hello_world():
+          return Markup(
+              Page(content=Text('Hello Word!'))
+          )
+              
+      if __name__ == '__main__':
+          app.run(debug=True)
+    image: hello-world-app.png
+
+  - title: Multi-Pages Application
+    description: |
+      A multi-pages Bootwrap application looks something like this:
+    code: |
+      @left
+      from flask import Flask, Markup
+      from bootwrap import (
+          Page, Menu, Image,
+          Anchor, Button, Text
+      )
+
+      app = Flask(__name__)
+
+      class MyMenu(Menu):
+          def __init__(self):
+              super().__init__(
+                  logo = Image(
+                      'logo.png',
+                      width=32,
+                      alternative='Logo'
+                  ),
+                  brand=Text('Bootwrap').\\
+                      as_strong().\\
+                          as_light(),
+                  anchors=[
+                      Anchor('Home').\\
+                          link('/'),
+                      Anchor('About').\\
+                          link('/about'),
+                  ], 
+                  actions=[
+                      Button('Sign In').\\
+                          with_border().\\
+                          as_light().\\
+                          link('/signin')
+                  ]
+              )
+
+      class MyPage(Page):
+          def __init__(self, content):
+              super().__init__(
+                  favicon = 'favicon.ico',
+                  title='Multi-pages Application',
+                  menu=MyMenu(),
+                  content=content
+              )
+
+      @app.route('/')
+      def home():
+          return Markup(
+              MyPage(content=Text('Home').\\
+                  as_heading(1))
+          )
+
+      @app.route('/about')
+      def about():
+          return Markup(
+              MyPage(content=Text('About').\\
+                  as_heading(1))
+          )
+
+      @app.route('/signin')
+      def signin():
+          return Markup(
+              MyPage(content=Text('Sign In').\\
+                  as_heading(1))
+          )
+
+      if __name__ == '__main__':
+          app.run(debug=True)
+    image: multi-pages-app.png
+
+
+introduction:
+  - title: Architecture
+    description:
+      - To simplify the process of prototyping interfaces, Bootwrap uses fixed architecture. The core element of this architecture is the page. The page consists of two main elements menu and content. The menu provides top-level navigation among different pages of your application, and content presents page information. Learn more about creating pages and menus below.
+    image: page-n-menu.png  
+  
+  - title: Page
+    description:
+      - Page contains the top-level navigation menu and area for rendering user content. Its initializations consist of the following parameters
+      - head: ['Param', 'Type', 'Description']
+        body:
+          - ['favicon', 'str', 'the file name for the favorite icon displayed in a browser;']
+          - ['title', 'str', 'the page title, displayed in a browser;']
+          - ['menu', 'Menu', 'the top-level page menu;']
+          - ['content', 'WebComponent', 'the web-component representing a page content;']
+      - The content could be any component that instantiates the WebComponent class. For example, to create a sophisticated layout you can use the Panel. It encapsulates multiple web components and can arrange them in different layouts.
+    code: |
+      @right
+      from bootwrap import Menu
+
+      class MyPage(Page):
+        def __init__(self, content):
+          super().__init__(
+            favicon = ...,
+            title=...,
+            menu=...,
+            content=...
+          )
+
+  - title: Menu
+    description:
+      - The menu represents the top-level navigation located at the top of a page. Its initializations consist of the following parameters
+      - head: ['Param', 'Type', 'Description']
+        body:
+          - ['logo', 'Image', 'the images representing a company or organization logo;']
+          - ['brand', 'Text', 'the name representing a company, organization, or a project;']
+          - ['anchors', 'list of Anchor', 'the the list of anchors allowing to navigate to the different pages from the top-level menu;']
+          - ['actions', 'list of Button', 'the list of buttons allowing to perform  specific actions such as login, logout, etc.;']
+    code: |
+      @right
+      from bootwrap import Menu
+
+      class MyMenu(Menu):
+          def __init__(self):
+              super().__init__(
+                  logo = ...,
+                  brand=...,
+                  anchors=..., 
+                  actions=...
+              )
+
+components:
+  - title: Hello

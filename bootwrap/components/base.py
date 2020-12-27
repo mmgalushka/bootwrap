@@ -44,14 +44,15 @@ class CompositeMixin:
             self
         """
         for i, c in enumerate(list(components)):
-            if isinstance(c, WebComponent) or isinstance(c, tuple):
-                self._components.append(c)
-            else:
-                raise TypeError(
-                    f'''Parameter "components[{i}]" expected to be either
-                    <class "WebComponent"> or <class "tuple">, but got {type(c)};
-                    '''
-                )
+            if c:
+                if isinstance(c, WebComponent) or isinstance(c, tuple):
+                    self._components.append(c)
+                else:
+                    raise TypeError(
+                        f'''Parameter "components[{i}]" expected to be either
+                        <class "WebComponent"> or <class "tuple">, but got {type(c)};
+                        '''
+                    )
         return self
 
 

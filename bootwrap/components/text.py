@@ -4,6 +4,8 @@
 A text.
 """
 
+from textwrap import dedent
+
 from .base import (
     WebComponent,
     ClassMixin,
@@ -104,8 +106,7 @@ class Text(WebComponent, ClassMixin, AppearanceMixin):
                 return f'<h{l} {attr("class", classes)}>{c}</h{l}>'
             else:
                 if self.__code:
-                    classes += f' prettyprint lang-py'
-                    return f'<pre {attr("class", classes)}>{c}</pre>'
+                    return f'<pre {attr("class", classes)}><code class="python">{dedent(c)}</code></pre>'
                 else:
                     if self.__paragraph:
                         return f'<p {attr("class", classes)}>{c}</p>'

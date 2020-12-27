@@ -47,6 +47,8 @@ action_init(){
     pip3 install pytest
     pip3 install pytest-cov
     pip3 install setuptools
+    pip3 install PyYAML
+
 
     pip3 install -r requirements.txt
 }
@@ -86,6 +88,11 @@ action_docs(){
     python main.py docs
 }
 
+action_xxx(){
+    source .venv/bin/activate
+    python xxx.py
+}
+
 # =============================================================================
 # HELPER COMMANDS SELECTOR
 # =============================================================================
@@ -101,6 +108,9 @@ case $1 in
     ;;
     docs)
         action_docs
+    ;;
+    xxx)
+        action_xxx
     ;;
     *)
         action_usage

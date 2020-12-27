@@ -1,6 +1,10 @@
 
+import os
 import sys
 import argparse
+import glob
+
+import yaml
 
 from textwrap import dedent
 from flask import Flask, Markup, redirect, url_for
@@ -9,6 +13,9 @@ from bs4 import BeautifulSoup
 import bootwrap as bw
 
 app = Flask(__name__, static_folder='docs', static_url_path='')
+
+with open('main.yaml', 'r') as file:
+    demo = yaml.load(file)
 
 
 QUOTES_AUTHORS = [
@@ -347,6 +354,76 @@ class Components(Demo):
             )
 
 
+class DocTab(bw.Panel):
+    pass
+
+class DocSection(bw.Panel):
+    def __init__(self, content):
+        title = None
+        if 'title' in content:
+            title = bw.Text(content['title']).as_heading(1)
+
+        subtitle = None
+        if 'subtitle' in content:
+            subtitle = bw.Text(content['subtitle']).as_heading(2).add_classes('text-muted')
+
+        image = None
+        if 'image' in content:
+            image = bw.Image(content['image'], width=500)
+
+        code_left = None
+        code_right = None
+        if 'code' in content:
+            c = content['code']
+            if '@right' in c:
+                c = c.replace('@right', '').strip()
+                code_right = bw.Text(c).as_code()
+            else:
+                c = c.replace('@left', '').strip()
+                code_left = bw.Text(c).as_code()
+
+        evaluation = None
+        if 'evaluation' in content:
+            evaluation = bw.Text(eval(content['evaluation']))
+
+
+        description = []
+        if 'description' in content:
+            description = []
+            for fragment in content['description']:
+                if isinstance(fragment, str):
+                    description.append(bw.Text(fragment))
+                elif isinstance(fragment, dict):
+                    try:
+                        description.append(
+                            bw.Table(
+                                head=fragment['head'],
+                                body=fragment['body']
+                            ).add_classes('table-sm')
+                        )
+                    except KeyError as err:
+                        raise AssertionError(
+                            f'Invalid fragment format for a table;'
+                        ) from err
+                else:
+                    raise AssertionError(
+                        f'Unsupported fragment type {type(fragment)};'
+                    )
+
+        
+        super().__init__()
+        super().append(
+            bw.Panel().append(
+                bw.Panel().append(title, subtitle),
+                bw.Panel()
+            ).with_horizontal_arrangement(),
+            bw.Panel().append(
+                bw.Panel().append(*description, code_left),
+                bw.Panel().append(code_right, image, evaluation)
+            ).with_horizontal_arrangement()
+        ).add_classes('mt-5')
+
+
 class GenericPage(bw.Page):
     """Generic web-pages for demoing web-components.
     
@@ -365,67 +442,41 @@ class GenericPage(bw.Page):
                 brand=bw.Text('Bootwrap').as_strong().as_light(),
                 anchors=[
                     bw.Anchor('Home').link('/'),
-                    bw.Anchor('Basics').link('/basics'),
+                    bw.Anchor('Introduction').link('/introduction'),
                     bw.Anchor('Components').link('/components')
                 ], 
                 actions=[
-                    bw.Button('For Contributors').\
+                    bw.Button('GitHub').\
                         with_border().\
                         as_light().\
-                        link('/contributors')
+                        link('https://github.com/mmgalushka/python-bootwrap')
                 ]
             ),
-            content=content
-        )
-
-
-class HomePage(GenericPage):
-    """A home-page"""
-    def __init__(self):
-        super().__init__(
-            content=bw.Text('home')
-        )   
-
-
-class BasicsPage(GenericPage):
-    def __init__(self):
-        super().__init__(
-            content=bw.Text('basics')
-        ) 
-
-
-class ComponentsPage(GenericPage):
-    def __init__(self):
-        super().__init__(
-            content=bw.Text('components')
-        )
-
-
-class ContributorsPage(GenericPage):
-    def __init__(self):
-        super().__init__(
-            content=bw.Text('contributors')
+            content=bw.Panel().append(
+                *list(map(DocSection, content))
+            )
         )
 
 
 @app.route('/')
 def home():
-    return Markup(HomePage())
+    with open('main.yaml', 'r') as file:
+        content = yaml.load(file, Loader=yaml.FullLoader)
+    return Markup(GenericPage(content['home']))
 
 
-@app.route('/basics')
-def basics():
-    return Markup(BasicsPage())
+@app.route('/introduction')
+def introduction():
+    with open('main.yaml', 'r') as file:
+        content = yaml.load(file, Loader=yaml.FullLoader)
+    return Markup(GenericPage(content['introduction']))
 
 
 @app.route('/components')
 def components():
-    return Markup(ComponentsPage())
-
-
-@app.route('/contributors')
-def contributors():
-    return Markup(ContributorsPage())
+    with open('main.yaml', 'r') as file:
+        content = yaml.load(file, Loader=yaml.FullLoader)
+    return Markup(GenericPage(content['components']))
 
 
 if __name__ == '__main__':
@@ -439,19 +490,20 @@ if __name__ == '__main__':
     args = parser.parse_args(sys.argv[1:])
 
     if args.action == 'docs':
+ 
+        for path in glob.glob('docs/*.html'):
+            os.remove(path)
 
         def save_page(filename, page):
             page = page.replace('href="/"', 'href="index.html"').\
-                replace('href="/basics"', 'href="basics.html"').\
-                replace('href="/components"', 'href="components.html"').\
-                replace('href="/contributors"', 'href="contributors.html"')
+                replace('href="/introduction"', 'href="intro.html"').\
+                replace('href="/components"', 'href="comps.html"')
             with open(f'docs/{filename}', 'w') as file:
                 soup = BeautifulSoup(page)
                 file.write(soup.prettify())
 
-        save_page('index.html', str(HomePage()))
-        save_page('basics.html', str(BasicsPage()))
-        save_page('components.html', str(ComponentsPage()))
-        save_page('contributors.html', str(ContributorsPage()))
+        save_page('index.html', home())
+        save_page('introduction.html', introduction())
+        save_page('components.html', components())
     else:
         app.run(debug=True)

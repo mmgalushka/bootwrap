@@ -50,17 +50,18 @@ class Page:
 
         links = [
             Link('https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css'),
-            Link('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css')
+            Link('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css'),
+            Link('https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/default.min.css')
         ]
 
         if self.__favicon:
             links.append(Link(self.__favicon, 'icon', 'image/x-icon'))
 
-        
         scripts = [
             Javascript('https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js'),
             Javascript('https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js'),
-            Javascript('https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js')
+            Javascript('https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js'),
+            Javascript('https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/languages/python.min.js')
         ]
 
         if self.__resources:
@@ -100,5 +101,6 @@ class Page:
                         {inject(self.__content)}
                     </div>
                 </body>
+                <script>hljs.initHighlightingOnLoad();</script>
             </html>
         '''
