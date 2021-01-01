@@ -4,7 +4,6 @@ A panel.
 
 from .base import (
     WebComponent,
-    CompositeMixin,
     ClassMixin
 )
 from .utils import attr, inject
@@ -12,11 +11,11 @@ from .utils import attr, inject
 __all__ = [ 'Panel' ]
 
 
-class Panel(WebComponent, CompositeMixin, ClassMixin):
+class Panel(WebComponent, ClassMixin):
     """A web-component for a panel."""
-    def __init__(self, role=None):
+    def __init__(self, *components):
         super().__init__()
-        self.__role = role
+        self.__components = components
         self.__arrangement = None
 
     def with_vertical_arrangement(self):
@@ -53,9 +52,8 @@ class Panel(WebComponent, CompositeMixin, ClassMixin):
                     '''
                 return f'''
                     <div {attr("id", self.identifier)}
-                        {attr("class", self.classes)}
-                        {attr("role", self.__role)}>
-                        {inject(*map(row, filter(None, self._components)))}
+                        {attr("class", self.classes)}>
+                        {inject(*map(row, filter(None, self.__components)))}
                     </div>
                 '''
             else: # self.__arrangement == 'horizontal'
@@ -68,18 +66,16 @@ class Panel(WebComponent, CompositeMixin, ClassMixin):
                     '''
                 return f'''
                     <div {attr("id", self.identifier)}
-                        {attr("class", self.classes)}
-                        {attr("role", self.__role)}>
+                        {attr("class", self.classes)}>
                         <div class="row">
-                            {inject(*map(col, filter(None, self._components)))}
+                            {inject(*map(col, filter(None, self.__components)))}
                         </div>
                     </div>
                 '''
 
         return f'''
             <div {attr("id", self.identifier)}
-                {attr("class", self.classes)}
-                {attr("role", self.__role)}>
-                {inject(*self._components)}
+                {attr("class", self.classes)}>
+                {inject(*self.__components)}
             </div>
         '''

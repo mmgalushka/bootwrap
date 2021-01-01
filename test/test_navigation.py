@@ -40,7 +40,6 @@ def test_navigation():
     assert 'fade' in d_div_0.attr('class') 
     assert 'active' in d_div_0.attr('class') 
     assert 'show' in d_div_0.attr('class') 
-    assert d_div_0.attr('role') == 'tabpanel' 
     assert d_div_0.text() == 'a-text' 
 
     # test for item B;
@@ -60,7 +59,6 @@ def test_navigation():
     assert 'fade' in d_div_1.attr('class') 
     assert 'active' not in d_div_1.attr('class') 
     assert 'show' not in d_div_1.attr('class') 
-    assert d_div_1.attr('role') == 'tabpanel' 
     assert d_div_1.text() == 'b-text'
 
     with pytest.raises(TypeError) as err:

@@ -15,13 +15,9 @@ def test_panel():
     assert d == d('div')
     assert d.attr('class') is None
 
-    panel = Panel().append(Text('sometext'))
+    panel = Panel(Text('sometext'))
     d = pq(str(panel))
     assert d.text() == 'sometext'
-
-    panel = Panel('somerole')
-    d = pq(str(panel))
-    assert  d.attr('role') == 'somerole'
 
     panel = Panel().add_classes('mr-1')
     d = pq(str(panel))

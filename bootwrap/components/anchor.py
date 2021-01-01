@@ -17,11 +17,11 @@ class Anchor(WebComponent, CompositeMixin, ClassMixin, AppearanceMixin):
     """A web-component for an anchor.
     
     Args:
-        label (str): The button label.
+        name (str): The anchor name.
     """
-    def __init__(self, label, role=None):
+    def __init__(self, name, role=None):
         super().__init__()
-        self.__label = label
+        self.__name = name
         self.__role = role
         self.__action = 'href:#' 
 
@@ -49,7 +49,6 @@ class Anchor(WebComponent, CompositeMixin, ClassMixin, AppearanceMixin):
         self.__action = f'toggle:{target.identifier}'
         return self
 
-
     def __str__(self):
         if self._category is None:
             classes = ''
@@ -66,7 +65,7 @@ class Anchor(WebComponent, CompositeMixin, ClassMixin, AppearanceMixin):
                     {attr("href", f'#{self.__action[7:]}')}
                     {attr("data-toggle", "tab")}
                     {attr("role", self.__role)}>
-                    {self.__label}
+                    {self.__name}
                 </a>
             '''
         else: # It can be only self.__action starts with 'href:'.
@@ -75,6 +74,6 @@ class Anchor(WebComponent, CompositeMixin, ClassMixin, AppearanceMixin):
                     {attr("class", classes)}
                     {attr("href", self.__action[5:])}
                     {attr("role", self.__role)}>
-                    {self.__label}
+                    {self.__name}
                 </a>
             '''

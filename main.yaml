@@ -1,16 +1,21 @@
+# ==============================================================================
+# 
+#   H O M E     P A G E
+# 
+# ==============================================================================
 home:
   - title: <span class="display-4">Python Bootwrap</span>
     subtitle: Wraps one of the most popular front-end open-source toolkit Bootstrap for quick and easy prototyping of web-based user interfaces purely in Python
 
   - title: Installation
-    description: |
-      Use the following command to install Bootwrap:
+    description:
+      - Use the following command to install Bootwrap
     code:
       pip install bootwrap
 
   - title: Hello World Application
     description:
-      A "Hello world" Bootwrap application looks something like this
+      - A "Hello world" Bootwrap application looks something like this
     code: |
       @left
       from flask import Flask, Markup
@@ -29,8 +34,8 @@ home:
     image: hello-world-app.png
 
   - title: Multi-Pages Application
-    description: |
-      A multi-pages Bootwrap application looks something like this:
+    description:
+      - A multi-pages Bootwrap application looks something like this
     code: |
       @left
       from flask import Flask, Markup
@@ -60,7 +65,7 @@ home:
                   ], 
                   actions=[
                       Button('Sign In').\\
-                          with_border().\\
+                          as_outline().\\
                           as_light().\\
                           link('/signin')
                   ]
@@ -100,7 +105,11 @@ home:
           app.run(debug=True)
     image: multi-pages-app.png
 
-
+# ==============================================================================
+# 
+#   I N T R O D U C T I O N     P A G E
+# 
+# ==============================================================================
 introduction:
   - title: Architecture
     description:
@@ -152,5 +161,184 @@ introduction:
                   actions=...
               )
 
+# ==============================================================================
+# 
+#   COMPONENTS    P A G E
+# 
+# ==============================================================================
 components:
-  - title: Hello
+
+  # --- Anchor Tab -------------------------------------------------------------
+  Anchor:
+    - title: Anchor
+      constructor: Anchor(name)
+      arguments:
+        - ['name', 'str', 'the anchor name']
+      description:
+        - An <code>Anchor</code> can be used for creating a hyperlink to pages, files, email addresses, locations on the same page, or other web-resources defined by a URL address. In addition, it is also used in conjunction with other web-components, for example, in creating a navigation menu.
+        - Use the <code>link(href)</code> function to connect an Anchor to another web-resource defined by the <code>href</code> parameter.
+      code: |
+        @right
+        Anchor('Search').link('https://www.google.com/')
+      evaluation: |
+        from bootwrap import Panel, Anchor
+        output = Panel(
+          Anchor('Search').\
+            link('https://www.google.com/')
+        )
+
+    - title: Anchor Styles
+      description:
+        - Use the following functions <code>as_primary()</code>, <code>as_secondary()</code>, <code>as_success()</code>, <code>as_warning()</code>, <code>as_danger()</code>, <code>as_info()</code>, <code>as_light()</code>, and <code>as_dark()</code> for changing an <code>Anchor</code> appearance.
+        - Follow the Bootstrap guideline to applying these styles.
+      code: |
+        @right
+        Anchor('Primary').as_primary()
+        Anchor('Secondary').as_secondary()
+        Anchor('Success').as_success()
+        Anchor('Warning').as_warning()
+        Anchor('Danger').as_danger()
+        Anchor('Info').as_info()
+        Anchor('Light').as_light()
+        Anchor('Dark').as_dark()
+      evaluation: |
+        from bootwrap import Panel, Anchor
+        output = Panel(
+          Anchor('Primary').as_primary().add_classes('mt-1'),
+          Anchor('Secondary').as_secondary().add_classes('mt-1'),
+          Anchor('Success').as_success().add_classes('mt-1'),
+          Anchor('Warning').as_warning().add_classes('mt-1'),
+          Anchor('Danger').as_danger().add_classes('mt-1'),
+          Anchor('Info').as_info().add_classes('mt-1'),
+          Anchor('Light').as_light().add_classes('mt-1'),
+          Anchor('Dark').as_dark().add_classes('mt-1')
+        )
+
+  # --- Button Tab -------------------------------------------------------------
+  Button:
+    - title: Button
+      constructor: Button(name)
+      arguments:
+        - ['name', 'str', 'the button name']
+      description:
+        - A <code>Button</code> is a simple component for performing interactions on a website. Use the <code>link(href)</code> function to connect a <code>Button</code> to another web-resource defined by the href parameter. In this scenario, a <code>Button</code> behaves the same as an <code>Anchor</code>.
+      code: |
+        @right
+        # the button without style
+        Button('Search').link('https://www.google.com/')
+      evaluation: |
+        from bootwrap import Panel, Button
+        output = Panel(
+          Button('Search').\
+            link('https://www.google.com/'),
+        )
+
+    - title: Button Styles
+      description:
+        - Use the following functions <code>as_primary()</code>, <code>as_secondary()</code>, <code>as_success()</code>, <code>as_warning()</code>, <code>as_danger()</code>, <code>as_info()</code>, <code>as_light()</code>, and <code>as_dark()</code> for changing a <code>Button</code> appearance. 
+        - To make a <code>Button</code> displayed without background call function <code>as_outline()</code>. Note, a <code>Button</code> will have an outline look only if you apply a specific style. For a Button without style, this function will have no effect.
+        - Follow the Bootstrap guideline to applying these styles.
+      code: |
+        @right
+
+        # to make a different appearance
+        Button('Primary').as_primary()
+        Button('Secondary').as_secondary()
+        Button('Success').as_success()
+        Button('Warning').as_warning()
+        Button('Danger').as_danger()
+        Button('Info').as_info()
+        Button('Light').as_light()
+        Button('Dark').as_dark()
+
+        # to make the outline look
+        Button('Primary').as_primary().as_outline()
+        Button('Secondary').as_secondary().as_outline()
+        Button('Success').as_success().as_outline()
+        Button('Warning').as_warning().as_outline()
+        Button('Danger').as_danger().as_outline()
+        Button('Info').as_info().as_outline()
+        Button('Light').as_light().as_outline()
+        Button('Dark').as_dark().as_outline()
+
+      evaluation: |
+        from bootwrap import Panel, Button
+        output = Panel(
+          Button('Primary').as_primary().add_classes('mt-1'),
+          Button('Secondary').as_secondary().add_classes('mt-1'),
+          Button('Success').as_success().add_classes('mt-1'),
+          Button('Warning').as_warning().add_classes('mt-1'),
+          Button('Danger').as_danger().add_classes('mt-1'),
+          Button('Info').as_info().add_classes('mt-1'),
+          Button('Light').as_light().add_classes('mt-1'),
+          Button('Dark').as_dark().add_classes('mt-1'),
+          Button('Primary').as_primary().as_outline().add_classes('mt-1'),
+          Button('Secondary').as_secondary().as_outline().add_classes('mt-1'),
+          Button('Success').as_success().as_outline().add_classes('mt-1'),
+          Button('Warning').as_warning().as_outline().add_classes('mt-1'),
+          Button('Danger').as_danger().as_outline().add_classes('mt-1'),
+          Button('Info').as_info().as_outline().add_classes('mt-1'),
+          Button('Light').as_light().as_outline().add_classes('mt-1'),
+          Button('Dark').as_dark().as_outline().add_classes('mt-1')
+        )
+
+  # --- Form Tab ---------------------------------------------------------------
+
+  Form:
+    - title: Form
+      constructor: Form(*components)
+      arguments:
+        - ['components', 'list', 'the list of input components and actions.']
+      description:
+        - A <code>Form</code> is a web-component containing interactive controls for submitting information.
+      code: |
+        @right
+        Form(
+          # here should be a list of input components and actions 
+          ...
+        ).on_submit('go/to/this/url')
+
+    - title: Checkbox Input
+      constructor: Checkbox(name, label)
+      arguments:
+        - [ 'label', 'str', 'the input label showing for user' ]
+        - [ 'name', 'str', 'the input name, used for getting an input value from the form, during handling a submit action' ]
+      description:
+        - A <code>CheckboxInput</code> is a component which can be in two states checked or unchecked.
+        - The function <code>check(status)</code> changes the component state. The <code>status</code> parameter equals to <code>True</code> sets this component as <i>checked</i> and <code>False</code> as <i>unchecked</i> accordingly. A default value the <code>status</code> parameter is<code>True</code>.
+        - Use the <code>as_disabled()</code> function to prevent user to modify a status of this component.
+      code: |
+        @right
+        CheckboxInput('One', 'opt1')
+        CheckboxInput('Two', 'opt2').as_checked()
+        CheckboxInput('Three', 'opt3').as_disabled()
+      evaluation: |
+        from bootwrap import Form, CheckboxInput
+        output = Form('').append(
+          CheckboxInput('One', 'opt1'),
+          CheckboxInput('Two', 'opt2').as_checked(),
+          CheckboxInput('Three', 'opt3').as_disabled()
+        )
+
+    - title: Redio Input
+      constructor: RedioInput(name, label)
+      arguments:
+        - [ 'label', 'str', 'the input label showing for user' ]
+        - [ 'name', 'str', 'the input name, used for getting an input value from the form, during handling a submit action (this value should be the same for every component belonged to the same group)' ]
+      description:
+        - A <code>RadioInput</code> is a component for creating  a group of options. An individual <code>RadioInput</code> can be in two states, selected or not selected. Note, If one option is selected, all others automatically deselected.
+        - The function <code>with_value(value)</code> assigns a unique option <code>value</code>, that set to the group when user selects a <code>RadioInput</code> component.
+        - The function <code>as_checked()</code> changes the component state from  <i>deselected</i> to <i>selected</i>.
+        - Use the <code>as_disabled()</code> function to prevent user to modify a status of this component.
+      code: |
+        @right
+        RadioInput('One', 'choice').with_value('1')
+        RadioInput('Two', 'choice').with_value('2').as_checked()
+        RadioInput('Three', 'choice').with_value('3').as_disabled()
+      evaluation: |
+        from bootwrap import Form, RadioInput
+        output = Form('').append(
+          RadioInput('One', 'choice').with_value('1'),
+          RadioInput('Two', 'choice').with_value('2').as_checked(),
+          RadioInput('Three', 'choice').with_value('3').as_disabled()
+        )

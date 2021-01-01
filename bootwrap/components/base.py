@@ -9,7 +9,7 @@ __all__ = [
     'CompositeMixin',
     'ClassMixin',
     'AppearanceMixin',
-    'BorderMixin'
+    'OutlineMixin'
 ]
 
 
@@ -165,13 +165,13 @@ class AppearanceMixin:
         return self
 
 
-class BorderMixin:
+class OutlineMixin:
     """Mixin for a web component that can be surrounded by a border."""
     def __init__(self):
-        super(BorderMixin, self).__init__()
+        super(OutlineMixin, self).__init__()
         self._border = False
 
-    def with_border(self):
+    def as_outline(self):
         """Makes the web-component surrounded by a border.
 
         Returns:

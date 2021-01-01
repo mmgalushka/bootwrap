@@ -7,7 +7,7 @@ from .base import (
     ClassMixin,
     CompositeMixin,
     AppearanceMixin,
-    BorderMixin,
+    OutlineMixin,
     AvailabilityMixin
 )
 from .utils import attr, inject
@@ -15,17 +15,16 @@ from .utils import attr, inject
 __all__ = [ 'Button' ]
 
 
-class Button(WebComponent, CompositeMixin, ClassMixin, AppearanceMixin, BorderMixin, AvailabilityMixin):
+class Button(WebComponent, CompositeMixin, ClassMixin, AppearanceMixin, OutlineMixin, AvailabilityMixin):
     """A web-component for a button.
 
     Args:
-        label (str): The button label.
+        name (str): The button name.
     """
-    def __init__(self, label):
+    def __init__(self, name):
         super().__init__()
-        self.__label = label
+        self.__name = name
         self.__action = 'href:#'  
-        self.as_primary()
 
     def link(self, href):
         """Links to the web-resource.
@@ -100,7 +99,7 @@ class Button(WebComponent, CompositeMixin, ClassMixin, AppearanceMixin, BorderMi
                     data-toggle="modal"
                     data-target="#{self.__action[7:]}"
                     {attr('disabled', self._disabled)}>
-                    {self.__label}
+                    {self.__name}
                 </button>
             '''
         elif self.__action.startswith('collapse:'):
@@ -111,7 +110,7 @@ class Button(WebComponent, CompositeMixin, ClassMixin, AppearanceMixin, BorderMi
                     data-toggle="collapse"
                     data-target="#{self.__action[9:]}"
                     {attr('disabled', self._disabled)}>
-                    {self.__label}
+                    {self.__name}
                 </button>
             '''
         elif self.__action.startswith('dismiss'):
@@ -121,7 +120,7 @@ class Button(WebComponent, CompositeMixin, ClassMixin, AppearanceMixin, BorderMi
                     type="button"
                     data-dismiss="modal"
                     {attr('disabled', self._disabled)}>
-                    {self.__label}
+                    {self.__name}
                 </button>
             '''
         elif self.__action.startswith('submit'):
@@ -130,7 +129,7 @@ class Button(WebComponent, CompositeMixin, ClassMixin, AppearanceMixin, BorderMi
                     {attr('class', classes)}
                     type="submit"
                     {attr('disabled', self._disabled)}>
-                    {self.__label}
+                    {self.__name}
                 </button>
             '''
         else: # It can be only self.__action starts with 'href:'.
@@ -141,7 +140,7 @@ class Button(WebComponent, CompositeMixin, ClassMixin, AppearanceMixin, BorderMi
                     {attr('class', classes)}
                     {attr('href', self.__action[5:])}
                     role="button">
-                    {self.__label}
+                    {self.__name}
                 </a>
             '''
 

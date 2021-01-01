@@ -64,7 +64,7 @@ def test_checkbox_input():
     assert d_div_input_hidden.attr('name') == 'somename'
     assert d_div_input_hidden.attr('value') == 'off'
 
-    checkbox = CheckboxInput('somelabel', 'somename').check(True).as_disabled()
+    checkbox = CheckboxInput('somelabel', 'somename').as_checked().as_disabled()
     d = pq(str(checkbox))
     d_div = pq(d('div'))
     d_div_input_hidden = pq(d_div('input[type="checkbox"]'))
@@ -74,7 +74,9 @@ def test_checkbox_input():
 
 @pytest.mark.form
 def test_radio_input():
-    radio = RadioInput('somelabel', 'somename').add_classes('someclass').value('somevalue')
+    radio = RadioInput('somelabel', 'somename').\
+        add_classes('someclass').\
+        with_value('somevalue')
     d = pq(str(radio))
     d_div = pq(d('div'))
     assert 'someclass' in d_div.attr('class')
@@ -99,7 +101,7 @@ def test_radio_input():
     assert d_div_input_hidden.attr('name') == 'somename'
     assert d_div_input_hidden.attr('value') == 'off'
 
-    radio = RadioInput('somelabel', 'somename').check(True).as_disabled()
+    radio = RadioInput('somelabel', 'somename').as_checked().as_disabled()
     d = pq(str(radio))
     d_div = pq(d('div'))
     d_div_input_hidden = pq(d_div('input[type="radio"]'))
@@ -112,7 +114,7 @@ def test_email_input():
     # test label & input inline
     email = EmailInput('somelabel', 'somename', placeholder='some@place.holder').\
         add_classes('someclass').\
-        value('somevalue@host.com')
+        with_value('somevalue@host.com')
     d = pq(str(email))
     assert 'row' in d.attr('class')
     assert 'someclass' in d.attr('class')
@@ -151,7 +153,7 @@ def test_password_input():
     # test label & input inline
     password = PasswordInput('somelabel', 'somename', placeholder='some@place.holder').\
         add_classes('someclass').\
-        value('somevalue@host.com')
+        with_value('somevalue@host.com')
     d = pq(str(password))
     assert 'row' in d.attr('class')
     assert 'someclass' in d.attr('class')
@@ -190,7 +192,7 @@ def test_text_input():
     # test label & input inline
     text = TextInput('somelabel', 'somename', placeholder='someplaceholder').\
         add_classes('someclass').\
-        value('somevalue')
+        with_value('somevalue')
     d = pq(str(text))
     assert 'row' in d.attr('class')
     assert 'someclass' in d.attr('class')
@@ -226,7 +228,7 @@ def test_text_input():
     # test multi-rows input
     text = TextInput('somelabel', 'somename', rows=5).\
         add_classes('someclass').\
-        value('somevalue')
+        with_value('somevalue')
     d = pq(str(text))
     
     d_textarea_input = pq(d('textarea'))
@@ -244,7 +246,7 @@ def test_numeric_input():
     # test label & input inline
     number = NumericInput('somelabel', 'somename', placeholder='somenumber').\
         add_classes('someclass').\
-        value(123)
+        with_value(123)
     d = pq(str(number))
     assert 'row' in d.attr('class')
     assert 'someclass' in d.attr('class')
@@ -283,7 +285,7 @@ def test_select_input():
     # test label & input inline
     select = SelectInput('somelabel', 'somename').\
         add_classes('someclass').\
-        value(1).\
+        with_value(1).\
         append(
             ('One', '1', False),
             ('Two', '2', True),
@@ -331,7 +333,7 @@ def test_select_input():
 
 @pytest.mark.form
 def test_hidden_input():
-    hidden = HiddenInput('somename').value('somevalue')
+    hidden = HiddenInput('somename').with_value('somevalue')
     d = pq(str(hidden))
     assert d.attr('id') == str(hidden.identifier)
     assert d.attr('name') == 'somename'

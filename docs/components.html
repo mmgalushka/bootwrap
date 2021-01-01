@@ -19,7 +19,7 @@
  <body>
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
    <img alt="BLogo" src="logo.png" width="32"/>
-   <span class="text-light mr-2 ml-1">
+   <span class="text-light ml-1 mr-2">
     <strong>
      Bootwrap
     </strong>
@@ -31,52 +31,913 @@
    <div class="collapse navbar-collapse" id="menu">
     <ul class="navbar-nav mr-auto">
      <li class="nav-item">
-      <a class="nav-link ml-2" href="/" id="5f8ef1f6-4118-41ce-9981-51357c3fa186">
+      <a class="ml-2 nav-link" href="/" id="4f77625f-52fa-4ff4-9965-13d5428c2c74">
        Home
       </a>
      </li>
      <li class="nav-item">
-      <a class="nav-link ml-2" href="/introduction" id="c8844884-09de-4bd3-8111-6e91c7397fad">
+      <a class="ml-2 nav-link" href="/introduction" id="fa863a0c-21bc-4722-8049-ec05b55e27d3">
        Introduction
       </a>
      </li>
      <li class="nav-item">
-      <a class="nav-link ml-2" href="/components" id="46bace21-c59d-4b9a-8058-fbdc1a08a854">
+      <a class="ml-2 nav-link" href="/components" id="1c07a871-15ec-40fc-90db-d0d91f944a49">
        Components
       </a>
      </li>
     </ul>
-    <a class="btn btn-outline-light ml-2" href="https://github.com/mmgalushka/python-bootwrap" id="3d220c5e-119e-43c5-8475-6de86fb444fa" role="button">
+    <a class="btn btn-outline-light ml-2" href="https://github.com/mmgalushka/python-bootwrap" id="5572b864-252d-4f5b-b60d-a26d234183c8" role="button">
      GitHub
     </a>
    </div>
   </nav>
   <div class="container" style="margin-top: 90px;">
-   <div id="26684e54-3142-4dbf-a4f5-b299924f7bac">
-    <div class="mt-5" id="afd9944e-3a7a-4c77-8fcf-f18d8474af86">
-     <div id="05d8a549-fd09-4ca7-aa27-8e99185f6f2d">
-      <div class="row">
-       <div class="col-md">
-        <div id="7cd38e69-a980-4dde-adaa-6d1bdb1db554">
-         <h1 class="">
-          Hello
-         </h1>
+   <div id="f477221c-d518-437e-a0a5-695c95c73973">
+    <ul class="nav nav-tabs" id="071996a2-9d8b-4546-86e7-47503f68a3bd" role="tablist">
+     <li class="nav-item">
+      <a class="active nav-link" data-toggle="tab" href="#e188e2a0-229d-4d20-b7a5-b1c101e1d265" id="61c9196c-9a00-40e1-8154-25c7bd31e60a" role="tab">
+       Anchor
+      </a>
+     </li>
+     <li class="nav-item">
+      <a class="nav-link" data-toggle="tab" href="#b184871d-61f4-4a07-ab92-4045580a90bb" id="15f8d21b-adfe-46f2-9d01-a95c8dd25e85" role="tab">
+       Button
+      </a>
+     </li>
+     <li class="nav-item">
+      <a class="nav-link" data-toggle="tab" href="#282c0d18-1369-4ae9-9019-f738050bdb08" id="6cf94239-ff0c-4c5d-ad7a-1866399aa049" role="tab">
+       Form
+      </a>
+     </li>
+    </ul>
+    <div class="tab-content">
+     <div class="active show fade tab-pane" id="e188e2a0-229d-4d20-b7a5-b1c101e1d265">
+      <div id="651bdf54-42f4-4b48-935c-3fe4ab750b65">
+       <div class="mt-5" id="72a58deb-5cea-4569-b680-92e74d660e58">
+        <div id="2b7626d7-2b33-4224-af22-112e012ed07d">
+         <div class="row">
+          <div class="col-md">
+           <div id="fa94dc73-7934-4d30-95c4-c2b74c01eec0">
+            <h1 class="">
+             Anchor
+            </h1>
+            <p>
+             <strong>
+              Constructor:
+             </strong>
+             <code>
+              Anchor(name)
+             </code>
+            </p>
+           </div>
+          </div>
+          <div class="col-md">
+           <div id="45654891-8867-4790-b45b-8ae6714a5e79">
+           </div>
+          </div>
+         </div>
+        </div>
+        <div id="ff1f297a-f3fe-4f96-9e91-00ddd275cec2">
+         <div class="row">
+          <div class="col-md">
+           <div id="a6f7b366-5814-4592-ad1d-176d9b4f43cd">
+            <div id="1a523381-0f41-454e-9309-4818194d14ce">
+             <table class="table table-dark table-sm" id="2eb97f25-37d4-4c91-8970-a79167756acd">
+              <thead>
+               <tr>
+                <th scope="col">
+                 Name
+                </th>
+                <th scope="col">
+                 Type
+                </th>
+                <th scope="col">
+                 Description
+                </th>
+               </tr>
+              </thead>
+              <tbody>
+               <tr>
+                <td scope="row">
+                 <code>
+                  name
+                 </code>
+                </td>
+                <td>
+                 str
+                </td>
+                <td>
+                 <span class="text-secondary">
+                  the anchor name
+                 </span>
+                </td>
+               </tr>
+              </tbody>
+             </table>
+            </div>
+            <p class="">
+             An
+             <code>
+              Anchor
+             </code>
+             can be used for creating a hyperlink to pages, files, email addresses, locations on the same page, or other web-resources defined by a URL address. In addition, it is also used in conjunction with other web-components, for example, in creating a navigation menu.
+            </p>
+            <p class="">
+             Use the
+             <code>
+              link(href)
+             </code>
+             function to connect an Anchor to another web-resource defined by the
+             <code>
+              href
+             </code>
+             parameter.
+            </p>
+           </div>
+          </div>
+          <div class="col-md">
+           <div id="2ff49355-d80b-4a41-85bd-203179b1dd25">
+            <pre class=""><code class="python">Anchor('Search').link('https://www.google.com/')</code></pre>
+            <div id="b3a3e401-7b27-4a56-9c2a-c045f416b36c">
+             <a class="" href="https://www.google.com/" id="af3c65f8-063d-47e3-bdf2-b9bc51b91a60">
+              Search
+             </a>
+            </div>
+           </div>
+          </div>
+         </div>
         </div>
        </div>
-       <div class="col-md">
-        <div id="71de026f-8de7-4f24-b7e0-0783d59062ac">
+       <div class="mt-5" id="35c002fe-d8f2-4b31-b7cb-8f42cce4245c">
+        <div id="1dd19eac-157e-455b-9dfe-3a81c79784d6">
+         <div class="row">
+          <div class="col-md">
+           <div id="995a660a-d936-49fe-89ec-9fb56867bb02">
+            <h1 class="">
+             Anchor Styles
+            </h1>
+           </div>
+          </div>
+          <div class="col-md">
+           <div id="c848f82c-6db9-474c-b5e3-861149e946cf">
+           </div>
+          </div>
+         </div>
+        </div>
+        <div id="de68d8d8-803f-4917-93df-919c60c530c9">
+         <div class="row">
+          <div class="col-md">
+           <div id="02acb1a2-9f91-4233-b895-db5b13710ed4">
+            <p class="">
+             Use the following functions
+             <code>
+              as_primary()
+             </code>
+             ,
+             <code>
+              as_secondary()
+             </code>
+             ,
+             <code>
+              as_success()
+             </code>
+             ,
+             <code>
+              as_warning()
+             </code>
+             ,
+             <code>
+              as_danger()
+             </code>
+             ,
+             <code>
+              as_info()
+             </code>
+             ,
+             <code>
+              as_light()
+             </code>
+             , and
+             <code>
+              as_dark()
+             </code>
+             for changing an
+             <code>
+              Anchor
+             </code>
+             appearance.
+            </p>
+            <p class="">
+             Follow the Bootstrap guideline to applying these styles.
+            </p>
+           </div>
+          </div>
+          <div class="col-md">
+           <div id="0d159f15-1a2e-400b-81b1-f3f23beaaa6a">
+            <pre class=""><code class="python">Anchor('Primary').as_primary()
+Anchor('Secondary').as_secondary()
+Anchor('Success').as_success()
+Anchor('Warning').as_warning()
+Anchor('Danger').as_danger()
+Anchor('Info').as_info()
+Anchor('Light').as_light()
+Anchor('Dark').as_dark()</code></pre>
+            <div id="4eda5ab8-df3c-42b4-8e82-48bb9d92d665">
+             <a class="text-primary mt-1" href="#" id="9d09ff3c-adcd-498f-88ae-56f54109cdf1">
+              Primary
+             </a>
+             <a class="text-secondary mt-1" href="#" id="9a9cb12f-7c26-419b-b531-91e4972c6740">
+              Secondary
+             </a>
+             <a class="text-success mt-1" href="#" id="5d82d3a8-c40e-4baf-888c-366ca40d0d5f">
+              Success
+             </a>
+             <a class="text-warning mt-1" href="#" id="d3fdb0e7-2c47-42d8-ac78-370fc21a369c">
+              Warning
+             </a>
+             <a class="text-danger mt-1" href="#" id="d9531514-6be7-4730-b092-291861f57445">
+              Danger
+             </a>
+             <a class="text-info mt-1" href="#" id="e47bd789-f484-41a6-a2f6-5b73c9d5dcc6">
+              Info
+             </a>
+             <a class="text-light mt-1" href="#" id="639e0eb8-32ce-437e-be24-c38fbd5c2675">
+              Light
+             </a>
+             <a class="text-dark mt-1" href="#" id="b0f0638d-06c5-4d8a-ae8b-65541855ed80">
+              Dark
+             </a>
+            </div>
+           </div>
+          </div>
+         </div>
         </div>
        </div>
       </div>
      </div>
-     <div id="a819a92a-ce08-4960-a8bc-8a5234c01ac3">
-      <div class="row">
-       <div class="col-md">
-        <div id="41ba0cb4-2a5d-452e-85d0-e3f1ed69734a">
+     <div class="fade tab-pane" id="b184871d-61f4-4a07-ab92-4045580a90bb">
+      <div id="1c12088b-9ae9-49be-bacc-5cec92b32e07">
+       <div class="mt-5" id="299b1337-595e-4daf-97af-599ef11aaf55">
+        <div id="6d5a5ed1-ee74-4306-a902-05dffc816c74">
+         <div class="row">
+          <div class="col-md">
+           <div id="b71be602-1d55-4e5f-b9c4-2ae50080524a">
+            <h1 class="">
+             Button
+            </h1>
+            <p>
+             <strong>
+              Constructor:
+             </strong>
+             <code>
+              Button(name)
+             </code>
+            </p>
+           </div>
+          </div>
+          <div class="col-md">
+           <div id="6475de12-15f3-42f1-ad29-3ac5404f4635">
+           </div>
+          </div>
+         </div>
+        </div>
+        <div id="cf902f8d-ff26-452b-ac8c-92d5ec83cf13">
+         <div class="row">
+          <div class="col-md">
+           <div id="0b104e40-cea6-4066-945c-1192be7beb65">
+            <div id="df551e97-1841-4df6-9dc9-a873152fa42e">
+             <table class="table table-dark table-sm" id="1d865e0c-cb87-43e7-bcb5-ddbfbcaef4a4">
+              <thead>
+               <tr>
+                <th scope="col">
+                 Name
+                </th>
+                <th scope="col">
+                 Type
+                </th>
+                <th scope="col">
+                 Description
+                </th>
+               </tr>
+              </thead>
+              <tbody>
+               <tr>
+                <td scope="row">
+                 <code>
+                  name
+                 </code>
+                </td>
+                <td>
+                 str
+                </td>
+                <td>
+                 <span class="text-secondary">
+                  the button name
+                 </span>
+                </td>
+               </tr>
+              </tbody>
+             </table>
+            </div>
+            <p class="">
+             A
+             <code>
+              Button
+             </code>
+             is a simple component for performing interactions on a website. Use the
+             <code>
+              link(href)
+             </code>
+             function to connect a
+             <code>
+              Button
+             </code>
+             to another web-resource defined by the href parameter. In this scenario, a
+             <code>
+              Button
+             </code>
+             behaves the same as an
+             <code>
+              Anchor
+             </code>
+             .
+            </p>
+           </div>
+          </div>
+          <div class="col-md">
+           <div id="bfdcf9f7-f43f-4ef2-988b-f776f440f5fc">
+            <pre class=""><code class="python"># the button without style
+Button('Search').link('https://www.google.com/')</code></pre>
+            <div id="259455c6-7acb-48f2-9d6d-7b665429a2cb">
+             <a class="btn btn-None" href="https://www.google.com/" id="24973cd0-e6e9-4516-9be2-7ca3cf2f36c0" role="button">
+              Search
+             </a>
+            </div>
+           </div>
+          </div>
+         </div>
         </div>
        </div>
-       <div class="col-md">
-        <div id="9d36286d-7c42-4bb0-987b-7e1a75dbdf6c">
+       <div class="mt-5" id="6341c569-fbcd-4329-91b8-ea15681c52a6">
+        <div id="fb1d2dca-9d7f-4310-9e56-998b4c11bfdf">
+         <div class="row">
+          <div class="col-md">
+           <div id="c9cfc7ea-4e18-4185-ba51-1fbfd223d005">
+            <h1 class="">
+             Button Styles
+            </h1>
+           </div>
+          </div>
+          <div class="col-md">
+           <div id="354794e8-50c9-4586-bd2e-4573bb046c0c">
+           </div>
+          </div>
+         </div>
+        </div>
+        <div id="731ebf95-ad9a-4418-bef7-253df1d502b9">
+         <div class="row">
+          <div class="col-md">
+           <div id="dad3ebb4-60d7-4905-abef-fb4441e39ea0">
+            <p class="">
+             Use the following functions
+             <code>
+              as_primary()
+             </code>
+             ,
+             <code>
+              as_secondary()
+             </code>
+             ,
+             <code>
+              as_success()
+             </code>
+             ,
+             <code>
+              as_warning()
+             </code>
+             ,
+             <code>
+              as_danger()
+             </code>
+             ,
+             <code>
+              as_info()
+             </code>
+             ,
+             <code>
+              as_light()
+             </code>
+             , and
+             <code>
+              as_dark()
+             </code>
+             for changing a
+             <code>
+              Button
+             </code>
+             appearance.
+            </p>
+            <p class="">
+             To make a
+             <code>
+              Button
+             </code>
+             displayed without background call function
+             <code>
+              as_outline()
+             </code>
+             . Note, a
+             <code>
+              Button
+             </code>
+             will have an outline look only if you apply a specific style. For a Button without style, this function will have no effect.
+            </p>
+            <p class="">
+             Follow the Bootstrap guideline to applying these styles.
+            </p>
+           </div>
+          </div>
+          <div class="col-md">
+           <div id="bfc9f1ff-9756-4da5-a79d-75a898c5632f">
+            <pre class=""><code class="python"># to make a different appearance
+Button('Primary').as_primary()
+Button('Secondary').as_secondary()
+Button('Success').as_success()
+Button('Warning').as_warning()
+Button('Danger').as_danger()
+Button('Info').as_info()
+Button('Light').as_light()
+Button('Dark').as_dark()
+
+# to make the outline look
+Button('Primary').as_primary().as_outline()
+Button('Secondary').as_secondary().as_outline()
+Button('Success').as_success().as_outline()
+Button('Warning').as_warning().as_outline()
+Button('Danger').as_danger().as_outline()
+Button('Info').as_info().as_outline()
+Button('Light').as_light().as_outline()
+Button('Dark').as_dark().as_outline()</code></pre>
+            <div id="4f366dbc-460d-4e5b-a263-d1f29a7593b6">
+             <a class="btn btn-primary mt-1" href="#" id="0898682d-4a21-421e-9735-f81d695bec2a" role="button">
+              Primary
+             </a>
+             <a class="btn btn-secondary mt-1" href="#" id="7635f023-6bab-4ff1-bf59-8e60de65cad1" role="button">
+              Secondary
+             </a>
+             <a class="btn btn-success mt-1" href="#" id="0fca8761-f9f7-4379-99e1-34360af6f9d2" role="button">
+              Success
+             </a>
+             <a class="btn btn-warning mt-1" href="#" id="05cca194-fcdc-4ed6-8e15-9b04e9e40fcb" role="button">
+              Warning
+             </a>
+             <a class="btn btn-danger mt-1" href="#" id="5d139fa1-f981-4b18-9471-0b1d539c7919" role="button">
+              Danger
+             </a>
+             <a class="btn btn-info mt-1" href="#" id="d41484f4-7ba1-4579-90bd-20cea7cff94b" role="button">
+              Info
+             </a>
+             <a class="btn btn-light mt-1" href="#" id="a19c4627-d4f1-4a9d-8e20-79e2a0206bf6" role="button">
+              Light
+             </a>
+             <a class="btn btn-dark mt-1" href="#" id="afbc975d-80d1-4f9b-b739-edc5a1b3f78d" role="button">
+              Dark
+             </a>
+             <a class="btn btn-outline-primary mt-1" href="#" id="751c7b55-9998-4c0e-b8b3-4bb3a1aa4105" role="button">
+              Primary
+             </a>
+             <a class="btn btn-outline-secondary mt-1" href="#" id="c396e9cb-8f67-4daf-bd65-ec2ece843f55" role="button">
+              Secondary
+             </a>
+             <a class="btn btn-outline-success mt-1" href="#" id="03ee3179-222f-407a-b76b-8dc33dbdca6d" role="button">
+              Success
+             </a>
+             <a class="btn btn-outline-warning mt-1" href="#" id="9dd02496-2aaa-4b36-8e85-148a118861c7" role="button">
+              Warning
+             </a>
+             <a class="btn btn-outline-danger mt-1" href="#" id="1eaa3104-a634-4d78-875a-ad4298182eae" role="button">
+              Danger
+             </a>
+             <a class="btn btn-outline-info mt-1" href="#" id="9a84859a-7503-426b-af48-374ea110509d" role="button">
+              Info
+             </a>
+             <a class="btn btn-outline-light mt-1" href="#" id="0d36274b-566b-4f94-88a2-7b803fb1faab" role="button">
+              Light
+             </a>
+             <a class="btn btn-outline-dark mt-1" href="#" id="ba2c0500-5ce1-42ae-af0b-c5fa730d337b" role="button">
+              Dark
+             </a>
+            </div>
+           </div>
+          </div>
+         </div>
+        </div>
+       </div>
+      </div>
+     </div>
+     <div class="fade tab-pane" id="282c0d18-1369-4ae9-9019-f738050bdb08">
+      <div id="2c1ebb5d-463e-4bf5-a6dc-53c0d0f34a40">
+       <div class="mt-5" id="2860fb52-86b1-4add-b02f-ed83b5eb32a0">
+        <div id="93f9a569-fd42-44f9-941d-d4c2a174098e">
+         <div class="row">
+          <div class="col-md">
+           <div id="c757409c-3cdb-4aca-b7dd-e83a5b9d4c11">
+            <h1 class="">
+             Form
+            </h1>
+            <p>
+             <strong>
+              Constructor:
+             </strong>
+             <code>
+              Form(*components)
+             </code>
+            </p>
+           </div>
+          </div>
+          <div class="col-md">
+           <div id="2607ab0f-51e3-4805-a3f9-cae3c9824dbf">
+           </div>
+          </div>
+         </div>
+        </div>
+        <div id="b61d94e9-a51b-4a77-a170-63c04e01eae6">
+         <div class="row">
+          <div class="col-md">
+           <div id="0d2562d1-8baf-42bb-ac64-4d15866f691f">
+            <div id="a8f35545-6448-41a8-82e4-6d135e8becf8">
+             <table class="table table-dark table-sm" id="8804a121-6cdd-4cd2-9e1e-b3af60383a03">
+              <thead>
+               <tr>
+                <th scope="col">
+                 Name
+                </th>
+                <th scope="col">
+                 Type
+                </th>
+                <th scope="col">
+                 Description
+                </th>
+               </tr>
+              </thead>
+              <tbody>
+               <tr>
+                <td scope="row">
+                 <code>
+                  components
+                 </code>
+                </td>
+                <td>
+                 list
+                </td>
+                <td>
+                 <span class="text-secondary">
+                  the list of input components and actions.
+                 </span>
+                </td>
+               </tr>
+              </tbody>
+             </table>
+            </div>
+            <p class="">
+             A
+             <code>
+              Form
+             </code>
+             is a web-component containing interactive controls for submitting information.
+            </p>
+           </div>
+          </div>
+          <div class="col-md">
+           <div id="e28de3f0-9016-4aeb-8b87-5b685e631a3b">
+            <pre class=""><code class="python">Form(
+  # here should be a list of input components and actions 
+  ...
+).on_submit('go/to/this/url')</code></pre>
+           </div>
+          </div>
+         </div>
+        </div>
+       </div>
+       <div class="mt-5" id="c2e0f427-1199-45c5-8e3d-ff9e7dfd37c9">
+        <div id="d4c023de-bada-4f46-ad3f-4df330fe5bb9">
+         <div class="row">
+          <div class="col-md">
+           <div id="7ee1f91f-86c3-4d42-9d27-b3dcae8e9bdb">
+            <h1 class="">
+             Checkbox Input
+            </h1>
+            <p>
+             <strong>
+              Constructor:
+             </strong>
+             <code>
+              Checkbox(name, label)
+             </code>
+            </p>
+           </div>
+          </div>
+          <div class="col-md">
+           <div id="6b16ae41-81c4-47fe-a27e-48954634c6e0">
+           </div>
+          </div>
+         </div>
+        </div>
+        <div id="544596fe-eb46-4a02-bfa6-d037d5f860f0">
+         <div class="row">
+          <div class="col-md">
+           <div id="6fc2c8ae-c496-4b8c-a930-b906e6beaeb2">
+            <div id="e4ef14cf-4613-4cc2-b723-8b6c723d2fba">
+             <table class="table table-dark table-sm" id="21547993-d859-4f7c-a622-000e85003263">
+              <thead>
+               <tr>
+                <th scope="col">
+                 Name
+                </th>
+                <th scope="col">
+                 Type
+                </th>
+                <th scope="col">
+                 Description
+                </th>
+               </tr>
+              </thead>
+              <tbody>
+               <tr>
+                <td scope="row">
+                 <code>
+                  label
+                 </code>
+                </td>
+                <td>
+                 str
+                </td>
+                <td>
+                 <span class="text-secondary">
+                  the input label showing for user
+                 </span>
+                </td>
+               </tr>
+               <tr>
+                <td scope="row">
+                 <code>
+                  name
+                 </code>
+                </td>
+                <td>
+                 str
+                </td>
+                <td>
+                 <span class="text-secondary">
+                  the input name, used for getting an input value from the form, during handling a submit action
+                 </span>
+                </td>
+               </tr>
+              </tbody>
+             </table>
+            </div>
+            <p class="">
+             A
+             <code>
+              CheckboxInput
+             </code>
+             is a component which can be in two states checked or unchecked.
+            </p>
+            <p class="">
+             The function
+             <code>
+              check(status)
+             </code>
+             changes the component state. The
+             <code>
+              status
+             </code>
+             parameter equals to
+             <code>
+              True
+             </code>
+             sets this component as
+             <i>
+              checked
+             </i>
+             and
+             <code>
+              False
+             </code>
+             as
+             <i>
+              unchecked
+             </i>
+             accordingly. A default value the
+             <code>
+              status
+             </code>
+             parameter is
+             <code>
+              True
+             </code>
+             .
+            </p>
+            <p class="">
+             Use the
+             <code>
+              as_disabled()
+             </code>
+             function to prevent user to modify a status of this component.
+            </p>
+           </div>
+          </div>
+          <div class="col-md">
+           <div id="8a1bda7e-3174-43e4-ae61-a1ecef825031">
+            <pre class=""><code class="python">CheckboxInput('One', 'opt1')
+CheckboxInput('Two', 'opt2').as_checked()
+CheckboxInput('Three', 'opt3').as_disabled()</code></pre>
+            <form action="" enctype="multipart/form-data" id="7b43a56b-3747-43cf-a3cb-f7a938a0e85d" method="POST">
+             <div class="form-check-inline form-check">
+              <input autocomplete="off" class="form-check-input" id="d0dba66d-e353-446f-bf7c-d390cc20ae90" name="opt1" type="checkbox"/>
+              <input name="opt1" type="hidden" value="off"/>
+              <label class="form-check-label" for="d0dba66d-e353-446f-bf7c-d390cc20ae90">
+               One
+              </label>
+             </div>
+             <div class="form-check-inline form-check">
+              <input autocomplete="off" checked="" class="form-check-input" id="f2a9c70d-abdb-4671-9ac5-187597e5e9f3" name="opt2" type="checkbox"/>
+              <input name="opt2" type="hidden" value="off"/>
+              <label class="form-check-label" for="f2a9c70d-abdb-4671-9ac5-187597e5e9f3">
+               Two
+              </label>
+             </div>
+             <div class="form-check-inline form-check">
+              <input autocomplete="off" class="form-check-input" disabled="" id="eab2d73a-41e9-4462-9790-102a81c99708" name="opt3" type="checkbox"/>
+              <input name="opt3" type="hidden" value="off"/>
+              <label class="form-check-label" for="eab2d73a-41e9-4462-9790-102a81c99708">
+               Three
+              </label>
+             </div>
+            </form>
+           </div>
+          </div>
+         </div>
+        </div>
+       </div>
+       <div class="mt-5" id="1cfef3ff-5e34-4f0a-9c72-39d0efddc8d4">
+        <div id="91294016-e896-464f-b74e-29dc5eb9a031">
+         <div class="row">
+          <div class="col-md">
+           <div id="263b0c7d-7f1b-4507-b79f-278887c2f14c">
+            <h1 class="">
+             Redio Input
+            </h1>
+            <p>
+             <strong>
+              Constructor:
+             </strong>
+             <code>
+              RedioInput(name, label)
+             </code>
+            </p>
+           </div>
+          </div>
+          <div class="col-md">
+           <div id="42d4cbfc-57d7-44f1-934d-6e005ca4db1f">
+           </div>
+          </div>
+         </div>
+        </div>
+        <div id="9a11a8c7-a6d2-4bab-a10c-01c34482caea">
+         <div class="row">
+          <div class="col-md">
+           <div id="eba1af89-caf9-4ab1-992d-03492a71e9e3">
+            <div id="8c064b2e-6b9c-4b50-8267-0539166a5c31">
+             <table class="table table-dark table-sm" id="f2b50253-4246-4574-b3ea-b3732b454c5c">
+              <thead>
+               <tr>
+                <th scope="col">
+                 Name
+                </th>
+                <th scope="col">
+                 Type
+                </th>
+                <th scope="col">
+                 Description
+                </th>
+               </tr>
+              </thead>
+              <tbody>
+               <tr>
+                <td scope="row">
+                 <code>
+                  label
+                 </code>
+                </td>
+                <td>
+                 str
+                </td>
+                <td>
+                 <span class="text-secondary">
+                  the input label showing for user
+                 </span>
+                </td>
+               </tr>
+               <tr>
+                <td scope="row">
+                 <code>
+                  name
+                 </code>
+                </td>
+                <td>
+                 str
+                </td>
+                <td>
+                 <span class="text-secondary">
+                  the input name, used for getting an input value from the form, during handling a submit action (this value should be the same for every component belonged to the same group)
+                 </span>
+                </td>
+               </tr>
+              </tbody>
+             </table>
+            </div>
+            <p class="">
+             A
+             <code>
+              RadioInput
+             </code>
+             is a component for creating  a group of options. An individual
+             <code>
+              RadioInput
+             </code>
+             can be in two states, selected or not selected. Note, If one option is selected, all others automatically deselected.
+            </p>
+            <p class="">
+             The function
+             <code>
+              with_value(value)
+             </code>
+             assigns a unique option
+             <code>
+              value
+             </code>
+             , that set to the group when user selects a
+             <code>
+              RadioInput
+             </code>
+             component.
+            </p>
+            <p class="">
+             The function
+             <code>
+              as_checked()
+             </code>
+             changes the component state from
+             <i>
+              deselected
+             </i>
+             to
+             <i>
+              selected
+             </i>
+             .
+            </p>
+            <p class="">
+             Use the
+             <code>
+              as_disabled()
+             </code>
+             function to prevent user to modify a status of this component.
+            </p>
+           </div>
+          </div>
+          <div class="col-md">
+           <div id="918ad194-f224-4118-a655-adde0a4de501">
+            <pre class=""><code class="python">RadioInput('One', 'choice').with_value('1')
+RadioInput('Two', 'choice').with_value('2').as_checked()
+RadioInput('Three', 'choice').with_value('3').as_disabled()</code></pre>
+            <form action="" enctype="multipart/form-data" id="638910cf-9bdd-4bd5-aabb-db906207ebec" method="POST">
+             <div class="form-check-inline form-check">
+              <input autocomplete="off" class="form-check-input" id="eec59802-1448-46b8-b045-2d141f4676ee" name="choice" type="radio" value="1"/>
+              <input name="choice" type="hidden" value="off"/>
+              <label class="form-check-label" for="eec59802-1448-46b8-b045-2d141f4676ee">
+               One
+              </label>
+             </div>
+             <div class="form-check-inline form-check">
+              <input autocomplete="off" checked="" class="form-check-input" id="487f18a4-c468-4751-8166-4c535b39ce69" name="choice" type="radio" value="2"/>
+              <input name="choice" type="hidden" value="off"/>
+              <label class="form-check-label" for="487f18a4-c468-4751-8166-4c535b39ce69">
+               Two
+              </label>
+             </div>
+             <div class="form-check-inline form-check">
+              <input autocomplete="off" class="form-check-input" disabled="" id="f80f14d2-d385-4f35-b230-8074cdb35341" name="choice" type="radio" value="3"/>
+              <input name="choice" type="hidden" value="off"/>
+              <label class="form-check-label" for="f80f14d2-d385-4f35-b230-8074cdb35341">
+               Three
+              </label>
+             </div>
+            </form>
+           </div>
+          </div>
+         </div>
         </div>
        </div>
       </div>

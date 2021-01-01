@@ -13,8 +13,15 @@ def test_menu():
     menu = Menu(
         Image('samelogo'),
         Text('somebrand'),
-        [Anchor('Menu1'), Anchor('Menu2')],
-        [Button('Action1'), Button('Action2')])
+        [
+            Anchor('Menu1'),
+            Anchor('Menu2')
+        ],
+        [
+            Button('Action1').as_primary().as_outline(),
+            Button('Action2').as_primary().as_outline()
+        ]
+    )
     d = pq(str(menu))
     assert d == d('nav')
     assert 'navbar' in d.attr('class')
@@ -51,7 +58,7 @@ def test_menu():
     assert d_div_ul_li_1_a.text() == 'Menu2'
 
     # Tests collapsing block -> main menu...
-    collapse_actions = d_div('a[class="btn btn-primary ml-2"]')
+    collapse_actions = d_div('a[class="btn btn-outline-primary ml-2"]')
     assert len(collapse_actions) == 2
 
     # test menu action buttons...

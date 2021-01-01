@@ -10,7 +10,10 @@ from bootwrap import Button, WebComponent
 
 @pytest.mark.button
 def test_button():
-    button = Button('Somename').add_classes('someclass')
+    button = Button('Somename').\
+        add_classes('someclass').\
+        as_primary().\
+        link('someurl')
     d = pq(str(button))
     assert d == d('a')
     assert len(d.attr('class').split(' ')) == 3
@@ -20,9 +23,13 @@ def test_button():
     assert d.attr('role')  == 'button'
     assert d.text().strip() == 'Somename'
 
-    button = Button('Somename').with_border()
+    button = Button('Somename').\
+        add_classes('someclass').\
+        as_primary().\
+        as_outline().\
+        link('someurl')
     d = pq(str(button))
-    assert len(d.attr('class').split(' ')) == 2
+    assert len(d.attr('class').split(' ')) == 3
     assert 'btn-outline-primary' in d.attr('class')
 
     button = Button('Somename').as_disabled()
@@ -33,7 +40,10 @@ def test_button():
 @pytest.mark.button
 def test_toggle_button():
     target = WebComponent()
-    button = Button('Somename').add_classes('someclass').toggle(target)
+    button = Button('Somename').\
+        add_classes('someclass').\
+        as_primary().\
+        toggle(target)
     d = pq(str(button))
     assert d == d('button')
     assert len(d.attr('class').split(' ')) == 3
@@ -45,9 +55,13 @@ def test_toggle_button():
     assert d.attr('data-target')  == '#' + str(target.identifier)
     assert d.text().strip() == 'Somename'
 
-    button = Button('Somename').toggle(target).with_border()
+    button = Button('Somename').\
+        add_classes('someclass').\
+        as_primary().\
+        as_outline().\
+        toggle(target)
     d = pq(str(button))
-    assert len(d.attr('class').split(' ')) == 2
+    assert len(d.attr('class').split(' ')) == 3
     assert 'btn-outline-primary' in d.attr('class')
 
     button = Button('Somename').toggle(target).as_disabled()
@@ -59,7 +73,10 @@ def test_toggle_button():
 @pytest.mark.button
 def test_collapse_button():
     target = WebComponent()
-    button = Button('Somename').add_classes('someclass').collapse(target)
+    button = Button('Somename').\
+        add_classes('someclass').\
+        as_primary().\
+        collapse(target)
     d = pq(str(button))
     assert d == d('button')
     assert len(d.attr('class').split(' ')) == 3
@@ -71,9 +88,13 @@ def test_collapse_button():
     assert d.attr('data-target')  == '#' + str(target.identifier)
     assert d.text().strip() == 'Somename'
 
-    button = Button('Somename').collapse(target).with_border()
+    button = Button('Somename').\
+        add_classes('someclass').\
+        as_primary().\
+        as_outline().\
+        collapse(target)
     d = pq(str(button))
-    assert len(d.attr('class').split(' ')) == 2
+    assert len(d.attr('class').split(' ')) == 3
     assert 'btn-outline-primary' in d.attr('class')
 
     button = Button('Somename').collapse(target).as_disabled()
@@ -84,7 +105,10 @@ def test_collapse_button():
 
 @pytest.mark.button
 def test_dismiss_button():
-    button = Button('Somename').add_classes('someclass').dismiss()
+    button = Button('Somename').\
+        add_classes('someclass').\
+        as_primary().\
+        dismiss()
     d = pq(str(button))
     assert d == d('button')
     assert len(d.attr('class').split(' ')) == 3
@@ -95,9 +119,13 @@ def test_dismiss_button():
     assert d.attr('data-dismiss')  == 'modal'
     assert d.text().strip() == 'Somename'
 
-    button = Button('Somename').with_border().dismiss()
+    button = Button('Somename').\
+        add_classes('someclass').\
+        as_primary().\
+        as_outline().\
+        dismiss()
     d = pq(str(button))
-    assert len(d.attr('class').split(' ')) == 2
+    assert len(d.attr('class').split(' ')) == 3
     assert 'btn-outline-primary' in d.attr('class')
 
     button = Button('Somename').as_disabled().dismiss()
@@ -107,7 +135,10 @@ def test_dismiss_button():
 
 @pytest.mark.button
 def test_submit_button():
-    button = Button('Somename').add_classes('someclass').submit()
+    button = Button('Somename').\
+        add_classes('someclass').\
+        as_primary().\
+        submit()
     d = pq(str(button))
     assert d == d('button')
     assert len(d.attr('class').split(' ')) == 3
@@ -117,9 +148,13 @@ def test_submit_button():
     assert d.attr('type')  == 'submit'
     assert d.text().strip() == 'Somename'
 
-    button = Button('Somename').with_border().submit()
+    button = Button('Somename').\
+        add_classes('someclass').\
+        as_primary().\
+        as_outline().\
+        submit()
     d = pq(str(button))
-    assert len(d.attr('class').split(' ')) == 2
+    assert len(d.attr('class').split(' ')) == 3
     assert 'btn-outline-primary' in d.attr('class')
 
     button = Button('Somename').as_disabled().submit()

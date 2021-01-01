@@ -66,17 +66,13 @@ class Switch(Input):
         super().__init__(label, name)
         self._checked = False
 
-    def check(self, status):
-        """Makes a web-component checked of unchecked.
-
-        Args:
-            status (bool): The `True` sets the components checked and
-                `False` unchecked accordingly.
+    def as_checked(self, status=True):
+        """Makes a web-component checked.
 
         Returns:
             self
         """
-        self._checked = status
+        self._checked = True
         return self
 
 
@@ -86,7 +82,7 @@ class Value(Input):
         super().__init__(label, name)
         self._value = None
 
-    def value(self, value):
+    def with_value(self, value):
         """Sets a web-component value.
 
         Args:

@@ -15,25 +15,27 @@ def test_page_resources():
 
     lookup = {
         'https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css': 0,
-        'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css': 0
+        'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css': 0,
+        'https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/default.min.css': 0
     }
     for link in d('link'):
         href = pq(link).attr('href')
         if href:
             lookup[href] = 1
-    assert sum(lookup.values()) == 2
+    assert sum(lookup.values()) == 3
 
     lookup = {
         'https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js': 0,
         'https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js': 0,
-        'https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js': 0
+        'https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js': 0,
+        'https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/languages/python.min.js': 0
 
     }
     for script in d('script'):
         src = pq(script).attr('src')
         if src:
             lookup[src] = 1
-    assert sum(lookup.values()) == 3
+    assert sum(lookup.values()) == 4
 
 
 @pytest.mark.page

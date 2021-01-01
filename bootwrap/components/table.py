@@ -26,6 +26,8 @@ class Table(WebComponent, ClassMixin):
             )
         else:
             if not isinstance(head, list):
+                print('++++++++++++++++++++++++++++++++++++++++')
+                print(head)
                 raise ValueError(
                     'Parameter "head" must be 1D <class "list">,'
                     f' but got {type({head})};'
@@ -38,6 +40,8 @@ class Table(WebComponent, ClassMixin):
             )
         else:
             if not isinstance(body, list):
+                print('++++++++++++++++++++++++++++++++++++++++')
+                print(body)
                 raise ValueError(
                     'Parameter "body" must be 2D <class "list">,'
                     f' but got {type({body})};'
