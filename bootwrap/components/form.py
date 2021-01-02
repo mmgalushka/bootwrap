@@ -316,123 +316,56 @@ class NumericInput(Freehand):
         '''
 
 
-class SelectInput(Value, CompositeMixin):
+class SelectInput(Value):
     """A select input.
 
     Args:
         label (str): The input label
         name (str): The input name.
+        options (tuple): The input options.
     """
-    def __init__(self, label, name):
+    def __init__(self, label, name, options):
         super().__init__(label, name)
+        self.__options = options
         self.__label_on_top = False
 
-    def label_on_top(self):
-        """Makes an input label showing on top.
+    class Option():
+        def __init__(self, name, value, disabled=False):
+            super().__init__()
+            self.__name = name
+            self.__value = value
+            self.__disabled = disabled
 
-        Returns:
-            self
-        """
-        self.__label_on_top = True
-        return self
+        @property
+        def name(self):
+            return self.__name
 
-    def append(self, *components):
-        """Appends an options to the select input.
-        
-        The appending option should be <class "tuple"> with the following
-        structure (name value disabled):
-        
-        name     - the option name, should be <class "str">;
-        value    - the option value, should be <class "str">;
-        disabled - the flag for the disabled option, should be <class "bool">;
+        @property
+        def value(self):
+            return self.__value
 
-        Return:
-            self
-        """
-        class Option(WebComponent, AvailabilityMixin):
-            def __init__(self, name, value, selected):
-                super().__init__()
-                self.__name = name
-                self.__value = value
-                self.__selected = selected
-            
-            def __str__(self):
-                return f'''
-                    <option {attr('value', self.__value)}
-                        {attr('selected', self.__selected == self.__value)}
-                        {attr('disabled', self._disabled)}>
-                        {self.__name}
-                    </option>
-                '''
-
-        explanation = '''
-            The appending option should be <class "tuple"> with the following
-            structure (name value disabled):
-            
-            name     - the option name, should be <class "str">;
-            value    - the option value, should be <class "str">;
-            disabled - the flag for the disabled option, should be <class "bool">;
-        '''
-        for i, c in enumerate(list(components)):
-            if not isinstance(c, tuple):
-                raise TypeError(
-                    f'''Parameter "components[{i}]" expected to be 
-                    <class "tuple">, but got {type(c)};
-                    
-                    {explanation}
-                    '''
-                )
-            
-            if not isinstance(c[0], str):
-                raise TypeError(
-                    f'''Parameter "components[{i}][0]" expected to be 
-                    <class "str">, but got {type(c)};
-                    
-                    {explanation}
-                    '''
-                )
-            name = c[0]
-
-            if not isinstance(c[1], str):
-                raise TypeError(
-                    f'''Parameter "components[{i}][1]" expected to be 
-                    <class "str">, but got {type(c)};
-                    
-                    {explanation}
-                    '''
-                )
-            value = c[1]
-
-            if not isinstance(c[2], bool):
-                raise TypeError(
-                    f'''Parameter "components[{i}][2]" expected to be <class "bool">,
-                    but got {type(c)};
-                    
-                    {explanation}
-                    '''
-                )
-            disabled = c[2]
-
-            option = Option(name, value, self._value)
-            if disabled:
-                option.as_disabled()
-
-            super().append(option)
-        return self
-
-
+        @property
+        def disabled(self):
+            return self.__disabled
 
     def __str__(self):
+        options = []
+        for option in self.__options:
+            options.append(f'''
+                <option {attr('value', option.value)}
+                    {attr('selected', option.value == self._value)}
+                    {attr('disabled', option.disabled)}>{option.name}</option>
+            ''')
+
         component = f'''
             <select {attr('id', self.identifier)}
                 {attr('name', self._name)}
                 class="form-control"
                 autocomplete="off"
                 {attr('disabled', self._disabled)}>
-                {inject(*self._components)}
+                {inject(*options)}
             </select>
         '''
-
         if self._label:
             label_classes = None
             receiver_classes = None
@@ -447,13 +380,13 @@ class SelectInput(Value, CompositeMixin):
                         {self._label}
                     </label>
                     <div {attr('class', receiver_classes)}>
-                        {component}
+                        {inject(component)}
                     </div>
                 </div>
             '''
         return f'''
             <div {attr('class', self.classes)}>
-                {component}
+                {inject(component)}
             </div>
         '''
 

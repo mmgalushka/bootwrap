@@ -45,7 +45,7 @@ class DocArguments(bw.Panel):
             bw.Table(
                 head=['Name', 'Type', 'Description'],
                 body=body
-            ).add_classes('table-sm table-dark')
+            ).add_classes('table-sm table-bordered')
         )
 
 
@@ -225,9 +225,9 @@ if __name__ == '__main__':
             os.remove(path)
 
         def save_page(filename, page):
-            page = page.replace('href="/"', 'href="index.html"').\
-                replace('href="/introduction"', 'href="intoduction.html"').\
-                replace('href="/components"', 'href="components.html"')
+            page = page.replace('href="/"', 'href="python-bootwrap/index.html"').\
+                replace('href="/introduction"', 'href="python-bootwrap/intoduction.html"').\
+                replace('href="/components"', 'href="python-bootwrap/components.html"')
             with open(f'docs/{filename}', 'w') as file:
                 soup = BeautifulSoup(page)
                 file.write(soup.prettify())

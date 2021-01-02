@@ -175,8 +175,8 @@ components:
       arguments:
         - ['name', 'str', 'the anchor name']
       description:
-        - An <code>Anchor</code> can be used for creating a hyperlink to pages, files, email addresses, locations on the same page, or other web-resources defined by a URL address. In addition, it is also used in conjunction with other web-components, for example, in creating a navigation menu.
-        - Use the <code>link(href)</code> function to connect an Anchor to another web-resource defined by the <code>href</code> parameter.
+        - An <code>Anchor</code> is used for creating a hyperlink to pages, files, email addresses, locations on the same page, or other web-resources defined by a URL address. The <i>Bootwrap</i> also uses the <code>Anchor</code> in conjunction with other web-components, for example, in creating a navigation menu.
+        - Use the <code>link(href)</code> function to connect the <code>Anchor</code> to another web-resource defined by the <code>href</code> parameter.
       code: |
         @right
         Anchor('Search').link('https://www.google.com/')
@@ -189,8 +189,8 @@ components:
 
     - title: Anchor Styles
       description:
-        - Use the following functions <code>as_primary()</code>, <code>as_secondary()</code>, <code>as_success()</code>, <code>as_warning()</code>, <code>as_danger()</code>, <code>as_info()</code>, <code>as_light()</code>, and <code>as_dark()</code> for changing an <code>Anchor</code> appearance.
-        - Follow the Bootstrap guideline to applying these styles.
+        - Use the following functions <code>as_primary()</code>, <code>as_secondary()</code>, <code>as_success()</code>, <code>as_warning()</code>, <code>as_danger()</code>, <code>as_info()</code>, <code>as_light()</code>, and <code>as_dark()</code> for changing the <code>Anchor</code> appearance.
+        - Follow the <a href='https://getbootstrap.com/'>Bootstrap</a> guideline to applying these styles.
       code: |
         @right
         Anchor('Primary').as_primary()
@@ -221,7 +221,8 @@ components:
       arguments:
         - ['name', 'str', 'the button name']
       description:
-        - A <code>Button</code> is a simple component for performing interactions on a website. Use the <code>link(href)</code> function to connect a <code>Button</code> to another web-resource defined by the href parameter. In this scenario, a <code>Button</code> behaves the same as an <code>Anchor</code>.
+        - A <code>Button</code> is used for performing interactions on a website.
+        - Use the <code>link(href)</code> function to connect the <code>Button</code> to another web-resource defined by the <code>href</code> parameter. In this scenario, the <code>Button</code> behaves similar to the <code>Anchor</code>.
       code: |
         @right
         # the button without style
@@ -235,9 +236,9 @@ components:
 
     - title: Button Styles
       description:
-        - Use the following functions <code>as_primary()</code>, <code>as_secondary()</code>, <code>as_success()</code>, <code>as_warning()</code>, <code>as_danger()</code>, <code>as_info()</code>, <code>as_light()</code>, and <code>as_dark()</code> for changing a <code>Button</code> appearance. 
-        - To make a <code>Button</code> displayed without background call function <code>as_outline()</code>. Note, a <code>Button</code> will have an outline look only if you apply a specific style. For a Button without style, this function will have no effect.
-        - Follow the Bootstrap guideline to applying these styles.
+        - Use the following functions <code>as_primary()</code>, <code>as_secondary()</code>, <code>as_success()</code>, <code>as_warning()</code>, <code>as_danger()</code>, <code>as_info()</code>, <code>as_light()</code>, and <code>as_dark()</code> for changing the <code>Button</code> appearance.
+        - Use the <code>as_outline()</code> function to make the <code>Button</code> without background. Note, the <code>Button</code> will have an outline look only if you apply one of the predefined styles. For the <code>Button</code> without style, this function will have no effect.
+        - Follow the <a href='https://getbootstrap.com/'>Bootstrap</a> guideline to applying these styles.
       code: |
         @right
 
@@ -282,19 +283,36 @@ components:
           Button('Dark').as_dark().as_outline().add_classes('mt-1')
         )
 
+    - title: Disable Button
+      description:
+        - But default the <code>Button</code> always enabled. Use the <code>as_disabled()</code> function to make the <code>Button</code> disabled. Disable status prevent user to initiate any action assigned to the <code>Button</code>.
+      code: |
+        @right
+        # the button without style
+        Button('Enabled').as_primary()
+        Button('Disabled').as_primary().as_disabled()
+      evaluation: |
+        from bootwrap import Panel, Button
+        output = Panel(
+          Button('Enabled').as_primary(),
+          Button('Disabled').as_primary().as_disabled()
+        )
+
   # --- Form Tab ---------------------------------------------------------------
 
   Form:
     - title: Form
       constructor: Form(*components)
       arguments:
-        - ['components', 'list', 'the list of input components and actions.']
+        - ['components', 'tuple', 'the input components and actions.']
       description:
-        - A <code>Form</code> is a web-component containing interactive controls for submitting information.
+        - A <code>Form</code> is a web-component with interactive controls for submitting information.
+        - Use the <code>on_submit(href)</code> function to specify URL where entered information need to be sent for processing.
       code: |
         @right
         Form(
-          # here should be a list of input components and actions 
+          # here should be a list of
+          # input components and actions 
           ...
         ).on_submit('go/to/this/url')
 
@@ -304,9 +322,9 @@ components:
         - [ 'label', 'str', 'the input label showing for user' ]
         - [ 'name', 'str', 'the input name, used for getting an input value from the form, during handling a submit action' ]
       description:
-        - A <code>CheckboxInput</code> is a component which can be in two states checked or unchecked.
-        - The function <code>check(status)</code> changes the component state. The <code>status</code> parameter equals to <code>True</code> sets this component as <i>checked</i> and <code>False</code> as <i>unchecked</i> accordingly. A default value the <code>status</code> parameter is<code>True</code>.
-        - Use the <code>as_disabled()</code> function to prevent user to modify a status of this component.
+        - A <code>CheckboxInput</code> is a component which can be in two states <i>checked</i> or <i>unchecked</i>.
+        - The function <code>as_checked()</code> changes the component state from  <i>unchecked</i> to <i>checked</i>.
+        - The <code>as_disabled()</code> function prevents user to modify a status of this component.
       code: |
         @right
         CheckboxInput('One', 'opt1')
@@ -320,16 +338,16 @@ components:
           CheckboxInput('Three', 'opt3').as_disabled()
         )
 
-    - title: Redio Input
-      constructor: RedioInput(name, label)
+    - title: Radio Input
+      constructor: RadioInput(name, label)
       arguments:
         - [ 'label', 'str', 'the input label showing for user' ]
         - [ 'name', 'str', 'the input name, used for getting an input value from the form, during handling a submit action (this value should be the same for every component belonged to the same group)' ]
       description:
-        - A <code>RadioInput</code> is a component for creating  a group of options. An individual <code>RadioInput</code> can be in two states, selected or not selected. Note, If one option is selected, all others automatically deselected.
-        - The function <code>with_value(value)</code> assigns a unique option <code>value</code>, that set to the group when user selects a <code>RadioInput</code> component.
+        - A <code>RadioInput</code> is a component for creating a group of options. The individual <code>RadioInput</code> can be in two states, <i>selected</i> or <i>deselected</i>. Note, if one option in a group is <i>selected</i>, all others automatically are <i>deselected</i>.
+        - The function <code>with_value(value)</code> sets <code>value</code>, which assigned to the group when user selects the according <code>RadioInput</code>.
         - The function <code>as_checked()</code> changes the component state from  <i>deselected</i> to <i>selected</i>.
-        - Use the <code>as_disabled()</code> function to prevent user to modify a status of this component.
+        - The <code>as_disabled()</code> function prevents user to modify a status of this component.
       code: |
         @right
         RadioInput('One', 'choice').with_value('1')
@@ -341,4 +359,137 @@ components:
           RadioInput('One', 'choice').with_value('1'),
           RadioInput('Two', 'choice').with_value('2').as_checked(),
           RadioInput('Three', 'choice').with_value('3').as_disabled()
+        )
+
+    - title: Text Input
+      constructor: TextInput(name, label, rows=None, placeholder=None)
+      arguments:
+        - [ 'label', 'str', 'the input label showing for user' ]
+        - [ 'name', 'str', 'the input name, used for getting an input value from the form' ]
+        - [ 'rows', 'int', 'the number of input text rows' ]
+        - [ 'placeholder', 'str', 'the text displayed when no value is entered.' ]
+      description:
+        -  A <code>TextInput</code> is a component for entering a text information.
+        - The <code>with_value(value)</code> function sets the <code>value</code> in the input component.
+        - The <code>as_disabled()</code> function prevents user from entering any values.
+      code: |
+        @right
+        TextInput('Text', 'text')
+        TextInput('Text', 'text', rows=3)
+        TextInput('Text', 'text', placeholder='type here')
+        TextInput('Text', 'text').with_value('Hello World!')
+        TextInput('Text', 'text').as_disabled()
+      evaluation: |
+        from bootwrap import Form, TextInput
+        output = Form('').append(
+          TextInput('Text', 'text'),
+          TextInput('Text', 'text', rows=3),
+          TextInput('Text', 'text', placeholder='type here'),
+          TextInput('Text', 'text').with_value('Hello World!'),
+          TextInput('Text', 'text').as_disabled()
+        )
+
+    - title: Email Input
+      constructor: EmailInput(name, label, placeholder=None)
+      arguments:
+        - [ 'label', 'str', 'the input label showing for user' ]
+        - [ 'name', 'str', 'the input name, used for getting an input value from the form' ]
+        - [ 'placeholder', 'str', 'the text displayed when no email is entered.' ]
+      description:
+        -  A <code>EmailInput</code> is a component for entering a user email. Its behavior is identical to the <code>TextInput</code> except additional validation of entering email address.
+      code: |
+        @right
+        EmailInput('Email', 'email')
+        EmailInput('Email', 'email', placeholder='your@email.com')
+        EmailInput('Email', 'email').with_value('my@email.com')
+        EmailInput('Email', 'email').as_disabled()
+      evaluation: |
+        from bootwrap import Form, EmailInput
+        output = Form('').append(
+          EmailInput('Email', 'email'),
+          EmailInput('Email', 'email', placeholder='your@email.com'),
+          EmailInput('Email', 'email').with_value('my@email.com'),
+          EmailInput('Email', 'email').as_disabled()
+        )
+
+    - title: Password Input
+      constructor: PasswordInput(name, label, placeholder=None)
+      arguments:
+        - [ 'label', 'str', 'the input label showing for user' ]
+        - [ 'name', 'str', 'the input name, used for getting an input value from the form' ]
+        - [ 'placeholder', 'str', 'the text displayed when no password is entered.' ]
+      description:
+        -  A <code>PasswordInput</code> is a component for entering a user password. Its behavior is identical to the <code>TextInput</code> except additional validation of entering password.
+      code: |
+        @right
+        PasswordInput('Password', 'password')
+        PasswordInput('Password', 'password', placeholder='your password')
+        PasswordInput('Password', 'password').with_value('********')
+        PasswordInput('Password', 'password').as_disabled()
+      evaluation: |
+        from bootwrap import Form, PasswordInput
+        output = Form('').append(
+          PasswordInput('Password', 'password'),
+          PasswordInput('Password', 'password', placeholder='your password'),
+          PasswordInput('Password', 'password').with_value('********'),
+          PasswordInput('Password', 'password').as_disabled()
+        )
+
+    - title: Numeric Input
+      constructor: NumericInput(name, label, placeholder=None)
+      arguments:
+        - [ 'label', 'str', 'the input label showing for user' ]
+        - [ 'name', 'str', 'the input name, used for getting an input value from the form' ]
+        - [ 'placeholder', 'str', 'the text displayed when no number is entered.' ]
+      description:
+        -  A <code>NumericInput</code> is a component for entering a number. Its behavior is identical to the <code>TextInput</code> except additional validation of entering number. The <code>NumericInput</code> control in some web browsers may contain buttons helping to enter a number without a keyboard. 
+      code: |
+        @right
+        NumericInput('Number', 'number')
+        NumericInput('Number', 'number', placeholder='your number')
+        NumericInput('Number', 'number').with_value('123')
+        NumericInput('Number', 'number').as_disabled()
+      evaluation: |
+        from bootwrap import Form, NumericInput
+        output = Form('').append(
+          NumericInput('Number', 'number'),
+          NumericInput('Number', 'number', placeholder='your number'),
+          NumericInput('Number', 'number').with_value('123'),
+          NumericInput('Number', 'number').as_disabled()
+        )
+
+
+    - title: Select Input
+      constructor: SelectInput(name, label, *options)
+      arguments:
+        - [ 'label', 'str', 'the input label showing for user' ]
+        - [ 'name', 'str', 'the input name, used for getting an input value from the form' ]
+        - [ 'options', 'tuple', 'the dropdown options' ]
+      description:
+        - A <code>SelectInput</code> is a component for selecting a specific options from the dropdown list. Use <code>SelectInput.Option(name, value, disabled=False)</code> class to  define selector options. The  <code>name</code> parameter defines what user sees in the e dropdown list. The <code>value</code> parameters defines what is set is user selects a specific options. The <code>disabled</code> parameters makes an option unavailable for selection.
+        - The function <code>with_value(value)</code> selects an option with associated <code>value</code>.
+        - The <code>as_disabled()</code> function prevents user to select any options.
+      code: |
+        @right
+        options = [
+          SelectInput.Option('One', 1),
+          SelectInput.Option('Two', 2),
+          SelectInput.Option('Three', 3, disabled=True)
+        ]
+        
+        SelectInput('Selector', 'choice', options)
+        SelectInput('Selector', 'choice', options).with_value(2)
+        SelectInput('Selector', 'choice', options).as_disabled()
+      evaluation: |
+        from bootwrap import Form, SelectInput
+        options = [
+          SelectInput.Option('One', 1),
+          SelectInput.Option('Two', 2),
+          SelectInput.Option('Three', 3, disabled=True)
+        ]
+
+        output = Form('').append(
+          SelectInput('Selector', 'choice', options),
+          SelectInput('Selector', 'choice', options).with_value(2),
+          SelectInput('Selector', 'choice', options).as_disabled()
         )
