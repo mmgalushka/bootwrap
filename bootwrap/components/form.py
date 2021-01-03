@@ -15,9 +15,6 @@ from .utils import attr, inject
 __all__ = [ 
     'Form',
     'CheckboxInput',
-    'RadioInput',
-    'EmailInput',
-    'PasswordInput',
     'TextInput',
     'NumericInput',
     'SelectInput', 
@@ -56,117 +53,9 @@ class Input(ABC, WebComponent, ClassMixin, AvailabilityMixin):
     """
     def __init__(self, label, name):
         super().__init__()
-        self._label = label
+        self.__label = label
         self._name = name
-
-
-class Switch(Input):
-    """A switch-base input."""
-    def __init__(self, label, name):
-        super().__init__(label, name)
-        self._checked = False
-
-    def as_checked(self, status=True):
-        """Makes a web-component checked.
-
-        Returns:
-            self
-        """
-        self._checked = True
-        return self
-
-
-class Value(Input):
-    """A value-base input."""
-    def __init__(self, label, name):
-        super().__init__(label, name)
-        self._value = None
-
-    def with_value(self, value):
-        """Sets a web-component value.
-
-        Args:
-            value (obj): The value to set.
-
-        Returns:
-            self
-        """
-        self._value = value
-        return self
-
-
-class CheckboxInput(Switch):
-    """A checkbox input."""
-    def __str__(self):
-        label = ''
-        if self._label:
-            label = f'''
-                <label class="form-check-label"
-                    {attr('for', self.identifier)}>
-                    {self._label}
-                </label>
-            '''
-
-        component = f'''
-            <input {attr('id', self.identifier)}
-                {attr('name', self._name)}
-                type="checkbox" 
-                class="form-check-input" 
-                autocomplete="off"
-                {attr('checked', self._checked)}
-                {attr('disabled', self._disabled)}>
-            <input {attr('name', self._name)}
-                type="hidden" 
-                value="off">
-        '''
-
-        self.add_classes('form-check form-check-inline')
-        return f'''
-            <div {attr('class', self.classes)}>
-                {inject(component, label)}
-            </div>
-        '''
-
-
-class RadioInput(Switch, Value):
-    """A radio button input."""
-
-    def __str__(self):
-        label = ''
-        if self._label:
-            label = f'''
-                <label class="form-check-label"
-                    {attr('for', self.identifier)}>
-                    {self._label}
-                </label>
-            '''
-
-        component = f'''
-            <input {attr('id', self.identifier)}
-                {attr('name', self._name)}
-                {attr('value', self._value)}
-                type="radio" 
-                class="form-check-input" 
-                autocomplete="off"
-                {attr('checked', self._checked)}
-                {attr('disabled', self._disabled)}>
-            <input {attr('name', self._name)}
-                type="hidden" 
-                value="off">
-        '''
-
-        self.add_classes('form-check form-check-inline')
-        return f'''
-            <div {attr('class', self.classes)}>
-                {inject(component, label)}
-            </div>
-        '''
-
-class Freehand(Value):
-    """A freehand value input."""
-    def __init__(self, label, name):
-        super().__init__(label, name)
-        self._label_on_top = False
+        self.__label_on_top = False
 
     def label_on_top(self):
         """Makes an input label showing on top.
@@ -174,27 +63,27 @@ class Freehand(Value):
         Returns:
             self
         """
-        self._label_on_top = True
+        self.__label_on_top = True
         return self
 
     @abstractclassmethod
     def _receiver(self):
-        """A component for rendering a receiver for freehand value."""
+        """A component for rendering a receiver."""
         raise NotImplementedError()
 
     def __str__(self):
-        if self._label:
+        if self.__label:
             label_classes = None
             receiver_classes = None
-            if not self._label_on_top:
+            if not self.__label_on_top:
                 self.add_classes('row')
-                label_classes = 'col-sm-2 col-form-label'
-                receiver_classes = 'col-sm-10'
+                label_classes = 'col-sm-2 col-form-label d-flex align-items-center'
+                receiver_classes = 'col-sm-10 d-flex align-items-center'
             return f'''
                 <div {attr('class', self.classes)}>
                     <label {attr('class', label_classes)}
                         {attr('for', self.identifier)}>
-                        {self._label}
+                        {self.__label}
                     </label>
                     <div {attr('class', receiver_classes)}>
                         {self._receiver()}
@@ -207,52 +96,75 @@ class Freehand(Value):
             </div>
         '''
 
-class EmailInput(Freehand):
-    """A email input.
+
+class CheckboxInput(Input):
+    """A checkbox input.
 
     Args:
-        label (str): The input label
+        label (str): The input label.
         name (str): The input name.
-        placeholder (str): The input placeholder (default=None).
+        checked (bool): The check box checked (default=False)
     """
-    def __init__(self, label, name, placeholder=None):
+    def __init__(self, label, name, checked=False):
         super().__init__(label, name)
-        self.__placeholder = placeholder
+        self.__checked = checked
+
+    def label_on_top(self):
+        raise AssertionError(
+            'This "label_on_top" function is not used in <class "CheckboxInput">'
+        )
 
     def _receiver(self):
         return f'''
             <input {attr('id', self.identifier)}
                 {attr('name', self._name)}
-                {attr('value', self._value)}
-                type="email" 
-                class="form-control"
-                {attr('placeholder', self.__placeholder)}
+                type="checkbox" 
+                class="form-check-input" 
+                autocomplete="off"
+                {attr('checked', self.__checked)}
                 {attr('disabled', self._disabled)}>
         '''
 
 
-class PasswordInput(Freehand):
-    """A password input.
+class Freehand(Input):
+    """A freehand value input.
 
     Args:
         label (str): The input label
         name (str): The input name.
-        placeholder (str): The input placeholder (default=None).
+        value (str): The input value.
+        placeholder (str): The input placeholder.
     """
-    def __init__(self, label, name, placeholder=None):
+    def __init__(self, label, name, value, placeholder):
         super().__init__(label, name)
+        self.__value = value
         self.__placeholder = placeholder
+        self._type = None
+        self._rows = 1
 
     def _receiver(self):
-        return f'''
-            <input {attr('id', self.identifier)}
-                {attr('name', self._name)}
-                {attr('value', self._value)}
-                type="password" 
-                class="form-control"
-                {attr('placeholder', self.__placeholder)}
-                {attr('disabled', self._disabled)}>
-        '''
+        if self._rows > 1:
+            assert self._type is None,\
+                f'The <class "TextInput"> of type "{self._type}" can not have {self._rows} rows.'
+        if self._rows > 1:
+            return f'''
+                <textarea {attr('id', self.identifier)}"
+                    {attr('name', self._name)} 
+                    class="form-control"
+                    {attr('rows', self._rows)}
+                    {attr('disabled', self._disabled)}>{self.__value or ''}</textarea>
+            '''
+        else:
+            return f'''
+                <input {attr('id', self.identifier)}"
+                    {attr('name', self._name)}
+                    {attr('value', self.__value)}
+                    type="{self._type}"
+                    class="form-control"
+                    {attr('placeholder', self.__placeholder)}
+                    {attr('disabled', self._disabled)}>
+            '''
+
 
 class TextInput(Freehand):
     """A text input.
@@ -260,36 +172,45 @@ class TextInput(Freehand):
     Args:
         label (str): The input label
         name (str): The input name.
+        value (str): The input value (default=None).
         rows (int): The number of input (default=None).
         placeholder (str): The input placeholder (default=None).
     """
-    def __init__(self, label, name,  rows=None, placeholder=None):
-        super().__init__(label, name)
-        self.__rows = rows
-        self.__placeholder = placeholder
+    def __init__(self, label, name, value=None, placeholder=None):
+        super().__init__(label, name, value, placeholder)
+        self._type = 'text'
 
-    def _receiver(self):
-        if self.__rows:
-            value = '' if self._value is None else self._value
-            return f'''
-                <textarea {attr('id', self.identifier)}"
-                    {attr('name', self._name)} 
-                    class="form-control"
-                    {attr('rows', self.__rows)}
-                    {attr('disabled', self._disabled)}>
-                    {value}
-                </textarea>
-            '''
-        else:
-            return f'''
-                <input {attr('id', self.identifier)}"
-                    {attr('name', self._name)}
-                    {attr('value', self._value)}
-                    type="text"
-                    class="form-control"
-                    {attr('placeholder', self.__placeholder)}
-                    {attr('disabled', self._disabled)}>
-            '''
+    def with_multirows(self, n):
+        """Sets the number of rows.
+
+        Args:
+            n (int): The number of rows to set.
+
+        Returns:
+            itself
+        """
+        self._type = None
+        self._rows = n
+        return self
+
+    def for_email(self):
+        """Configuring input for entering email.
+
+        Returns:
+            itself
+        """
+        self._type = 'email'
+        return self
+
+    def for_password(self):
+        """Configuring input for entering password.
+
+        Returns:
+            itself
+        """
+        self._type = 'password'
+        return self
+
 
 class NumericInput(Freehand):
     """A numeric input.
@@ -297,39 +218,30 @@ class NumericInput(Freehand):
     Args:
         label (str): The input label
         name (str): The input name.
+        value (obj): The input value (default=None).
         placeholder (str): The input placeholder (default=None).
     """
-    def __init__(self, label, name, placeholder=None):
-        super().__init__(label, name)
-        self.__placeholder = placeholder
-
-    def _receiver(self):
-        return f'''
-            <input {attr('id', self.identifier)}
-                {attr('name', self._name)}
-                {attr('value', self._value)}
-                type="number"
-                step="any"
-                class="form-control"
-                {attr('placeholder', self.__placeholder)}
-                {attr('disabled', self._disabled)}>
-        '''
+    def __init__(self, label, name, value=None, placeholder=None):
+        super().__init__(label, name, value, placeholder)
+        self._type = 'number'
 
 
-class SelectInput(Value):
+class SelectInput(Input):
     """A select input.
 
     Args:
         label (str): The input label
         name (str): The input name.
-        options (tuple): The input options.
+        value (str): The input value (default=None).
+        options (tuple): The input options (default=None).
     """
-    def __init__(self, label, name, options):
+    def __init__(self, label, name, value=None, options=None):
         super().__init__(label, name)
+        self.__value = value
         self.__options = options
-        self.__label_on_top = False
+        self.__radio = False
 
-    class Option():
+    class Option(WebComponent):
         def __init__(self, name, value, disabled=False):
             super().__init__()
             self.__name = name
@@ -348,63 +260,76 @@ class SelectInput(Value):
         def disabled(self):
             return self.__disabled
 
-    def __str__(self):
-        options = []
-        for option in self.__options:
-            options.append(f'''
-                <option {attr('value', option.value)}
-                    {attr('selected', option.value == self._value)}
-                    {attr('disabled', option.disabled)}>{option.name}</option>
-            ''')
+    def as_radio(self):
+        """Makes selection in a for of radio buttons.
 
-        component = f'''
-            <select {attr('id', self.identifier)}
-                {attr('name', self._name)}
-                class="form-control"
-                autocomplete="off"
-                {attr('disabled', self._disabled)}>
-                {inject(*options)}
-            </select>
-        '''
-        if self._label:
-            label_classes = None
-            receiver_classes = None
-            if not self.__label_on_top:
-                self.add_classes('row')
-                label_classes = 'col-sm-2 col-form-label'
-                receiver_classes = 'col-sm-10'
-            return f'''
-                <div {attr('class', self.classes)}>
-                    <label {attr('class', label_classes)}
-                        {attr('for', self.identifier)}>
-                        {self._label}
-                    </label>
-                    <div {attr('class', receiver_classes)}>
-                        {inject(component)}
+        Returns:
+            itself
+        """
+        self.__radio = True
+        return self
+
+    def _receiver(self):
+        if self.__radio:
+            options = []
+            for option in self.__options:
+                options.append(f'''
+                    <div class="form-check mr-3">
+                        <input {attr('id', option.identifier)}
+                            {attr('name', self._name)}
+                            {attr('value', option.value)}
+                            type="radio" 
+                            class="form-check-input" 
+                            autocomplete="off"
+                            {attr('checked', option.value == self.__value)}
+                            {attr('disabled', option.disabled)}>
+                        <label class="form-check-label mr-1" 
+                            {attr('for', option.identifier)}>
+                            {option.name}
+                        </label>
                     </div>
-                </div>
+                ''')
+            return inject(*options)
+        else:
+            options = []
+            for option in self.__options:
+                options.append(f'''
+                    <option {attr('id', option.identifier)}
+                        {attr('value', option.value)}
+                        {attr('selected', option.value == self.__value)}
+                        {attr('disabled', option.disabled)}>{option.name}</option>
+                ''')
+
+            return f'''
+                <select {attr('id', self.identifier)}
+                    {attr('name', self._name)}
+                    class="form-control"
+                    autocomplete="off"
+                    {attr('disabled', self._disabled)}>
+                    {inject(*options)}
+                </select>
             '''
-        return f'''
-            <div {attr('class', self.classes)}>
-                {inject(component)}
-            </div>
-        '''
 
 
-class HiddenInput(Value):
+class HiddenInput(Input):
     """A hidden input.
 
     Args:
         name (str): The input name.
+        value (obj): The input value (default=None).
     """
-    def __init__(self, name):
+    def __init__(self, name, value=None):
         super().__init__(None, name)
+        self.__value = value
+    
+    def _receiver(self):
+        pass
 
     def __str__(self):
         return f'''
             <input {attr('id', self.identifier)}
                 {attr('name', self._name)}
-                {attr('value', self._value)}
+                {attr('value', self.__value)}
                 type="hidden">
         '''
 
@@ -418,24 +343,14 @@ class FileInput(Input):
     """
     def __init__(self, label, name):
         super().__init__(label, name)
-        self.__label_on_top = False
-
-    def label_on_top(self):
-        """Makes an input label showing on top.
-
-        Returns:
-            self
-        """
-        self.__label_on_top = True
-        return self
 
 
-    def __str__(self):
+    def _receiver(self):
         browse_button_class = 'btn btn-secondary'
         if self._disabled:
             browse_button_class += ' disabled'
 
-        component = f'''
+        return f'''
             <div class="input-group">
                 <span class="form-control input-group-append"></span>
                 <div class="input-group-append">
@@ -450,29 +365,5 @@ class FileInput(Input):
                         type="file"
                         {attr('disabled', self._disabled)}>
                 </div>
-            </div>
-        '''
-
-        if self._label:
-            label_classes = None
-            receiver_classes = None
-            if not self.__label_on_top:
-                self.add_classes('row')
-                label_classes = 'col-sm-2 col-form-label'
-                receiver_classes = 'col-sm-10'
-            return f'''
-                <div {attr('class', self.classes)}>
-                    <label {attr('class', label_classes)}
-                        {attr('for', self.identifier)}>
-                        {self._label}
-                    </label>
-                    <div {attr('class', receiver_classes)}>
-                        {component}
-                    </div>
-                </div>
-            '''
-        return f'''
-            <div {attr('class', self.classes)}>
-                {component}
             </div>
         '''

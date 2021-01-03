@@ -321,153 +321,32 @@ components:
       arguments:
         - [ 'label', 'str', 'the input label showing for user' ]
         - [ 'name', 'str', 'the input name, used for getting an input value from the form, during handling a submit action' ]
+        - [ 'checked', 'bool', '<code>True</code> to make flag checked and <code>False</code> to make flag unchecked accordingly' ]
       description:
         - A <code>CheckboxInput</code> is a component which can be in two states <i>checked</i> or <i>unchecked</i>.
-        - The function <code>as_checked()</code> changes the component state from  <i>unchecked</i> to <i>checked</i>.
         - The <code>as_disabled()</code> function prevents user to modify a status of this component.
       code: |
         @right
         CheckboxInput('One', 'opt1')
-        CheckboxInput('Two', 'opt2').as_checked()
+        CheckboxInput('Two', 'opt2', True)
         CheckboxInput('Three', 'opt3').as_disabled()
       evaluation: |
         from bootwrap import Form, CheckboxInput
         output = Form('').append(
           CheckboxInput('One', 'opt1'),
-          CheckboxInput('Two', 'opt2').as_checked(),
+          CheckboxInput('Two', 'opt2', True),
           CheckboxInput('Three', 'opt3').as_disabled()
         )
-
-    - title: Radio Input
-      constructor: RadioInput(name, label)
-      arguments:
-        - [ 'label', 'str', 'the input label showing for user' ]
-        - [ 'name', 'str', 'the input name, used for getting an input value from the form, during handling a submit action (this value should be the same for every component belonged to the same group)' ]
-      description:
-        - A <code>RadioInput</code> is a component for creating a group of options. The individual <code>RadioInput</code> can be in two states, <i>selected</i> or <i>deselected</i>. Note, if one option in a group is <i>selected</i>, all others automatically are <i>deselected</i>.
-        - The function <code>with_value(value)</code> sets <code>value</code>, which assigned to the group when user selects the according <code>RadioInput</code>.
-        - The function <code>as_checked()</code> changes the component state from  <i>deselected</i> to <i>selected</i>.
-        - The <code>as_disabled()</code> function prevents user to modify a status of this component.
-      code: |
-        @right
-        RadioInput('One', 'choice').with_value('1')
-        RadioInput('Two', 'choice').with_value('2').as_checked()
-        RadioInput('Three', 'choice').with_value('3').as_disabled()
-      evaluation: |
-        from bootwrap import Form, RadioInput
-        output = Form('').append(
-          RadioInput('One', 'choice').with_value('1'),
-          RadioInput('Two', 'choice').with_value('2').as_checked(),
-          RadioInput('Three', 'choice').with_value('3').as_disabled()
-        )
-
-    - title: Text Input
-      constructor: TextInput(name, label, rows=None, placeholder=None)
-      arguments:
-        - [ 'label', 'str', 'the input label showing for user' ]
-        - [ 'name', 'str', 'the input name, used for getting an input value from the form' ]
-        - [ 'rows', 'int', 'the number of input text rows' ]
-        - [ 'placeholder', 'str', 'the text displayed when no value is entered.' ]
-      description:
-        -  A <code>TextInput</code> is a component for entering a text information.
-        - The <code>with_value(value)</code> function sets the <code>value</code> in the input component.
-        - The <code>as_disabled()</code> function prevents user from entering any values.
-      code: |
-        @right
-        TextInput('Text', 'text')
-        TextInput('Text', 'text', rows=3)
-        TextInput('Text', 'text', placeholder='type here')
-        TextInput('Text', 'text').with_value('Hello World!')
-        TextInput('Text', 'text').as_disabled()
-      evaluation: |
-        from bootwrap import Form, TextInput
-        output = Form('').append(
-          TextInput('Text', 'text'),
-          TextInput('Text', 'text', rows=3),
-          TextInput('Text', 'text', placeholder='type here'),
-          TextInput('Text', 'text').with_value('Hello World!'),
-          TextInput('Text', 'text').as_disabled()
-        )
-
-    - title: Email Input
-      constructor: EmailInput(name, label, placeholder=None)
-      arguments:
-        - [ 'label', 'str', 'the input label showing for user' ]
-        - [ 'name', 'str', 'the input name, used for getting an input value from the form' ]
-        - [ 'placeholder', 'str', 'the text displayed when no email is entered.' ]
-      description:
-        -  A <code>EmailInput</code> is a component for entering a user email. Its behavior is identical to the <code>TextInput</code> except additional validation of entering email address.
-      code: |
-        @right
-        EmailInput('Email', 'email')
-        EmailInput('Email', 'email', placeholder='your@email.com')
-        EmailInput('Email', 'email').with_value('my@email.com')
-        EmailInput('Email', 'email').as_disabled()
-      evaluation: |
-        from bootwrap import Form, EmailInput
-        output = Form('').append(
-          EmailInput('Email', 'email'),
-          EmailInput('Email', 'email', placeholder='your@email.com'),
-          EmailInput('Email', 'email').with_value('my@email.com'),
-          EmailInput('Email', 'email').as_disabled()
-        )
-
-    - title: Password Input
-      constructor: PasswordInput(name, label, placeholder=None)
-      arguments:
-        - [ 'label', 'str', 'the input label showing for user' ]
-        - [ 'name', 'str', 'the input name, used for getting an input value from the form' ]
-        - [ 'placeholder', 'str', 'the text displayed when no password is entered.' ]
-      description:
-        -  A <code>PasswordInput</code> is a component for entering a user password. Its behavior is identical to the <code>TextInput</code> except additional validation of entering password.
-      code: |
-        @right
-        PasswordInput('Password', 'password')
-        PasswordInput('Password', 'password', placeholder='your password')
-        PasswordInput('Password', 'password').with_value('********')
-        PasswordInput('Password', 'password').as_disabled()
-      evaluation: |
-        from bootwrap import Form, PasswordInput
-        output = Form('').append(
-          PasswordInput('Password', 'password'),
-          PasswordInput('Password', 'password', placeholder='your password'),
-          PasswordInput('Password', 'password').with_value('********'),
-          PasswordInput('Password', 'password').as_disabled()
-        )
-
-    - title: Numeric Input
-      constructor: NumericInput(name, label, placeholder=None)
-      arguments:
-        - [ 'label', 'str', 'the input label showing for user' ]
-        - [ 'name', 'str', 'the input name, used for getting an input value from the form' ]
-        - [ 'placeholder', 'str', 'the text displayed when no number is entered.' ]
-      description:
-        -  A <code>NumericInput</code> is a component for entering a number. Its behavior is identical to the <code>TextInput</code> except additional validation of entering number. The <code>NumericInput</code> control in some web browsers may contain buttons helping to enter a number without a keyboard. 
-      code: |
-        @right
-        NumericInput('Number', 'number')
-        NumericInput('Number', 'number', placeholder='your number')
-        NumericInput('Number', 'number').with_value('123')
-        NumericInput('Number', 'number').as_disabled()
-      evaluation: |
-        from bootwrap import Form, NumericInput
-        output = Form('').append(
-          NumericInput('Number', 'number'),
-          NumericInput('Number', 'number', placeholder='your number'),
-          NumericInput('Number', 'number').with_value('123'),
-          NumericInput('Number', 'number').as_disabled()
-        )
-
 
     - title: Select Input
       constructor: SelectInput(name, label, *options)
       arguments:
         - [ 'label', 'str', 'the input label showing for user' ]
         - [ 'name', 'str', 'the input name, used for getting an input value from the form' ]
-        - [ 'options', 'tuple', 'the dropdown options' ]
+        - [ 'options', 'tuple', 'the set of options' ]
       description:
-        - A <code>SelectInput</code> is a component for selecting a specific options from the dropdown list. Use <code>SelectInput.Option(name, value, disabled=False)</code> class to  define selector options. The  <code>name</code> parameter defines what user sees in the e dropdown list. The <code>value</code> parameters defines what is set is user selects a specific options. The <code>disabled</code> parameters makes an option unavailable for selection.
-        - The function <code>with_value(value)</code> selects an option with associated <code>value</code>.
+        - A <code>SelectInput</code> is a component for selecting a specific options from the dropdown list. Use <code>SelectInput.Option(name, value, disabled=False)</code> class to  define selector options. The  <code>name</code> parameter defines what user sees in the options list. The <code>value</code> parameters defines what is set if user selects a specific options. The <code>disabled</code> parameters makes an option unavailable for selection.
+        - The function <code>as_radio()</code> changes the selector look from the dropdown list to a set of radio buttons.
         - The <code>as_disabled()</code> function prevents user to select any options.
       code: |
         @right
@@ -477,9 +356,9 @@ components:
           SelectInput.Option('Three', 3, disabled=True)
         ]
         
-        SelectInput('Selector', 'choice', options)
-        SelectInput('Selector', 'choice', options).with_value(2)
-        SelectInput('Selector', 'choice', options).as_disabled()
+        SelectInput('Selector1', 'choice', 2, options)
+        SelectInput('Selector2', 'choice', 2, options).as_disabled()
+        SelectInput('Selector3', 'choice', 2, options).as_radio()
       evaluation: |
         from bootwrap import Form, SelectInput
         options = [
@@ -489,7 +368,98 @@ components:
         ]
 
         output = Form('').append(
-          SelectInput('Selector', 'choice', options),
-          SelectInput('Selector', 'choice', options).with_value(2),
-          SelectInput('Selector', 'choice', options).as_disabled()
+          SelectInput('Selector1', 'choice', 2, options),
+          SelectInput('Selector2', 'choice', 2, options).as_disabled(),
+          SelectInput('Selector3', 'choice', 2, options).as_radio()
+        )
+
+    - title: Text Input
+      constructor: TextInput(name, label, value=None, placeholder=None)
+      arguments:
+        - [ 'label', 'str', 'the input label showing for user' ]
+        - [ 'name', 'str', 'the input name, used for getting an input value from the form' ]
+        - [ 'value', 'str', 'the value to set' ]
+        - [ 'placeholder', 'str', 'the text displayed when no value is entered' ]
+      description:
+        -  A <code>TextInput</code> is a component for entering a text information.
+        - The <code>with_multirows(n)</code> function  expands the text input to <code>n</code> rows. Use this option if the user needs to enter a long piece of text.
+        - The <code>for_email()</code> and <code>for_password()</code> functions configure the input for a specific type of information (<i>email</i> and  <i>password</i> accordingly).
+        - The <code>as_disabled()</code> function prevents user from entering any values.
+      code: |
+        @right
+        # the text input
+        TextInput('Text1', 'text')
+        TextInput('Text2', 'text').with_multirows(3)
+        TextInput('Text3', 'text', placeholder='type here')
+        TextInput('Text4', 'text', 'Hello World!')
+        TextInput('Text5', 'text').as_disabled()
+
+        # the email input
+        TextInput('Email', 'email', 'my@email.com').for_email()
+
+        # the password input
+        TextInput('Password', 'password', '********').for_password()
+      evaluation: |
+        from bootwrap import Form, TextInput
+        output = Form('').append(
+          TextInput('Text1', 'text'),
+          TextInput('Text2', 'text').with_multirows(3),
+          TextInput('Text3', 'text', placeholder='type here'),
+          TextInput('Text4', 'text', 'Hello World!'),
+          TextInput('Text5', 'text').as_disabled(),
+          TextInput('Email', 'email', 'my@email.com').for_email(),
+          TextInput('Password', 'password', '********').for_password()
+        )
+
+    - title: Numeric Input
+      constructor: NumericInput(name, label, placeholder=None)
+      arguments:
+        - [ 'label', 'str', 'the input label showing for user' ]
+        - [ 'name', 'str', 'the input name, used for getting an input value from the form' ]
+        - [ 'value', 'int|float', 'the value to set' ]
+        - [ 'placeholder', 'str', 'the text displayed when no number is entered.' ]
+      description:
+        -  A <code>NumericInput</code> is a component for entering a number. Its behavior is identical to the <code>TextInput</code> except additional validation of entering number. The <code>NumericInput</code> control in some web browsers may contain buttons helping to enter a number without a keyboard. 
+      code: |
+        @right
+        NumericInput('Number', 'number')
+        NumericInput('Number', 'number', placeholder='your number')
+        NumericInput('Number', 'number', '123')
+        NumericInput('Number', 'number').as_disabled()
+      evaluation: |
+        from bootwrap import Form, NumericInput
+        output = Form('').append(
+          NumericInput('Number', 'number'),
+          NumericInput('Number', 'number', placeholder='your number'),
+          NumericInput('Number', 'number', '123'),
+          NumericInput('Number', 'number').as_disabled()
+        )
+
+    - title: Hidden Input
+      constructor: HiddenInput(name, value)
+      arguments:
+        - [ 'name', 'str', 'the input name, used for getting an input value from the form' ]
+        - [ 'value', 'obj', 'the value to set' ]
+      description:
+        - A <code>HiddenInput</code> is a component for hosting value within a form without showing it to a user. 
+      code: |
+        @right
+        HiddenInput('token', '123')
+
+    - title: File Input
+      constructor: FileInput(name, label)
+      arguments:
+        - [ 'label', 'str', 'the input label showing for user' ]
+        - [ 'name', 'str', 'the input name, used for getting an input value from the form' ]
+      description:
+        -   A <code>FileInput</code> is a component for selecting and uploading file.
+      code: |
+        @right
+        FileInput('Number', 'number')
+        FileInput('Number', 'number').as_disabled()
+      evaluation: |
+        from bootwrap import Form, FileInput
+        output = Form('').append(
+          FileInput('File', 'file'),
+          FileInput('File', 'file').as_disabled()
         )
