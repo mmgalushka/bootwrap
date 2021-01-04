@@ -24,7 +24,7 @@ class Button(WebComponent, CompositeMixin, ClassMixin, AppearanceMixin, OutlineM
     def __init__(self, name):
         super().__init__()
         self.__name = name
-        self.__action = 'href:#'  
+        self.__action = None  
 
     def link(self, href):
         """Links to the web-resource.
@@ -91,56 +91,66 @@ class Button(WebComponent, CompositeMixin, ClassMixin, AppearanceMixin, OutlineM
         if self.classes:
             classes += f' {self.classes}'
 
-        if self.__action.startswith('toggle:'):
-            return f'''
-                <button {attr('id', self.identifier)}
-                    {attr('class', classes)}
-                    type="button"
-                    data-toggle="modal"
-                    data-target="#{self.__action[7:]}"
-                    {attr('disabled', self._disabled)}>
-                    {self.__name}
-                </button>
-            '''
-        elif self.__action.startswith('collapse:'):
-            return f'''
-                <button {attr('id', self.identifier)}
-                    {attr('class', classes)}
-                    type="button"
-                    data-toggle="collapse"
-                    data-target="#{self.__action[9:]}"
-                    {attr('disabled', self._disabled)}>
-                    {self.__name}
-                </button>
-            '''
-        elif self.__action.startswith('dismiss'):
-            return f'''
-                <button {attr('id', self.identifier)}
-                    {attr('class', classes)}
-                    type="button"
-                    data-dismiss="modal"
-                    {attr('disabled', self._disabled)}>
-                    {self.__name}
-                </button>
-            '''
-        elif self.__action.startswith('submit'):
-            return f'''
-                <button {attr('id', self.identifier)}
-                    {attr('class', classes)}
-                    type="submit"
-                    {attr('disabled', self._disabled)}>
-                    {self.__name}
-                </button>
-            '''
-        else: # It can be only self.__action starts with 'href:'.
-            if self._disabled:
-                classes += ' disabled'
-            return f'''
-                <a {attr('id', self.identifier)}
-                    {attr('class', classes)}
-                    {attr('href', self.__action[5:])}
-                    role="button">
-                    {self.__name}
-                </a>
-            '''
+        if self.__action:
+            if self.__action.startswith('toggle:'):
+                return f'''
+                    <button {attr('id', self.identifier)}
+                        {attr('class', classes)}
+                        type="button"
+                        data-toggle="modal"
+                        data-target="#{self.__action[7:]}"
+                        {attr('disabled', self._disabled)}>
+                        {self.__name}
+                    </button>
+                '''
+            elif self.__action.startswith('collapse:'):
+                return f'''
+                    <button {attr('id', self.identifier)}
+                        {attr('class', classes)}
+                        type="button"
+                        data-toggle="collapse"
+                        data-target="#{self.__action[9:]}"
+                        {attr('disabled', self._disabled)}>
+                        {self.__name}
+                    </button>
+                '''
+            elif self.__action.startswith('dismiss'):
+                return f'''
+                    <button {attr('id', self.identifier)}
+                        {attr('class', classes)}
+                        type="button"
+                        data-dismiss="modal"
+                        {attr('disabled', self._disabled)}>
+                        {self.__name}
+                    </button>
+                '''
+            elif self.__action.startswith('submit'):
+                return f'''
+                    <button {attr('id', self.identifier)}
+                        {attr('class', classes)}
+                        type="submit"
+                        {attr('disabled', self._disabled)}>
+                        {self.__name}
+                    </button>
+                '''
+            else: # It can be only self.__action starts with 'href:'.
+                if self._disabled:
+                    classes += ' disabled'
+                return f'''
+                    <a {attr('id', self.identifier)}
+                        {attr('class', classes)}
+                        {attr('href', self.__action[5:])}
+                        role="button">
+                        {self.__name}
+                    </a>
+                '''
+        if self._disabled:
+            classes += ' disabled'
+        return f'''
+            <button {attr('id', self.identifier)}
+                {attr('class', classes)}
+                role="button">
+                {self.__name}
+            </button>
+        '''
 

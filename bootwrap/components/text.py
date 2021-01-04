@@ -103,16 +103,26 @@ class Text(WebComponent, ClassMixin, AppearanceMixin):
 
             if self.__level:
                 l = self.__level
-                return f'<h{l} {attr("class", classes)}>{c}</h{l}>'
+                return f'''
+                    <h{l} {attr("id", self.identifier)}
+                        {attr("class", classes)}>
+                        {c}
+                    </h{l}>
+                '''
             else:
                 if self.__code:
-                    return f'<pre {attr("class", classes)}><code class="python">{dedent(c)}</code></pre>'
+                    return f'''
+                        <pre {attr("id", self.identifier)}
+                            {attr("class", classes)}><code class="python">{dedent(c)}</code></pre>
+                    '''
                 else:
                     if self.__paragraph:
-                        return f'<p {attr("class", classes)}>{c}</p>'
-                    else:
-                        if classes:
-                            return f'<span {attr("class", classes)}>{c}</span>'
-                    return c
-
+                        return f'''
+                            <p {attr("id", self.identifier)}
+                                {attr("class", classes)}>{c}</p>
+                        '''
+                    return f'''
+                        <span {attr("id", self.identifier)}
+                            {attr("class", classes)}>{c}</span>
+                    '''
         return wrap_as_main(wrap_as_strong(wrap_as_small(self.__content)))

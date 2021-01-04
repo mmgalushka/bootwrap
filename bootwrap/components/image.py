@@ -20,14 +20,14 @@ class Image(WebComponent, ClassMixin):
         src (obj): The image source to show.
         width (int): The image width.
         height (int): The image height.
-        alternative (list): The alternative missage.
+        alt (str): The alt text.
     """
-    def __init__(self, src, width=None, height=None, alternative=None):
+    def __init__(self, src, width=None, height=None, alt=None):
         super().__init__()
         self.__src = src
         self.__width = width
         self.__height = height
-        self.__alternative = alternative
+        self.__alt = alt
 
     def __str__(self):
         return f'''
@@ -35,5 +35,5 @@ class Image(WebComponent, ClassMixin):
                 {attr('src', self.__src)}
                 {attr('width', self.__width)}
                 {attr('height', self.__height)}
-                {attr('alt', self.__alternative)}/>
+                {attr('alt', self.__alt)}/>
         '''

@@ -169,7 +169,7 @@ class GenericPage(bw.Page):
                 logo = bw.Image(
                     'logo.png',
                     width=32,
-                    alternative='BLogo'
+                    alt='Bootwrap Logo'
                 ),
                 brand=bw.Text('Bootwrap').as_strong().as_light(),
                 anchors=[
@@ -225,7 +225,7 @@ if __name__ == '__main__':
             os.remove(path)
 
         def save_page(filename, page):
-            page = page.replace('href="/"', 'href="python-bootwrap/index.html"').\
+            page = str(page).replace('href="/"', 'href="python-bootwrap/index.html"').\
                 replace('href="/introduction"', 'href="python-bootwrap/intoduction.html"').\
                 replace('href="/components"', 'href="python-bootwrap/components.html"')
             with open(f'docs/{filename}', 'w') as file:
@@ -235,5 +235,6 @@ if __name__ == '__main__':
         save_page('index.html', home())
         save_page('introduction.html', introduction())
         save_page('components.html', components())
+
     else:
         app.run(debug=True)
