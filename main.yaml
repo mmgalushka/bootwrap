@@ -567,7 +567,7 @@ components:
         @right
         Link('https://cdnjs.cloudflare.com/.../all.min.css')
 
-    # --- Navigation Tab ---------------------------------------------------------------
+    # --- Navigation Tab -------------------------------------------------------
 
   Navigation:
     - title: Navigation
@@ -644,4 +644,44 @@ components:
           navigation_links_vertical,
           navigation_tabs,
           navigation_pills
+        )
+
+    # --- Panel Tab ------------------------------------------------------------
+
+  Panel:
+    - title: Panel
+      constructor: Panel(*components)
+      arguments:
+        - ['components', 'tuple', 'the panel components.']
+      description:
+        - A <code>Panel</code> is a web-component for hosting other web-components and arranging them in different orders.
+        - By default <code>Panel</code> has a flat layout, placing components one after another.
+        - Use the <code>with_horizontal_arrangement()</code> function to arrange components horizontally.
+        - Use the <code>with_vertical_arrangement()</code> function to arrange components vertically.
+      code: |
+        @right
+
+        comp1 = Text('Component 1')
+        comp2 = Text('Component 2')
+        comp3 = Text('Component 3')
+
+        Panel(comp1, comp2,  comp3)
+        Panel(comp1, comp2,  comp3).with_horizontal_arrangement()
+        Panel(comp1, comp2,  comp3).with_vertical_arrangement()
+
+      evaluation: |
+        from bootwrap import Text, Panel
+
+        comp1 = Text('Component 1').add_classes('border')
+        comp2 = Text('Component 2').add_classes('border')
+        comp3 = Text('Component 3').add_classes('border')
+
+        panel_flat = Panel(comp1, comp2,  comp3)
+        panel_horizontal = Panel(comp1, comp2,  comp3).with_horizontal_arrangement()
+        panel_vertical = Panel(comp1, comp2,  comp3).with_vertical_arrangement()
+
+        output = Panel(
+          panel_flat,
+          panel_horizontal,
+          panel_vertical
         )
