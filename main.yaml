@@ -551,3 +551,97 @@ components:
         output = Panel(
           label, answer, btn_yes, btn_no, action
         )
+
+  # --- Link Tab ---------------------------------------------------------------
+
+  Link:
+    - title: Link
+      constructor: Link(href, rel='stylesheet', ctype='text/css')
+      arguments:
+        - ['href', 'str', 'the attribute specifies the URL of the linked resource where the URL can be absolute or relative (from MDN WebDoc)']
+        - ['rel', 'str', 'the attribute names a relationship of the linked document to the current document (from MDN WebDoc)']
+        - ['ctype', 'str', 'the attribute is used to define the type of the content linked to (from MDN WebDoc)']
+      description:
+        - A <code>Link</code> is a web-component for linking an external resource. Applied in conjunction with the <code>Page</code>
+      code: |
+        @right
+        Link('https://cdnjs.cloudflare.com/.../all.min.css')
+
+    # --- Navigation Tab ---------------------------------------------------------------
+
+  Navigation:
+    - title: Navigation
+      constructor: Navigation(*items)
+      arguments:
+        - ['items', 'tuple', 'the navigation items.']
+      description:
+        - A <code> Navigation </code> is a web-component for grouping other controls and providing an intuitive way to switch between these groups.
+        - Use <code>Navigation.Item(name, content, active=False)</code> class to  define navigation items. The  <code>name</code> defines what user sees in the navigation list. The <code>content</code> defines what is displayed when a specific navigation item is selected. The <code>active</code> makes a navigation item content is visable for user (in other words it make this item selected).
+        - By default <code>Navigation</code> is rendered in a form of anchors. To change the navigation style, apply the following functions <code>as_tabs()</code>, <code>as_pills()</code> and <code>as_vertical()</code>.
+        - Use the  <code>as_tabs()</code> function to make navigation looks like tabs.
+        - Use the  <code>as_pills()</code> function to make navigation looks like buttons.
+        - Use the  <code>as_vertical()</code> function to change navigation items orientation from horizontal to vertical. In the case of the vertical orientation, the navigation bar is displayed on the left and content on the right.
+      code: |
+        @right
+        Navigation(
+          Navigation.Item('Chapter 1', 'Text 1', True),
+          Navigation.Item('Chapter 2', 'Text 2'),
+          Navigation.Item('Chapter 3', 'Text 3')
+        ).as_vertical()
+
+        Navigation(
+          Navigation.Item('Chapter 1', 'Text 1', True),
+          Navigation.Item('Chapter 2', 'Text 2'),
+          Navigation.Item('Chapter 3', 'Text 3')
+        ).as_vertical()
+
+        Navigation(
+          Navigation.Item('Chapter 1', 'Text 1', True),
+          Navigation.Item('Chapter 2', 'Text 2'),
+          Navigation.Item('Chapter 3', 'Text 3')
+        ).as_tabs()
+
+        Navigation(
+          Navigation.Item('Chapter 1', 'Text 1', True),
+          Navigation.Item('Chapter 2', 'Text 2'),
+          Navigation.Item('Chapter 3', 'Text 3')
+        ).as_pills()
+      evaluation: |
+        from bootwrap import Navigation, Panel
+
+        navigation_links = Navigation(
+          Navigation.Item('Chapter 1', 'Text 1', True),
+          Navigation.Item('Chapter 2', 'Text 2'),
+          Navigation.Item('Chapter 3', 'Text 3')
+        )
+
+        navigation_links_vertical = Navigation(
+          Navigation.Item('Chapter 1', 'Text 1', True),
+          Navigation.Item('Chapter 2', 'Text 2'),
+          Navigation.Item('Chapter 3', 'Text 3')
+        ).as_vertical()
+
+        navigation_tabs = Navigation(
+          Navigation.Item('Chapter 1', 'Text 1', True),
+          Navigation.Item('Chapter 2', 'Text 2'),
+          Navigation.Item('Chapter 3', 'Text 3')
+        ).as_tabs()
+
+        navigation_pills = Navigation(
+          Navigation.Item('Chapter 1', 'Text 1', True),
+          Navigation.Item('Chapter 2', 'Text 2'),
+          Navigation.Item('Chapter 3', 'Text 3')
+        ).as_pills()
+
+        navigation_pills_vertical = Navigation(
+          Navigation.Item('Chapter 1', 'Text 1', True),
+          Navigation.Item('Chapter 2', 'Text 2'),
+          Navigation.Item('Chapter 3', 'Text 3')
+        ).as_pills().as_vertical()
+
+        output = Panel(
+          navigation_links,
+          navigation_links_vertical,
+          navigation_tabs,
+          navigation_pills
+        )

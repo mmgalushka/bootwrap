@@ -148,18 +148,16 @@ class GenericPage(bw.Page):
 
         def docgen(content):
             if isinstance(content, dict):
-                nav = bw.Navigation()
-                first = True
-                for x, tab in content.items():
-                    nav.append(
-                        (
-                            x,
+                items = []
+                for name, tab in content.items():
+                    items.append(
+                            bw.Navigation.Item(
+                            name, 
                             bw.Panel(*list(map(DocSection, tab))),
-                            first
+                            len(items)==0
                         )
-                    ) 
-                    first = False 
-                return [nav.as_tabs()]
+                    )
+                return [bw.Navigation(*items).as_tabs()]
             else:
                 return list(map(DocSection, content))
 
@@ -225,9 +223,10 @@ if __name__ == '__main__':
             os.remove(path)
 
         def save_page(filename, page):
-            page = str(page).replace('href="/"', 'href="python-bootwrap/index.html"').\
-                replace('href="/introduction"', 'href="python-bootwrap/intoduction.html"').\
-                replace('href="/components"', 'href="python-bootwrap/components.html"')
+            page = str(page).\
+                replace('href="/"', 'href="index.html"').\
+                replace('href="/introduction"', 'href="introduction.html"').\
+                replace('href="/components"', 'href="components.html"')
             with open(f'docs/{filename}', 'w') as file:
                 soup = BeautifulSoup(page)
                 file.write(soup.prettify())
