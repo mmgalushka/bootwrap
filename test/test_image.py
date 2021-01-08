@@ -14,7 +14,7 @@ def test_image():
         'somelink',
         width=11,
         height=22,
-        alternative='somename'
+        alt='somename'
     )
     d = pq(str(image))
     assert d == d('img')

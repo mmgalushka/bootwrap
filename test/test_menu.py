@@ -35,7 +35,10 @@ def test_menu():
     assert d_img.attr('src') == 'samelogo'
     
     # test menu brand label;
-    assert 'somebrand' in d.text()
+    d_span = pq(d('span'))
+    assert d_span.text().strip() == 'somebrand'
+    assert 'mr-2' in d_span.attr('class')
+    assert 'ml-1' in d_span.attr('class')
 
     # test menu anchors...
     d_div = pq(d('div[class="collapse navbar-collapse"]'))
@@ -57,16 +60,14 @@ def test_menu():
     d_div_ul_li_1_a = pq(d_div_ul_li_1('a'))
     assert d_div_ul_li_1_a.text() == 'Menu2'
 
-    # Tests collapsing block -> main menu...
-    collapse_actions = d_div('a[class="btn btn-outline-primary ml-2"]')
-    assert len(collapse_actions) == 2
-
     # test menu action buttons...
-    d_a_0 = pq(d('a[role="button"]')).eq(0)
-    assert d_a_0.text() == 'Action1'
+    assert len(d_div('button[class="btn btn-outline-primary ml-2"]')) == 2
 
-    d_a_1 = pq(d('a[role="button"]')).eq(1)
-    assert d_a_1.text() == 'Action2'
+    d_div_button_0 = pq(d_div('button')).eq(0)
+    assert d_div_button_0.text() == 'Action1'
+
+    d_div_button_1 = pq(d_div('button')).eq(1)
+    assert d_div_button_1.text() == 'Action2'
 
     # test toggle button
     d_toggle = pq(d('button[class="navbar-toggler"]'))

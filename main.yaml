@@ -484,7 +484,7 @@ components:
         output = Image('logo.png')
 
 
-  # --- Javascript Tab ---------------------------------------------------------------
+  # --- Javascript Tab ---------------------------------------------------------
 
   Javascript:
     - title: Javascript
@@ -567,7 +567,7 @@ components:
         @right
         Link('https://cdnjs.cloudflare.com/.../all.min.css')
 
-    # --- Navigation Tab -------------------------------------------------------
+  # --- Navigation Tab ---------------------------------------------------------
 
   Navigation:
     - title: Navigation
@@ -646,13 +646,13 @@ components:
           navigation_pills
         )
 
-    # --- Panel Tab ------------------------------------------------------------
+  # --- Panel Tab --------------------------------------------------------------
 
   Panel:
     - title: Panel
       constructor: Panel(*components)
       arguments:
-        - ['components', 'tuple', 'the panel components.']
+        - ['components', 'tuple', 'the panel components']
       description:
         - A <code>Panel</code> is a web-component for hosting other web-components and arranging them in different orders.
         - By default <code>Panel</code> has a flat layout, placing components one after another.
@@ -668,7 +668,6 @@ components:
         Panel(comp1, comp2,  comp3)
         Panel(comp1, comp2,  comp3).with_horizontal_arrangement()
         Panel(comp1, comp2,  comp3).with_vertical_arrangement()
-
       evaluation: |
         from bootwrap import Text, Panel
 
@@ -684,4 +683,58 @@ components:
           panel_flat,
           panel_horizontal,
           panel_vertical
+        )
+
+  # --- Text Tab ---------------------------------------------------------------
+
+  Table:
+    - title: Table
+      constructor: Table(head, body)
+      arguments:
+        - ['head', 'list', 'the table head (1D)']
+        - ['body', 'list', 'the table head (2D)']
+      description:
+        -  A <code>Table</code> is a web-component for visualizing tabular information. Use <code>head</code> (1D array) to specify columns names and  <code>body</code> (2D array) for cells values. 
+      code: |
+        @right
+          Table(
+            ['Column 1', 'Column 2', 'Column 3'],
+            [
+              ['Value 11', 'Value 12', 'Value 13'],
+              ['Value 21', 'Value 22', 'Value 23'],
+              ['Value 31', 'Value 32', 'Value 33'],
+            ]
+          )
+      evaluation: |
+        from bootwrap import Table
+
+        output = Table(
+          ['Column 1', 'Column 2', 'Column 3'],
+          [
+            ['Value 11', 'Value 12', 'Value 13'],
+            ['Value 21', 'Value 22', 'Value 23'],
+            ['Value 31', 'Value 32', 'Value 33'],
+          ]
+        )
+
+  # --- Text Tab ---------------------------------------------------------------
+
+  Text:
+    - title: Text
+      constructor: Text(content)
+      arguments:
+        - ['content', 'str|list|dict', 'the content to display as text']
+      description:
+        -  A <code>Text</code> is a web-component for visualizing different form of textual content such as heder, paragraph, code, etc .
+      code: |
+        @right
+
+        Text('Hello world!')
+      evaluation: |
+        from bootwrap import Text, Panel
+
+        text_plain  = Text('Hello world!')
+
+        output = Panel(
+          text_plain
         )

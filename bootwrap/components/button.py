@@ -133,7 +133,7 @@ class Button(WebComponent, CompositeMixin, ClassMixin, AppearanceMixin, OutlineM
                         {self.__name}
                     </button>
                 '''
-            else: # It can be only self.__action starts with 'href:'.
+            elif self.__action.startswith('href'):
                 if self._disabled:
                     classes += ' disabled'
                 return f'''
@@ -144,12 +144,11 @@ class Button(WebComponent, CompositeMixin, ClassMixin, AppearanceMixin, OutlineM
                         {self.__name}
                     </a>
                 '''
-        if self._disabled:
-            classes += ' disabled'
+        # It can be only self.__action starts with .
         return f'''
             <button {attr('id', self.identifier)}
                 {attr('class', classes)}
-                role="button">
+                {attr('disabled', self._disabled)}>
                 {self.__name}
             </button>
         '''
