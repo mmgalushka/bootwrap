@@ -332,7 +332,7 @@ components:
         CheckboxInput('Three', 'opt3').as_disabled()
       evaluation: |
         from bootwrap import Form, CheckboxInput
-        output = Form('').append(
+        output = Form(
           CheckboxInput('One', 'opt1'),
           CheckboxInput('Two', 'opt2', True),
           CheckboxInput('Three', 'opt3').as_disabled()
@@ -367,7 +367,7 @@ components:
           SelectInput.Option('Three', 3, disabled=True)
         ]
 
-        output = Form('').append(
+        output = Form(
           SelectInput('Selector1', 'choice', 2, options),
           SelectInput('Selector2', 'choice', 2, options).as_disabled(),
           SelectInput('Selector3', 'choice', 2, options).as_radio()
@@ -401,7 +401,7 @@ components:
         TextInput('Password', 'password', '********').for_password()
       evaluation: |
         from bootwrap import Form, TextInput
-        output = Form('').append(
+        output = Form(
           TextInput('Text1', 'text'),
           TextInput('Text2', 'text').with_multirows(3),
           TextInput('Text3', 'text', placeholder='type here'),
@@ -428,7 +428,7 @@ components:
         NumericInput('Number', 'number').as_disabled()
       evaluation: |
         from bootwrap import Form, NumericInput
-        output = Form('').append(
+        output = Form(
           NumericInput('Number', 'number'),
           NumericInput('Number', 'number', placeholder='your number'),
           NumericInput('Number', 'number', '123'),
@@ -459,7 +459,7 @@ components:
         FileInput('Number', 'number').as_disabled()
       evaluation: |
         from bootwrap import Form, FileInput
-        output = Form('').append(
+        output = Form(
           FileInput('File', 'file'),
           FileInput('File', 'file').as_disabled()
         )

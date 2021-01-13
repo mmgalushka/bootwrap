@@ -7,14 +7,15 @@ from abc import ABC, abstractclassmethod
 from .base import (
     WebComponent,
     ClassMixin,
-    CompositeMixin,
     AvailabilityMixin
 )
 from .utils import attr, inject
 
 __all__ = [ 
     'Form',
+    'Input',
     'CheckboxInput',
+    'Freehand',
     'TextInput',
     'NumericInput',
     'SelectInput', 
@@ -23,24 +24,37 @@ __all__ = [
 ]
 
 
-class Form(WebComponent, CompositeMixin, ClassMixin):
+class Form(WebComponent, ClassMixin):
     """A web-component for a form.
     
     Args:
-        action (str): The form action.
+        components (tuple): The form components.
     """
-    def __init__(self, action):
+    def __init__(self, *components):
         super().__init__()
-        self.__action = action
+        self.__components = components
+        self.__href = None
+
+    def on_submit(self, href):
+        """Sets the submit URL, for the POST request.
+
+        Args:
+            href (str): The URL for submitting the form.
+
+        Return:
+            itself
+        """
+        self.__href = href
+        return self
 
     def __str__(self):
         return f'''
             <form {attr('id', self.identifier)}
-                {attr('action', self.__action)}
+                {attr('action', self.__href)}
                 {attr('class', self.classes)}
                 method="POST"
                 enctype="multipart/form-data">
-                {inject(*self._components)}
+                {inject(*self.__components)}
             </form>
         '''
 
@@ -144,9 +158,8 @@ class Freehand(Input):
 
     def _receiver(self):
         if self._rows > 1:
-            assert self._type is None,\
+            assert self._type == 'text',\
                 f'The <class "TextInput"> of type "{self._type}" can not have {self._rows} rows.'
-        if self._rows > 1:
             return f'''
                 <textarea {attr('id', self.identifier)}"
                     {attr('name', self._name)} 
@@ -173,7 +186,6 @@ class TextInput(Freehand):
         label (str): The input label
         name (str): The input name.
         value (str): The input value (default=None).
-        rows (int): The number of input (default=None).
         placeholder (str): The input placeholder (default=None).
     """
     def __init__(self, label, name, value=None, placeholder=None):
@@ -189,7 +201,6 @@ class TextInput(Freehand):
         Returns:
             itself
         """
-        self._type = None
         self._rows = n
         return self
 

@@ -83,10 +83,11 @@ class Button(WebComponent, CompositeMixin, ClassMixin, AppearanceMixin, OutlineM
     def __str__(self):
         classes = 'btn'
 
-        if self._border:
-            classes += f' btn-outline-{self._category}'
-        else:
-            classes += f' btn-{self._category}'
+        if self._category:
+            if self._border:
+                classes += f' btn-outline-{self._category}'
+            else:
+                classes += f' btn-{self._category}'
 
         if self.classes:
             classes += f' {self.classes}'
@@ -144,7 +145,6 @@ class Button(WebComponent, CompositeMixin, ClassMixin, AppearanceMixin, OutlineM
                         {self.__name}
                     </a>
                 '''
-        # It can be only self.__action starts with .
         return f'''
             <button {attr('id', self.identifier)}
                 {attr('class', classes)}

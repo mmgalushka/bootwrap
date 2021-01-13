@@ -82,7 +82,7 @@ class Navigation(WebComponent, ClassMixin):
 
             panel_classes = "tab-pane fade"
             if item.active:
-                panel_classes += " show active"
+                panel_classes += " active show"
             panel = Panel(item.content).\
                 add_classes(panel_classes)
             panels.append(panel)
