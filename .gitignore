@@ -2,6 +2,12 @@
 
 *
 
+# Except GitHub workflow
+
+!.github/
+!.github/**/
+!.github/**/*.yml
+
 # Except main bootwrap modules
 
 !bootwrap/
