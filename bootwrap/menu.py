@@ -29,11 +29,12 @@ class Menu:
         super().__init__()
         self.__logo = logo
 
-        if not isinstance(brand, Text):
-            raise TypeError(
-                'Parameter "brand" expected <class "Text">, '
-                f'but got {type(brand)}'
-            )
+        if brand is not None:
+            if not isinstance(brand, Text):
+                raise TypeError(
+                    'Parameter "brand" expected <class "Text">, '
+                    f'but got {type(brand)}'
+                )
         self.__brand = brand
 
         self.__anchors = anchors
@@ -63,7 +64,7 @@ class Menu:
 
         return f'''
             <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
-                {inject(self.__logo, self.__brand.add_classes('ml-1 mr-2'))}
+                {inject(self.__logo, self.__brand)}
                 <button class="navbar-toggler"
                     type="button" data-toggle="collapse"
                     data-target="#menu"

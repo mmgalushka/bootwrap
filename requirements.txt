@@ -1,3 +1,2 @@
 Flask
-pyquery
 beautifulsoup4

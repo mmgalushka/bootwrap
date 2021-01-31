@@ -4,21 +4,73 @@ Test for bootwrap/components/panel.py
 
 import pytest
 
-from pyquery import PyQuery as pq
 from bootwrap import Panel, Text
+
+from .helper import HelperHTMLParser
 
 
 @pytest.mark.panel
 def test_panel():
-    panel = Panel()
-    d = pq(str(panel))
-    assert d == d('div')
-    assert d.attr('class') is None
+    text = Text('sometext')
+    panel = Panel(text).add_classes('someclass')
+    actual = HelperHTMLParser.parse(str(panel))
+    expected = HelperHTMLParser.parse(f'''
+        <div id="{panel.identifier}" class="someclass">
+            <span id="{text.identifier}">sometext</span>
+        </div>
+    ''')
+    assert actual == expected
 
-    panel = Panel(Text('sometext'))
-    d = pq(str(panel))
-    assert d.text() == 'sometext'
 
-    panel = Panel().add_classes('mr-1')
-    d = pq(str(panel))
-    assert  d.attr('class') == 'mr-1'
+@pytest.mark.panel
+def test_horizontal_panel():
+    text1 = Text('sometext1')
+    text2 = Text('sometext2')
+    text3 = Text('sometext3')
+    panel = Panel(text1, text2 ,text3).with_horizontal_arrangement()
+    actual = HelperHTMLParser.parse(str(panel))
+    expected = HelperHTMLParser.parse(f'''
+        <div id="{panel.identifier}">
+            <div class="row">
+                <div class="col-md">
+                    <span id="{text1.identifier}">sometext1</span>
+                </div>
+                <div class="col-md">
+                    <span id="{text2.identifier}">sometext2</span>
+                </div>
+                <div class="col-md">
+                    <span id="{text3.identifier}">sometext3</span>
+                </div>
+            </div>
+        </div>
+    ''')
+    assert actual == expected
+
+
+@pytest.mark.panel
+def test_vertical_panel():
+    text1 = Text('sometext1')
+    text2 = Text('sometext2')
+    text3 = Text('sometext3')
+    panel = Panel(text1, text2 ,text3).with_vertical_arrangement()
+    actual = HelperHTMLParser.parse(str(panel))
+    expected = HelperHTMLParser.parse(f'''
+        <div id="{panel.identifier}">
+            <div class="row">
+                <div class="col-md">
+                    <span id="{text1.identifier}">sometext1</span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md">
+                    <span id="{text2.identifier}">sometext2</span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md">
+                    <span id="{text3.identifier}">sometext3</span>
+                </div>
+            </div>
+        </div>
+    ''')
+    assert actual == expected

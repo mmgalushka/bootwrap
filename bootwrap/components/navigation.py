@@ -6,8 +6,7 @@ from collections import namedtuple
 
 from .base import (
     WebComponent,
-    ClassMixin, 
-    CompositeMixin
+    ClassMixin
 )
 from .anchor import Anchor
 from .panel import Panel

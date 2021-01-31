@@ -31,7 +31,8 @@ class Image(WebComponent, ClassMixin):
 
     def __str__(self):
         return f'''
-            <img {attr('class', self.classes)} 
+            <img {attr("id", self.identifier)}
+                {attr('class', self.classes)} 
                 {attr('src', self.__src)}
                 {attr('width', self.__width)}
                 {attr('height', self.__height)}

@@ -82,15 +82,15 @@ class Page:
                 title = f'''<title>{self.__title}</title>'''
             else:
                 raise TypeError(
-                    f'Page title must be <str>, but got: {type(resource)};',
+                    f'Page title must be <str>, but got: {type(title)};',
                 )
 
         return f'''
             <!DOCTYPE html>
             <html lang="en">
                 <head>
-                    <meta charset="utf-8">
-                    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+                    <meta charset="utf-8"/>
+                    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
                     {inject(*links)}
                     {inject(*scripts)}
                     {inject(title)}

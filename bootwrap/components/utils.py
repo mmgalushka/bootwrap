@@ -19,13 +19,14 @@ def attr(name, value):
 
     Returns:
         result (str): The constructed attribute.
-    """  
+    """ 
     if value is not None:
         if isinstance(value, bool):
             return name if value else ''
         else:
             if isinstance(value, str):
-                return '%s="%s"' % (name, value.strip())
+                if len(value.strip()) > 0:
+                    return '%s="%s"' % (name, value.strip())
             elif isinstance(value, int):
                 return '%s=%d' % (name, value)
             else:

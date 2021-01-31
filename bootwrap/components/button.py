@@ -5,7 +5,6 @@ A button.
 from .base import (
     WebComponent,
     ClassMixin,
-    CompositeMixin,
     AppearanceMixin,
     OutlineMixin,
     AvailabilityMixin
@@ -15,7 +14,7 @@ from .utils import attr, inject
 __all__ = [ 'Button' ]
 
 
-class Button(WebComponent, CompositeMixin, ClassMixin, AppearanceMixin, OutlineMixin, AvailabilityMixin):
+class Button(WebComponent, ClassMixin, AppearanceMixin, OutlineMixin, AvailabilityMixin):
     """A web-component for a button.
 
     Args:

@@ -4,53 +4,93 @@ Test for bootwrap/components/page.py
 
 import pytest
 
-from pyquery import PyQuery as pq
-from bootwrap import Page, Button
+from bootwrap import Page, Button, Link, Javascript, Menu, Text
+
+from .helper import HelperHTMLParser
 
 
 @pytest.mark.page
 def test_page_resources():
-    page = Page()
-    d = pq(str(page))
+    page = Page(
+        favicon='somename.ico',
+        resources=[
+            Link('https//someresource.com/some.css'),
+            Javascript('https//someresource.com/some.js')
+        ],
+        title='Some Title',
+        menu=Menu(logo='somelogo.jpg'),
+        content=Text('sometext')
+    )
+    actual = HelperHTMLParser.parse(page.__html__())
+    expected = HelperHTMLParser.parse(f'''
+        <!DOCTYPE html>
+        <html lang="en">
+            <head>
+                <meta charset="utf-8"/>
+                <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+                
+                <link rel="stylesheet"
+                    type="text/css"
+                    href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"/>
+                <link rel="stylesheet"
+                    type="text/css"
+                    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css"/>
+                <link rel="stylesheet"
+                    type="text/css"
+                    href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/default.min.css"/>
+                <link rel="icon" type="image/x-icon" href="somename.ico"/>
+                <link rel="stylesheet" type="text/css" href="https//someresource.com/some.css"/>
 
-    lookup = {
-        'https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css': 0,
-        'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css': 0,
-        'https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/default.min.css': 0
-    }
-    for link in d('link'):
-        href = pq(link).attr('href')
-        if href:
-            lookup[href] = 1
-    assert sum(lookup.values()) == 3
+                <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"
+                    type="application/javascript">
+                </script>
+                <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+                    type="application/javascript">
+                </script>
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"
+                    type="application/javascript">
+                </script>
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/languages/python.min.js"
+                    type="application/javascript">
+                </script>
+                <script src="https//someresource.com/some.js"
+                    type="application/javascript">
+                </script>
 
-    lookup = {
-        'https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js': 0,
-        'https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js': 0,
-        'https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js': 0,
-        'https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/languages/python.min.js': 0
+                <title>Some Title</title>
+            </head>
+            <body>
+                <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+                    somelogo.jpg
+                    <button class="navbar-toggler"
+                        type="button" data-toggle="collapse"
+                        data-target="#menu"
+                        aria-controls="menu"
+                        aria-expanded="false"
+                        aria-label="Toggle menu">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    
+                    <div class="collapse navbar-collapse" id="menu">
+                        <ul class="navbar-nav mr-auto"></ul>
+                    </div>
+                </nav>
+                <div class="container" style="margin-top: 90px;">
+                    <span id="...">
+                        sometext
+                    </span>
+                </div>
+            </body>
+            <script>hljs.initHighlightingOnLoad();</script>
+        </html>
+    ''')
+    assert actual == expected
 
-    }
-    for script in d('script'):
-        src = pq(script).attr('src')
-        if src:
-            lookup[src] = 1
-    assert sum(lookup.values()) == 4
+    with pytest.raises(TypeError):
+        Page(resources=[Text('Some Title')]).__html__()
+
+    with pytest.raises(TypeError):
+        Page(title=Text('Some Title')).__html__()
 
 
-@pytest.mark.page
-def test_pagefavicon():
-    page = Page(favicon='somename.ico')
-    d = pq(str(page))
 
-    favicon = pq(d('link[type="image/x-icon"]'))
-    assert favicon.attr('href') == 'somename.ico'
-
-
-@pytest.mark.page
-def test_page_title():
-    page = Page(title='Some Title')
-    d = pq(str(page))
-
-    favicon = pq(d('title'))
-    assert favicon.text() == 'Some Title'

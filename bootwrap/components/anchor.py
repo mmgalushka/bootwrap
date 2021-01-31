@@ -4,7 +4,6 @@ An anchor.
 
 from .base import (
     WebComponent,
-    CompositeMixin,
     ClassMixin,
     AppearanceMixin
 )
@@ -13,7 +12,7 @@ from .utils import attr, inject
 __all__ = [ 'Anchor' ]
 
 
-class Anchor(WebComponent, CompositeMixin, ClassMixin, AppearanceMixin):
+class Anchor(WebComponent, ClassMixin, AppearanceMixin):
     """A web-component for an anchor.
     
     Args:

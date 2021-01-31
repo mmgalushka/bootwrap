@@ -4,79 +4,57 @@ Test for bootwrap/components/menu.py
 
 import pytest
 
-from pyquery import PyQuery as pq
 from bootwrap import Menu, Anchor, Button, Text, Image
+
+from .helper import HelperHTMLParser
 
 
 @pytest.mark.menu
 def test_menu():
-    menu = Menu(
-        Image('samelogo'),
-        Text('somebrand'),
-        [
-            Anchor('Menu1'),
-            Anchor('Menu2')
-        ],
-        [
-            Button('Action1').as_primary().as_outline(),
-            Button('Action2').as_primary().as_outline()
-        ]
-    )
-    d = pq(str(menu))
-    assert d == d('nav')
-    assert 'navbar' in d.attr('class')
-    assert 'navbar-expand-lg' in d.attr('class')
-    assert 'navbar-dark' in d.attr('class')
-    assert 'bg-dark' in d.attr('class')
-    assert 'fixed-top' in d.attr('class')
+    logo = Image('samelogo')
+    brand = Text('somebrand')
+    anchor1 = Anchor('Menu1')
+    anchor2 = Anchor('Menu2')
+    button1 = Button('Action1').as_primary()
+    button2 = Button('Action2').as_primary().as_outline()
 
-    # test menu logo image;
-    d_img = pq(d('img'))
-    assert d_img.attr('src') == 'samelogo'
-    
-    # test menu brand label;
-    d_span = pq(d('span'))
-    assert d_span.text().strip() == 'somebrand'
-    assert 'mr-2' in d_span.attr('class')
-    assert 'ml-1' in d_span.attr('class')
+    menu = Menu(logo, brand, [anchor1, anchor2], [button1, button2])
+    actual = HelperHTMLParser.parse(str(menu))
+    expected = HelperHTMLParser.parse(f'''
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+            <img id="{logo.identifier}" src="samelogo"/>
+            <span id="{brand.identifier}">somebrand</span>
+            <button class="navbar-toggler"
+                type="button" data-toggle="collapse"
+                data-target="#menu"
+                aria-controls="menu"
+                aria-expanded="false"
+                aria-label="Toggle menu">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+                
+            <div class="collapse navbar-collapse" id="menu">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                        <a id="{anchor1.identifier}" class="nav-link ml-2"
+                            href="#">Menu1</a>
+                    </li>
+                    <li class="nav-item">
+                        <a id="{anchor2.identifier}" class="nav-link ml-2" 
+                            href="#">Menu2</a>
+                    </li>
+                </ul>
 
-    # test menu anchors...
-    d_div = pq(d('div[class="collapse navbar-collapse"]'))
-    identifier = d_div.attr('id')
-
-    d_div_ul = pq(d_div('ul'))
-    assert 'navbar-nav' in d_div_ul.attr('class')
-    assert 'mr-auto' in d_div_ul.attr('class')
-
-    d_div_ul_li_0 = pq(d_div_ul('li')).eq(0)
-    assert 'nav-item' in d_div_ul_li_0.attr('class')
-
-    d_div_ul_li_0_a = pq(d_div_ul_li_0('a'))
-    assert d_div_ul_li_0_a.text() == 'Menu1'
-
-    d_div_ul_li_1 = pq(d_div_ul('li')).eq(1)
-    assert 'nav-item' in d_div_ul_li_1.attr('class')
-
-    d_div_ul_li_1_a = pq(d_div_ul_li_1('a'))
-    assert d_div_ul_li_1_a.text() == 'Menu2'
-
-    # test menu action buttons...
-    assert len(d_div('button[class="btn btn-outline-primary ml-2"]')) == 2
-
-    d_div_button_0 = pq(d_div('button')).eq(0)
-    assert d_div_button_0.text() == 'Action1'
-
-    d_div_button_1 = pq(d_div('button')).eq(1)
-    assert d_div_button_1.text() == 'Action2'
-
-    # test toggle button
-    d_toggle = pq(d('button[class="navbar-toggler"]'))
-    assert d_toggle.attr('type') == 'button'
-    assert d_toggle.attr('data-toggle') == 'collapse'
-    assert d_toggle.attr('data-target') == f'#{identifier}'
-    assert d_toggle.attr('aria-controls') == f'{identifier}'
-    assert d_toggle.attr('aria-expanded') == 'false'
-    assert d_toggle.attr('aria-label') == 'Toggle menu'
-    
-    d_toggle_icon = pq(d_toggle('span'))
-    assert d_toggle_icon.attr('class') == 'navbar-toggler-icon'
+                <button id="{button1.identifier}"
+                    class="btn btn-primary ml-2">
+                    Action1
+                </button>
+                <button id="{button2.identifier}"
+                    class="btn btn-outline-primary ml-2">
+                    Action2
+                </button>
+        
+            </div>
+        </nav>
+    ''')
+    assert actual == expected

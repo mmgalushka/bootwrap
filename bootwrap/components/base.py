@@ -6,10 +6,10 @@ import uuid
 
 __all__ = [
     'WebComponent',
-    'CompositeMixin',
     'ClassMixin',
     'AppearanceMixin',
-    'OutlineMixin'
+    'OutlineMixin',
+    'AvailabilityMixin'
 ]
 
 
@@ -23,37 +23,6 @@ class WebComponent:
     def identifier(self):
         """A unique web-component identifier."""
         return self.__identifier
-
-
-class CompositeMixin:
-    """Mixin for a web-component that can encapsulate other components."""
-    def __init__(self):
-        super(CompositeMixin, self).__init__()
-        self._components = []
-
-    def append(self, *components):
-        """Adds other components.
-
-        Args:
-            components (obj): The component(s) to append. The appending 
-                components must be either <class "WebComponent"> or
-                <class "tuple"> depending on the context provided by
-                the inherited class.
-
-        Returns:
-            self
-        """
-        for i, c in enumerate(list(components)):
-            if c:
-                if isinstance(c, WebComponent) or isinstance(c, tuple):
-                    self._components.append(c)
-                else:
-                    raise TypeError(
-                        f'''Parameter "components[{i}]" expected to be either
-                        <class "WebComponent"> or <class "tuple">, but got {type(c)};
-                        '''
-                    )
-        return self
 
 
 class ClassMixin(object):
@@ -108,7 +77,6 @@ class AppearanceMixin:
         """
         self._category = 'secondary'
         return self
-
 
     def as_success(self):
         """Makes the 'success' look to a web-components.

@@ -83,7 +83,6 @@ class Input(ABC, WebComponent, ClassMixin, AvailabilityMixin):
     @abstractclassmethod
     def _receiver(self):
         """A component for rendering a receiver."""
-        raise NotImplementedError()
 
     def __str__(self):
         if self.__label:
@@ -136,7 +135,7 @@ class CheckboxInput(Input):
                 class="form-check-input" 
                 autocomplete="off"
                 {attr('checked', self.__checked)}
-                {attr('disabled', self._disabled)}>
+                {attr('disabled', self._disabled)}/>
         '''
 
 
@@ -161,7 +160,7 @@ class Freehand(Input):
             assert self._type == 'text',\
                 f'The <class "TextInput"> of type "{self._type}" can not have {self._rows} rows.'
             return f'''
-                <textarea {attr('id', self.identifier)}"
+                <textarea {attr('id', self.identifier)}
                     {attr('name', self._name)} 
                     class="form-control"
                     {attr('rows', self._rows)}
@@ -169,13 +168,13 @@ class Freehand(Input):
             '''
         else:
             return f'''
-                <input {attr('id', self.identifier)}"
+                <input {attr('id', self.identifier)}
                     {attr('name', self._name)}
                     {attr('value', self.__value)}
                     type="{self._type}"
                     class="form-control"
                     {attr('placeholder', self.__placeholder)}
-                    {attr('disabled', self._disabled)}>
+                    {attr('disabled', self._disabled)}/>
             '''
 
 
@@ -293,7 +292,7 @@ class SelectInput(Input):
                             class="form-check-input" 
                             autocomplete="off"
                             {attr('checked', option.value == self.__value)}
-                            {attr('disabled', option.disabled)}>
+                            {attr('disabled', option.disabled)}/>
                         <label class="form-check-label mr-1" 
                             {attr('for', option.identifier)}>
                             {option.name}
@@ -334,15 +333,15 @@ class HiddenInput(Input):
         self.__value = value
     
     def _receiver(self):
-        pass
-
-    def __str__(self):
         return f'''
             <input {attr('id', self.identifier)}
                 {attr('name', self._name)}
                 {attr('value', self.__value)}
-                type="hidden">
+                type="hidden"/>
         '''
+
+    def __str__(self):
+        return self._receiver()
 
 
 class FileInput(Input):
@@ -374,7 +373,7 @@ class FileInput(Input):
                         onchange="$(this).parent().parent().find('.form-control').html($(this).val().split(/[\\|/]/).pop());"
                         style="display: none;"
                         type="file"
-                        {attr('disabled', self._disabled)}>
+                        {attr('disabled', self._disabled)}/>
                 </div>
             </div>
         '''
