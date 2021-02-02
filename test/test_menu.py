@@ -58,3 +58,6 @@ def test_menu():
         </nav>
     ''')
     assert actual == expected
+
+    with pytest.raises(TypeError):
+        str(Menu(Image('samelogo'), list()))

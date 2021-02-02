@@ -27,3 +27,15 @@ def test_table():
         </table>
     ''')
     assert actual == expected
+
+    with pytest.raises(TypeError):
+        str(Table(None, [[1,2], [3,4]]))
+
+    with pytest.raises(TypeError):
+        str(Table('somevalue', [[1,2], [3,4]]))
+
+    with pytest.raises(TypeError):
+        str(Table(['A', 'B'], None))
+
+    with pytest.raises(TypeError):
+        str(Table(['A', 'B'], 'somevalue'))

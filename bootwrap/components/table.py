@@ -21,28 +21,24 @@ class Table(WebComponent, ClassMixin):
     def __init__(self, head, body):
         super().__init__()
         if head is None:
-            raise ValueError(
+            raise TypeError(
                 f'Parameter "head" must be defined, but got None;'
             )
         else:
             if not isinstance(head, list):
-                print('++++++++++++++++++++++++++++++++++++++++')
-                print(head)
-                raise ValueError(
+                raise TypeError(
                     'Parameter "head" must be 1D <class "list">,'
                     f' but got {type({head})};'
                 )
         self.__head = head
 
         if body is None:
-            raise ValueError(
+            raise TypeError(
                 f'Parameter "body" must be defined, but got None;'
             )
         else:
             if not isinstance(body, list):
-                print('++++++++++++++++++++++++++++++++++++++++')
-                print(body)
-                raise ValueError(
+                raise TypeError(
                     'Parameter "body" must be 2D <class "list">,'
                     f' but got {type({body})};'
                 )
