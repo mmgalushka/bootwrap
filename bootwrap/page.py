@@ -72,7 +72,7 @@ class Page:
                     scripts.append(resource)
                 else:
                     raise TypeError(
-                        'Page resource must be either <Link> or <Javascript>,'
+                        'Page resource must be either <class "Link"> or <class "Javascript">,'
                         f' but got: {type(resource)};',
                     )
 
@@ -98,7 +98,7 @@ class Page:
                 <body>
                     {inject(self.__menu)}
                     <div class="container" style="margin-top: 90px;">
-                        {inject(self.__content)}
+                        {inject(*self.__content)}
                     </div>
                 </body>
                 <script>hljs.initHighlightingOnLoad();</script>

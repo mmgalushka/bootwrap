@@ -182,7 +182,7 @@ class GenericPage(bw.Page):
                         link('https://github.com/mmgalushka/python-bootwrap')
                 ]
             ),
-            content=bw.Panel(*docgen(content))
+            content=docgen(content)
         )
 
 

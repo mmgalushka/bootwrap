@@ -77,7 +77,7 @@ home:
                   favicon = 'favicon.ico',
                   title='Multi-pages Application',
                   menu=MyMenu(),
-                  content=content
+                  content=[content]
               )
 
       @app.route('/')
@@ -124,7 +124,7 @@ introduction:
           - ['favicon', 'str', 'the file name for the favorite icon displayed in a browser;']
           - ['title', 'str', 'the page title, displayed in a browser;']
           - ['menu', 'Menu', 'the top-level page menu;']
-          - ['content', 'WebComponent', 'the web-component representing a page content;']
+          - ['content', 'list of WebComponent', 'the list of web-component representing a page content;']
       - The content could be any component that instantiates the WebComponent class. For example, to create a sophisticated layout you can use the Panel. It encapsulates multiple web components and can arrange them in different layouts.
     code: |
       @right
