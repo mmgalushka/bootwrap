@@ -3,6 +3,7 @@ Base web-components.
 """
 
 from .anchor import *
+from .badge import *
 from .base import *
 from .button import *
 from .form import *

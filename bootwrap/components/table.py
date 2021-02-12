@@ -27,7 +27,7 @@ class Table(WebComponent, ClassMixin):
         else:
             if not isinstance(head, list):
                 raise TypeError(
-                    'Parameter "head" must be 1D <class "list">,'
+                    'Parameter "head" must be 1D <list>,'
                     f' but got {type({head})};'
                 )
         self.__head = head
@@ -39,7 +39,7 @@ class Table(WebComponent, ClassMixin):
         else:
             if not isinstance(body, list):
                 raise TypeError(
-                    'Parameter "body" must be 2D <class "list">,'
+                    'Parameter "body" must be 2D <list>,'
                     f' but got {type({body})};'
                 )
         self.__body = body

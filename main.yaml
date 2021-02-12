@@ -214,6 +214,40 @@ components:
           Anchor('Dark').as_dark().add_classes('mt-1')
         )
 
+  # --- Badge Tab --------------------------------------------------------------
+  Badge:
+    - title: Badge
+      constructor: Badge(label)
+      arguments:
+        - ['label', 'str', 'the badge label']
+      description:
+        - A <code>Badge</code> is used for presenting short  message on web-page , ex. "process status".
+        - Use the following functions <code>as_primary()</code>, <code>as_secondary()</code>, <code>as_success()</code>, <code>as_warning()</code>, <code>as_danger()</code>, <code>as_info()</code>, <code>as_light()</code>, and <code>as_dark()</code> for changing the <code>Badge</code> appearance.
+      code: |
+        @right
+
+        Badge('Primary').as_primary()
+        Badge('Secondary').as_secondary()
+        Badge('Success').as_success()
+        Badge('Warning').as_warning()
+        Badge('Danger').as_danger()
+        Badge('Info').as_info()
+        Badge('Light').as_light()
+        Badge('Dark').as_dark()
+
+      evaluation: |
+        from bootwrap import Panel, Badge
+        output = Panel(
+          Badge('Primary').as_primary().add_classes('mt-1'),
+          Badge('Secondary').as_secondary().add_classes('mt-1'),
+          Badge('Success').as_success().add_classes('mt-1'),
+          Badge('Warning').as_warning().add_classes('mt-1'),
+          Badge('Danger').as_danger().add_classes('mt-1'),
+          Badge('Info').as_info().add_classes('mt-1'),
+          Badge('Light').as_light().add_classes('mt-1'),
+          Badge('Dark').as_dark().add_classes('mt-1')
+        )
+
   # --- Button Tab -------------------------------------------------------------
   Button:
     - title: Button

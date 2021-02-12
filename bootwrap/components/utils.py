@@ -32,7 +32,7 @@ def attr(name, value):
             else:
                 raise TypeError(
                     'Unsupported type of attribute value. '
-                    'Attribute type can be either "str" or "int", '
+                    'Attribute type can be either <str> or <int>, '
                     f'but got "{type(value)}".'
                 )
 
