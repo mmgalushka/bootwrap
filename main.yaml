@@ -203,16 +203,23 @@ components:
         Anchor('Dark').as_dark()
       evaluation: |
         from bootwrap import Panel, Anchor
-        output = Panel(
-          Anchor('Primary').as_primary().add_classes('mt-1'),
-          Anchor('Secondary').as_secondary().add_classes('mt-1'),
-          Anchor('Success').as_success().add_classes('mt-1'),
-          Anchor('Warning').as_warning().add_classes('mt-1'),
-          Anchor('Danger').as_danger().add_classes('mt-1'),
-          Anchor('Info').as_info().add_classes('mt-1'),
-          Anchor('Light').as_light().add_classes('mt-1'),
-          Anchor('Dark').as_dark().add_classes('mt-1')
+
+        panel = Panel(
+          Anchor('Primary').as_primary(),
+          Anchor('Secondary').as_secondary(),
+          Anchor('Success').as_success(),
+          Anchor('Warning').as_warning(),
+          Anchor('Danger').as_danger(),
+          Anchor('Info').as_info(),
+          Anchor('Light').as_light(),
+          Anchor('Dark').as_dark()
         )
+
+        for anchor in panel:
+          anchor.add_classes('mb-1')
+
+        output = panel
+
 
   # --- Badge Tab --------------------------------------------------------------
   Badge:
@@ -237,16 +244,22 @@ components:
 
       evaluation: |
         from bootwrap import Panel, Badge
-        output = Panel(
-          Badge('Primary').as_primary().add_classes('mt-1'),
-          Badge('Secondary').as_secondary().add_classes('mt-1'),
-          Badge('Success').as_success().add_classes('mt-1'),
-          Badge('Warning').as_warning().add_classes('mt-1'),
-          Badge('Danger').as_danger().add_classes('mt-1'),
-          Badge('Info').as_info().add_classes('mt-1'),
-          Badge('Light').as_light().add_classes('mt-1'),
-          Badge('Dark').as_dark().add_classes('mt-1')
+
+        panel = Panel(
+          Badge('Primary').as_primary(),
+          Badge('Secondary').as_secondary(),
+          Badge('Success').as_success(),
+          Badge('Warning').as_warning(),
+          Badge('Danger').as_danger(),
+          Badge('Info').as_info(),
+          Badge('Light').as_light(),
+          Badge('Dark').as_dark()
         )
+
+        for badge in panel:
+          badge.add_classes('mb-1')
+
+        output = panel
 
   # --- Button Tab -------------------------------------------------------------
   Button:
@@ -297,25 +310,33 @@ components:
         Button('Dark').as_dark().as_outline()
 
       evaluation: |
-        from bootwrap import Panel, Button
-        output = Panel(
-          Button('Primary').as_primary().add_classes('mt-1'),
-          Button('Secondary').as_secondary().add_classes('mt-1'),
-          Button('Success').as_success().add_classes('mt-1'),
-          Button('Warning').as_warning().add_classes('mt-1'),
-          Button('Danger').as_danger().add_classes('mt-1'),
-          Button('Info').as_info().add_classes('mt-1'),
-          Button('Light').as_light().add_classes('mt-1'),
-          Button('Dark').as_dark().add_classes('mt-1'),
-          Button('Primary').as_primary().as_outline().add_classes('mt-1'),
-          Button('Secondary').as_secondary().as_outline().add_classes('mt-1'),
-          Button('Success').as_success().as_outline().add_classes('mt-1'),
-          Button('Warning').as_warning().as_outline().add_classes('mt-1'),
-          Button('Danger').as_danger().as_outline().add_classes('mt-1'),
-          Button('Info').as_info().as_outline().add_classes('mt-1'),
-          Button('Light').as_light().as_outline().add_classes('mt-1'),
-          Button('Dark').as_dark().as_outline().add_classes('mt-1')
+        from bootwrap import Panel, Button, Separator
+
+        panel = Panel(
+          Button('Primary').as_primary(),
+          Button('Secondary').as_secondary(),
+          Button('Success').as_success(),
+          Button('Warning').as_warning(),
+          Button('Danger').as_danger(),
+          Button('Info').as_info(),
+          Button('Light').as_light(),
+          Button('Dark').as_dark(),
+          Separator(),
+          Button('Primary').as_primary().as_outline(),
+          Button('Secondary').as_secondary().as_outline(),
+          Button('Success').as_success().as_outline(),
+          Button('Warning').as_warning().as_outline(),
+          Button('Danger').as_danger().as_outline(),
+          Button('Info').as_info().as_outline(),
+          Button('Light').as_light().as_outline(),
+          Button('Dark').as_dark().as_outline()
         )
+
+        for component in panel:
+          if isinstance(component, Button):
+            component.add_classes('mb-1')
+
+        output = panel
 
     - title: Disable Button
       description:
@@ -621,7 +642,7 @@ components:
           Navigation.Item('Chapter 1', 'Text 1', True),
           Navigation.Item('Chapter 2', 'Text 2'),
           Navigation.Item('Chapter 3', 'Text 3')
-        ).as_vertical()
+        )
 
         Navigation(
           Navigation.Item('Chapter 1', 'Text 1', True),
@@ -640,8 +661,14 @@ components:
           Navigation.Item('Chapter 2', 'Text 2'),
           Navigation.Item('Chapter 3', 'Text 3')
         ).as_pills()
+
+        Navigation(
+          Navigation.Item('Chapter 1', 'Text 1', True),
+          Navigation.Item('Chapter 2', 'Text 2'),
+          Navigation.Item('Chapter 3', 'Text 3')
+        ).as_pills().as_vertical()
       evaluation: |
-        from bootwrap import Navigation, Panel
+        from bootwrap import Navigation, Panel, Separator
 
         navigation_links = Navigation(
           Navigation.Item('Chapter 1', 'Text 1', True),
@@ -675,9 +702,14 @@ components:
 
         output = Panel(
           navigation_links,
+          Separator(),
           navigation_links_vertical,
+          Separator(),
           navigation_tabs,
-          navigation_pills
+          Separator(),
+          navigation_pills,
+          Separator(),
+          navigation_pills_vertical
         )
 
   # --- Panel Tab --------------------------------------------------------------
@@ -690,8 +722,8 @@ components:
       description:
         - A <code>Panel</code> is a web-component for hosting other web-components and arranging them in different orders.
         - By default <code>Panel</code> has a flat layout, placing components one after another.
-        - Use the <code>with_horizontal_arrangement()</code> function to arrange components horizontally.
-        - Use the <code>with_vertical_arrangement()</code> function to arrange components vertically.
+        - Use the <code>horizontal()</code> function to arrange components horizontally.
+        - Use the <code>vertical()</code> function to arrange components vertically.
       code: |
         @right
 
@@ -700,22 +732,24 @@ components:
         comp3 = Text('Component 3')
 
         Panel(comp1, comp2,  comp3)
-        Panel(comp1, comp2,  comp3).with_horizontal_arrangement()
-        Panel(comp1, comp2,  comp3).with_vertical_arrangement()
+        Panel(comp1, comp2,  comp3).horizontal()
+        Panel(comp1, comp2,  comp3).vertical()
       evaluation: |
-        from bootwrap import Text, Panel
+        from bootwrap import Text, Panel, Separator
 
         comp1 = Text('Component 1').add_classes('border')
         comp2 = Text('Component 2').add_classes('border')
         comp3 = Text('Component 3').add_classes('border')
 
         panel_flat = Panel(comp1, comp2,  comp3)
-        panel_horizontal = Panel(comp1, comp2,  comp3).with_horizontal_arrangement()
-        panel_vertical = Panel(comp1, comp2,  comp3).with_vertical_arrangement()
+        panel_horizontal = Panel(comp1, comp2,  comp3).horizontal()
+        panel_vertical = Panel(comp1, comp2,  comp3).vertical()
 
         output = Panel(
           panel_flat,
+          Separator(),
           panel_horizontal,
+          Separator(),
           panel_vertical
         )
 
@@ -757,7 +791,7 @@ components:
     - title: Text
       constructor: Text(content)
       arguments:
-        - ['content', 'str|list|dict', 'the content to display as text']
+        - ['content', 'str | list | dict', 'the content to display as text']
       description:
         -  A <code>Text</code> is a web-component for visualizing different form of textual content such as heder, paragraph, code, etc .
       code: |

@@ -119,11 +119,11 @@ class DocSection(bw.Panel):
             bw.Panel(
                 bw.Panel(title, subtitle, constructor),
                 bw.Panel()
-            ).with_horizontal_arrangement(),
+            ).horizontal(),
             bw.Panel(
                 bw.Panel(arguments, *description,  code_left),
                 bw.Panel(code_right, image, evaluation)
-            ).with_horizontal_arrangement()
+            ).horizontal()
         )
         self.add_classes('mt-5')
 

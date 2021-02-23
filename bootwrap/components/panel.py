@@ -18,7 +18,10 @@ class Panel(WebComponent, ClassMixin):
         self.__components = components
         self.__arrangement = None
 
-    def with_vertical_arrangement(self):
+    def __iter__(self):
+        return iter(self.__components)
+
+    def vertical(self):
         """Makes the panel with the vertical arrangement of encapsulating
         elements
 
@@ -28,7 +31,7 @@ class Panel(WebComponent, ClassMixin):
         self.__arrangement = 'vertical'
         return self
 
-    def with_horizontal_arrangement(self):
+    def horizontal(self):
         """Makes the panel with the horizontal arrangement of encapsulating
         elements
 

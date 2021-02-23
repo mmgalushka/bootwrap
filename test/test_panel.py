@@ -23,11 +23,21 @@ def test_panel():
 
 
 @pytest.mark.panel
+def test_iter():
+    text1 = Text('sometext1')
+    text2 = Text('sometext2')
+    text3 = Text('sometext3')
+    panel = Panel(text1, text2 ,text3)
+    for actual, expected in zip(panel, [text1, text2, text3]):
+        assert actual == expected
+
+
+@pytest.mark.panel
 def test_horizontal_panel():
     text1 = Text('sometext1')
     text2 = Text('sometext2')
     text3 = Text('sometext3')
-    panel = Panel(text1, text2 ,text3).with_horizontal_arrangement()
+    panel = Panel(text1, text2 ,text3).horizontal()
     actual = HelperHTMLParser.parse(str(panel))
     expected = HelperHTMLParser.parse(f'''
         <div id="{panel.identifier}">
@@ -52,7 +62,7 @@ def test_vertical_panel():
     text1 = Text('sometext1')
     text2 = Text('sometext2')
     text3 = Text('sometext3')
-    panel = Panel(text1, text2 ,text3).with_vertical_arrangement()
+    panel = Panel(text1, text2 ,text3).vertical()
     actual = HelperHTMLParser.parse(str(panel))
     expected = HelperHTMLParser.parse(f'''
         <div id="{panel.identifier}">

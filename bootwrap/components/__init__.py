@@ -2,6 +2,7 @@
 Base web-components.
 """
 
+from .addon import *
 from .anchor import *
 from .badge import *
 from .base import *

@@ -53,7 +53,7 @@ def test_generic_input():
         add_classes('someclass')
     actual = HelperHTMLParser.parse(str(generic))
     expected = HelperHTMLParser.parse(f'''
-        <div class="someclass row">
+        <div class="form-group someclass row">
             <label class="col-sm-2 col-form-label d-flex align-items-center"
                 for="{generic.identifier}">
                 somelabel
@@ -71,7 +71,7 @@ def test_generic_input():
         label_on_top()
     actual = HelperHTMLParser.parse(str(generic))
     expected = HelperHTMLParser.parse(f'''
-        <div class="someclass">
+        <div class="form-group someclass">
             <label 
                 for="{generic.identifier}">
                 somelabel
@@ -88,7 +88,7 @@ def test_generic_input():
         add_classes('someclass')
     actual = HelperHTMLParser.parse(str(generic))
     expected = HelperHTMLParser.parse(f'''
-        <div class="someclass">
+        <div class="form-group someclass">
             <xyz id="{generic.identifier}">somename</xyz>
         </div>
     ''')
@@ -100,7 +100,7 @@ def test_checkbox_input():
     checkbox = CheckboxInput('somelabel', 'somename')
     actual = HelperHTMLParser.parse(str(checkbox))
     expected = HelperHTMLParser.parse(f'''
-        <div class="row">
+        <div class="form-group row">
             <label class="col-sm-2 col-form-label d-flex align-items-center"
                 for="{checkbox.identifier}">
                 somelabel
@@ -120,7 +120,7 @@ def test_checkbox_input():
         as_disabled()
     actual = HelperHTMLParser.parse(str(checkbox))
     expected = HelperHTMLParser.parse(f'''
-        <div class="row">
+        <div class="form-group row">
             <label class="col-sm-2 col-form-label d-flex align-items-center"
                 for="{checkbox.identifier}">
                 somelabel
@@ -146,7 +146,7 @@ def test_text_input():
     text = TextInput('somelabel', 'somename', 'somevalue', placeholder='someplaceholder')
     actual = HelperHTMLParser.parse(str(text))
     expected = HelperHTMLParser.parse(f'''
-        <div class="row">
+        <div class="form-group row">
             <label class="col-sm-2 col-form-label d-flex align-items-center"
                 for="{text.identifier}">
                 somelabel
@@ -167,7 +167,7 @@ def test_text_input():
     email = TextInput('somelabel', 'somename').for_email()
     actual = HelperHTMLParser.parse(str(email))
     expected = HelperHTMLParser.parse(f'''
-        <div class="row">
+        <div class="form-group row">
             <label class="col-sm-2 col-form-label d-flex align-items-center"
                 for="{email.identifier}">
                 somelabel
@@ -186,7 +186,7 @@ def test_text_input():
     password = TextInput('somelabel', 'somename').for_password()
     actual = HelperHTMLParser.parse(str(password))
     expected = HelperHTMLParser.parse(f'''
-        <div class="row">
+        <div class="form-group row">
             <label class="col-sm-2 col-form-label d-flex align-items-center"
                 for="{password.identifier}">
                 somelabel
@@ -218,7 +218,7 @@ def test_text_input():
 def test_text_area():
     def get_expected(element, disabled=False):
         return f'''
-            <div class="row">
+            <div class="form-group row">
                 <label class="col-sm-2 col-form-label d-flex align-items-center"
                     for="{element.identifier}">
                     somelabel
@@ -252,7 +252,7 @@ def test_numeric_input():
     numeric = NumericInput('somelabel', 'somename', 'somevalue', placeholder='someplaceholder')
     actual = HelperHTMLParser.parse(str(numeric))
     expected = HelperHTMLParser.parse(f'''
-        <div class="row">
+        <div class="form-group row">
             <label class="col-sm-2 col-form-label d-flex align-items-center"
                 for="{numeric.identifier}">
                 somelabel
@@ -280,7 +280,7 @@ def test_select_input():
     select = SelectInput('somelabel', 'somename', 0, options)
     actual = HelperHTMLParser.parse(str(select))
     expected = HelperHTMLParser.parse(f'''
-        <div class="row">
+        <div class="form-group row">
             <label class="col-sm-2 col-form-label d-flex align-items-center"
                 for="{select.identifier}">
                 somelabel
@@ -306,7 +306,7 @@ def test_select_input():
     select = SelectInput('somelabel', 'somename', 0, options).as_disabled()
     actual = HelperHTMLParser.parse(str(select))
     expected = HelperHTMLParser.parse(f'''
-        <div class="row">
+        <div class="form-group row">
             <label class="col-sm-2 col-form-label d-flex align-items-center"
                 for="{select.identifier}">
                 somelabel
@@ -341,7 +341,7 @@ def test_radio_input():
     radio = SelectInput('somelabel', 'somename', 0, options).as_radio()
     actual = HelperHTMLParser.parse(str(radio))
     expected = HelperHTMLParser.parse(f'''
-        <div class="row">
+        <div class="form-group row">
             <label class="col-sm-2 col-form-label d-flex align-items-center"
                 for="{radio.identifier}">
                 somelabel
@@ -397,7 +397,7 @@ def test_file_input():
     file = FileInput('somelabel', 'somename').add_classes('someclass')
     actual = HelperHTMLParser.parse(str(file))
     expected = HelperHTMLParser.parse(f'''
-        <div class="someclass row">
+        <div class="form-group someclass row">
             <label class="col-sm-2 col-form-label d-flex align-items-center"
                 for="{file.identifier}">
                 somelabel
@@ -425,7 +425,7 @@ def test_file_input():
     file = FileInput('somelabel', 'somename').as_disabled()
     actual = HelperHTMLParser.parse(str(file))
     expected = HelperHTMLParser.parse(f'''
-        <div class="row">
+        <div class="form-group row">
             <label class="col-sm-2 col-form-label d-flex align-items-center"
                 for="{file.identifier}">
                 somelabel

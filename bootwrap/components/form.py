@@ -85,6 +85,8 @@ class Input(ABC, WebComponent, ClassMixin, AvailabilityMixin):
         """A component for rendering a receiver."""
 
     def __str__(self):
+        self.add_classes('form-group')
+
         if self.__label:
             label_classes = None
             receiver_classes = None
