@@ -1,3 +1,7 @@
+<p align="center" width="100%">
+    <img width="20%" src="docs/logo.png"> 
+</p>
+
 # Python Bootwrap
 
 [![Continuous Integration Status](https://github.com/mmgalushka/python-bootwrap/workflows/CI/badge.svg)](https://github.com/mmgalushka/python-bootwrap/actions)
@@ -19,14 +23,14 @@ The following code will care three pages application with the top-level menu bar
 from flask import Flask, Markup
 from bootwrap import Page, Menu, Image, Anchor, Button, Text
 
-# Both 'logo.png' and 'favicon.ico' are stored in 'images' folder
+# Both 'logo.png' and 'favicon.ico' are stored in 'docs' folder
 app = Flask(__name__, static_folder='docs', static_url_path='')
 
 class MyMenu(Menu):
     def __init__(self):
         super().__init__(
             logo=Image('logo.png', width=32, alt='Logo'),
-            brand=Text('Bootwrap').as_strong().as_light(),
+            brand=Text('Bootwrap').as_strong().as_light().add_classes('ml-2'),
             anchors=[
                 Anchor('Home').link('/'),
                 Anchor('About').link('/about')
@@ -47,15 +51,15 @@ class MyPage(Page):
 
 @app.route('/')
 def home():
-    return Markup(MyPage(content=Text('Hone').as_heading(1)))
+    return Markup(MyPage(content=[Text('Home').as_heading(1)]))
 
 @app.route('/about')
 def about():
-    return Markup(MyPage(content=Text('About').as_heading(1)))
+    return Markup(MyPage(content=[Text('About').as_heading(1)]))
 
 @app.route('/signin')
 def signin():
-    return Markup(MyPage(content=Text('Sign In').as_heading(1)))
+    return Markup(MyPage(content=[Text('Sign In').as_heading(1)]))
 
 if __name__ == '__main__':
     app.run(debug=True)

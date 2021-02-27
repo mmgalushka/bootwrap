@@ -4,18 +4,20 @@
 # 
 # ==============================================================================
 home:
-  - title: <span class="display-4">Python Bootwrap</span>
-    subtitle: Wraps one of the most popular front-end open-source toolkit Bootstrap for quick and easy prototyping of web-based user interfaces purely in Python
+  - title: <span class="display-4">Bootwrap</span>
+    description: 
+      - <h2 class="text-muted">Pure Python wrapper for one of the most popular front-end toolkit Bootstrap, allowing quick and easy prototyping of web-based user interfaces</h2>
+    image: flash.png  
 
   - title: Installation
-    description:
-      - Use the following command to install Bootwrap
+    description: 
+      - "Use the following command to install Bootwrap:"
     code:
       pip install bootwrap
 
-  - title: Hello World Application
+  - title: Multi-Pages Application
     description:
-      - A "Hello world" Bootwrap application looks something like this
+      - "A single-page Bootwrap application looks something like this:"
     code: |
       @left
       from flask import Flask, Markup
@@ -26,48 +28,53 @@ home:
       @app.route('/')
       def hello_world():
           return Markup(
-              Page(content=Text('Hello Word!'))
+              Page(content=[Text('Hello Word!')])
           )
               
       if __name__ == '__main__':
           app.run(debug=True)
-    image: hello-world-app.png
+    image: single-page-app.png
 
   - title: Multi-Pages Application
     description:
-      - A multi-pages Bootwrap application looks something like this
+      - "A multi-pages Bootwrap application looks something like this:"
     code: |
       @left
       from flask import Flask, Markup
       from bootwrap import (
-          Page, Menu, Image,
-          Anchor, Button, Text
+        Page, Menu, Image, Anchor, Button, Text
       )
 
-      app = Flask(__name__)
+      # Both 'logo.png' and 'favicon.ico' are
+      # stored in 'docs' folder
+      app = Flask(
+        __name__,
+        static_folder='docs',
+        static_url_path=''
+      )
 
       class MyMenu(Menu):
           def __init__(self):
               super().__init__(
-                  logo = Image(
-                      'logo.png',
-                      width=32,
-                      alternative='Logo'
-                  ),
-                  brand=Text('Bootwrap').\\
-                      as_strong().\\
-                          as_light(),
+                  logo=Image(
+                    'logo.png',
+                    width=32,
+                    alt='Logo'),
+                  brand=Text('Bootwrap').\
+                    as_strong().\
+                    as_light().\
+                    add_classes('ml-2'),
                   anchors=[
-                      Anchor('Home').\\
-                          link('/'),
-                      Anchor('About').\\
-                          link('/about'),
+                      Anchor('Home').\
+                      link('/'),
+                      Anchor('About').\
+                      link('/about')
                   ], 
                   actions=[
-                      Button('Sign In').\\
-                          as_outline().\\
-                          as_light().\\
-                          link('/signin')
+                      Button('Sign In').\
+                      as_outline().\
+                      as_light().\
+                      link('/signin')
                   ]
               )
 
@@ -75,30 +82,37 @@ home:
           def __init__(self, content):
               super().__init__(
                   favicon = 'favicon.ico',
-                  title='Multi-pages Application',
+                  title='Hello World Application',
                   menu=MyMenu(),
-                  content=[content]
+                  content=content
               )
 
       @app.route('/')
       def home():
           return Markup(
-              MyPage(content=Text('Home').\\
-                  as_heading(1))
+            MyPage(content=[
+              Text('Home').as_heading(1)
+              ]
+            )
           )
 
       @app.route('/about')
       def about():
           return Markup(
-              MyPage(content=Text('About').\\
-                  as_heading(1))
+            MyPage(content=[
+              Text('About').as_heading(1)
+            ]
           )
+        )
 
       @app.route('/signin')
       def signin():
           return Markup(
-              MyPage(content=Text('Sign In').\\
-                  as_heading(1))
+            MyPage(
+              content=[
+                Text('Sign In').as_heading(1)
+              ]
+            )
           )
 
       if __name__ == '__main__':
@@ -117,14 +131,14 @@ introduction:
     image: page-n-menu.png  
   
   - title: Page
+    constructor: Page(favicon, title, menu, content)
+    arguments:
+      - ['favicon', 'str', 'the file name for the favorite icon displayed in a browser;']
+      - ['title', 'str', 'the page title, displayed in a browser;']
+      - ['menu', 'Menu', 'the top-level page menu;']
+      - ['content', 'list', 'the list of <code>WebComponent</code> representing a page content;']
     description:
       - Page contains the top-level navigation menu and area for rendering user content. Its initializations consist of the following parameters
-      - head: ['Param', 'Type', 'Description']
-        body:
-          - ['favicon', 'str', 'the file name for the favorite icon displayed in a browser;']
-          - ['title', 'str', 'the page title, displayed in a browser;']
-          - ['menu', 'Menu', 'the top-level page menu;']
-          - ['content', 'list of WebComponent', 'the list of web-component representing a page content;']
       - The content could be any component that instantiates the WebComponent class. For example, to create a sophisticated layout you can use the Panel. It encapsulates multiple web components and can arrange them in different layouts.
     code: |
       @right
@@ -140,14 +154,14 @@ introduction:
           )
 
   - title: Menu
+    constructor: Menu(logo, brand, anchors, actions)
+    arguments:
+      - ['logo', 'Image', 'the <code>Image</code> representing a company or organization logo;']
+      - ['brand', 'Text', 'the <code>Text</code> representing a company, organization, or a project;']
+      - ['anchors', 'list', 'the the list of <code>Anchor</code> allowing to navigate to the different pages from the top-level menu;']
+      - ['actions', 'list', 'the list of <code>Button</code> allowing to perform  specific actions such as login, logout, etc.;']
     description:
       - The menu represents the top-level navigation located at the top of a page. Its initializations consist of the following parameters
-      - head: ['Param', 'Type', 'Description']
-        body:
-          - ['logo', 'Image', 'the images representing a company or organization logo;']
-          - ['brand', 'Text', 'the name representing a company, organization, or a project;']
-          - ['anchors', 'list of Anchor', 'the the list of anchors allowing to navigate to the different pages from the top-level menu;']
-          - ['actions', 'list of Button', 'the list of buttons allowing to perform  specific actions such as login, logout, etc.;']
     code: |
       @right
       from bootwrap import Menu

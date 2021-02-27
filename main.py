@@ -37,8 +37,8 @@ class DocArguments(bw.Panel):
         body = []
         for row in content:
             body.append([
-                bw.Text(f'<code>{row[0]}</code>'),
-                bw.Text(row[1]),
+                bw.Text(f'<i style="white-space: nowrap">{row[0]}</i>'),
+                bw.Text(f'<code style="white-space: nowrap">{row[1]}</code>'),
                 bw.Text(row[2]).as_secondary()
             ])
         super().__init__(
@@ -101,7 +101,7 @@ class DocSection(bw.Panel):
                             bw.Table(
                                 head=fragment['head'],
                                 body=fragment['body']
-                            ).add_classes('table-sm')
+                            )
                         )
                     except KeyError as err:
                         raise AssertionError(
