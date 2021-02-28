@@ -1,5 +1,5 @@
 <p align="center" width="100%">
-    <img width="20%" src="docs/logo.png"> 
+    <img width="96px" src="docs/logo.png"> 
 </p>
 
 # Python Bootwrap
@@ -11,9 +11,7 @@
 
 This is a Python library for rapid developing of web-based user interfaces (WebUI). It helps creating WebUI using Python code only and can be used in conjunction with different web-development frameworks such as [Flask](https://palletsprojects.com/p/flask/). Under the hood, this library wraps one of the most popular front-end toolkit [Bootstrap](https://getbootstrap.com/). For more information, please visit the Python Bootwrap [documentation](https://mmgalushka.github.io/python-bootwrap/).
 
-## Who this library for?
-
-Python Bootwrap would be useful for developers who want to build interactive web-application quickly and prefer focusing more on business logic rather than crafting HTML, CSS and Javascript. If your goal is to create a rich user interface with a lot of flexibility, other libraries potentially will suits you better.
+Python Bootwrap would be useful for developers who want to build interactive web-application quickly and prefer focusing more on business logic rather than crafting HTML, CSS and Javascript.
 
 ## Hello World Example
 
@@ -65,6 +63,7 @@ if __name__ == '__main__':
     app.run(debug=True)
 ```
 
-This is a result.
+This is a result:
 
-![Hello World Application](docs/multi-pages-app.png)
+<img width="600px" src="docs/multi-pages-app.png"> 
+
