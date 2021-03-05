@@ -3,13 +3,15 @@ Base web-component and mixins.
 """
 
 import uuid
+import enum
 
 __all__ = [
     'WebComponent',
     'ClassMixin',
     'AppearanceMixin',
     'OutlineMixin',
-    'AvailabilityMixin'
+    'AvailabilityMixin',
+    'Breakpoint'
 ]
 
 
@@ -163,3 +165,17 @@ class AvailabilityMixin:
         """
         self._disabled = True
         return self
+
+
+class Breakpoint(str, enum.Enum):
+    """Breakpoints are defined by Bootstrap and mostly based on minimum
+    viewport widths and allow us to scale up elements as the viewport
+    changes.
+    
+    https://getbootstrap.com/docs/4.0/layout/overview/#responsive-breakpoints
+    """
+    XS = 'xs'
+    SM = 'sm'
+    MD = 'md'
+    LG = 'lg'
+    XL = 'xl'

@@ -34,19 +34,16 @@ QUOTES_TEXT = [
 class DocArguments(bw.Panel):
     def __init__(self, content):
 
-        body = []
-        for row in content:
-            body.append([
-                bw.Text(f'<i style="white-space: nowrap">{row[0]}</i>'),
-                bw.Text(f'<code style="white-space: nowrap">{row[1]}</code>'),
-                bw.Text(row[2]).as_secondary()
-            ])
-        super().__init__(
-            bw.Table(
-                head=['Name', 'Type', 'Description'],
-                body=body
-            ).add_classes('table-sm table-bordered')
-        )
+
+        table = bw.Table(
+            head=['Name', 'Type', 'Description'],
+            body=content
+        ).as_small().as_bordered()
+        table.body.transform(0, bw.TableEntity.VALUE, lambda x: f'<i style="white-space: nowrap">{x}</i>')
+        table.body.transform(1, bw.TableEntity.VALUE, lambda x: f'<code>{x}</code>')
+        table.body.transform(2, bw.TableEntity.VALUE, lambda x: f'<span class="text-secondary">{x}</span>')
+
+        super().__init__(table)
 
 
 class DocSection(bw.Panel):
@@ -126,16 +123,6 @@ class DocSection(bw.Panel):
             ).horizontal()
         )
         self.add_classes('mt-5')
-
-
-
-
-
-
-
-
-
-
 
 
 class GenericPage(bw.Page):

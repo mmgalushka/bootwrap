@@ -15,7 +15,7 @@ home:
     code:
       pip install bootwrap
 
-  - title: Multi-Pages Application
+  - title: Single-Page Application
     description:
       - "A single-page Bootwrap application looks something like this:"
     code: |
@@ -767,7 +767,7 @@ components:
           panel_vertical
         )
 
-  # --- Text Tab ---------------------------------------------------------------
+  # --- Table Tab ---------------------------------------------------------------
 
   Table:
     - title: Table
@@ -798,6 +798,121 @@ components:
             ['Value 31', 'Value 32', 'Value 33'],
           ]
         )
+
+    - title: Striped Table
+      description:
+        - Use <code>as_striped()</code> method to add zebra-striping to any table row within the table body.
+      code: |
+        @left
+          Table(...).as_striped()
+      evaluation: |
+        from bootwrap import Table
+
+        output = Table(
+          ['Column 1', 'Column 2', 'Column 3'],
+          [
+            ['Value 11', 'Value 12', 'Value 13'],
+            ['Value 21', 'Value 22', 'Value 23'],
+            ['Value 31', 'Value 32', 'Value 33'],
+          ]
+        ).as_striped()
+
+    - title: Bordered Table
+      description:
+        - Use <code>as_bordered()</code> method to add borders on all sides of the table and cells.
+      code: |
+        @left
+          Table(...).as_bordered()
+      evaluation: |
+        from bootwrap import Table
+
+        output = Table(
+          ['Column 1', 'Column 2', 'Column 3'],
+          [
+            ['Value 11', 'Value 12', 'Value 13'],
+            ['Value 21', 'Value 22', 'Value 23'],
+            ['Value 31', 'Value 32', 'Value 33'],
+          ]
+        ).as_bordered()
+
+    - title: Small Table
+      description:
+        - Use <code>as_small()</code> method to make tables more compact by cutting cell padding in half.
+      code: |
+        @left
+          Table(...).as_small()
+      evaluation: |
+        from bootwrap import Table
+
+        output = Table(
+          ['Column 1', 'Column 2', 'Column 3'],
+          [
+            ['Value 11', 'Value 12', 'Value 13'],
+            ['Value 21', 'Value 22', 'Value 23'],
+            ['Value 31', 'Value 32', 'Value 33'],
+          ]
+        ).as_small()
+
+    - title: Dark Table
+      description:
+        - Use <code>as_dark()</code> method to invert the colors—with light text on dark backgrounds.
+      code: |
+        @left
+          Table(...).as_dark()
+      evaluation: |
+        from bootwrap import Table
+
+        output = Table(
+          ['Column 1', 'Column 2', 'Column 3'],
+          [
+            ['Value 11', 'Value 12', 'Value 13'],
+            ['Value 21', 'Value 22', 'Value 23'],
+            ['Value 31', 'Value 32', 'Value 33'],
+          ]
+        ).as_dark()
+
+    - title: Responsive Table
+      description:
+        - Use <code>as_responsive(breakpoint=Breakpoint.SM)</code> method to create responsive table, with able to adjust columns width for different resolution.  The responsive function gets the breakpoint as a parameter. The default breakpoint is <code>Breakpoint.SM</code>
+      code: |
+        @right
+          Table(...).as_responsive(Breakpoint.SM)
+
+
+    - title: Light/Dark Table Header
+      description:
+        - Use the table property <code>head</code> to access to the table header.
+        - Use <code>as_light()</code> method to show dark header text on light backgrounds. Use <code>as_dark()</code> method to show light header text on dark backgrounds.
+      code: |
+        @left
+        table_light_head = Table(...)
+        table.head.as_light()
+
+        table_dark_head = Table(...)
+        table.head.as_dark()
+      evaluation: |
+        from bootwrap import Table, Panel
+
+        table_light_head = Table(
+          ['Column 1', 'Column 2', 'Column 3'],
+          [
+            ['Value 11', 'Value 12', 'Value 13'],
+            ['...', '...', '...']
+          ]
+        )
+        table_light_head.head.as_light()
+
+        table_dark_head = Table(
+          ['Column 1', 'Column 2', 'Column 3'],
+          [
+            ['Value 11', 'Value 12', 'Value 13'],
+            ['...', '...', '...']
+          ]
+        )
+        table_dark_head.head.as_dark()
+
+        output = Panel(table_light_head, table_dark_head)
+
 
   # --- Text Tab ---------------------------------------------------------------
 

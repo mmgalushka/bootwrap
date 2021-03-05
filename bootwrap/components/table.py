@@ -2,13 +2,26 @@
 A table.
 """
 
+from enum import Enum
+
 from .base import (
     WebComponent,
-    ClassMixin
+    ClassMixin,
+    Breakpoint
 )
 from .utils import inject, attr
 
-__all__ = [ 'Table' ]
+__all__ = [ 'Table', 'TableEntity' ]
+
+
+class TableEntity(Enum):
+    """The body entity to enumerator."""
+    VALUE = 'value'
+    """The cell value"""
+    CELL = 'cell'
+    """The cell class"""
+    ROW = 'row'
+    """The row class"""
 
 
 class Table(WebComponent, ClassMixin):
@@ -20,60 +33,182 @@ class Table(WebComponent, ClassMixin):
     """
     def __init__(self, head, body):
         super().__init__()
-        if head is None:
-            raise TypeError(
-                f'Parameter "head" must be defined, but got None;'
-            )
-        else:
-            if not isinstance(head, list):
-                raise TypeError(
-                    'Parameter "head" must be 1D <list>,'
-                    f' but got {type({head})};'
-                )
-        self.__head = head
 
-        if body is None:
-            raise TypeError(
-                f'Parameter "body" must be defined, but got None;'
-            )
-        else:
-            if not isinstance(body, list):
-                raise TypeError(
-                    'Parameter "body" must be 2D <list>,'
-                    f' but got {type({body})};'
-                )
-        self.__body = body
+        class Head(WebComponent):
+            """The table head."""
+            def __init__(self, head):
+                if head is None:
+                    self.__head = []
+                else:
+                    if not isinstance(head, list):
+                        raise TypeError(
+                            'Parameter "head" must be 1D <list>,'
+                            f' but got {type({head})};'
+                        )
+                    self.__head = head
+                self.__class = None
+
+            def __len__(self):
+                return len(self.__head)    
+
+            def as_light(self):
+                """Makes the table head appears as light gray."""
+                self.__class = 'thead-light'
+            
+            def as_dark(self):
+                """Makes the table head appears as dark gray."""
+                self.__class = 'thead-dark'
+
+            def __str__(self):
+                if len(self) == 0:
+                    return ''
+                else:
+                    columns = []
+                    for name in self.__head:
+                        columns.append(f'''
+                            <th scope="col">{name}</th>
+                        ''')
+                    return f'''
+                        <thead {attr('class', self.__class)}>
+                            <tr>
+                                {inject(*columns)}
+                            </tr>
+                        </thead>
+                    '''
+
+        class Body(WebComponent):
+            """The table body."""
+            def __init__(self, body):
+                if body is None:
+                    self.__body = []
+                else:
+                    if not isinstance(body, list):
+                        raise TypeError(
+                            'Parameter "body" must be 2D <list>,'
+                            f' but got {type({body})};'
+                        )
+                    self.__body = body
+                self.__trans = {}
+
+            def __len__(self):
+                return len(self.__body)    
+
+            def transform(self, index, entity, fn):
+                """Defines a function to transform a cell value
+                
+                Args:
+                    index (int): The column index to which transformation
+                        is applied;
+                    entity (Entity): The entity to which transformation
+                        is applied;
+                    fn (func): The function to use for transformation. 
+                """
+                if index not in self.__trans:
+                    self.__trans[index] = {
+                        TableEntity.VALUE: None,
+                        TableEntity.CELL: None,
+                        TableEntity.ROW: None
+                    }
+                if self.__trans[index][entity] is None:
+                    self.__trans[index][entity] = fn
+                else:
+                    raise ValueError(
+                        f'The transformation for {entity} in column {index} '
+                        'already defined;'
+                    )
+
+            def __str__(self):
+                if len(self) == 0:
+                    return ''
+                else:
+                    records = []
+                    for row in self.__body:
+                        row_classes = []
+                        record = []
+                        for index, value in enumerate(row):
+                            cell_value = value
+                            cell_classes = ''
+                            if index in self.__trans:
+                                if self.__trans[index][TableEntity.VALUE] is not None:
+                                    cell_value = self.__trans[index][TableEntity.VALUE](cell_value)
+                                if self.__trans[index][TableEntity.CELL] is not None:
+                                    cell_classes = self.__trans[index][TableEntity.CELL](value)
+                                if self.__trans[index][TableEntity.ROW] is not None:
+                                    row_classes.append(self.__trans[index][TableEntity.ROW](value))
+                            if len(record) == 0:
+                                record.append(f'<td scope="row" {attr("class", cell_classes)}>{cell_value}</td>')
+                            else:
+                                record.append(f'<td {attr("class", cell_classes)}>{cell_value}</td>')
+                        records.append(f'<tr {attr("class", " ".join(row_classes))}>{"".join(record)}</tr>')
+
+                    return f'''
+                        <tbody>
+                            {inject(*records)}
+                        </tbody>
+                    '''
+
+        self.__head = Head(head)
+        self.__body = Body(body)
+
+    @property
+    def head(self):
+        """The table head."""
+        return self.__head
+
+    @property
+    def body(self):
+        """The table body."""
+        return self.__body
+
+    def as_striped(self):
+        """Adds zebra-striping to any table row within the table body.
+
+        Returns:
+            self
+        """
+        self.add_classes('table-striped')
+        return self
+
+    def as_bordered(self):
+        """Adds borders on all sides of the table and cells.
+
+        Returns:
+            self
+        """
+        self.add_classes('table-bordered')
+        return self
+
+    def as_small(self):
+        """Make tables more compact by cutting cell padding in half.
+
+        Returns:
+            self
+        """
+        self.add_classes('table-sm')
+        return self
+
+    def as_dark(self):
+        """Inverts the colors—with light text on dark backgrounds.
+
+        Returns:
+            self
+        """
+        self.add_classes('table-dark')
+        return self
+
+    def as_responsive(self, breakpoint=Breakpoint.SM):
+        """Create responsive tables.
+
+        Args:
+            breakpoint (str): The breakpoint to apply.
+
+        Returns:
+            self
+        """
+        self.add_classes(f'table-responsive-{breakpoint}')
+        return self
 
     def __str__(self):
-        columns = []
-        for name in self.__head:
-            columns.append(f'''
-                <th scope="col">{name}</th>
-            ''')
-        thead = f'''
-            <thead>
-                <tr>
-                    {inject(*columns)}
-                </tr>
-            </thead>
-        '''
-
-        records = []
-        for row in self.__body:
-            record = []
-            for value in row:
-                if len(record) == 0:
-                    record.append(f'<td scope="row">{value}</td>')
-                else:
-                    record.append(f'<td>{value}</td>')
-            records.append(f'<tr>{"".join(record)}</tr>')
-
-        tbody = f'''
-            <tbody>
-                {inject(*records)}
-            </tbody>
-        '''
-
         classes = 'table'
         if self.classes:
             classes += f' {self.classes}'
@@ -81,6 +216,6 @@ class Table(WebComponent, ClassMixin):
         return f'''
             <table id="{self.identifier}"
                 {attr('class', classes)}>
-                {thead} {tbody}
+                {self.__head} {self.__body}
             </table>
         '''
