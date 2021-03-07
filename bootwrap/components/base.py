@@ -31,7 +31,7 @@ class ClassMixin(object):
     """Mixin for a web-component which class can be amended."""
     def __init__(self):
         super(ClassMixin, self).__init__()
-        self.__classes = set()
+        self.__classes = []
 
     def add_classes(self, classes):
         """Adds other classes.
@@ -44,7 +44,8 @@ class ClassMixin(object):
         """
         for c in classes.split(' '):
             if len(c)>0:
-                self.__classes.add(c)
+                if c not in self.__classes:
+                    self.__classes.append(c)
         return self
 
     @property

@@ -11,9 +11,9 @@ home:
 
   - title: Installation
     description: 
-      - "Use the following command to install Bootwrap:"
+      - "Use the following command to install Python Bootwrap (<span class='text-danger'>Please note, the PIP install is currently unavailable. The first version of Python Bootstrap should be released toward the end of March 2021.</span>)"
     code:
-      pip install bootwrap
+      ~$ pip install bootwrap
 
   - title: Single-Page Application
     description:
@@ -185,9 +185,9 @@ components:
   # --- Anchor Tab -------------------------------------------------------------
   Anchor:
     - title: Anchor
-      constructor: Anchor(name)
+      constructor: Anchor(inner=None)
       arguments:
-        - ['name', 'str', 'the anchor name']
+        - ['inner', 'obj', 'the object (usually <code>str</code> or <code>WebComponent</code>) wrapped by an anchor']
       description:
         - An <code>Anchor</code> is used for creating a hyperlink to pages, files, email addresses, locations on the same page, or other web-resources defined by a URL address. The <i>Bootwrap</i> also uses the <code>Anchor</code> in conjunction with other web-components, for example, in creating a navigation menu.
         - Use the <code>link(href)</code> function to connect the <code>Anchor</code> to another web-resource defined by the <code>href</code> parameter.
@@ -635,6 +635,93 @@ components:
       code: |
         @right
         Link('https://cdnjs.cloudflare.com/.../all.min.css')
+
+
+  # --- List Tab ---------------------------------------------------------------
+
+  List:
+    - title: List
+      constructor: Link(*items)
+      arguments:
+        - ['items', 'list', 'the list items']
+      description:
+        - A <code>List</code> is a web-component for showing a list of your defined items. It could be a list of folders/files in your specified directory, books, shares emails, etc.
+      code: |
+        @right
+        List(*[List.Item('Item %d' % i) for i in range(3)])
+      evaluation: |
+        from bootwrap import List
+
+        items = [
+          List.Item('Item 0'),  
+          List.Item('Item 1'),
+          List.Item('Item 2')
+        ]
+        output = List(*items)
+
+    - title: List.Item
+      constructor: List.Item(*items)
+      arguments:
+        - ['title', 'obj', 'the first-level line to define an item name.']
+        - ['description', 'obj', 'the second-level line to show additional information about an item (default=None).']
+        - ['marker', 'obj', 'the object levelled with the item title and justified to the right element to present such information as a timestamp or badge (default=None).']
+        - ['icon', 'obj', 'Tte object justified to the left to present an item icon (default=None).']
+        - ['custom', 'obj', 'The object justified the right to present actions that can be applied to an item(default=None).']
+      description:
+        - A <code>List.Item</code> is a web-component for constructing a <code>List</code> item. Its parameters are named to fit a general use-case. But you can adapt its behaviour to suit your application. For example, the custom parameter can be used to visualize a share price represented by an item or to provide action(s) with a share or both. 
+        - <small>Please note, that share prices in the example are fictional and do not represent the real value of companies shares.</small>
+      code: |
+        @right
+        List(
+          List.Item(
+              'Google (NASDAQ: GOOGL)',
+              description= 'Price for a single Google share',
+              icon=Icon('fab fa-google').as_primary(),
+              marker="12:04:58 12/01/2021",
+              custom=Text('$1000').as_heading(3).as_success()
+          ),
+          List.Item(
+              'LinkedIn (NASDAQ: LNKD)',
+              description= 'Price for a single LinkedIn share',
+              icon=Icon('fab fa-linkedin').as_primary(),
+              marker="12:04:58 12/01/2021",
+              custom=Text('$837').as_heading(3).as_danger()
+          ),
+          List.Item(
+              'Amazon (NASDAQ: AMZN)',
+              description= 'Price for a single Amazon share',
+              icon=Icon('fab fa-amazon').as_primary(),
+              marker="12:04:58 12/01/2021",
+              custom=Text('$1054').as_heading(3).as_danger()
+          )
+        )
+      evaluation: |
+        from bootwrap import List, Text, Icon
+
+        items = [
+          List.Item(
+              'Google (NASDAQ: GOOGL)',
+              description= 'Price for a single Google share',
+              icon=Icon('fab fa-google').add_classes('mt-1').as_primary(),
+              marker="12:04:58 12/01/2021",
+              custom=Text('$1000').as_heading(3).as_success()
+          ),
+          List.Item(
+              'LinkedIn (NASDAQ: LNKD)',
+              description= 'Price for a single LinkedIn share',
+              icon=Icon('fab fa-linkedin').add_classes('mt-1').as_primary(),
+              marker="12:04:58 12/01/2021",
+              custom=Text('$837').as_heading(3).as_danger()
+          ),
+          List.Item(
+              'Amazon (NASDAQ: AMZN)',
+              description= 'Price for a single Amazon share',
+              icon=Icon('fab fa-amazon').add_classes('mt-1').as_primary(),
+              marker="12:04:58 12/01/2021",
+              custom=Text('$1054').as_heading(3).as_danger()
+          )
+        ]
+        output = List(*items)
 
   # --- Navigation Tab ---------------------------------------------------------
 

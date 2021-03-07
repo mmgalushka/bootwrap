@@ -1,5 +1,3 @@
-# Copyright (c) 2019 AUROMIND Ltd. All rights reserved.
-
 """
 An image.
 """
