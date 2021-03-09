@@ -185,19 +185,20 @@ components:
   # --- Anchor Tab -------------------------------------------------------------
   Anchor:
     - title: Anchor
-      constructor: Anchor(inner=None)
+      constructor: Anchor(inner=None, role=None)
       arguments:
         - ['inner', 'obj', 'the object (usually <code>str</code> or <code>WebComponent</code>) wrapped by an anchor']
+        - ['role', 'str', 'he anchor role. This parameter is not used in a typical scenario. It usually set by other web-components, which is using the anchor to introduce a specific action.  ']
       description:
         - An <code>Anchor</code> is used for creating a hyperlink to pages, files, email addresses, locations on the same page, or other web-resources defined by a URL address. The <i>Bootwrap</i> also uses the <code>Anchor</code> in conjunction with other web-components, for example, in creating a navigation menu.
         - Use the <code>link(href)</code> function to connect the <code>Anchor</code> to another web-resource defined by the <code>href</code> parameter.
       code: |
         @right
-        Anchor('Search').link('https://www.google.com/')
+        Anchor('Google Search').link('https://www.google.com/')
       evaluation: |
         from bootwrap import Panel, Anchor
         output = Panel(
-          Anchor('Search').\
+          Anchor('Google Search').\
             link('https://www.google.com/')
         )
 
@@ -287,11 +288,11 @@ components:
       code: |
         @right
         # the button without style
-        Button('Search').link('https://www.google.com/')
+        Button('Google Search').link('https://www.google.com/')
       evaluation: |
         from bootwrap import Panel, Button
         output = Panel(
-          Button('Search').\
+          Button('Google Search').\
             link('https://www.google.com/'),
         )
 

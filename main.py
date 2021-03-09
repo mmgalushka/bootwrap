@@ -47,11 +47,22 @@ class DocArguments(bw.Panel):
 
 
 class DocSection(bw.Panel):
-    def __init__(self, content):
-        title = None
-        if 'title' in content:
-            title = bw.Text(content['title']).as_heading(1)
 
+    def __init__(self, content):
+
+        class Title(bw.Anchor):
+            def __init__(self, text):
+                super().__init__(bw.Text(text).as_heading(1))
+                self.__text = text
+
+            @property
+            def text(self):
+                return self.__text
+
+        self.__title = None
+        if 'title' in content:
+            self.__title = Title(content['title'])
+        
         subtitle = None
         if 'subtitle' in content:
             subtitle = bw.Text(content['subtitle']).as_heading(2).add_classes('text-muted')
@@ -114,15 +125,21 @@ class DocSection(bw.Panel):
 
         super().__init__(
             bw.Panel(
-                bw.Panel(title, subtitle, constructor),
+                bw.Panel(self.__title, subtitle, constructor),
                 bw.Panel()
             ).horizontal(),
             bw.Panel(
                 bw.Panel(arguments, *description,  code_left),
                 bw.Panel(code_right, image, evaluation)
-            ).horizontal()
+            ).horizontal(),
+            bw.Anchor(bw.Text('Back on Top').as_small()).link('#')
         )
         self.add_classes('mt-5')
+
+    @property
+    def title(self):
+        """The section title"""
+        return self.__title
 
 
 class GenericPage(bw.Page):
@@ -133,14 +150,29 @@ class GenericPage(bw.Page):
     """
     def __init__(self, content):
 
+        class NavLink(bw.Anchor):
+            def __init__(self, section):
+                super().__init__(bw.Text(section.title.text).as_small())
+                self.link(section.title)
+
         def docgen(content):
             if isinstance(content, dict):
                 items = []
                 for name, tab in content.items():
+                    sections = list(map(DocSection, tab))
+
+                    toc = None
+                    if len(sections) > 2:
+                        navlinks = list(map(NavLink, sections))
+                        toc = bw.Panel(
+                            bw.Text('Navigate To').as_heading(6), 
+                            *navlinks
+                        ).add_classes('mt-2 p-2 border bg-light').horizontal()
+
                     items.append(
                             bw.Navigation.Item(
                             name, 
-                            bw.Panel(*list(map(DocSection, tab))),
+                            bw.Panel(toc, *sections),
                             len(items)==0
                         )
                     )

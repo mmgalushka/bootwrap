@@ -11,7 +11,8 @@ __all__ = [
     'AppearanceMixin',
     'OutlineMixin',
     'AvailabilityMixin',
-    'Breakpoint'
+    'Breakpoint',
+    'Action'
 ]
 
 
@@ -180,3 +181,9 @@ class Breakpoint(str, enum.Enum):
     MD = 'md'
     LG = 'lg'
     XL = 'xl'
+
+
+class Action(str, enum.Enum):
+    """The most common actions."""
+    LINK = 'link'
+    TOGGLE = 'toggle'

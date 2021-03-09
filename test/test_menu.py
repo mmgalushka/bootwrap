@@ -36,12 +36,10 @@ def test_menu():
             <div class="collapse navbar-collapse" id="menu">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item">
-                        <a id="{anchor1.identifier}" class="nav-link ml-2"
-                            href="#">Menu1</a>
+                        <a id="{anchor1.identifier}" class="nav-link ml-2">Menu1</a>
                     </li>
                     <li class="nav-item">
-                        <a id="{anchor2.identifier}" class="nav-link ml-2" 
-                            href="#">Menu2</a>
+                        <a id="{anchor2.identifier}" class="nav-link ml-2">Menu2</a>
                     </li>
                 </ul>
 

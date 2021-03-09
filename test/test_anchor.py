@@ -4,7 +4,7 @@ Test for bootwrap/components/anchor.py
 
 import pytest
 
-from bootwrap import Anchor, WebComponent
+from bootwrap import Anchor, Panel
 
 from .helper import HelperHTMLParser
 
@@ -14,7 +14,7 @@ def test_anchor():
     anchor = Anchor('somename', 'somerole').add_classes('someclass').as_primary()
     actual = HelperHTMLParser.parse(str(anchor))
     expected = HelperHTMLParser.parse(f'''
-        <a id="{anchor.identifier}" class="text-primary someclass" href="#"
+        <a id="{anchor.identifier}" class="text-primary someclass"
             role="somerole">
             somename
         </a>
@@ -36,12 +36,14 @@ def test_link_anchor():
 
 @pytest.mark.anchor
 def test_toggle_anchor():
-    target = WebComponent()
+    target = Panel()
     anchor = Anchor('somename').toggle(target)
     actual = HelperHTMLParser.parse(str(anchor))
     expected = HelperHTMLParser.parse(f'''
-        <a id="{anchor.identifier}" href="#{target.identifier}"
-            data-toggle="tab">
+        <a id="{anchor.identifier}"
+            href="#{target.identifier}"
+            data-toggle="tab"
+            role="tab">
             somename
         </a>
     ''')

@@ -82,16 +82,13 @@ class Navigation(WebComponent, ClassMixin):
             panel_classes = "tab-pane fade"
             if item.active:
                 panel_classes += " active show"
-            panel = Panel(item.content).\
-                add_classes(panel_classes)
+            panel = Panel(item.content).add_classes(panel_classes)
             panels.append(panel)
 
             anchor_classes = "nav-link"
             if item.active:
                 anchor_classes += " active"
-            anchor = Anchor(item.name, 'tab').\
-                add_classes(anchor_classes).\
-                toggle(panel)
+            anchor = Anchor(item.name).add_classes(anchor_classes).toggle(panel)
             menus.append(
                 f'''
                     <li class="nav-item">
