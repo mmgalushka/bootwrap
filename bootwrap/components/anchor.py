@@ -7,16 +7,18 @@ import warnings
 from .base import (
     WebComponent,
     ClassMixin,
+    ActionMixin,
     AppearanceMixin,
     Action
 )
 from .panel import Panel
+from .dialog import Dialog 
 from .utils import attr, inject
 
 __all__ = [ 'Anchor' ]
 
 
-class Anchor(WebComponent, ClassMixin, AppearanceMixin):
+class Anchor(WebComponent, ClassMixin, ActionMixin, AppearanceMixin):
     """A web-component for an anchor.
     
     Args:
@@ -29,45 +31,6 @@ class Anchor(WebComponent, ClassMixin, AppearanceMixin):
         super().__init__()
         self.__inner = inner
         self.__role = role
-        self.__action = None
-        self.__target = None
-
-    def link(self, href):
-        """Links to the web-resource.
-
-        Args:
-            href (WebComponent): The URL of the page the link goes to.
-        
-        Returns:
-            self
-        """
-        self.__action = Action.LINK
-        self.__target = href
-        # if isinstance(href, str):
-        #     self.__target = href
-        # else:
-        #     raise TypeError(
-        #         f'Anchor hyper-link must be <class "str">, but got: {type(href)};',
-        #     )
-        return self
-
-    def toggle(self, target):
-        """Toggles an other web-component.
-
-        Args:
-            target (WebComponent): The web-component to toggle.
-        
-        Returns:
-            self
-        """
-        self.__action = Action.TOGGLE
-        if isinstance(target, WebComponent):
-            self.__target = target
-        else:
-            raise TypeError(
-                f'Anchor hyper-link must be <class "WebComponent">, but got: {type(target)};',
-            )
-        return self
 
     def __str__(self):
         name = None
@@ -77,11 +40,11 @@ class Anchor(WebComponent, ClassMixin, AppearanceMixin):
         if self._category is not None:
             self.add_classes(f'text-{self._category}')
 
-        if self.__action == Action.LINK:
-            if isinstance(self.__target, WebComponent):
-                href = f'#{self.__target.identifier}'
-            else:
-                href = self.__target
+        if self._action == Action.LINK:
+            if isinstance(self._target, WebComponent):
+                href = f'#{self._target.identifier}'
+            else: # type(target) == str
+                href = self._target
             return f'''
                 <a {attr("id", self.identifier)}
                     {attr("class", self.classes)}
@@ -90,7 +53,7 @@ class Anchor(WebComponent, ClassMixin, AppearanceMixin):
                     {inject(self.__inner)}
                 </a>
             '''
-        elif self.__action == Action.TOGGLE:
+        elif self._action == Action.TOGGLE:
             if self.__role:
                 warnings.warn(
                     'When you call the "Anchor" toggle-function it is advisable '
@@ -99,19 +62,30 @@ class Anchor(WebComponent, ClassMixin, AppearanceMixin):
                     'anchor behaviour. ', category=RuntimeWarning
                 )
 
-            if isinstance(self.__target, Panel):
+            if isinstance(self._target, Panel):
                 return f'''
                     <a {attr("id", self.identifier)}
                         {attr("class",self.classes)}
-                        {attr("href", f'#{self.__target.identifier}')}
+                        {attr("href", f'#{self._target.identifier}')}
                         {attr("data-toggle", "tab")}
                         {attr("role", self.__role or 'tab')}>
                         {inject(self.__inner)}
                     </a>
                 '''
+            elif isinstance(self._target, Dialog):
+                return f'''
+                    <a {attr("id", self.identifier)}
+                        {attr("class",self.classes)}
+                        {attr("href", f'#{self._target.identifier}')}
+                        {attr("data-toggle", "modal")}
+                        {attr("role", self.__role or 'modal')}>
+                        {inject(self.__inner)}
+                    </a>
+                '''
             else:
                 raise TypeError(
-                    f'The toggle operation cannot be applied to the {type(self.__target)} object;',
+                    'The toggle operation cannot be applied to the '
+                    f'{type(self._target)} web-component;',
                 )
         else:
             return f'''

@@ -5,16 +5,18 @@ A button.
 from .base import (
     WebComponent,
     ClassMixin,
+    ActionMixin,
     AppearanceMixin,
     OutlineMixin,
-    AvailabilityMixin
+    AvailabilityMixin,
+    Action
 )
 from .utils import attr, inject
 
 __all__ = [ 'Button' ]
 
 
-class Button(WebComponent, ClassMixin, AppearanceMixin, OutlineMixin, AvailabilityMixin):
+class Button(WebComponent, ClassMixin, ActionMixin, AppearanceMixin, OutlineMixin, AvailabilityMixin):
     """A web-component for a button.
 
     Args:
@@ -23,61 +25,6 @@ class Button(WebComponent, ClassMixin, AppearanceMixin, OutlineMixin, Availabili
     def __init__(self, name):
         super().__init__()
         self.__name = name
-        self.__action = None  
-
-    def link(self, href):
-        """Links to the web-resource.
-
-        Args:
-            href (WebComponent): The URL of the page the link goes to.
-        
-        Returns:
-            self
-        """
-        self.__action = f'href:{href}'
-        return self
-
-    def toggle(self, target):
-        """Toggles an other web-component.
-
-        Args:
-            target (WebComponent): The web-component to toggle.
-        
-        Returns:
-            self
-        """
-        self.__action = f'toggle:{target.identifier}'
-        return self
-
-    def collapse(self, target):
-        """Collapses an other web-component.
-
-        Args:
-            target (WebComponent): The web-component to collapse.
-
-        Returns:
-            self
-        """
-        self.__action = f'collapse:{target.identifier}'
-        return self
-
-    def dismiss(self):
-        """Performes a dismiss action.
-
-        Returns:
-            self
-        """
-        self.__action = 'dismiss'
-        return self
-
-    def submit(self):
-        """Performes a submit action.
-
-        Returns:
-            self
-        """
-        self.__action = 'submit'
-        return self
 
     def __str__(self):
         classes = 'btn'
@@ -91,64 +38,70 @@ class Button(WebComponent, ClassMixin, AppearanceMixin, OutlineMixin, Availabili
         if self.classes:
             classes += f' {self.classes}'
 
-        if self.__action:
-            if self.__action.startswith('toggle:'):
-                return f'''
-                    <button {attr('id', self.identifier)}
-                        {attr('class', classes)}
-                        type="button"
-                        data-toggle="modal"
-                        data-target="#{self.__action[7:]}"
-                        {attr('disabled', self._disabled)}>
-                        {self.__name}
-                    </button>
-                '''
-            elif self.__action.startswith('collapse:'):
-                return f'''
-                    <button {attr('id', self.identifier)}
-                        {attr('class', classes)}
-                        type="button"
-                        data-toggle="collapse"
-                        data-target="#{self.__action[9:]}"
-                        {attr('disabled', self._disabled)}>
-                        {self.__name}
-                    </button>
-                '''
-            elif self.__action.startswith('dismiss'):
-                return f'''
-                    <button {attr('id', self.identifier)}
-                        {attr('class', classes)}
-                        type="button"
-                        data-dismiss="modal"
-                        {attr('disabled', self._disabled)}>
-                        {self.__name}
-                    </button>
-                '''
-            elif self.__action.startswith('submit'):
-                return f'''
-                    <button {attr('id', self.identifier)}
-                        {attr('class', classes)}
-                        type="submit"
-                        {attr('disabled', self._disabled)}>
-                        {self.__name}
-                    </button>
-                '''
-            elif self.__action.startswith('href'):
-                if self._disabled:
-                    classes += ' disabled'
-                return f'''
-                    <a {attr('id', self.identifier)}
-                        {attr('class', classes)}
-                        {attr('href', self.__action[5:])}
-                        role="button">
-                        {self.__name}
-                    </a>
-                '''
-        return f'''
-            <button {attr('id', self.identifier)}
-                {attr('class', classes)}
-                {attr('disabled', self._disabled)}>
-                {self.__name}
-            </button>
-        '''
+        if self._action == Action.LINK:
+            if self._disabled:
+                classes += ' disabled'
+            
+            if isinstance(self._target, WebComponent):
+                href = f'#{self._target.identifier}'
+            else: # type(target) == str
+                href = self._target
+                
+            return f'''
+                <a {attr('id', self.identifier)}
+                    {attr('class', classes)}
+                    {attr('href', href)}
+                    role="button">
+                    {self.__name}
+                </a>
+            '''
+        elif self._action == Action.TOGGLE:
+            return f'''
+                <button {attr('id', self.identifier)}
+                    {attr('class', classes)}
+                    type="button"
+                    data-toggle="modal"
+                    data-target="#{self._target.identifier}"
+                    {attr('disabled', self._disabled)}>
+                    {self.__name}
+                </button>
+            '''
+        elif self._action == Action.COLLAPSE:
+            return f'''
+                <button {attr('id', self.identifier)}
+                    {attr('class', classes)}
+                    type="button"
+                    data-toggle="collapse"
+                    data-target="#{self._target.identifier}"
+                    {attr('disabled', self._disabled)}>
+                    {self.__name}
+                </button>
+            '''
+        elif  self._action == Action.DISMISS:
+            return f'''
+                <button {attr('id', self.identifier)}
+                    {attr('class', classes)}
+                    type="button"
+                    data-dismiss="modal"
+                    {attr('disabled', self._disabled)}>
+                    {self.__name}
+                </button>
+            '''
+        elif self._action == Action.SUBMIT:
+            return f'''
+                <button {attr('id', self.identifier)}
+                    {attr('class', classes)}
+                    type="submit"
+                    {attr('disabled', self._disabled)}>
+                    {self.__name}
+                </button>
+            '''
+        else:
+            return f'''
+                <button {attr('id', self.identifier)}
+                    {attr('class', classes)}
+                    {attr('disabled', self._disabled)}>
+                    {self.__name}
+                </button>
+            '''
 

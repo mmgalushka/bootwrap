@@ -8,6 +8,7 @@ import enum
 __all__ = [
     'WebComponent',
     'ClassMixin',
+    'ActionMixin',
     'AppearanceMixin',
     'OutlineMixin',
     'AvailabilityMixin',
@@ -28,7 +29,7 @@ class WebComponent:
         return self.__identifier
 
 
-class ClassMixin(object):
+class ClassMixin:
     """Mixin for a web-component which class can be amended."""
     def __init__(self):
         super(ClassMixin, self).__init__()
@@ -55,6 +56,90 @@ class ClassMixin(object):
         if len(self.__classes) > 0:
             return ' '.join(self.__classes)
         return None
+
+
+class ActionMixin:
+    """Mixin for a web-component which able to perform an action."""
+    def __init__(self):
+        super(ActionMixin, self).__init__()
+        self._action = None
+        self._target = None
+
+    def link(self, target):
+        """Links to the web-resource.
+
+        Args:
+            target (str|WebComponent): The URL to the linking web-page or 
+                linking web-component. In the case of the web-component,
+                the hyperlink will have the following format `#identifier`,
+                where the identifier is a unique ID of the specified target.
+        
+        Returns:
+            self
+        """
+        self._action = Action.LINK
+        if isinstance(target, str) or isinstance(target, WebComponent):
+            self._target = target
+            return self
+        raise TypeError(
+            'Invalid link-target, it must be  <class "str"> or '
+            '<class "str"> or <class "WebComponent">, but got: '
+            f'{type(target)};',
+        )
+
+    def toggle(self, target):
+        """Toggles an other web-component.
+
+        Args:
+            target (WebComponent): The web-component to toggle.
+        
+        Returns:
+            self
+        """
+        self._action = Action.TOGGLE
+        if isinstance(target, WebComponent):
+            self._target = target
+            return self
+        raise TypeError(
+            'Invalid toggle-target, it must be <class "WebComponent">, '
+            f'but got: {type(target)};',
+        )
+
+    def collapse(self, target):
+        """Collapses an other web-component.
+
+        Args:
+            target (WebComponent): The web-component to collapse.
+
+        Returns:
+            self
+        """
+        self._action = Action.COLLAPSE
+        if isinstance(target, WebComponent):
+            self._target = target
+            return self
+        raise TypeError(
+            'Invalid collapse-target, it must be <class "WebComponent">, '
+            f'but got: {type(target)};',
+        )
+
+    def dismiss(self):
+        """Performes a dismiss action.
+
+        Returns:
+            self
+        """
+        self._action = Action.DISMISS
+        return self
+
+    def submit(self):
+        """Performes a submit action.
+
+        Returns:
+            self
+        """
+        self._action = Action.SUBMIT
+        return self
 
 
 class AppearanceMixin:
@@ -187,3 +272,6 @@ class Action(str, enum.Enum):
     """The most common actions."""
     LINK = 'link'
     TOGGLE = 'toggle'
+    COLLAPSE = 'collapse'
+    DISMISS = 'dismiss'
+    SUBMIT = 'submit'

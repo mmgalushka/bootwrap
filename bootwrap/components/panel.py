@@ -11,15 +11,25 @@ from .utils import attr, inject
 __all__ = [ 'Panel' ]
 
 
-class Panel(WebComponent, ClassMixin):
+class Panel(WebComponent, ClassMixin, ):
     """A web-component for a panel."""
     def __init__(self, *components):
         super().__init__()
         self.__components = components
+        self.__collapse = False
         self.__arrangement = None
 
     def __iter__(self):
         return iter(self.__components)
+
+    def as_collapse(self):
+        """Makes the panel collapsed.
+
+        Returns:
+            self
+        """
+        self.__collapse = True
+        return self
 
     def vertical(self):
         """Makes the panel with the vertical arrangement of encapsulating
@@ -42,6 +52,9 @@ class Panel(WebComponent, ClassMixin):
         return self
 
     def __str__(self):
+        if self.__collapse:
+            self.add_classes('collapse')
+
         if self.__arrangement:
             if self.__arrangement == 'vertical':
 
