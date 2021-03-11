@@ -368,6 +368,114 @@ components:
           Button('Disabled').as_primary().as_disabled()
         )
 
+  # --- Dialog Tab -------------------------------------------------------------
+
+  Dialog:
+    - title: Dialog
+      constructor: Dialog(title, content, *actions)
+      arguments:
+        - ['title', 'str', 'the dialog title']
+        - ['content', 'str|WC', 'the content inside a dialog window, which can be either a <code>str</code> for a simple message or a <code>WebComponent</code> to provide more complex functionality']
+        - ['actions', 'list', 'the list of dialog actions, normally it should be <code>Button</code>s']
+      description:
+        - A <code>Dialog</code> is a web-component to display a modal window.
+      code: |
+        @right
+        dialog = Dialog(
+          'Greeting',
+          'Hello World!',
+          Button('Bye').dismiss()
+        )
+        button = Button('Say Hello').toggle(dialog)   
+      evaluation: |
+        from bootwrap import Panel, Dialog, Button
+
+        dialog = Dialog(
+          'Greeting',
+          'Hello World!',
+          Button('Bye').dismiss()
+        )
+        button = Button('Say Hello').toggle(dialog)  
+
+        output = Panel(dialog, button)
+
+    - title: Question Dialog
+      description:
+        - An example of how <code>Dialog</code> can be used for confirming a specific action. Make sure that you provide a correct URL, which <strong>Confirm</strong> <code>Button</code> linked to. You can specify define this URL something like this <code>local/file_system?file_id=1234567&action=delete</code> 
+      code: |
+        @right
+        dialog = Dialog(
+          'Delete File',
+          'Are you sure?',
+          Button('Confirm').\
+            as_danger().\
+            link('url/to/act')
+          Button('Cancel').\
+            dismiss()
+        ).as_danger()
+
+        button = Button('Confirm').\
+          as_danger().\
+          toggle(dialog)   
+      evaluation: |
+        from bootwrap import Panel, Dialog, Button
+
+        dialog = Dialog(
+          'Delete File',
+          'Are you sure that you want to delete this file?',
+          Button('Confirm').as_danger().dismiss(),
+          Button('Cancel').dismiss()
+        ).as_danger()
+        button = Button('Confirm').as_danger().toggle(dialog)   
+
+        output = Panel(dialog, button)
+
+    - title: Complex Dialog
+      description:
+        - An example of how <code>Dialog</code> can be used for buying Google shares. It contains a web <code>Form</code> where a user can specify an amount (in Dollars) for buying shares. When the user presses the <strong>Buy</strong> <code>Button</code>, the form will be submitted to the server (at <code>url/to/act</code>). If the user selects <strong>Cancel</strong>, the dialog will be closed, discarding the buying action.
+      code: |
+        @right
+        dialog = Dialog(
+            'Google (NASDAQ: GOOGL)',
+            Form(
+                NumericInput(
+                    'Amount($)',
+                    'amount',
+                    placeholder=\
+                      'enter an amount for buying shares'
+                ),
+                Button('Cancel').\
+                  add_classes('float-right').\
+                  dismiss(),
+                Button('Buy').\
+                  add_classes('float-right mr-2').\
+                  as_success().\
+                  submit()
+            ).on_submit('url/to/act')
+        )
+
+        button = Button('Buy Shares').\
+          as_primary().\
+          toggle(dialog)     
+      evaluation: |
+        from bootwrap import Panel, Form, NumericInput, Dialog, Button
+
+        dialog = Dialog(
+            'Google (NASDAQ: GOOGL)',
+            Form(
+                NumericInput(
+                    'Amount($)',
+                    'amount',
+                    placeholder='enter an amount for buying shares'
+                ),
+                Button('Cancel').add_classes('float-right').dismiss(),
+                Button('Buy').add_classes('float-right mr-2').as_success().dismiss()
+            )
+        )
+        button = Button('Buy Shares').as_primary().toggle(dialog)   
+
+        output = Panel(dialog, button)
+
   # --- Form Tab ---------------------------------------------------------------
 
   Form:

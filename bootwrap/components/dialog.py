@@ -16,16 +16,24 @@ class Dialog( WebComponent, AppearanceMixin):
 
     Args:
         title (str): The dialog title.
-        message (str): The dialog message.
-        actions (obj): The dialog actions (default=None).
+        content (str|WebComponent): The content inside a dialog window to show.
+        actions (list): The dialog actions (default=None).
     """
-    def __init__(self, title, message, actions=None):
+    def __init__(self, title, content, *actions):
         super().__init__()
         self.__title = title
-        self.__message = message
+        self.__content = content
         self.__actions = actions
 
     def __str__(self):
+        modal_footer = None
+        if len(self.__actions) > 0:
+            modal_footer = f'''
+                <div class="modal-footer">
+                    {inject(*self.__actions)}
+                </div>
+            '''
+
         return f'''
             <div id="{self.identifier}" class="modal">
                 <div class="modal-dialog" role="document">
@@ -42,13 +50,9 @@ class Dialog( WebComponent, AppearanceMixin):
                             </button>
                         </div>
                         <div class="modal-body">
-                            <p>
-                                {self.__message}
-                            </p>
+                            {inject(self.__content)}
                         </div>
-                        <div class="modal-footer">
-                            {inject(*self.__actions)}
-                        </div>
+                        {inject(modal_footer)}
                     </div>
                 </div>
             </div>
