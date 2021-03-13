@@ -7,9 +7,11 @@ import pytest, re
 from bootwrap import (
     WebComponent,
     ClassMixin,
+    ActionMixin,
     AppearanceMixin,
     OutlineMixin,
-    AvailabilityMixin
+    AvailabilityMixin,
+    Action
 )
 
 
@@ -25,13 +27,59 @@ def tests_web_component():
 
 
 @pytest.mark.base
+def tests_action_mixin():
+    class TestActionMixin(ActionMixin):
+        def __str__(self):
+            if self._action:
+                action = self._action or 'none'
+            else:
+                action = 'none'
+
+            if self._target:
+                if isinstance(self._target, str):
+                    target = self._target
+                else:
+                    target = self._target.identifier
+            else:
+                target = 'none'
+
+            return f'{action}:{target}'
+    assert str(TestActionMixin()) == 'none:none'
+    
+    # test link-action
+    target = WebComponent()
+    assert str(TestActionMixin().link(target)) == Action.LINK + f':{target.identifier}'
+    assert str(TestActionMixin().link('somelink')) == Action.LINK + ':somelink'
+    with pytest.raises(TypeError):
+        str(TestActionMixin().link(None))
+
+    # test toggle-action
+    target = WebComponent()
+    assert str(TestActionMixin().toggle(target)) == Action.TOGGLE + f':{target.identifier}'
+    with pytest.raises(TypeError):
+        str(TestActionMixin().toggle(None))
+
+    # test collapse-action
+    target = WebComponent()
+    assert str(TestActionMixin().collapse(target)) == Action.COLLAPSE + f':{target.identifier}'
+    with pytest.raises(TypeError):
+        str(TestActionMixin().collapse(None))
+
+    # test dismiss-action
+    assert str(TestActionMixin().dismiss()) == Action.DISMISS + ':none'
+
+    # test dismiss-action
+    assert str(TestActionMixin().submit()) == Action.SUBMIT + ':none'
+
+
+@pytest.mark.base
 def tests_appearance_mixin():
     class TestAppearanceMixin(AppearanceMixin):
         def __str__(self):
             if self._category:
                 return self._category
-            return 'blank'
-    assert str(TestAppearanceMixin()) == 'blank'
+            return 'none'
+    assert str(TestAppearanceMixin()) == 'none'
     assert str(TestAppearanceMixin().as_primary()) == 'primary'
     assert str(TestAppearanceMixin().as_secondary()) == 'secondary'
     assert str(TestAppearanceMixin().as_success()) == 'success'

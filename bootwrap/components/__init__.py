@@ -9,7 +9,6 @@ from .base import *
 from .button import *
 from .dialog import *
 from .form import *
-from .icon import *
 from .image import *
 from .javascript import *
 from .link import *

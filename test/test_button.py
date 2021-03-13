@@ -70,6 +70,16 @@ def test_link_button():
     ''')
     assert actual == expected
 
+    target = WebComponent()
+    button = Button('Somename').link(target)
+    actual = HelperHTMLParser.parse(str(button))
+    expected = HelperHTMLParser.parse(f'''
+        <a id="{button.identifier}" class="btn" href="#{target.identifier}" role="button">
+            Somename
+        </a>
+    ''')
+    assert actual == expected
+
     button = Button('Somename').link('someurl').as_disabled()
     actual = HelperHTMLParser.parse(str(button))
     expected = HelperHTMLParser.parse(f'''

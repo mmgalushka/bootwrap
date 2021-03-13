@@ -84,3 +84,13 @@ def test_vertical_panel():
         </div>
     ''')
     assert actual == expected
+
+
+@pytest.mark.panel
+def test_as_collapse():
+    panel = Panel().as_collapse()
+    actual = HelperHTMLParser.parse(str(panel))
+    expected = HelperHTMLParser.parse(f'''
+        <div id="{panel.identifier}" class="collapse"></div>
+    ''')
+    assert actual == expected

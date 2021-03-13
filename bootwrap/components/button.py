@@ -42,6 +42,9 @@ class Button(WebComponent, ClassMixin, ActionMixin, AppearanceMixin, OutlineMixi
             if self._disabled:
                 classes += ' disabled'
             
+            # At this point, we only need to check whether the specified
+            # target is a web-component or a string. The ActionMixin makes
+            # sure that a user can specify only these two types.
             if isinstance(self._target, WebComponent):
                 href = f'#{self._target.identifier}'
             else: # type(target) == str

@@ -82,10 +82,10 @@ class ActionMixin:
             self._target = target
             return self
         raise TypeError(
-            'Invalid link-target, it must be  <class "str"> or '
-            '<class "str"> or <class "WebComponent">, but got: '
-            f'{type(target)};',
+            'The target must be not empty string <class "str"> or <class '
+            f'"WebComponent">, instead got: {type(target)};'
         )
+
 
     def toggle(self, target):
         """Toggles an other web-component.
@@ -101,8 +101,8 @@ class ActionMixin:
             self._target = target
             return self
         raise TypeError(
-            'Invalid toggle-target, it must be <class "WebComponent">, '
-            f'but got: {type(target)};',
+            'The target must be not empty string <class "WebComponent">, '
+            f'instead got: {type(target)};'
         )
 
     def collapse(self, target):
@@ -119,8 +119,8 @@ class ActionMixin:
             self._target = target
             return self
         raise TypeError(
-            'Invalid collapse-target, it must be <class "WebComponent">, '
-            f'but got: {type(target)};',
+            'The target must be not empty string <class "WebComponent">, '
+            f'instead got: {type(target)};'
         )
 
     def dismiss(self):
