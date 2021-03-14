@@ -42,7 +42,7 @@ class List(WebComponent, ClassMixin):
             wc_title = title
             if wc_title:
                 if isinstance(wc_title, str):
-                    wc_title = Text(wc_title).as_heading(5)
+                    wc_title = Text(wc_title).as_heading(6)
 
             wc_description = description
             if wc_description:
