@@ -17,6 +17,11 @@ class Attr:
         if value is not None:
             self.__value = value.strip()
 
+    @property
+    def name(self):
+        """The tag name."""
+        return self.__name    
+
     def __eq__(self, other):
         assert self.__name == other.__name, f'{self.__name} != {other.__name}'
         if self.__value and other.__value:
@@ -46,9 +51,9 @@ class Tag:
 
     def __eq__(self, other):
         assert self.__name == other.__name, f'{self.__name} != {other.__name}'
-        assert self.__attrs == other.__attrs, f'{list(map(str, self.__attrs))} != {list(map(str, other.__attrs))}'
-        assert self.__tags == other.__tags, f'{self.__tags} != {other.__tags}'
-        assert self.__data == other.__data, f'{self.__data} != {other.__data}'
+        assert self.__attrs.sort(key=lambda a: a.name) == other.__attrs.sort(key=lambda a: a.name), f'{list(map(str, self.__attrs))} != {list(map(str, other.__attrs))}'
+        assert self.__tags == other.__tags, f'{" ".join(map(str, self.__tags))} != {" ".join(map(str, other.__tags))}'
+        assert self.__data.replace(" ", "") == other.__data.replace(" ", ""), f'{self.__data} != {other.__data}'
         return True
 
     def add_attr(self, attr):
@@ -78,7 +83,7 @@ class Tag:
     @property
     def name(self):
         """The tag name."""
-        return self.__name    
+        return self.__name
 
 
 class HelperHTMLParser(HTMLParser):

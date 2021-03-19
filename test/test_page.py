@@ -44,6 +44,9 @@ def test_page_resources():
                 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"
                     type="application/javascript">
                 </script>
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"
+                    type="application/javascript">
+                </script>
                 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
                     type="application/javascript">
                 </script>

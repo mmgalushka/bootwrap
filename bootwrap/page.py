@@ -59,6 +59,7 @@ class Page:
 
         scripts = [
             Javascript('https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js'),
+            Javascript('https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js'),
             Javascript('https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js'),
             Javascript('https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js'),
             Javascript('https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/languages/python.min.js')

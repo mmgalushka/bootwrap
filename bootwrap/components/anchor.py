@@ -29,13 +29,13 @@ class Anchor(WebComponent, ClassMixin, ActionMixin, AppearanceMixin):
     """
     def __init__(self, inner=None, role=None):
         super().__init__()
-        self.__inner = inner
+        self._inner = inner
         self.__role = role
 
     def __str__(self):
         name = None
-        if isinstance(self.__inner, WebComponent):
-            name = self.__inner.identifier
+        if isinstance(self._inner, WebComponent):
+            name = self._inner.identifier
 
         if self._category is not None:
             self.add_classes(f'text-{self._category}')
@@ -51,7 +51,7 @@ class Anchor(WebComponent, ClassMixin, ActionMixin, AppearanceMixin):
                     {attr("class", self.classes)}
                     {attr("href", href)}
                     {attr("role", self.__role)}>
-                    {inject(self.__inner)}
+                    {inject(self._inner)}
                 </a>
             '''
         elif self._action == Action.TOGGLE:
@@ -70,7 +70,7 @@ class Anchor(WebComponent, ClassMixin, ActionMixin, AppearanceMixin):
                         {attr("href", f'#{self._target.identifier}')}
                         {attr("data-toggle", "tab")}
                         {attr("role", self.__role or 'tab')}>
-                        {inject(self.__inner)}
+                        {inject(self._inner)}
                     </a>
                 '''
             elif isinstance(self._target, Dialog):
@@ -80,7 +80,7 @@ class Anchor(WebComponent, ClassMixin, ActionMixin, AppearanceMixin):
                         {attr("href", f'#{self._target.identifier}')}
                         {attr("data-toggle", "modal")}
                         {attr("role", self.__role or 'modal')}>
-                        {inject(self.__inner)}
+                        {inject(self._inner)}
                     </a>
                 '''
             else:
@@ -95,7 +95,7 @@ class Anchor(WebComponent, ClassMixin, ActionMixin, AppearanceMixin):
                     {attr("href", f'#{self._target.identifier}')}
                     data-toggle="collapse"
                     data-target="#{self._target.identifier}">
-                    {inject(self.__inner)}
+                    {inject(self._inner)}
                 </a>
             '''
         elif  self._action == Action.DISMISS:
@@ -104,7 +104,7 @@ class Anchor(WebComponent, ClassMixin, ActionMixin, AppearanceMixin):
                     {attr('class', self.classes)}
                     {attr("href", f'#')}
                     data-dismiss="modal">
-                    {inject(self.__inner)}
+                    {inject(self._inner)}
                 </a>
             '''
         elif self._action == Action.SUBMIT:
@@ -120,7 +120,7 @@ class Anchor(WebComponent, ClassMixin, ActionMixin, AppearanceMixin):
                 <button {attr('id', self.identifier)}
                     {attr('class', self.classes)}
                     type="submit">
-                    {inject(self.__inner)}
+                    {inject(self._inner)}
                 </button>
             '''
         else:
@@ -129,6 +129,6 @@ class Anchor(WebComponent, ClassMixin, ActionMixin, AppearanceMixin):
                     {attr("name", name)}
                     {attr("class", self.classes)}
                     {attr("role", self.__role)}>
-                    {inject(self.__inner)}
+                    {inject(self._inner)}
                 </a>
             '''

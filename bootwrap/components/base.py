@@ -64,6 +64,7 @@ class ActionMixin:
         super(ActionMixin, self).__init__()
         self._action = None
         self._target = None
+        self._menu = None
 
     def link(self, target):
         """Links to the web-resource.
@@ -85,7 +86,6 @@ class ActionMixin:
             'The target must be not empty string <class "str"> or <class '
             f'"WebComponent">, instead got: {type(target)};'
         )
-
 
     def toggle(self, target):
         """Toggles an other web-component.
@@ -140,6 +140,19 @@ class ActionMixin:
         """
         self._action = Action.SUBMIT
         return self
+
+    def add_menu(self, *menu):
+        """Adds dropdown menu.
+
+        Args:
+            menu (list<ActionMixin>): The list of dropdown menu actions.
+
+        Returns:
+            self
+        """
+        self._menu = menu
+        return self
+
 
 
 class AppearanceMixin:

@@ -29,6 +29,15 @@ class Text(WebComponent, ClassMixin, AppearanceMixin):
         self.__paragraph = False
         self.__code = False
 
+    def as_muted(self):
+        """Makes the text muted.
+        
+        Return:
+            self 
+        """
+        self._category = 'muted'
+        return self
+
     def as_heading(self, level):
         """Makes the text as heading.
         
