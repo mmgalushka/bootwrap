@@ -6,6 +6,7 @@
 
 [![Continuous Integration Status](https://github.com/mmgalushka/python-bootwrap/workflows/CI/badge.svg)](https://github.com/mmgalushka/python-bootwrap/actions)
 [![Code Coverage Percentage](https://codecov.io/gh/mmgalushka/python-bootwrap/branch/main/graphs/badge.svg)](https://codecov.io/gh/mmgalushka/python-bootwrap)
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/763657a471ff424c85a5b894ddb750d0)](https://www.codacy.com/gh/mmgalushka/python-bootwrap/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=mmgalushka/python-bootwrap&amp;utm_campaign=Badge_Grade)
 [![Project License](https://img.shields.io/badge/License-MIT-blue.svg)](https://github.com/mmgalushka/python-bootwrap/blob/main/LICENSE)
 [![Project Documentation](https://img.shields.io/badge/docs-up--to--date-success)](https://mmgalushka.github.io/python-bootwrap/)
 
