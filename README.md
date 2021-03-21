@@ -4,6 +4,7 @@
 
 # Python Bootwrap
 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/9dee3621de3a4a06b7cda614f52260b2)](https://app.codacy.com/gh/mmgalushka/python-bootwrap?utm_source=github.com&utm_medium=referral&utm_content=mmgalushka/python-bootwrap&utm_campaign=Badge_Grade_Settings)
 [![Continuous Integration Status](https://github.com/mmgalushka/python-bootwrap/workflows/CI/badge.svg)](https://github.com/mmgalushka/python-bootwrap/actions)
 [![Code Coverage Percentage](https://codecov.io/gh/mmgalushka/python-bootwrap/branch/main/graphs/badge.svg)](https://codecov.io/gh/mmgalushka/python-bootwrap)
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/763657a471ff424c85a5b894ddb750d0)](https://www.codacy.com/gh/mmgalushka/python-bootwrap/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=mmgalushka/python-bootwrap&amp;utm_campaign=Badge_Grade)
