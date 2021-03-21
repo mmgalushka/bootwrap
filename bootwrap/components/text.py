@@ -1,5 +1,3 @@
-# Copyright (c) 2019 AUROMIND Ltd. All rights reserved.
-
 """
 A text.
 """
@@ -16,7 +14,7 @@ from .utils import attr
 
 class Text(WebComponent, ClassMixin, AppearanceMixin):
     """A web-component for a text.
-    
+
     Args:
         content (str): The textual content.
     """
@@ -31,21 +29,21 @@ class Text(WebComponent, ClassMixin, AppearanceMixin):
 
     def as_muted(self):
         """Makes the text muted.
-        
+
         Return:
-            self 
+            self
         """
         self._category = 'muted'
         return self
 
     def as_heading(self, level):
         """Makes the text as heading.
-        
+
         Args:
             level (int): The heading level;
 
         Return:
-            self 
+            self
         """
         if level < 1 or level > 6:
             raise ValueError(
@@ -57,36 +55,36 @@ class Text(WebComponent, ClassMixin, AppearanceMixin):
 
     def as_small(self):
         """Makes the text as small.
-        
+
         Return:
-            self 
+            self
         """
         self.__small = True
         return self
 
     def as_strong(self):
         """Makes the text as strong.
-        
+
         Return:
-            self 
+            self
         """
         self.__strong = True
         return self
 
     def as_paragraph(self):
         """Makes the text wrap in a paragraph.
-        
+
         Return:
-            self 
+            self
         """
         self.__paragraph = True
         return self
 
     def as_code(self):
         """Makes the text wrap as a code snippet.
-        
+
         Return:
-            self 
+            self
         """
         self.__code = True
         return self
@@ -111,18 +109,19 @@ class Text(WebComponent, ClassMixin, AppearanceMixin):
                 classes += f' {self.classes}'
 
             if self.__level:
-                l = self.__level
                 return f'''
-                    <h{l} {attr("id", self.identifier)}
+                    <h{self.__level} {attr("id", self.identifier)}
                         {attr("class", classes)}>
                         {c}
-                    </h{l}>
+                    </h{self.__level}>
                 '''
             else:
                 if self.__code:
                     return f'''
                         <pre {attr("id", self.identifier)}
-                            {attr("class", classes)}><code class="python">{dedent(c)}</code></pre>
+                            {attr("class", classes)}>
+                            <code class="python">{dedent(c)}</code>
+                        </pre>
                     '''
                 else:
                     if self.__paragraph:

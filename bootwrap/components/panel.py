@@ -2,13 +2,8 @@
 A panel.
 """
 
-from .base import (
-    WebComponent,
-    ClassMixin
-)
+from .base import WebComponent, ClassMixin
 from .utils import attr, inject
-
-__all__ = [ 'Panel' ]
 
 
 class Panel(WebComponent, ClassMixin, ):
@@ -72,7 +67,7 @@ class Panel(WebComponent, ClassMixin, ):
                         {inject(*map(row, filter(None, self.__components)))}
                     </div>
                 '''
-            else: # self.__arrangement == 'horizontal'
+            else:  # self.__arrangement == 'horizontal'
 
                 def col(element):
                     return f'''
@@ -84,7 +79,9 @@ class Panel(WebComponent, ClassMixin, ):
                     <div {attr("id", self.identifier)}
                         {attr("class", self.classes)}>
                         <div class="row">
-                            {inject(*map(col, filter(None, self.__components)))}
+                            {inject(
+                                *map(col, filter(None, self.__components))
+                            )}
                         </div>
                     </div>
                 '''

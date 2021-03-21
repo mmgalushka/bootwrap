@@ -2,16 +2,11 @@
 A dialog
 """
 
-from .base import (
-    WebComponent,
-    AppearanceMixin
-)
+from .base import WebComponent, AppearanceMixin
 from .utils import inject
 
-__all__ = [ 'Dialog' ]
 
-
-class Dialog( WebComponent, AppearanceMixin):
+class Dialog(WebComponent, AppearanceMixin):
     """A dialog.
 
     Args:
@@ -42,7 +37,7 @@ class Dialog( WebComponent, AppearanceMixin):
                             <h5 class="modal-title text-{self._category}">
                                 {self.__title}
                             </h5>
-                            <button type="button" 
+                            <button type="button"
                                 class="close"
                                 data-dismiss="modal"
                                 aria-label="Close">

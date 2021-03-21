@@ -5,7 +5,6 @@ Test for bootwrap/components/panel.py
 import pytest
 
 from bootwrap import Panel, Text
-
 from .helper import HelperHTMLParser
 
 
@@ -27,7 +26,7 @@ def test_iter():
     text1 = Text('sometext1')
     text2 = Text('sometext2')
     text3 = Text('sometext3')
-    panel = Panel(text1, text2 ,text3)
+    panel = Panel(text1, text2, text3)
     for actual, expected in zip(panel, [text1, text2, text3]):
         assert actual == expected
 
@@ -37,7 +36,7 @@ def test_horizontal_panel():
     text1 = Text('sometext1')
     text2 = Text('sometext2')
     text3 = Text('sometext3')
-    panel = Panel(text1, text2 ,text3).horizontal()
+    panel = Panel(text1, text2, text3).horizontal()
     actual = HelperHTMLParser.parse(str(panel))
     expected = HelperHTMLParser.parse(f'''
         <div id="{panel.identifier}">
@@ -62,7 +61,7 @@ def test_vertical_panel():
     text1 = Text('sometext1')
     text2 = Text('sometext2')
     text3 = Text('sometext3')
-    panel = Panel(text1, text2 ,text3).vertical()
+    panel = Panel(text1, text2, text3).vertical()
     actual = HelperHTMLParser.parse(str(panel))
     expected = HelperHTMLParser.parse(f'''
         <div id="{panel.identifier}">

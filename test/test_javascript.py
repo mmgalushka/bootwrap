@@ -5,7 +5,6 @@ Test for bootwrap/components/javascript.py
 import pytest
 
 from bootwrap import Javascript, WebComponent
-
 from .helper import HelperHTMLParser
 
 
@@ -13,7 +12,7 @@ from .helper import HelperHTMLParser
 def test_javascript():
     javascript = Javascript('someurl')
     actual = HelperHTMLParser.parse(str(javascript))
-    expected = HelperHTMLParser.parse(f'''
+    expected = HelperHTMLParser.parse('''
         <script src="someurl" type="application/javascript"></script>
     ''')
     assert actual == expected
@@ -21,8 +20,8 @@ def test_javascript():
     target1 = WebComponent()
     target2 = 'something'
     javascript = Javascript(
-        script = 'a=_target1_, b=_target2_',
-        submap = {
+        script='a=_target1_, b=_target2_',
+        submap={
             '_target1_': target1,
             '_target2_': target2
         }

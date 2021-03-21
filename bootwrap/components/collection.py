@@ -2,17 +2,11 @@
 A collection of items.
 """
 
-from abc import ABC, abstractmethod
-from .base import (
-    WebComponent,
-    ClassMixin
-)
+from .base import WebComponent, ClassMixin
 from .anchor import Anchor
 from .button import Button
 from .text import Text
 from .utils import attr, inject
-
-__all__ = [ 'List', 'Deck' ]
 
 
 class List(WebComponent, ClassMixin):
@@ -34,10 +28,11 @@ class List(WebComponent, ClassMixin):
 
     class Item(Anchor):
         """A list item.
-        
+
         Args:
-            title (str|WebComponent): The item title. 
-            description (str|WebComponent): The item description (default=None).
+            title (str|WebComponent): The item title.
+            description (str|WebComponent): The item description
+                (default=None).
             marker (str|WebComponent): The item marker (default=None).
             figure (str|WebComponent): The item figure (default=None).
         """
@@ -52,7 +47,7 @@ class List(WebComponent, ClassMixin):
 
         def as_selected(self):
             """Makes a list item selected.
-            
+
             Returns:
                 self
             """
@@ -61,13 +56,12 @@ class List(WebComponent, ClassMixin):
 
         def pack_actions(self):
             """Makes item actions packed under a drop-down menu.
-            
+
             Returns:
                 self
             """
             self._pack_actions = True
             return self
-
 
         def __str__(self):
             wc_title = self._title
@@ -108,7 +102,10 @@ class List(WebComponent, ClassMixin):
                 </div>
             '''
 
-            self.add_classes('list-group-item list-group-item-action flex-column align-items-start')
+            self.add_classes(
+                'list-group-item list-group-item-action flex-column '
+                'align-items-start'
+            )
             if self._selected:
                 self.add_classes('active')
 
@@ -117,7 +114,7 @@ class List(WebComponent, ClassMixin):
     def __str__(self):
         self.add_classes('list-group')
         return f'''
-            <div {attr("id", self.identifier)}    
+            <div {attr("id", self.identifier)}
                 {attr('class', self.classes)}>
                 {inject(*self._items)}
             </div>
@@ -143,10 +140,11 @@ class Deck(WebComponent, ClassMixin):
 
     class Card(Anchor):
         """A deck card.
-        
+
         Args:
-            title (str|WebComponent): The card title. 
-            description (str|WebComponent): The card description (default=None).
+            title (str|WebComponent): The card title.
+            description (str|WebComponent): The card description
+                (default=None).
             marker (str|WebComponent): The card marker (default=None).
             figure (str|WebComponent): The card figure (default=None).
         """
@@ -160,7 +158,7 @@ class Deck(WebComponent, ClassMixin):
 
         def pack_actions(self):
             """Makes item actions packed under a drop-down menu.
-            
+
             Returns:
                 self
             """
@@ -170,7 +168,8 @@ class Deck(WebComponent, ClassMixin):
         def __str__(self):
             wc_title = self._title
             if isinstance(wc_title, str):
-                wc_title = Text(wc_title).as_heading(5).add_classes('card-title')
+                wc_title = Text(wc_title).as_heading(5).\
+                    add_classes('card-title')
             else:
                 wc_title.add_classes('card-title')
 
@@ -179,7 +178,7 @@ class Deck(WebComponent, ClassMixin):
                 if isinstance(wc_marker, str):
                     wc_marker = Text(wc_marker).as_small().as_muted()
                 wc_marker = f'''
-                    <div class="text-right mb-2"> 
+                    <div class="text-right mb-2">
                         {inject(wc_marker)}
                     </div>
                 '''
@@ -188,7 +187,7 @@ class Deck(WebComponent, ClassMixin):
             if self._menu:
                 if self._pack_actions:
                     wc_actions = f'''
-                        <div class="card-footer text-right"> 
+                        <div class="card-footer text-right">
                             {inject(Button("...").add_menu(*self._menu))}
                         </div>
                     '''
@@ -196,7 +195,7 @@ class Deck(WebComponent, ClassMixin):
                     for action in self._menu:
                         action.add_classes('ml-1')
                     wc_actions = f'''
-                        <div class="card-footer text-right"> 
+                        <div class="card-footer text-right">
                             {inject(*self._menu)}
                         </div>
                     '''
@@ -229,7 +228,7 @@ class Deck(WebComponent, ClassMixin):
                 }
             </style>
         '''
-        
+
         self.add_classes('card-deck grid-container')
         return f'''
             <div {attr("id", self.identifier)}

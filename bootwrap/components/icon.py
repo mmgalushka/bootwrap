@@ -1,7 +1,5 @@
-# Copyright (c) 2019 AUROMIND Ltd. All rights reserved.
-
 """
-Web-components providing additional functions.
+An icon.
 """
 
 from .base import (
@@ -9,13 +7,7 @@ from .base import (
     ClassMixin,
     AppearanceMixin
 )
-from .utils import inject, attr
-
-__all__ = [
-    'Icon',
-    'Separator' ,
-    'Spinner'
-]
+from .utils import attr
 
 
 class Icon(WebComponent, ClassMixin, AppearanceMixin):
@@ -39,15 +31,6 @@ class Icon(WebComponent, ClassMixin, AppearanceMixin):
                 {attr('class', self.classes)}>
             </i>
         '''
-
-
-class Separator(WebComponent):
-    """A horizontal line separator."""
-    def __init__(self):
-        super().__init__()
-
-    def __str__(self):
-        return '<hr/>'
 
 
 class Spinner(WebComponent, ClassMixin, AppearanceMixin):

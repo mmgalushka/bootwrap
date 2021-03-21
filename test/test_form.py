@@ -9,14 +9,12 @@ from bootwrap import (
     Form,
     Input,
     CheckboxInput,
-    Freehand,
     TextInput,
     NumericInput,
     SelectInput,
     HiddenInput,
     FileInput
 )
-
 from .helper import HelperHTMLParser
 
 
@@ -64,7 +62,7 @@ def test_generic_input():
         </div>
     ''')
     assert actual == expected
-    
+
     # the label on the top, input at the bottom...
     generic = GenericInput('somelabel', 'somename').\
         add_classes('someclass').\
@@ -72,8 +70,7 @@ def test_generic_input():
     actual = HelperHTMLParser.parse(str(generic))
     expected = HelperHTMLParser.parse(f'''
         <div class="form-group someclass">
-            <label 
-                for="{generic.identifier}">
+            <label for="{generic.identifier}">
                 somelabel
             </label>
             <div >
@@ -108,8 +105,8 @@ def test_checkbox_input():
             <div class="col-sm-10 d-flex align-items-center">
                 <input id="{checkbox.identifier}"
                     name="somename"
-                    type="checkbox" 
-                    class="form-check-input" 
+                    type="checkbox"
+                    class="form-check-input"
                     autocomplete="off"/>
             </div>
         </div>
@@ -128,8 +125,8 @@ def test_checkbox_input():
             <div class="col-sm-10 d-flex align-items-center">
             <input id="{checkbox.identifier}"
                 name="somename"
-                type="checkbox" 
-                class="form-check-input" 
+                type="checkbox"
+                class="form-check-input"
                 autocomplete="off" checked disabled/>
             </div>
         </div>
@@ -140,10 +137,13 @@ def test_checkbox_input():
     with pytest.raises(AssertionError):
         str(CheckboxInput('somelabel', 'somename', True).label_on_top())
 
+
 @pytest.mark.form
 def test_text_input():
     # testing text-input...
-    text = TextInput('somelabel', 'somename', 'somevalue', placeholder='someplaceholder')
+    text = TextInput(
+        'somelabel', 'somename', 'somevalue', placeholder='someplaceholder'
+    )
     actual = HelperHTMLParser.parse(str(text))
     expected = HelperHTMLParser.parse(f'''
         <div class="form-group row">
@@ -199,17 +199,17 @@ def test_text_input():
             </div>
         </div>
     ''')
-    assert actual == expected    
+    assert actual == expected
 
     # testing exception...
     with pytest.raises(AssertionError):
         str(
-            TextInput('somelabel', 'somename', 'somevalue').\
+            TextInput('somelabel', 'somename', 'somevalue').
             with_multirows(5).for_email()
         )
     with pytest.raises(AssertionError):
         str(
-            TextInput('somelabel', 'somename', 'somevalue').\
+            TextInput('somelabel', 'somename', 'somevalue').
             with_multirows(5).for_password()
         )
 
@@ -219,13 +219,14 @@ def test_text_area():
     def get_expected(element, disabled=False):
         return f'''
             <div class="form-group row">
-                <label class="col-sm-2 col-form-label d-flex align-items-center"
+                <label class="col-sm-2 col-form-label d-flex
+                              align-items-center"
                     for="{element.identifier}">
                     somelabel
                 </label>
                 <div class="col-sm-10 d-flex align-items-center">
                     <textarea id="{element.identifier}"
-                        name="somename" 
+                        name="somename"
                         class="form-control"
                         rows=5
                         {'disabled' if disabled else ''}
@@ -234,14 +235,16 @@ def test_text_area():
             </div>
         '''
 
-    textarea = TextInput('somelabel', 'somename', 'somevalue', placeholder='someplaceholder').\
-        with_multirows(5)
+    textarea = TextInput(
+        'somelabel', 'somename', 'somevalue', placeholder='someplaceholder'
+    ).with_multirows(5)
     actual = HelperHTMLParser.parse(str(textarea))
     expected = HelperHTMLParser.parse(get_expected(textarea))
     assert actual == expected
 
-    textarea = TextInput('somelabel', 'somename', 'somevalue', placeholder='someplaceholder').\
-        with_multirows(5).as_disabled()
+    textarea = TextInput(
+        'somelabel', 'somename', 'somevalue', placeholder='someplaceholder'
+    ).with_multirows(5).as_disabled()
     actual = HelperHTMLParser.parse(str(textarea))
     expected = HelperHTMLParser.parse(get_expected(textarea, disabled=True))
     assert actual == expected
@@ -249,7 +252,9 @@ def test_text_area():
 
 @pytest.mark.form
 def test_numeric_input():
-    numeric = NumericInput('somelabel', 'somename', 'somevalue', placeholder='someplaceholder')
+    numeric = NumericInput(
+        'somelabel', 'somename', 'somevalue', placeholder='someplaceholder'
+    )
     actual = HelperHTMLParser.parse(str(numeric))
     expected = HelperHTMLParser.parse(f'''
         <div class="form-group row">
@@ -264,11 +269,11 @@ def test_numeric_input():
                     type="number"
                     class="form-control"
                     placeholder="someplaceholder"/>
-    
             </div>
         </div>
     ''')
-    assert actual == expected 
+    assert actual == expected
+
 
 @pytest.mark.form
 def test_select_input():
@@ -301,7 +306,7 @@ def test_select_input():
             </div>
         </div>
     ''')
-    assert actual == expected 
+    assert actual == expected
 
     select = SelectInput('somelabel', 'somename', 0, options).as_disabled()
     actual = HelperHTMLParser.parse(str(select))
@@ -328,7 +333,7 @@ def test_select_input():
             </div>
         </div>
     ''')
-    assert actual == expected 
+    assert actual == expected
 
 
 @pytest.mark.form
@@ -351,11 +356,11 @@ def test_radio_input():
                     <input id="{option_0.identifier}"
                         name="somename"
                         value=0
-                        type="radio" 
-                        class="form-check-input" 
+                        type="radio"
+                        class="form-check-input"
                         autocomplete="off"
                         checked/>
-                    <label class="form-check-label mr-1" 
+                    <label class="form-check-label mr-1"
                         for="{option_0.identifier}">
                         Zero
                     </label>
@@ -364,11 +369,11 @@ def test_radio_input():
                     <input id="{option_1.identifier}"
                         name="somename"
                         value=1
-                        type="radio" 
-                        class="form-check-input" 
+                        type="radio"
+                        class="form-check-input"
                         autocomplete="off"
                         disabled/>
-                    <label class="form-check-label mr-1" 
+                    <label class="form-check-label mr-1"
                         for="{option_1.identifier}">
                         One
                     </label>
@@ -376,7 +381,7 @@ def test_radio_input():
             </div>
         </div>
     ''')
-    assert actual == expected 
+    assert actual == expected
 
 
 @pytest.mark.form
@@ -389,7 +394,8 @@ def test_hidden_input():
             value="somevalue"
             type="hidden"/>
     ''')
-    assert actual == expected 
+    assert actual == expected
+
 
 @pytest.mark.form
 def test_file_input():
@@ -420,7 +426,7 @@ def test_file_input():
             </div>
         </div>
     ''')
-    assert actual == expected 
+    assert actual == expected
 
     file = FileInput('somelabel', 'somename').as_disabled()
     actual = HelperHTMLParser.parse(str(file))
@@ -449,4 +455,4 @@ def test_file_input():
             </div>
         </div>
     ''')
-    assert actual == expected 
+    assert actual == expected

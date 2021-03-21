@@ -4,7 +4,7 @@ Test for bootwrap/components/link.py
 
 import pytest
 
-from bootwrap import attr, inject, Text 
+from bootwrap import attr, inject, Text
 
 from .helper import HelperHTMLParser
 
@@ -34,17 +34,16 @@ def test_attr():
 def test_inject():
     output = inject(Text('A'), Text('B'), Text('C'))
     actual = HelperHTMLParser.parse(output)
-    expected = HelperHTMLParser.parse(f'''
+    expected = HelperHTMLParser.parse('''
         <span id="...">A</span>
         <span id="...">B</span>
         <span id="...">C</span>
     ''')
     assert actual == expected
 
-
     output = inject(Text('A'), None, Text('C'))
     actual = HelperHTMLParser.parse(output)
-    expected = HelperHTMLParser.parse(f'''
+    expected = HelperHTMLParser.parse('''
         <span id="...">A</span>
         <span id="...">C</span>
     ''')

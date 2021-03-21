@@ -39,17 +39,6 @@ action_init(){
 
     python3 -m venv .venv
     source .venv/bin/activate
-
-    pip3 install wheel
-    pip3 install pylint
-    pip3 install pep8
-    pip3 install pdoc3
-    pip3 install pytest
-    pip3 install pytest-cov
-    pip3 install setuptools
-    pip3 install PyYAML
-
-
     pip3 install -r requirements.txt
 }
 

@@ -8,8 +8,6 @@ from .base import (
 )
 from .utils import attr
 
-__all__ = [ 'Image' ]
-
 
 class Image(WebComponent, ClassMixin):
     """A web-component for an image.
@@ -30,7 +28,7 @@ class Image(WebComponent, ClassMixin):
     def __str__(self):
         return f'''
             <img {attr("id", self.identifier)}
-                {attr('class', self.classes)} 
+                {attr('class', self.classes)}
                 {attr('src', self.__src)}
                 {attr('width', self.__width)}
                 {attr('height', self.__height)}

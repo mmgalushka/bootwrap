@@ -5,7 +5,6 @@ Test for bootwrap/components/menu.py
 import pytest
 
 from bootwrap import Navigation, Text
-
 from .helper import HelperHTMLParser
 
 
@@ -15,7 +14,7 @@ def test_navigation():
     itemA = Navigation.Item('A', textA, True)
     textB = Text('b-text')
     itemB = Navigation.Item('B', textB, False)
-    
+
     navigation = Navigation(itemA, itemB)
     actual = HelperHTMLParser.parse(str(navigation))
     expected = HelperHTMLParser.parse(f'''
@@ -29,7 +28,7 @@ def test_navigation():
                     A
                 </a>
             </li>
-            <li class="nav-item">   
+            <li class="nav-item">
                 <a id="..."
                     class="nav-link"
                     href="..."

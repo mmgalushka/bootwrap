@@ -4,29 +4,13 @@ A form with input elements.
 
 from abc import ABC, abstractclassmethod
 
-from .base import (
-    WebComponent,
-    ClassMixin,
-    AvailabilityMixin
-)
+from .base import WebComponent, ClassMixin, AvailabilityMixin
 from .utils import attr, inject
-
-__all__ = [ 
-    'Form',
-    'Input',
-    'CheckboxInput',
-    'Freehand',
-    'TextInput',
-    'NumericInput',
-    'SelectInput', 
-    'HiddenInput',
-    'FileInput'
-]
 
 
 class Form(WebComponent, ClassMixin):
     """A web-component for a form.
-    
+
     Args:
         components (tuple): The form components.
     """
@@ -57,6 +41,7 @@ class Form(WebComponent, ClassMixin):
                 {inject(*self.__components)}
             </form>
         '''
+
 
 class Input(ABC, WebComponent, ClassMixin, AvailabilityMixin):
     """A base input.
@@ -92,8 +77,10 @@ class Input(ABC, WebComponent, ClassMixin, AvailabilityMixin):
             receiver_classes = None
             if not self.__label_on_top:
                 self.add_classes('row')
-                label_classes = 'col-sm-2 col-form-label d-flex align-items-center'
-                receiver_classes = 'col-sm-10 d-flex align-items-center'
+                label_classes = \
+                    'col-sm-2 col-form-label d-flex align-items-center'
+                receiver_classes = \
+                    'col-sm-10 d-flex align-items-center'
             return f'''
                 <div {attr('class', self.classes)}>
                     <label {attr('class', label_classes)}
@@ -126,15 +113,16 @@ class CheckboxInput(Input):
 
     def label_on_top(self):
         raise AssertionError(
-            'This "label_on_top" function is not used in <class "CheckboxInput">'
+            'This "label_on_top" function is not used in '
+            '<class "CheckboxInput">'
         )
 
     def _receiver(self):
         return f'''
             <input {attr('id', self.identifier)}
                 {attr('name', self._name)}
-                type="checkbox" 
-                class="form-check-input" 
+                type="checkbox"
+                class="form-check-input"
                 autocomplete="off"
                 {attr('checked', self.__checked)}
                 {attr('disabled', self._disabled)}/>
@@ -160,13 +148,16 @@ class Freehand(Input):
     def _receiver(self):
         if self._rows > 1:
             assert self._type == 'text',\
-                f'The <class "TextInput"> of type "{self._type}" can not have {self._rows} rows.'
+                f'The <class "TextInput"> of type "{self._type}" ' +\
+                f'can not have {self._rows} rows.'
             return f'''
                 <textarea {attr('id', self.identifier)}
-                    {attr('name', self._name)} 
+                    {attr('name', self._name)}
                     class="form-control"
                     {attr('rows', self._rows)}
-                    {attr('disabled', self._disabled)}>{self.__value or ''}</textarea>
+                    {attr('disabled', self._disabled)}>
+                    {self.__value or ''}
+                </textarea>
             '''
         else:
             return f'''
@@ -290,12 +281,12 @@ class SelectInput(Input):
                         <input {attr('id', option.identifier)}
                             {attr('name', self._name)}
                             {attr('value', option.value)}
-                            type="radio" 
-                            class="form-check-input" 
+                            type="radio"
+                            class="form-check-input"
                             autocomplete="off"
                             {attr('checked', option.value == self.__value)}
                             {attr('disabled', option.disabled)}/>
-                        <label class="form-check-label mr-1" 
+                        <label class="form-check-label mr-1"
                             {attr('for', option.identifier)}>
                             {option.name}
                         </label>
@@ -309,7 +300,9 @@ class SelectInput(Input):
                     <option {attr('id', option.identifier)}
                         {attr('value', option.value)}
                         {attr('selected', option.value == self.__value)}
-                        {attr('disabled', option.disabled)}>{option.name}</option>
+                        {attr('disabled', option.disabled)}>
+                        {option.name}
+                    </option>
                 ''')
 
             return f'''
@@ -333,7 +326,7 @@ class HiddenInput(Input):
     def __init__(self, name, value=None):
         super().__init__(None, name)
         self.__value = value
-    
+
     def _receiver(self):
         return f'''
             <input {attr('id', self.identifier)}
@@ -355,7 +348,6 @@ class FileInput(Input):
     """
     def __init__(self, label, name):
         super().__init__(label, name)
-
 
     def _receiver(self):
         browse_button_class = 'btn btn-secondary'

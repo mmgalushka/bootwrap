@@ -5,7 +5,6 @@ Test for bootwrap/components/menu.py
 import pytest
 
 from bootwrap import Menu, Anchor, Button, Text, Image
-
 from .helper import HelperHTMLParser
 
 
@@ -32,14 +31,18 @@ def test_menu():
                 aria-label="Toggle menu">
                 <span class="navbar-toggler-icon"></span>
             </button>
-                
+
             <div class="collapse navbar-collapse" id="menu">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item">
-                        <a id="{anchor1.identifier}" class="nav-link ml-2">Menu1</a>
+                        <a id="{anchor1.identifier}" class="nav-link ml-2">
+                            Menu1
+                        </a>
                     </li>
                     <li class="nav-item">
-                        <a id="{anchor2.identifier}" class="nav-link ml-2">Menu2</a>
+                        <a id="{anchor2.identifier}" class="nav-link ml-2">
+                            Menu2
+                        </a>
                     </li>
                 </ul>
 
@@ -51,7 +54,6 @@ def test_menu():
                     class="btn btn-outline-primary ml-2">
                     Action2
                 </button>
-        
             </div>
         </nav>
     ''')

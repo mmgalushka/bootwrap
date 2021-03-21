@@ -5,8 +5,6 @@ A javascript.
 from .base import WebComponent
 from .utils import attr
 
-__all__ = [ 'Javascript' ]
-
 
 class Javascript(WebComponent):
     """A web-component for a javascript.
@@ -15,10 +13,10 @@ class Javascript(WebComponent):
     for more information.
 
     Args:
-        src (str): The URL to load javascript. A URL can be absolute or 
+        src (str): The URL to load javascript. A URL can be absolute or
             relative (default=None).
         script (str): The javascript code (default=None).
-        submap (dict): The map with substitutions, binding the 
+        submap (dict): The map with substitutions, binding the
             javascript with Python objects (default=None).
     """
     def __init__(self, src=None, script=None, submap=None):
@@ -36,7 +34,7 @@ class Javascript(WebComponent):
             '''
         else:
             script = self.__script
-            for name, wc in  self.__submap.items():
+            for name, wc in self.__submap.items():
                 if isinstance(wc, WebComponent):
                     substitution = str(wc.identifier)
                 else:

@@ -6,8 +6,7 @@ import glob
 
 import yaml
 
-from textwrap import dedent
-from flask import Flask, Markup, redirect, url_for
+from flask import Flask, Markup
 from bs4 import BeautifulSoup
 
 import bootwrap as bw
@@ -18,31 +17,27 @@ with open('main.yaml', 'r') as file:
     demo = yaml.load(file)
 
 
-QUOTES_AUTHORS = [
-    'N.Mandela',
-    'W.Disney',
-    'S.Jobs',
-]
-
-QUOTES_TEXT = [
-    '"The greatest glory in living lies not in never falling, but in rising every time we fall."',
-    '"The way to get started is to quit talking and begin doing."',
-    '"Your time is limited, so don\'t waste it living someone else\'s life. Don\'t be trapped by dogma – which is living with the results of other people\'s thinking."'
-]
-
-
 class DocArguments(bw.Panel):
     def __init__(self, content):
-
-
         table = bw.Table(
             head=['Name', 'Type', 'Description'],
             body=content
         ).as_small().as_bordered()
-        table.body.transform(0, bw.TableEntity.VALUE, lambda x: f'<i style="white-space: nowrap">{x}</i>')
-        table.body.transform(1, bw.TableEntity.VALUE, lambda x: f'<code>{x}</code>')
-        table.body.transform(2, bw.TableEntity.VALUE, lambda x: f'<span class="text-secondary">{x}</span>')
-
+        table.body.transform(
+            0,
+            bw.TableEntity.VALUE,
+            lambda x: f'<i style="white-space: nowrap">{x}</i>'
+        )
+        table.body.transform(
+            1,
+            bw.TableEntity.VALUE,
+            lambda x: f'<code>{x}</code>'
+        )
+        table.body.transform(
+            2,
+            bw.TableEntity.VALUE,
+            lambda x: f'<span class="text-secondary">{x}</span>'
+        )
         super().__init__(table)
 
 
@@ -62,10 +57,11 @@ class DocSection(bw.Panel):
         self.__title = None
         if 'title' in content:
             self.__title = Title(content['title'])
-        
+
         subtitle = None
         if 'subtitle' in content:
-            subtitle = bw.Text(content['subtitle']).as_heading(2).add_classes('text-muted')
+            subtitle = bw.Text(content['subtitle']).as_heading(2).\
+                add_classes('text-muted')
 
         image = None
         if 'image' in content:
@@ -85,7 +81,9 @@ class DocSection(bw.Panel):
         constructor = None
         if 'constructor' in content:
             constructor = f'''
-                <p><strong>Constructor:</strong> <code>{content['constructor']}</code></p>
+                <p><strong>Constructor:</strong>
+                    <code>{content['constructor']}</code>
+                </p>
             '''
 
         arguments = None
@@ -113,7 +111,7 @@ class DocSection(bw.Panel):
                         )
                     except KeyError as err:
                         raise AssertionError(
-                            f'Invalid fragment format for a table;'
+                            'Invalid fragment format for a table;'
                         ) from err
                 else:
                     raise AssertionError(
@@ -144,7 +142,7 @@ class DocSection(bw.Panel):
 
 class GenericPage(bw.Page):
     """Generic web-pages for demoing web-components.
-    
+
     Args:
         content (WebComponent): The web-page content to show
     """
@@ -165,15 +163,15 @@ class GenericPage(bw.Page):
                     if len(sections) > 2:
                         navlinks = list(map(NavLink, sections))
                         toc = bw.Panel(
-                            bw.Text('Navigate To').as_heading(6), 
+                            bw.Text('Navigate To').as_heading(6),
                             *navlinks
                         ).add_classes('mt-2 p-2 border bg-light').horizontal()
 
                     items.append(
-                            bw.Navigation.Item(
-                            name, 
+                        bw.Navigation.Item(
+                            name,
                             bw.Panel(toc, *sections),
-                            len(items)==0
+                            len(items) == 0
                         )
                     )
                 return [bw.Navigation(*items).as_tabs()]
@@ -181,9 +179,9 @@ class GenericPage(bw.Page):
                 return list(map(DocSection, content))
 
         super().__init__(
-            favicon = 'favicon.ico',
+            favicon='favicon.ico',
             menu=bw.Menu(
-                logo = bw.Image(
+                logo=bw.Image(
                     'logo.png',
                     width=32,
                     alt='Bootwrap Logo'
@@ -193,12 +191,12 @@ class GenericPage(bw.Page):
                     bw.Anchor('Home').link('/'),
                     bw.Anchor('Introduction').link('/introduction'),
                     bw.Anchor('Components').link('/components')
-                ], 
+                ],
                 actions=[
-                    bw.Button('GitHub').\
-                        as_outline().\
-                        as_light().\
-                        link('https://github.com/mmgalushka/python-bootwrap')
+                    bw.Button('GitHub').
+                    as_outline().
+                    as_light().
+                    link('https://github.com/mmgalushka/python-bootwrap')
                 ]
             ),
             content=docgen(content)
@@ -229,7 +227,7 @@ def components():
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument(
-        'action', 
+        'action',
         choices=['demo', 'docs'],
         help='action to run'
     )
@@ -237,7 +235,7 @@ if __name__ == '__main__':
     args = parser.parse_args(sys.argv[1:])
 
     if args.action == 'docs':
- 
+
         for path in glob.glob('docs/*.html'):
             os.remove(path)
 

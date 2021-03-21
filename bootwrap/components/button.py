@@ -13,10 +13,9 @@ from .base import (
 )
 from .utils import attr, inject
 
-__all__ = [ 'Button' ]
 
-
-class Button(WebComponent, ClassMixin, ActionMixin, AppearanceMixin, OutlineMixin, AvailabilityMixin):
+class Button(WebComponent, ClassMixin, ActionMixin, AppearanceMixin,
+             OutlineMixin, AvailabilityMixin):
     """A web-component for a button.
 
     Args:
@@ -42,7 +41,7 @@ class Button(WebComponent, ClassMixin, ActionMixin, AppearanceMixin, OutlineMixi
             if self.__name == '...':
                 self.add_classes('fas fa-ellipsis-v')
                 host = f'''
-                    <i {attr('id', self.identifier)} 
+                    <i {attr('id', self.identifier)}
                         {attr('class', self.classes)}
                         style="cursor: pointer"
                         data-toggle="dropdown"
@@ -52,9 +51,9 @@ class Button(WebComponent, ClassMixin, ActionMixin, AppearanceMixin, OutlineMixi
             else:
                 self.add_classes('dropdown-toggle')
                 host = f'''
-                    <button {attr('id', self.identifier)} 
+                    <button {attr('id', self.identifier)}
                         {attr('class', self.classes)}
-                        type="button" 
+                        type="button"
                         data-toggle="dropdown"
                         aria-haspopup="true"
                         aria-expanded="false"
@@ -62,7 +61,6 @@ class Button(WebComponent, ClassMixin, ActionMixin, AppearanceMixin, OutlineMixi
                         {self.__name}
                     </button>
                 '''
-                
             return f'''
                 <div class="btn-group">
                     {host}
@@ -73,16 +71,16 @@ class Button(WebComponent, ClassMixin, ActionMixin, AppearanceMixin, OutlineMixi
             '''
         elif self._action == Action.LINK:
             if self._disabled:
-                self.add_classes(f'disabled')
-            
+                self.add_classes('disabled')
+
             # At this point, we only need to check whether the specified
             # target is a web-component or a string. The ActionMixin makes
             # sure that a user can specify only these two types.
             if isinstance(self._target, WebComponent):
                 href = f'#{self._target.identifier}'
-            else: # type(target) == str
+            else:  # type(target) == str
                 href = self._target
-                
+
             return f'''
                 <a {attr('id', self.identifier)}
                     {attr('class', self.classes)}
@@ -116,7 +114,7 @@ class Button(WebComponent, ClassMixin, ActionMixin, AppearanceMixin, OutlineMixi
                     {self.__name}
                 </button>
             '''
-        elif  self._action == Action.DISMISS:
+        elif self._action == Action.DISMISS:
             return f'''
                 <button {attr('id', self.identifier)}
                     {attr('class', self.classes)}
@@ -146,4 +144,3 @@ class Button(WebComponent, ClassMixin, ActionMixin, AppearanceMixin, OutlineMixi
                     {self.__name}
                 </button>
             '''
-

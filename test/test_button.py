@@ -5,7 +5,6 @@ Test for bootwrap/components/button.py
 import pytest
 
 from bootwrap import Button, WebComponent
-
 from .helper import HelperHTMLParser
 
 
@@ -33,7 +32,6 @@ def test_button():
     ''')
     assert actual == expected
 
-
     button = Button('Somename').as_primary().as_outline()
     actual = HelperHTMLParser.parse(str(button))
     expected = HelperHTMLParser.parse(f'''
@@ -44,7 +42,6 @@ def test_button():
         </button>
     ''')
     assert actual == expected
-
 
     button = Button('Somename').add_classes('someclass')
     actual = HelperHTMLParser.parse(str(button))
@@ -184,18 +181,18 @@ def test_manu_button():
     actions = [Button('A'), Button('B')]
     button = Button('Somename').add_menu(*actions)
     actual = HelperHTMLParser.parse(str(button))
-    expected = HelperHTMLParser.parse(f'''
+    expected = HelperHTMLParser.parse('''
         <div class="btn-group">
-            <button id="..." 
+            <button id="..."
                 class="btn dropdown-toggle"
-                type="button" 
+                type="button"
                 data-toggle="dropdown"
                 aria-haspopup="true"
                 aria-expanded="false"
                 onclick="return false;">
                 Somename
             </button>
-            <div class="dropdown-menu dropdown-menu-right">   
+            <div class="dropdown-menu dropdown-menu-right">
                 <button id="..."
                     class="dropdown-item btn"
                     onclick="return false;">
@@ -214,15 +211,15 @@ def test_manu_button():
     actions = [Button('A'), Button('B')]
     button = Button('...').add_menu(*actions)
     actual = HelperHTMLParser.parse(str(button))
-    expected = HelperHTMLParser.parse(f'''
-        <div class="btn-group">  
-            <i id="14edde5e-272f-443c-b5f6-1220582ff7bf" 
+    expected = HelperHTMLParser.parse('''
+        <div class="btn-group">
+            <i id="14edde5e-272f-443c-b5f6-1220582ff7bf"
                 class="btn fas fa-ellipsis-v"
                 style="cursor: pointer"
                 data-toggle="dropdown"
                 onclick="return false;">
             </i>
-            <div class="dropdown-menu dropdown-menu-right">   
+            <div class="dropdown-menu dropdown-menu-right">
                 <button id="c2a83781-a624-48af-9f8c-a40596ac2d7a"
                     class="dropdown-item btn"
                     onclick="return false;">

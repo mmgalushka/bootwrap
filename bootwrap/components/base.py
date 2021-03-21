@@ -5,17 +5,6 @@ Base web-component and mixins.
 import uuid
 import enum
 
-__all__ = [
-    'WebComponent',
-    'ClassMixin',
-    'ActionMixin',
-    'AppearanceMixin',
-    'OutlineMixin',
-    'AvailabilityMixin',
-    'Breakpoint',
-    'Action'
-]
-
 
 class WebComponent:
     """A web-component base class."""
@@ -45,7 +34,7 @@ class ClassMixin:
             self
         """
         for c in classes.split(' '):
-            if len(c)>0:
+            if len(c) > 0:
                 if c not in self.__classes:
                     self.__classes.append(c)
         return self
@@ -70,11 +59,11 @@ class ActionMixin:
         """Links to the web-resource.
 
         Args:
-            target (str|WebComponent): The URL to the linking web-page or 
+            target (str|WebComponent): The URL to the linking web-page or
                 linking web-component. In the case of the web-component,
                 the hyperlink will have the following format `#identifier`,
                 where the identifier is a unique ID of the specified target.
-        
+
         Returns:
             self
         """
@@ -92,7 +81,7 @@ class ActionMixin:
 
         Args:
             target (WebComponent): The web-component to toggle.
-        
+
         Returns:
             self
         """
@@ -152,7 +141,6 @@ class ActionMixin:
         """
         self._menu = menu
         return self
-
 
 
 class AppearanceMixin:
@@ -271,7 +259,7 @@ class Breakpoint(str, enum.Enum):
     """Breakpoints are defined by Bootstrap and mostly based on minimum
     viewport widths and allow us to scale up elements as the viewport
     changes.
-    
+
     https://getbootstrap.com/docs/4.0/layout/overview/#responsive-breakpoints
     """
     XS = 'xs'

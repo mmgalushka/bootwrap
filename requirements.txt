@@ -1,2 +1,9 @@
 Flask
 beautifulsoup4
+PyYAML
+wheel
+pylint
+flake8
+pytest
+pytest-cov
+setuptools

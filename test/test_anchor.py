@@ -6,16 +6,16 @@ import warnings
 import pytest
 
 from bootwrap import Anchor, Panel, Dialog, Text
-
 from .helper import HelperHTMLParser
 
 
 @pytest.mark.anchor
 def test_anchor():
-    anchor = Anchor('somename', 'somerole').add_classes('someclass').as_primary()
+    anchor = Anchor('somename', 'somerole').add_classes('someclass').\
+        as_primary()
     actual = HelperHTMLParser.parse(str(anchor))
     expected = HelperHTMLParser.parse(f'''
-        <a id="{anchor.identifier}" class="text-primary someclass" 
+        <a id="{anchor.identifier}" class="text-primary someclass"
             role="somerole">
             somename
         </a>

@@ -5,7 +5,6 @@ Test for bootwrap/components/badge.py
 import pytest
 
 from bootwrap import Badge
-
 from .helper import HelperHTMLParser
 
 

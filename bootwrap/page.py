@@ -1,17 +1,8 @@
-# Copyright (c) 2019 AUROMIND Ltd. All rights reserved.
-
 """
 A web-page.
 """
 
-from .components import (
-    Link,
-    Javascript,
-    attr,
-    inject
-)
-
-__all__ = [ 'Page' ]
+from .components import Link, Javascript, inject
 
 
 class Page:
@@ -44,25 +35,24 @@ class Page:
         """Renders an HTML page."""
         return str(self)
 
-
     def __str__(self):
         """Renders an HTML page."""
 
         links = [
-            Link('https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css'),
-            Link('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css'),
-            Link('https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/default.min.css')
+            Link('https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css'),                   # NOQA 
+            Link('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css'),               # NOQA
+            Link('https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/default.min.css')        # NOQA
         ]
 
         if self.__favicon:
             links.append(Link(self.__favicon, 'icon', 'image/x-icon'))
 
         scripts = [
-            Javascript('https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js'),
-            Javascript('https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js'),
-            Javascript('https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js'),
-            Javascript('https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js'),
-            Javascript('https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/languages/python.min.js')
+            Javascript('https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js'),                  # NOQA
+            Javascript('https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js'),         # NOQA
+            Javascript('https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js'),               # NOQA
+            Javascript('https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js'),       # NOQA
+            Javascript('https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/languages/python.min.js') # NOQA
         ]
 
         if self.__resources:
@@ -73,8 +63,8 @@ class Page:
                     scripts.append(resource)
                 else:
                     raise TypeError(
-                        'Page resource must be either <class "Link"> or <class "Javascript">,'
-                        f' but got: {type(resource)};',
+                        'Page resource must be either <class "Link"> or '
+                        f'<class "Javascript">, but got: {type(resource)};',
                     )
 
         title = None
@@ -91,7 +81,9 @@ class Page:
             <html lang="en">
                 <head>
                     <meta charset="utf-8"/>
-                    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+                    <meta name="viewport"
+                        content="width=device-width, initial-scale=1,
+                        shrink-to-fit=no"/>
                     {inject(*links)}
                     {inject(*scripts)}
                     {inject(title)}

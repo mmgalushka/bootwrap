@@ -2,11 +2,11 @@
 Test for bootwrap/components/base.py
 """
 
-import pytest, re
+import pytest
+import re
 
 from bootwrap import (
     WebComponent,
-    ClassMixin,
     ActionMixin,
     AppearanceMixin,
     OutlineMixin,
@@ -21,7 +21,7 @@ def tests_web_component():
         def __str__(self):
             return self.identifier
     wc = TestWebComponent()
-    regex = re.compile(r'^[a-f0-9]{8}-?[a-f0-9]{4}-?4[a-f0-9]{3}-?[89ab][a-f0-9]{3}-?[a-f0-9]{12}\Z', re.I)
+    regex = re.compile(r'^[a-f0-9]{8}-?[a-f0-9]{4}-?4[a-f0-9]{3}-?[89ab][a-f0-9]{3}-?[a-f0-9]{12}\Z', re.I) # NOQA
     match = regex.match(str(wc))
     assert bool(match)
 
@@ -45,23 +45,27 @@ def tests_action_mixin():
 
             return f'{action}:{target}'
     assert str(TestActionMixin()) == 'none:none'
-    
+
     # test link-action
     target = WebComponent()
-    assert str(TestActionMixin().link(target)) == Action.LINK + f':{target.identifier}'
-    assert str(TestActionMixin().link('somelink')) == Action.LINK + ':somelink'
+    assert str(TestActionMixin().link(target)) == Action.LINK + \
+        f':{target.identifier}'
+    assert str(TestActionMixin().link('somelink')) == Action.LINK + \
+        ':somelink'
     with pytest.raises(TypeError):
         str(TestActionMixin().link(None))
 
     # test toggle-action
     target = WebComponent()
-    assert str(TestActionMixin().toggle(target)) == Action.TOGGLE + f':{target.identifier}'
+    assert str(TestActionMixin().toggle(target)) == Action.TOGGLE + \
+        f':{target.identifier}'
     with pytest.raises(TypeError):
         str(TestActionMixin().toggle(None))
 
     # test collapse-action
     target = WebComponent()
-    assert str(TestActionMixin().collapse(target)) == Action.COLLAPSE + f':{target.identifier}'
+    assert str(TestActionMixin().collapse(target)) == Action.COLLAPSE + \
+        f':{target.identifier}'
     with pytest.raises(TypeError):
         str(TestActionMixin().collapse(None))
 

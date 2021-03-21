@@ -5,7 +5,6 @@ Test for bootwrap/components/collection.py
 import pytest
 
 from bootwrap import List, Deck, Button, Icon, Text
-
 from .helper import HelperHTMLParser
 
 
@@ -14,14 +13,15 @@ def test_list_item():
     # Tests a default list item.
     item = List.Item(
         'sometitle',
-        description= 'somedescr',
+        description='somedescr',
         figure=Icon('someicon'),
         marker="somemarker",
     ).as_selected()
     actual = HelperHTMLParser.parse(str(item))
     expected = HelperHTMLParser.parse(f'''
         <a id="{item.identifier}"
-            class="list-group-item list-group-item-action flex-column align-items-start active">
+            class="list-group-item list-group-item-action flex-column
+                   align-items-start active">
             <div class="d-flex w-100 justify-content-between">
                 <i id="..." class="someicon"> </i>
                 <div class="ml-2 mr-2 w-100">
@@ -39,14 +39,15 @@ def test_list_item():
     # Tests a custom list item.
     item = List.Item(
         Text('sometitle'),
-        description= Text('somedescr'),
+        description=Text('somedescr'),
         figure=Icon('someicon'),
         marker=Text("somemarker")
     ).as_selected()
     actual = HelperHTMLParser.parse(str(item))
     expected = HelperHTMLParser.parse(f'''
         <a id="{item.identifier}"
-            class="list-group-item list-group-item-action flex-column align-items-start active">
+            class="list-group-item list-group-item-action flex-column
+                   align-items-start active">
             <div class="d-flex w-100 justify-content-between">
                 <i id="..." class="someicon"> </i>
                 <div class="ml-2 mr-2 w-100">
@@ -67,7 +68,8 @@ def test_list_item():
     actual = HelperHTMLParser.parse(str(item))
     expected = HelperHTMLParser.parse(f'''
         <a id="{item.identifier}"
-            class="list-group-item list-group-item-action flex-column align-items-start active">
+            class="list-group-item list-group-item-action flex-column
+                   align-items-start active">
             <div class="d-flex w-100 justify-content-between">
                 <div class="ml-2 mr-2 w-100">
                     <div class="d-flex w-100 justify-content-between">
@@ -97,7 +99,8 @@ def test_list_item():
     actual = HelperHTMLParser.parse(str(item))
     expected = HelperHTMLParser.parse(f'''
         <a id="{item.identifier}"
-            class="list-group-item list-group-item-action flex-column align-items-start active">
+            class="list-group-item list-group-item-action flex-column
+                   align-items-start active">
             <div class="d-flex w-100 justify-content-between">
                 <div class="ml-2 mr-2 w-100">
                     <div class="d-flex w-100 justify-content-between">
@@ -106,7 +109,7 @@ def test_list_item():
                 </div>
                 <div class="d-flex align-items-start">
                     <div class="btn-group">
-                        <i id="..." 
+                        <i id="..."
                             class="btn fas fa-ellipsis-v"
                             style="cursor: pointer"
                             data-toggle="dropdown"
@@ -142,31 +145,37 @@ def test_list():
     actual = HelperHTMLParser.parse(str(ls))
     expected = HelperHTMLParser.parse(f'''
         <div id="{ls.identifier}" class="list-group">
-            <a id="..." class="list-group-item list-group-item-action flex-column align-items-start active">
+            <a id="..."
+                class="list-group-item list-group-item-action flex-column
+                       align-items-start active">
                 <div class="d-flex w-100 justify-content-between">
                     <div class="ml-2 mr-2 w-100">
-                        <div class="d-flex w-100 justify-content-between">            
+                        <div class="d-flex w-100 justify-content-between">
                             <h5 id="...">sometitle1</h5>
                         </div>
-                    </div>   
+                    </div>
                 </div>
             </a>
-            <a id="..." class="list-group-item list-group-item-action flex-column align-items-start">
+            <a id="..."
+                class="list-group-item list-group-item-action flex-column
+                       align-items-start">
                 <div class="d-flex w-100 justify-content-between">
                     <div class="ml-2 mr-2 w-100">
-                        <div class="d-flex w-100 justify-content-between">            
+                        <div class="d-flex w-100 justify-content-between">
                             <h5 id="...">sometitle2</h5>
                         </div>
-                    </div>   
+                    </div>
                 </div>
             </a>
-            <a id="..." class="list-group-item list-group-item-action flex-column align-items-start">
+            <a id="..."
+                class="list-group-item list-group-item-action flex-column
+                       align-items-start">
                 <div class="d-flex w-100 justify-content-between">
                     <div class="ml-2 mr-2 w-100">
-                        <div class="d-flex w-100 justify-content-between">            
+                        <div class="d-flex w-100 justify-content-between">
                             <h5 id="...">sometitle3</h5>
                         </div>
-                    </div>   
+                    </div>
                 </div>
             </a>
         </div>
@@ -182,7 +191,7 @@ def test_deck_card():
     # Tests a default deck card.
     card = Deck.Card(
         'sometitle',
-        description= 'somedescr',
+        description='somedescr',
         figure=Icon('someicon'),
         marker="somemarker",
     )
@@ -193,7 +202,7 @@ def test_deck_card():
                 <i id="..." class="someicon"></i>
             </div>
             <div class="card-body">
-                <div class="text-right mb-2"> 
+                <div class="text-right mb-2">
                     <span id="..."
                         lass="text-muted"><small>somemarker</small>
                     </span>
@@ -211,7 +220,7 @@ def test_deck_card():
     # Tests a custom deck card.
     card = Deck.Card(
         Text('sometitle'),
-        description= Text('somedescr'),
+        description=Text('somedescr'),
         figure=Icon('someicon'),
         marker=Text("somemarker")
     )
@@ -222,11 +231,11 @@ def test_deck_card():
                 <i id="..." class="someicon"></i>
             </div>
             <div class="card-body">
-                <div class="text-right mb-2"> 
+                <div class="text-right mb-2">
                     <span id="...">somemarker</span>
                 </div>
                 <span id="..." class="card-title">sometitle</span>
-                <span id="..." >somedescr</span>  
+                <span id="..." >somedescr</span>
             </div>
         </a>
     ''')
@@ -239,12 +248,12 @@ def test_deck_card():
     expected = HelperHTMLParser.parse(f'''
         <a id="{card.identifier}" class="card">
             <div class="row justify-content-center"></div>
-            <div class="card-body"> 
+            <div class="card-body">
                 <h5 id="..." class="card-title">
                     sometitle
                 </h5>
             </div>
-            <div class="card-footer text-right"> 
+            <div class="card-footer text-right">
                 <button id="..."
                     class="ml-1 btn"
                     onclick="return false;">
@@ -267,14 +276,14 @@ def test_deck_card():
     expected = HelperHTMLParser.parse(f'''
         <a id="{card.identifier}" class="card">
             <div class="row justify-content-center"></div>
-            <div class="card-body"> 
+            <div class="card-body">
                 <h5 id="..." class="card-title">
                     sometitle
                 </h5>
             </div>
-            <div class="card-footer text-right"> 
+            <div class="card-footer text-right">
                 <div class="btn-group">
-                    <i id="..." 
+                    <i id="..."
                         class="btn fas fa-ellipsis-v"
                         style="cursor: pointer"
                         data-toggle="dropdown"

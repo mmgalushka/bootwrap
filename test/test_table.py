@@ -11,7 +11,7 @@ from .helper import HelperHTMLParser
 
 @pytest.mark.table
 def test_table():
-    table = Table(['A', 'B'], [[1,2], [3,4]]).add_classes('someclass')
+    table = Table(['A', 'B'], [[1, 2], [3, 4]]).add_classes('someclass')
     actual = HelperHTMLParser.parse(str(table))
     expected = HelperHTMLParser.parse(f'''
         <table id="{table.identifier}" class="table someclass">
@@ -22,7 +22,10 @@ def test_table():
                 </tr>
             </thead>
             <tbody>
-                <tr><td scope="row">1</td><td>2</td></tr><tr><td scope="row">3</td><td>4</td></tr>
+                <tr>
+                    <td scope="row">1</td><td>2</td></tr>
+                    <tr><td scope="row">3</td><td>4</td>
+                </tr>
             </tbody>
         </table>
     ''')
@@ -67,8 +70,10 @@ def test_table_head():
 
 @pytest.mark.table
 def test_table_body():
-    table = Table(None,  [[1,2], [3,4]])
-    table.body.transform(0, TableEntity.VALUE, lambda v: 0 if v==1 else v)
+    table = Table(None,  [[1, 2], [3, 4]])
+    table.body.transform(
+        0, TableEntity.VALUE, lambda v: 0 if v == 1 else v
+    )
     actual = HelperHTMLParser.parse(str(table))
     expected = HelperHTMLParser.parse(f'''
         <table id="{table.identifier}" class="table">
@@ -86,8 +91,10 @@ def test_table_body():
     ''')
     assert actual == expected
 
-    table = Table(None,  [[1,2], [3,4]])
-    table.body.transform(0, TableEntity.CELL, lambda v: 'someclass' if v==1 else '')
+    table = Table(None,  [[1, 2], [3, 4]])
+    table.body.transform(
+        0, TableEntity.CELL, lambda v: 'someclass' if v == 1 else ''
+    )
     actual = HelperHTMLParser.parse(str(table))
     expected = HelperHTMLParser.parse(f'''
         <table id="{table.identifier}" class="table">
@@ -105,13 +112,15 @@ def test_table_body():
     ''')
     assert actual == expected
 
-    table = Table(None,  [[1,2], [3,4]])
-    table.body.transform(0, TableEntity.ROW, lambda v: 'someclass' if v==1 else '')
+    table = Table(None,  [[1, 2], [3, 4]])
+    table.body.transform(
+        0, TableEntity.ROW, lambda v: 'someclass' if v == 1 else ''
+    )
     actual = HelperHTMLParser.parse(str(table))
     expected = HelperHTMLParser.parse(f'''
         <table id="{table.identifier}" class="table">
             <tbody>
-                <tr class="someclass"> 
+                <tr class="someclass">
                     <td scope="row">1</td>
                     <td>2</td>
                 </tr>
@@ -128,7 +137,7 @@ def test_table_body():
         str(Table(None, 'somename'))
 
     with pytest.raises(ValueError):
-        table = Table(None,  [[1,2], [3,4]])
+        table = Table(None,  [[1, 2], [3, 4]])
         table.body.transform(0, TableEntity.VALUE, lambda v: v)
         table.body.transform(0, TableEntity.VALUE, lambda v: v)
 

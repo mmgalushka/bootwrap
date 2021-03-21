@@ -1,19 +1,8 @@
-# Copyright (c) 2019 AUROMIND Ltd. All rights reserved.
-
 """
 A menu bar.
 """
 
-import uuid
-
-from .components import (
-    Anchor,
-    Text,
-    attr, inject
-) 
-
-
-__all__ = ['Menu']
+from .components import Text, inject
 
 
 class Menu:
@@ -38,10 +27,7 @@ class Menu:
         self.__brand = brand
 
         self.__anchors = anchors
-        self.__actions= actions
-
-
-
+        self.__actions = actions
 
     def __str__(self):
         anchors = ''
@@ -73,7 +59,7 @@ class Menu:
                     aria-label="Toggle menu">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                
+
                 <div class="collapse navbar-collapse" id="menu">
                     <ul class="navbar-nav mr-auto">
                         {anchors}

@@ -2,8 +2,6 @@
 Web-components utilities.
 """
 
-__all__ = [ 'attr', 'inject' ]
-
 
 def attr(name, value):
     """Makes a HTML tag attribute.
@@ -19,7 +17,7 @@ def attr(name, value):
 
     Returns:
         result (str): The constructed attribute.
-    """ 
+    """
     if value is not None:
         if isinstance(value, bool):
             return name if value else ''

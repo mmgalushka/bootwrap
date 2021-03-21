@@ -5,7 +5,6 @@ Test for bootwrap/components/text.py
 import pytest
 
 from bootwrap import Text
-
 from .helper import HelperHTMLParser
 
 
@@ -23,7 +22,8 @@ def test_text():
 
 @pytest.mark.text
 def test_text_heading():
-    text = Text('sometext').add_classes('someclass').as_primary().as_heading(1)
+    text = Text('sometext').add_classes('someclass').as_primary().\
+        as_heading(1)
     actual = HelperHTMLParser.parse(str(text))
     expected = HelperHTMLParser.parse(f'''
         <h1 id="{text.identifier}" class="text-primary someclass">
@@ -41,7 +41,8 @@ def test_text_heading():
 
 @pytest.mark.text
 def test_text_paragraph():
-    text = Text('sometext').add_classes('someclass').as_primary().as_paragraph()
+    text = Text('sometext').add_classes('someclass').as_primary().\
+        as_paragraph()
     actual = HelperHTMLParser.parse(str(text))
     expected = HelperHTMLParser.parse(f'''
         <p id="{text.identifier}" class="text-primary someclass">

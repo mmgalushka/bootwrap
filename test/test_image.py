@@ -5,7 +5,6 @@ Test for bootwrap/components/image.py
 import pytest
 
 from bootwrap import Image
-
 from .helper import HelperHTMLParser
 
 

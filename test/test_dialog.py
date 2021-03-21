@@ -5,7 +5,6 @@ Test for bootwrap/components/image.py
 import pytest
 
 from bootwrap import Dialog, Button
-
 from .helper import HelperHTMLParser
 
 
@@ -26,7 +25,7 @@ def test_without_dialog():
                         <h5 class="modal-title text-primary">
                             sometitle
                         </h5>
-                        <button type="button" 
+                        <button type="button"
                             class="close"
                             data-dismiss="modal"
                             aria-label="Close">
@@ -61,7 +60,7 @@ def test_with_dialog():
                         <h5 class="modal-title text-primary">
                             sometitle
                         </h5>
-                        <button type="button" 
+                        <button type="button"
                             class="close"
                             data-dismiss="modal"
                             aria-label="Close">

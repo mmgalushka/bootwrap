@@ -5,8 +5,6 @@ An external resource link.
 from .base import WebComponent
 from .utils import attr
 
-__all__ = [ 'Link' ]
-
 
 class Link(WebComponent):
     """A web-component for an external resource link.

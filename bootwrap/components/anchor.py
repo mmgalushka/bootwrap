@@ -12,15 +12,13 @@ from .base import (
     Action
 )
 from .panel import Panel
-from .dialog import Dialog 
+from .dialog import Dialog
 from .utils import attr, inject
-
-__all__ = [ 'Anchor' ]
 
 
 class Anchor(WebComponent, ClassMixin, ActionMixin, AppearanceMixin):
     """A web-component for an anchor.
-    
+
     Args:
         inner (obj): The object wrapped by an anchor (default=None).
         role (obj): The anchor role. This parameter is not used in a typical
@@ -43,7 +41,7 @@ class Anchor(WebComponent, ClassMixin, ActionMixin, AppearanceMixin):
         if self._action == Action.LINK:
             if isinstance(self._target, WebComponent):
                 href = f'#{self._target.identifier}'
-            else: # type(target) == str
+            else:  # type(target) == str
                 href = self._target
 
             return f'''
@@ -57,10 +55,11 @@ class Anchor(WebComponent, ClassMixin, ActionMixin, AppearanceMixin):
         elif self._action == Action.TOGGLE:
             if self.__role:
                 warnings.warn(
-                    'When you use the anchor toggle-function it is advisable '
-                    'to avoid of setting the role-parameter. Your role setting '
-                    'will overwrite the internally defined role. is may cause '
-                    'faulty anchor behaviour.', category=RuntimeWarning
+                    'When you use the anchor toggle-function it is '
+                    'advisable to avoid of setting the role-parameter. '
+                    'Your role setting will overwrite the internally '
+                    'defined role. is may cause faulty anchor behaviour.',
+                    category=RuntimeWarning
                 )
 
             if isinstance(self._target, Panel):
@@ -98,7 +97,7 @@ class Anchor(WebComponent, ClassMixin, ActionMixin, AppearanceMixin):
                     {inject(self._inner)}
                 </a>
             '''
-        elif  self._action == Action.DISMISS:
+        elif self._action == Action.DISMISS:
             return f'''
                 <a {attr('id', self.identifier)}
                     {attr('class', self.classes)}

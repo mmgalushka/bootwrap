@@ -12,15 +12,13 @@ from .anchor import Anchor
 from .panel import Panel
 from .utils import attr, inject
 
-__all__ = [ 'Navigation' ]
-
 
 NavigationItem = namedtuple('NavigationItem', 'anchor panel')
 
 
 class Navigation(WebComponent, ClassMixin):
     """A web-component for navigation.
-    
+
     Args:
         items (tuple): The navigation items.
     """
@@ -65,7 +63,6 @@ class Navigation(WebComponent, ClassMixin):
         """
         return self.add_classes('nav-tabs')
 
-
     def as_pills(self):
         """Makes the navigation controls looks like buttons.
 
@@ -73,7 +70,6 @@ class Navigation(WebComponent, ClassMixin):
             self
         """
         return self.add_classes('nav-pills')
-
 
     def __str__(self):
         menus, panels = [], []
@@ -88,7 +84,8 @@ class Navigation(WebComponent, ClassMixin):
             anchor_classes = "nav-link"
             if item.active:
                 anchor_classes += " active"
-            anchor = Anchor(item.name).add_classes(anchor_classes).toggle(panel)
+            anchor = Anchor(item.name).add_classes(anchor_classes).\
+                toggle(panel)
             menus.append(
                 f'''
                     <li class="nav-item">
@@ -118,6 +115,5 @@ class Navigation(WebComponent, ClassMixin):
             output = f'''
                 <div class="d-flex">{output}</div>
             '''
-        
-        return output
 
+        return output

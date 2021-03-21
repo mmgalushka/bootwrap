@@ -4,14 +4,8 @@ A table.
 
 from enum import Enum
 
-from .base import (
-    WebComponent,
-    ClassMixin,
-    Breakpoint
-)
+from .base import WebComponent, ClassMixin, Breakpoint
 from .utils import inject, attr
-
-__all__ = [ 'Table', 'TableEntity' ]
 
 
 class TableEntity(Enum):
@@ -49,12 +43,12 @@ class Table(WebComponent, ClassMixin):
                 self.__class = None
 
             def __len__(self):
-                return len(self.__head)    
+                return len(self.__head)
 
             def as_light(self):
                 """Makes the table head appears as light gray."""
                 self.__class = 'thead-light'
-            
+
             def as_dark(self):
                 """Makes the table head appears as dark gray."""
                 self.__class = 'thead-dark'
@@ -91,17 +85,17 @@ class Table(WebComponent, ClassMixin):
                 self.__trans = {}
 
             def __len__(self):
-                return len(self.__body)    
+                return len(self.__body)
 
             def transform(self, index, entity, fn):
                 """Defines a function to transform a cell value
-                
+
                 Args:
                     index (int): The column index to which transformation
                         is applied;
                     entity (Entity): The entity to which transformation
                         is applied;
-                    fn (func): The function to use for transformation. 
+                    fn (func): The function to use for transformation.
                 """
                 if index not in self.__trans:
                     self.__trans[index] = {
@@ -118,6 +112,30 @@ class Table(WebComponent, ClassMixin):
                     )
 
             def __str__(self):
+                def get_cell_value(column, value):
+                    if column in self.__trans:
+                        if self.__trans[column][TableEntity.VALUE] is not None:
+                            return self.__trans[column][TableEntity.VALUE](
+                                value
+                            )
+                    return value
+
+                def get_cell_classes(column, value):
+                    if column in self.__trans:
+                        if self.__trans[column][TableEntity.CELL] is not None:
+                            return self.__trans[column][TableEntity.CELL](
+                                value
+                            )
+                    return ''
+
+                def get_row_classes(column, value):
+                    if column in self.__trans:
+                        if self.__trans[column][TableEntity.CELL] is not None:
+                            return self.__trans[column][TableEntity.CELL](
+                                value
+                            )
+                    return ''
+
                 if len(self) == 0:
                     return ''
                 else:
@@ -125,21 +143,31 @@ class Table(WebComponent, ClassMixin):
                     for row in self.__body:
                         row_classes = []
                         record = []
-                        for index, value in enumerate(row):
-                            cell_value = value
-                            cell_classes = ''
-                            if index in self.__trans:
-                                if self.__trans[index][TableEntity.VALUE] is not None:
-                                    cell_value = self.__trans[index][TableEntity.VALUE](cell_value)
-                                if self.__trans[index][TableEntity.CELL] is not None:
-                                    cell_classes = self.__trans[index][TableEntity.CELL](value)
-                                if self.__trans[index][TableEntity.ROW] is not None:
-                                    row_classes.append(self.__trans[index][TableEntity.ROW](value))
+                        for column, value in enumerate(row):
+                            cell_value = get_cell_value(column, value)
+                            cell_classes = get_cell_classes(column, value)
+                            row_classes.append(
+                                get_row_classes(column, value)
+                            )
+
                             if len(record) == 0:
-                                record.append(f'<td scope="row" {attr("class", cell_classes)}>{cell_value}</td>')
+                                record.append(f'''
+                                    <td scope="row"
+                                        {attr("class", cell_classes)}>
+                                        {cell_value}
+                                    </td>
+                                ''')
                             else:
-                                record.append(f'<td {attr("class", cell_classes)}>{cell_value}</td>')
-                        records.append(f'<tr {attr("class", " ".join(row_classes))}>{"".join(record)}</tr>')
+                                record.append(f'''
+                                    <td {attr("class", cell_classes)}>
+                                        {cell_value}
+                                    </td>
+                                ''')
+                        records.append(f'''
+                            <tr {attr("class", " ".join(row_classes))}>
+                                {"".join(record)}
+                            </tr>
+                        ''')
 
                     return f'''
                         <tbody>

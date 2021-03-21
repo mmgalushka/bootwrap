@@ -2,14 +2,8 @@
 A badge.
 """
 
-from .base import (
-    WebComponent,
-    ClassMixin,
-    AppearanceMixin
-)
+from .base import WebComponent, ClassMixin, AppearanceMixin
 from .utils import attr
-
-__all__ = [ 'Badge' ]
 
 
 class Badge(WebComponent, ClassMixin, AppearanceMixin):

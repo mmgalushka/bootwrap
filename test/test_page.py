@@ -4,8 +4,7 @@ Test for bootwrap/components/page.py
 
 import pytest
 
-from bootwrap import Page, Button, Link, Javascript, Menu, Text
-
+from bootwrap import Page, Link, Javascript, Menu, Text
 from .helper import HelperHTMLParser
 
 
@@ -22,7 +21,7 @@ def test_page_resources():
         content=[Text('sometext')]
     )
     actual = HelperHTMLParser.parse(page.__html__())
-    expected = HelperHTMLParser.parse(f'''
+    expected = HelperHTMLParser.parse(f''' 
         <!DOCTYPE html>
         <html lang="en">
             <head>
@@ -86,7 +85,7 @@ def test_page_resources():
             </body>
             <script>hljs.initHighlightingOnLoad();</script>
         </html>
-    ''')
+    ''')  # NOQA
     assert actual == expected
 
     with pytest.raises(TypeError):
@@ -94,6 +93,3 @@ def test_page_resources():
 
     with pytest.raises(TypeError):
         Page(title=Text('Some Title')).__html__()
-
-
-
