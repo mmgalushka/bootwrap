@@ -2,7 +2,7 @@
 Base web-components.
 """
 
-from .anchor import Anchor             # NOQA
+from .anchor import Anchor             # noqa: F401
 from .badge import Badge               # NOQA
 from .base import (                    # NOQA
     WebComponent,

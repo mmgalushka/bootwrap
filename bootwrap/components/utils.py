@@ -53,3 +53,7 @@ def inject(*components):
         str: The string with injected web-components.
     """
     return ''. join(map(str, filter(None, components)))
+
+
+def tag(name, attrs, inner):
+    return f'<{name} {" ".join(attrs)}>{inner}</{name}>'

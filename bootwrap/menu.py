@@ -9,10 +9,14 @@ class Menu:
     """A web-component for a menu bar at the page top.
 
     Args:
-        logo (Image): The logo (default=None).
-        brand (Text):  The brand (default=None).
-        anchors (list): The menu anchors (default=None).
-        actions (list): The menu top-level actions (default=None).
+        logo (Image): The <code>Image</code> representing a company or
+            organization logo (default=None).
+        brand (Text):  The the <code>Text</code> representing a company,
+            organization, or a project (default=None).
+        anchors (list): The list of <code>Anchor</code> allowing to navigate
+            to the different pages from the top-level menu (default=None).
+        actions (list): The list of <code>Button</code> allowing to perform
+            specific actions such as login, logout, etc. (default=None).
     """
     def __init__(self, logo=None, brand=None, anchors=None, actions=None):
         super().__init__()

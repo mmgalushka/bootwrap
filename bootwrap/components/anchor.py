@@ -20,9 +20,10 @@ class Anchor(WebComponent, ClassMixin, ActionMixin, AppearanceMixin):
     """A web-component for an anchor.
 
     Args:
-        inner (obj): The object wrapped by an anchor (default=None).
-        role (obj): The anchor role. This parameter is not used in a typical
-            scenario. It usually set by other web-components, which is using
+        inner (obj): The `str` or `WebComponent` object wrapped by the anchor
+            (default=None).
+        role (str): The anchor role. This parameter is not used in a general
+            scenario. It usually set by other `WebComponent`, which is using
             the anchor to introduce a specific action (default=None).
     """
     def __init__(self, inner=None, role=None):

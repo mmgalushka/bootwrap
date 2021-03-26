@@ -18,7 +18,7 @@ def test_page_resources():
         ],
         title='Some Title',
         menu=Menu(logo='somelogo.jpg'),
-        content=[Text('sometext')]
+        container=Text('sometext')
     )
     actual = HelperHTMLParser.parse(page.__html__())
     expected = HelperHTMLParser.parse(f''' 

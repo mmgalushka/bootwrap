@@ -31,7 +31,7 @@ class DocArguments(bw.Panel):
         table.body.transform(
             1,
             bw.TableEntity.VALUE,
-            lambda x: f'<code>{x}</code>'
+            lambda x: f'<code style="white-space: nowrap">{x}</code>'
         )
         table.body.transform(
             2,
@@ -44,19 +44,11 @@ class DocArguments(bw.Panel):
 class DocSection(bw.Panel):
 
     def __init__(self, content):
-
-        class Title(bw.Anchor):
-            def __init__(self, text):
-                super().__init__(bw.Text(text).as_heading(1))
-                self.__text = text
-
-            @property
-            def text(self):
-                return self.__text
+        self.__name = content.get('title')
 
         self.__title = None
         if 'title' in content:
-            self.__title = Title(content['title'])
+            self.__title = bw.Text(content['title']).as_heading(1)
 
         subtitle = None
         if 'subtitle' in content:
@@ -65,7 +57,13 @@ class DocSection(bw.Panel):
 
         image = None
         if 'image' in content:
-            image = bw.Image(content['image'], width=500)
+            image = bw.Panel(
+                bw.Image(
+                    content['image']['file'],
+                    width=content['image'].get('width'),
+                    height=content['image'].get('height')
+                )
+            ).add_classes('text-center')
 
         code_left = None
         code_right = None
@@ -128,16 +126,15 @@ class DocSection(bw.Panel):
             ).horizontal(),
             bw.Panel(
                 bw.Panel(arguments, *description,  code_left),
-                bw.Panel(code_right, image, evaluation)
-            ).horizontal(),
-            bw.Anchor(bw.Text('Back on Top').as_small()).link('#')
+                bw.Panel(image, code_right, evaluation)
+            ).horizontal()
         )
-        self.add_classes('mt-5')
+        self.add_classes('mt-3')
 
     @property
-    def title(self):
-        """The section title"""
-        return self.__title
+    def name(self):
+        """The section name"""
+        return self.__name
 
 
 class GenericPage(bw.Page):
@@ -147,36 +144,33 @@ class GenericPage(bw.Page):
         content (WebComponent): The web-page content to show
     """
     def __init__(self, content):
-
-        class NavLink(bw.Anchor):
-            def __init__(self, section):
-                super().__init__(bw.Text(section.title.text).as_small())
-                self.link(section.title)
-
         def docgen(content):
             if isinstance(content, dict):
                 items = []
                 for name, tab in content.items():
                     sections = list(map(DocSection, tab))
 
-                    toc = None
-                    if len(sections) > 2:
-                        navlinks = list(map(NavLink, sections))
-                        toc = bw.Panel(
-                            bw.Text('Navigate To').as_heading(6),
-                            *navlinks
-                        ).add_classes('mt-2 p-2 border bg-light').horizontal()
+                    if len(sections) > 1:
+                        view = bw.Panel(
+                            bw.Separator(),
+                            bw.Navigation(*[
+                                bw.Navigation.Item(
+                                    bw.Text(section.name).as_secondary(),
+                                    section,
+                                    active=(idx == 0)
+                                )
+                                for idx, section in enumerate(sections)
+                            ])
+                        )
+                    else:
+                        view = sections[0]
 
                     items.append(
-                        bw.Navigation.Item(
-                            name,
-                            bw.Panel(toc, *sections),
-                            len(items) == 0
-                        )
+                        bw.Navigation.Item(name, view, len(items) == 0)
                     )
-                return [bw.Navigation(*items).as_tabs()]
+                return bw.Navigation(*items).as_pills()
             else:
-                return list(map(DocSection, content))
+                return bw.Panel(*list(map(DocSection, content)))
 
         super().__init__(
             favicon='favicon.ico',
@@ -189,7 +183,7 @@ class GenericPage(bw.Page):
                 brand=bw.Text('Bootwrap').as_strong().as_light(),
                 anchors=[
                     bw.Anchor('Home').link('/'),
-                    bw.Anchor('Introduction').link('/introduction'),
+                    bw.Anchor('Layout').link('/layout'),
                     bw.Anchor('Components').link('/components')
                 ],
                 actions=[
@@ -199,7 +193,7 @@ class GenericPage(bw.Page):
                     link('https://github.com/mmgalushka/python-bootwrap')
                 ]
             ),
-            content=docgen(content)
+            container=docgen(content)
         )
 
 
@@ -210,11 +204,11 @@ def home():
     return Markup(GenericPage(content['home']))
 
 
-@app.route('/introduction')
-def introduction():
+@app.route('/layout')
+def layout():
     with open('main.yaml', 'r') as file:
         content = yaml.load(file, Loader=yaml.FullLoader)
-    return Markup(GenericPage(content['introduction']))
+    return Markup(GenericPage(content['layout']))
 
 
 @app.route('/components')
@@ -242,14 +236,14 @@ if __name__ == '__main__':
         def save_page(filename, page):
             page = str(page).\
                 replace('href="/"', 'href="index.html"').\
-                replace('href="/introduction"', 'href="introduction.html"').\
+                replace('href="/layout"', 'href="layout.html"').\
                 replace('href="/components"', 'href="components.html"')
             with open(f'docs/{filename}', 'w') as file:
                 soup = BeautifulSoup(page)
                 file.write(soup.prettify())
 
         save_page('index.html', home())
-        save_page('introduction.html', introduction())
+        save_page('layout.html', layout())
         save_page('components.html', components())
 
     else:

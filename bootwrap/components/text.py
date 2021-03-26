@@ -9,7 +9,7 @@ from .base import (
     ClassMixin,
     AppearanceMixin
 )
-from .utils import attr
+from .utils import attr, tag
 
 
 class Text(WebComponent, ClassMixin, AppearanceMixin):
@@ -108,29 +108,21 @@ class Text(WebComponent, ClassMixin, AppearanceMixin):
             if self.classes:
                 classes += f' {self.classes}'
 
+            attrs = [
+                attr("id", self.identifier),
+                attr("class", classes)
+            ]
             if self.__level:
-                return f'''
-                    <h{self.__level} {attr("id", self.identifier)}
-                        {attr("class", classes)}>
-                        {c}
-                    </h{self.__level}>
-                '''
+                return tag(f'h{self.__level}', attrs, c)
             else:
                 if self.__code:
-                    return f'''
-                        <pre {attr("id", self.identifier)}
-                            {attr("class", classes)}>
-                            <code class="python">{dedent(c)}</code>
-                        </pre>
-                    '''
+                    return tag(
+                        'pre',
+                        attrs,
+                        tag('code', attr('class', 'python'), dedent(c))
+                    )
                 else:
                     if self.__paragraph:
-                        return f'''
-                            <p {attr("id", self.identifier)}
-                                {attr("class", classes)}>{c}</p>
-                        '''
-                    return f'''
-                        <span {attr("id", self.identifier)}
-                            {attr("class", classes)}>{c}</span>
-                    '''
+                        return tag('p', attrs, c)
+                    return tag('span', attrs, c)
         return wrap_as_main(wrap_as_strong(wrap_as_small(self.__content)))

@@ -7,7 +7,9 @@ home:
   - title: <span class="display-4">Bootwrap</span>
     description: 
       - <h2 class="text-muted">Pure Python wrapper for one of the most popular front-end toolkit Bootstrap, allowing quick and easy prototyping of web-based user interfaces</h2>
-    image: flash.png  
+    image:
+      file: flash.png
+      height: 300
 
   - title: Installation
     description: 
@@ -33,7 +35,9 @@ home:
               
       if __name__ == '__main__':
           app.run(debug=True)
-    image: single-page-app.png
+    image:
+      file: single-page-app.png
+      height: 200
 
   - title: Multi-Pages Application
     description:
@@ -117,63 +121,65 @@ home:
 
       if __name__ == '__main__':
           app.run(debug=True)
-    image: multi-pages-app.png
+    image:
+      file: multi-pages-app.png
+      height: 200
 
 # ==============================================================================
 # 
-#   I N T R O D U C T I O N     P A G E
+#   L A Y O U T   P A G E
 # 
 # ==============================================================================
-introduction:
-  - title: Architecture
+layout:
+  - title: Layout
     description:
-      - To simplify the process of prototyping interfaces, Bootwrap uses fixed architecture. The core element of this architecture is the page. The page consists of two main elements menu and content. The menu provides top-level navigation among different pages of your application, and content presents page information. Learn more about creating pages and menus below.
-    image: page-n-menu.png  
+      - To simplify the process of developing Web UI, Bootwrap uses the predefined layout which consists  of two elements <code>Page</code> and <code>Menu</code>.
+      - <strong>Note:</strong> if your application does not require the top-level menu it can be discarded.
+    image:
+      file: layout.png
+      height: 200
   
   - title: Page
-    constructor: Page(favicon, title, menu, content)
+    constructor: Page(favicon=None, title=None, resources=None, menu=None, content=None)
     arguments:
-      - ['favicon', 'str', 'the file name for the favorite icon displayed in a browser;']
-      - ['title', 'str', 'the page title, displayed in a browser;']
-      - ['menu', 'Menu', 'the top-level page menu;']
-      - ['content', 'list', 'the list of <code>WebComponent</code> representing a page content;']
+      - ['favicon', 'str', 'the file name for the favorite icon displayed in a browser tab;']
+      - ['title', 'str', 'the page title, displayed in a browser tab;']
+      - ['resources', 'list', 'the The list of <code>Link</code>s and <code>Javascript</code>s to be loaded with the page;']
+      - ['menu', 'Menu', 'the page top-level menu;']
+      - ['container', 'WebComponent', 'the <code>WebComponent</code> for hosting page elements;']
     description:
-      - Page contains the top-level navigation menu and area for rendering user content. Its initializations consist of the following parameters
-      - The content could be any component that instantiates the WebComponent class. For example, to create a sophisticated layout you can use the Panel. It encapsulates multiple web components and can arrange them in different layouts.
+      - The container could be any element inheriting <code>WebComponent</code> class. Typically for hosting  other custom interface elements is used  <code>Panel</code>.
+    image:
+      file: page.png
+      height: 250
     code: |
       @right
-      from bootwrap import Menu
+      from bootwrap import Page
 
-      class MyPage(Page):
-        def __init__(self, content):
-          super().__init__(
-            favicon = ...,
-            title=...,
-            menu=...,
-            content=...
-          )
+      page = Page(
+        favicon=..., title=..., resources=..., menu=...,
+        container=...
+      )
 
   - title: Menu
-    constructor: Menu(logo, brand, anchors, actions)
+    constructor: Menu(logo=None, brand=None, anchors=None, actions=None)
     arguments:
       - ['logo', 'Image', 'the <code>Image</code> representing a company or organization logo;']
-      - ['brand', 'Text', 'the <code>Text</code> representing a company, organization, or a project;']
-      - ['anchors', 'list', 'the the list of <code>Anchor</code> allowing to navigate to the different pages from the top-level menu;']
-      - ['actions', 'list', 'the list of <code>Button</code> allowing to perform  specific actions such as login, logout, etc.;']
+      - ['brand', 'Text', 'the <code>Text</code> representing a company, organization, or project name;']
+      - ['anchors', 'list', 'the list of <code>Anchor</code> for navigation to the different pages from the top-level menu;']
+      - ['actions', 'list', 'the list of <code>Button</code> for performing top-level actions such as login, logout, etc;']
     description:
-      - The menu represents the top-level navigation located at the top of a page. Its initializations consist of the following parameters
+      - The menu represents the top-level navigation bar containing anchors and actions allowing to switch between different application <code>Page</code>s. 
+    image:
+      file: menu.png
+      height: 100
     code: |
       @right
       from bootwrap import Menu
 
-      class MyMenu(Menu):
-          def __init__(self):
-              super().__init__(
-                  logo = ...,
-                  brand=...,
-                  anchors=..., 
-                  actions=...
-              )
+      menu = Menu(
+        logo=..., brand=..., anchors=...,  actions=...
+      )
 
 # ==============================================================================
 # 
@@ -187,11 +193,19 @@ components:
     - title: Anchor
       constructor: Anchor(inner=None, role=None)
       arguments:
-        - ['inner', 'obj', 'the object (usually <code>str</code> or <code>WebComponent</code>) wrapped by an anchor']
-        - ['role', 'str', 'he anchor role. This parameter is not used in a typical scenario. It usually set by other web-components, which is using the anchor to introduce a specific action.  ']
+        - ['inner', 'obj', 'the <code>str</code> or <code>WebComponent</code> object wrapped by the anchor;']
+        - ['role', 'str', 'the anchor role (this parameter is not used in a general
+            scenario. It usually set by other <code>WebComponent</code>, which is using
+            the anchor to introduce a specific action);']
       description:
-        - An <code>Anchor</code> is used for creating a hyperlink to pages, files, email addresses, locations on the same page, or other web-resources defined by a URL address. The <i>Bootwrap</i> also uses the <code>Anchor</code> in conjunction with other web-components, for example, in creating a navigation menu.
-        - Use the <code>link(href)</code> function to connect the <code>Anchor</code> to another web-resource defined by the <code>href</code> parameter.
+        - An <code>Anchor</code> is used for creating a hyperlink to pages, files, email addresses, locations on the same page, or other web-resources defined by a URL address. The <i>Bootwrap</i> also uses the <code>Anchor</code> in conjunction with other components, for example, in creating a navigation menu.
+      code: |
+        @right
+        Anchor('Google Search').link('https://www.google.com/')
+
+    - title: <code>link</code>
+      description:
+        - The <code>link(href)</code> function connects the <code>Anchor</code> to another web-resource defined by the <code>href</code> parameter.
       code: |
         @right
         Anchor('Google Search').link('https://www.google.com/')
@@ -202,7 +216,93 @@ components:
             link('https://www.google.com/')
         )
 
-    - title: Anchor Styles
+    - title: <code>toggle</code>
+      description:
+        - The <code>toggle(wc)</code> function makes a switch to a <code>Panel</code> defined the <code>wc</code> parameter. This function is typically called inside other <code>WebComponent</code>s such as <code>Navigation</code> for switching between tabs.
+        
+    - title: <code>open</code>
+      description:
+        - The <code>open(wc)</code> function opens a <code>Dialog</code> defined by the <code>wc</code> parameter.
+      code: |
+        @right
+        wc_quote = Dialog(
+          "Steve Jobs Quote",
+          "Sometimes life is going to hit you in " +
+          "the head with a brick. Don’t lose faith."
+        )
+
+        Anchor("Steve Jobs Quote").toggle(wc_quote)
+      evaluation: |
+        from bootwrap import Panel, Dialog, Anchor
+        wc_quote = Dialog(
+          "Steve Jobs Quote", 
+          "Sometimes life is going to hit you in " +
+          "the head with a brick. Don’t lose faith."
+        )
+
+        output = Panel(
+          Anchor('Steve Jobs Quote').toggle(wc_quote),
+          wc_quote
+        )
+
+    - title: <code>collapse</code>
+      description:
+        - The <code>collapse(wc)</code> function expands or collapses a <code>Panel</code> defined by the <code>wc</code> parameter.
+      code: |
+        @right
+        wc_quote = Panel(
+          "Sometimes life is going to hit you in " +
+          "the head with a brick. Don’t lose faith."
+        ).as_collapse()
+
+        Anchor("Steve Jobs Quote").collapse(wc_quote)
+      evaluation: |
+        from bootwrap import Panel, Anchor
+
+        wc_quote = Panel(
+          "Sometimes life is going to hit you in " +
+          "the head with a brick. Don’t lose faith."
+        ).as_collapse()
+
+        output = Panel(
+          Anchor('Steve Jobs Quote').collapse(wc_quote),
+          wc_quote
+        )
+
+    - title: <code>dismiss</code>
+      description:
+        - The <code>dismiss()</code> function is used in conjunction with a <code>Dialog</code> to initiate the close action.
+      code: |
+        @right
+        wc_quote = Dialog(
+          "Steve Jobs Quote",
+          "Sometimes life is going to hit you in " +
+          "the head with a brick. Don’t lose faith.",
+          Anchor("Close").dismiss()
+        )
+
+        Anchor("Steve Jobs Quote").open(wc_quote)
+      evaluation: |
+        from bootwrap import Panel, Dialog, Anchor
+        wc_quote = Dialog(
+          "Steve Jobs Quote", 
+          "Sometimes life is going to hit you in " +
+          "the head with a brick. Don’t lose faith.",
+          Anchor("Close").dismiss()
+        )
+
+        output = Panel(
+          Anchor('Steve Jobs Quote').toggle(wc_quote),
+          wc_quote
+        )
+
+    - title: <code>submit</code>
+      description:
+        - The <code>submit()</code> function is used in conjunction with a <code>Form</code> to initiate the submit-action.
+        - <strong>Note:</strong> an <code>Anchor</code> associated with the submit-action will be displayed as a <code>Button</code>.
+
+
+    - title: Styles
       description:
         - Use the following functions <code>as_primary()</code>, <code>as_secondary()</code>, <code>as_success()</code>, <code>as_warning()</code>, <code>as_danger()</code>, <code>as_info()</code>, <code>as_light()</code>, and <code>as_dark()</code> for changing the <code>Anchor</code> appearance.
         - Follow the <a href='https://getbootstrap.com/'>Bootstrap</a> guideline to applying these styles.
@@ -220,59 +320,18 @@ components:
         from bootwrap import Panel, Anchor
 
         panel = Panel(
-          Anchor('Primary').as_primary(),
-          Anchor('Secondary').as_secondary(),
-          Anchor('Success').as_success(),
-          Anchor('Warning').as_warning(),
-          Anchor('Danger').as_danger(),
-          Anchor('Info').as_info(),
-          Anchor('Light').as_light(),
-          Anchor('Dark').as_dark()
+          Anchor('Primary').link('#').as_primary(),
+          Anchor('Secondary').link('#').as_secondary(),
+          Anchor('Success').link('#').as_success(),
+          Anchor('Warning').link('#').as_warning(),
+          Anchor('Danger').link('#').as_danger(),
+          Anchor('Info').link('#').as_info(),
+          Anchor('Light').link('#').as_light(),
+          Anchor('Dark').link('#').as_dark()
         )
 
         for anchor in panel:
           anchor.add_classes('mb-1')
-
-        output = panel
-
-
-  # --- Badge Tab --------------------------------------------------------------
-  Badge:
-    - title: Badge
-      constructor: Badge(label)
-      arguments:
-        - ['label', 'str', 'the badge label']
-      description:
-        - A <code>Badge</code> is used for presenting short  message on web-page , ex. "process status".
-        - Use the following functions <code>as_primary()</code>, <code>as_secondary()</code>, <code>as_success()</code>, <code>as_warning()</code>, <code>as_danger()</code>, <code>as_info()</code>, <code>as_light()</code>, and <code>as_dark()</code> for changing the <code>Badge</code> appearance.
-      code: |
-        @right
-
-        Badge('Primary').as_primary()
-        Badge('Secondary').as_secondary()
-        Badge('Success').as_success()
-        Badge('Warning').as_warning()
-        Badge('Danger').as_danger()
-        Badge('Info').as_info()
-        Badge('Light').as_light()
-        Badge('Dark').as_dark()
-
-      evaluation: |
-        from bootwrap import Panel, Badge
-
-        panel = Panel(
-          Badge('Primary').as_primary(),
-          Badge('Secondary').as_secondary(),
-          Badge('Success').as_success(),
-          Badge('Warning').as_warning(),
-          Badge('Danger').as_danger(),
-          Badge('Info').as_info(),
-          Badge('Light').as_light(),
-          Badge('Dark').as_dark()
-        )
-
-        for badge in panel:
-          badge.add_classes('mb-1')
 
         output = panel
 
@@ -407,16 +466,11 @@ components:
         dialog = Dialog(
           'Delete File',
           'Are you sure?',
-          Button('Confirm').\
-            as_danger().\
-            link('url/to/act')
-          Button('Cancel').\
-            dismiss()
+          Button('Confirm').as_danger().link('url/to/act')
+          Button('Cancel').dismiss()
         ).as_danger()
 
-        button = Button('Confirm').\
-          as_danger().\
-          toggle(dialog)   
+        button = Button('Confirm').as_danger().toggle(dialog)   
       evaluation: |
         from bootwrap import Panel, Dialog, Button
 
@@ -641,110 +695,6 @@ components:
           FileInput('File', 'file'),
           FileInput('File', 'file').as_disabled()
         )
-
-  # --- Image Tab ---------------------------------------------------------------
-
-  Image:
-    - title: Image
-      constructor: Image(src, width=None, height=None, alt=None)
-      arguments:
-        - ['src', 'str', 'the URL defining image location']
-        - ['width', 'int', 'the image width']
-        - ['height', 'int', 'the image height']
-        - ['alt', 'int', 'the image alternative text']
-      description:
-        - A <code>Image</code> is a web-component for showing an image.
-      code: |
-        @right
-        Image('logo.png')
-      evaluation: |
-        from bootwrap import Image
-        output = Image('logo.png')
-
-
-  # --- Javascript Tab ---------------------------------------------------------
-
-  Javascript:
-    - title: Javascript
-      constructor: Javascript(src=None, script=None, submap=None)
-      arguments:
-        - ['src', 'str', 'the URL to load Javascript code']
-        - ['script', 'str', 'the Javascript code']
-        - ['submap', 'dict', 'The map with substitutions, binding the Javascript with Python objects']
-      description:
-        - A <code>Javascript</code> is a web-component for inserting <i>Javascript</i> code into the HTML page. This can be done in two ways. You can specify an external <i>Javascript</i> file via a URL using the <code>src</code> parameter. Or you can define <i>Javascript</i> code using the <code>script</code> parameter. To make a connection between <i>Javascript</i> and <i>Python</i> objects use the <code>submap</code> parameter. <code>submap</code> is a dictionary where <strong>key</strong> is a name of a variable within <i>Javascript</i> to replace with <strong>value</strong> - Python object. If <i>Python</i> object is an instance of <code>WebComponent</code> the substitution process with place it's identifier into the <i>Javascript </i>
-      code: |
-        @right
-        # Javascript URL
-        Javascript('https://ajax...0/jquery.min.js')
-
-        # Javascript code
-        label = Text('Answer:').as_strong()
-        answer = Text('unknown').add_classes('mr-2 ml-2')
-        btn_yes = Button('Yes').as_success()
-        btn_no = Button('No').as_danger()
-
-        action = Javascript(
-          script='''
-            $("#btn_yes").on("click",function(){
-              $("#answer").text("Yes");
-            });
-            $("#btn_no").on("click",function(){
-              $("#answer").text("No");
-            });
-          ''',
-          submap={
-            'answer': answer,
-            'btn_yes': btn_yes,
-            'btn_no': btn_no
-          }
-        )
-        
-        Panel(
-          label, answer, btn_yes, btn_no, action
-        )
-      evaluation: |
-        from bootwrap import Panel, Javascript, Button, Text
-
-        label = Text('Answer:').as_strong()
-        answer = Text('unknown').add_classes('mr-2 ml-2')
-        btn_yes = Button('Yes').as_success()
-        btn_no = Button('No').as_danger()
-
-        action = Javascript(
-          script='''
-            $("#btn_yes").on("click",function(){
-              $("#answer").text("Yes");
-            });
-            $("#btn_no").on("click",function(){
-              $("#answer").text("No");
-            });
-          ''',
-          submap={
-            'answer': answer,
-            'btn_yes': btn_yes,
-            'btn_no': btn_no
-          }
-        )
-        output = Panel(
-          label, answer, btn_yes, btn_no, action
-        )
-
-  # --- Link Tab ---------------------------------------------------------------
-
-  Link:
-    - title: Link
-      constructor: Link(href, rel='stylesheet', ctype='text/css')
-      arguments:
-        - ['href', 'str', 'the attribute specifies the URL of the linked resource where the URL can be absolute or relative (from MDN WebDoc)']
-        - ['rel', 'str', 'the attribute names a relationship of the linked document to the current document (from MDN WebDoc)']
-        - ['ctype', 'str', 'the attribute is used to define the type of the content linked to (from MDN WebDoc)']
-      description:
-        - A <code>Link</code> is a web-component for linking an external resource. Applied in conjunction with the <code>Page</code>
-      code: |
-        @right
-        Link('https://cdnjs.cloudflare.com/.../all.min.css')
-
 
   # --- List Tab ---------------------------------------------------------------
 
@@ -1124,3 +1074,137 @@ components:
         output = Panel(
           text_plain
         )
+
+  # --- Others Tab -------------------------------------------------------------
+
+  Others:
+    - title: Badge
+      constructor: Badge(label)
+      arguments:
+        - ['label', 'str', 'the badge label']
+      description:
+        - A <code>Badge</code> is used for presenting short  message on web-page , ex. "process status".
+        - Use the following functions <code>as_primary()</code>, <code>as_secondary()</code>, <code>as_success()</code>, <code>as_warning()</code>, <code>as_danger()</code>, <code>as_info()</code>, <code>as_light()</code>, and <code>as_dark()</code> for changing the <code>Badge</code> appearance.
+      code: |
+        @right
+
+        Badge('Primary').as_primary()
+        Badge('Secondary').as_secondary()
+        Badge('Success').as_success()
+        Badge('Warning').as_warning()
+        Badge('Danger').as_danger()
+        Badge('Info').as_info()
+        Badge('Light').as_light()
+        Badge('Dark').as_dark()
+
+      evaluation: |
+        from bootwrap import Panel, Badge
+
+        panel = Panel(
+          Badge('Primary').as_primary(),
+          Badge('Secondary').as_secondary(),
+          Badge('Success').as_success(),
+          Badge('Warning').as_warning(),
+          Badge('Danger').as_danger(),
+          Badge('Info').as_info(),
+          Badge('Light').as_light(),
+          Badge('Dark').as_dark()
+        )
+
+        for badge in panel:
+          badge.add_classes('mb-1')
+
+        output = panel
+
+    - title: Image
+      constructor: Image(src, width=None, height=None, alt=None)
+      arguments:
+        - ['src', 'str', 'the URL defining image location']
+        - ['width', 'int', 'the image width']
+        - ['height', 'int', 'the image height']
+        - ['alt', 'int', 'the image alternative text']
+      description:
+        - A <code>Image</code> is a web-component for showing an image.
+      code: |
+        @right
+        Image('logo.png')
+      evaluation: |
+        from bootwrap import Image
+        output = Image('logo.png')
+
+    - title: Javascript
+      constructor: Javascript(src=None, script=None, submap=None)
+      arguments:
+        - ['src', 'str', 'the URL to load Javascript code']
+        - ['script', 'str', 'the Javascript code']
+        - ['submap', 'dict', 'The map with substitutions, binding the Javascript with Python objects']
+      description:
+        - A <code>Javascript</code> is a web-component for inserting <i>Javascript</i> code into the HTML page. This can be done in two ways. You can specify an external <i>Javascript</i> file via a URL using the <code>src</code> parameter. Or you can define <i>Javascript</i> code using the <code>script</code> parameter. To make a connection between <i>Javascript</i> and <i>Python</i> objects use the <code>submap</code> parameter. <code>submap</code> is a dictionary where <strong>key</strong> is a name of a variable within <i>Javascript</i> to replace with <strong>value</strong> - Python object. If <i>Python</i> object is an instance of <code>WebComponent</code> the substitution process with place it's identifier into the <i>Javascript </i>
+      code: |
+        @right
+        # Javascript URL
+        Javascript('https://ajax...0/jquery.min.js')
+
+        # Javascript code
+        label = Text('Answer:').as_strong()
+        answer = Text('unknown').add_classes('mr-2 ml-2')
+        btn_yes = Button('Yes').as_success()
+        btn_no = Button('No').as_danger()
+
+        action = Javascript(
+          script='''
+            $("#btn_yes").on("click",function(){
+              $("#answer").text("Yes");
+            });
+            $("#btn_no").on("click",function(){
+              $("#answer").text("No");
+            });
+          ''',
+          submap={
+            'answer': answer,
+            'btn_yes': btn_yes,
+            'btn_no': btn_no
+          }
+        )
+        
+        Panel(
+          label, answer, btn_yes, btn_no, action
+        )
+      evaluation: |
+        from bootwrap import Panel, Javascript, Button, Text
+
+        label = Text('Answer:').as_strong()
+        answer = Text('unknown').add_classes('mr-2 ml-2')
+        btn_yes = Button('Yes').as_success()
+        btn_no = Button('No').as_danger()
+
+        action = Javascript(
+          script='''
+            $("#btn_yes").on("click",function(){
+              $("#answer").text("Yes");
+            });
+            $("#btn_no").on("click",function(){
+              $("#answer").text("No");
+            });
+          ''',
+          submap={
+            'answer': answer,
+            'btn_yes': btn_yes,
+            'btn_no': btn_no
+          }
+        )
+        output = Panel(
+          label, answer, btn_yes, btn_no, action
+        )
+
+    - title: Link
+      constructor: Link(href, rel='stylesheet', ctype='text/css')
+      arguments:
+        - ['href', 'str', 'the attribute specifies the URL of the linked resource where the URL can be absolute or relative (from MDN WebDoc)']
+        - ['rel', 'str', 'the attribute names a relationship of the linked document to the current document (from MDN WebDoc)']
+        - ['ctype', 'str', 'the attribute is used to define the type of the content linked to (from MDN WebDoc)']
+      description:
+        - A <code>Link</code> is a web-component for linking an external resource. Applied in conjunction with the <code>Page</code>
+      code: |
+        @right
+        Link('https://cdnjs.cloudflare.com/.../all.min.css')
