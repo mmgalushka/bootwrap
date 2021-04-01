@@ -30,8 +30,8 @@ class Text(WebComponent, ClassMixin, AppearanceMixin):
     def as_muted(self):
         """Makes the text muted.
 
-        Return:
-            self
+        Returns:
+            self (Text): The instance of this class.
         """
         self._category = 'muted'
         return self
@@ -42,8 +42,8 @@ class Text(WebComponent, ClassMixin, AppearanceMixin):
         Args:
             level (int): The heading level;
 
-        Return:
-            self
+        Returns:
+            self (Text): The instance of this class.
         """
         if level < 1 or level > 6:
             raise ValueError(
@@ -56,8 +56,8 @@ class Text(WebComponent, ClassMixin, AppearanceMixin):
     def as_small(self):
         """Makes the text as small.
 
-        Return:
-            self
+        Returns:
+            self (Text): The instance of this class.
         """
         self.__small = True
         return self
@@ -65,8 +65,8 @@ class Text(WebComponent, ClassMixin, AppearanceMixin):
     def as_strong(self):
         """Makes the text as strong.
 
-        Return:
-            self
+        Returns:
+            self (Text): The instance of this class.
         """
         self.__strong = True
         return self
@@ -74,8 +74,8 @@ class Text(WebComponent, ClassMixin, AppearanceMixin):
     def as_paragraph(self):
         """Makes the text wrap in a paragraph.
 
-        Return:
-            self
+        Returns:
+            self (Text): The instance of this class.
         """
         self.__paragraph = True
         return self
@@ -83,8 +83,8 @@ class Text(WebComponent, ClassMixin, AppearanceMixin):
     def as_code(self):
         """Makes the text wrap as a code snippet.
 
-        Return:
-            self
+        Returns:
+            self (Text): The instance of this class.
         """
         self.__code = True
         return self

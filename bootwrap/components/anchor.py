@@ -19,6 +19,12 @@ from .utils import attr, inject
 class Anchor(WebComponent, ClassMixin, ActionMixin, AppearanceMixin):
     """A web-component for an anchor.
 
+    An `Anchor` is used for creating a hyperlink to pages, files, email
+    addresses, locations on the same page, or other web-resources defined
+    by a URL address. The <i>Bootwrap</i> also uses the `Anchor` in
+    conjunction with other components, for example, in creating a navigation
+    menu.
+
     Args:
         inner (obj): The `str` or `WebComponent` object wrapped by the anchor
             (default=None).

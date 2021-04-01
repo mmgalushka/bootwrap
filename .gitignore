@@ -16,6 +16,10 @@
 
 # Except test bootwrap modules
 
+!config/
+!config/**/
+!config/**/*.yaml
+
 !docs/
 !docs/**/
 !docs/**/*.*
@@ -27,7 +31,7 @@
 !helper.sh
 !LICENSE
 !main.py
-!main.yaml
+!docgen.py
 !README.md
 !requirements.txt
 !pytest.ini

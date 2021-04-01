@@ -1,0 +1,54 @@
+# ==============================================================================
+# 
+#   L A Y O U T     P A G E     C O N F I G U R A T I O N
+# 
+# ==============================================================================
+- title: Layout
+  description:
+    - To simplify the process of developing Web UI, Bootwrap uses the predefined layout which consists  of two elements <code>Page</code> and <code>Menu</code>.
+    - <strong>Note:</strong> if your application does not require the top-level menu it can be discarded.
+  image:
+    file: layout.png
+    height: 200
+
+- title: Page
+  constructor: Page(favicon=None, title=None, resources=None, menu=None, content=None)
+  arguments:
+    - ['favicon', 'str', 'the file name for the favorite icon displayed in a browser tab;']
+    - ['title', 'str', 'the page title, displayed in a browser tab;']
+    - ['resources', 'list', 'the The list of <code>Link</code>s and <code>Javascript</code>s to be loaded with the page;']
+    - ['menu', 'Menu', 'the page top-level menu;']
+    - ['container', 'WebComponent', 'the <code>WebComponent</code> for hosting page elements;']
+  description:
+    - The container could be any element inheriting <code>WebComponent</code> class. Typically for hosting  other custom interface elements is used  <code>Panel</code>.
+  image:
+    file: page.png
+    height: 250
+  code: |
+    @right
+    from bootwrap import Page
+
+    page = Page(
+      favicon=..., title=..., resources=..., menu=...,
+      container=...
+    )
+
+- title: Menu
+  constructor: Menu(logo=None, brand=None, anchors=None, actions=None)
+  arguments:
+    - ['logo', 'Image', 'the <code>Image</code> representing a company or organization logo;']
+    - ['brand', 'Text', 'the <code>Text</code> representing a company, organization, or project name;']
+    - ['anchors', 'list', 'the list of <code>Anchor</code> for navigation to the different pages from the top-level menu;']
+    - ['actions', 'list', 'the list of <code>Button</code> for performing top-level actions such as login, logout, etc;']
+  description:
+    - The menu represents the top-level navigation bar containing anchors and actions allowing to switch between different application <code>Page</code>s. 
+  image:
+    file: menu.png
+    height: 100
+  code: |
+    @right
+    from bootwrap import Menu
+
+    menu = Menu(
+      logo=..., brand=..., anchors=...,  actions=...
+    )

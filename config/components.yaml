@@ -1,0 +1,121 @@
+# ==============================================================================
+# 
+#   C O M P O N E N T S     P A G E     C O N F I G U R A T I O N
+# 
+# ==============================================================================
+
+# --- Anchor Tab -------------------------------------------------------------
+Anchor:
+  - class: Anchor
+
+Badge:
+  - class: Badge
+
+Button:
+  - class: Button
+
+  - title: Button Styles
+    description:
+      - Use the following functions <code>as_primary()</code>, <code>as_secondary()</code>, <code>as_success()</code>, <code>as_warning()</code>, <code>as_danger()</code>, <code>as_info()</code>, <code>as_light()</code>, and <code>as_dark()</code> for changing the <code>Button</code> appearance.
+      - Use the <code>as_outline()</code> function to make the <code>Button</code> without background. Note, the <code>Button</code> will have an outline look only if you apply one of the predefined styles. For the <code>Button</code> without style, this function will have no effect.
+      - Follow the <a href='https://getbootstrap.com/'>Bootstrap</a> guideline to applying these styles.
+    code: |
+      @right
+
+      # to make a different appearance
+      Button('Primary').as_primary()
+      Button('Secondary').as_secondary()
+      Button('Success').as_success()
+      Button('Warning').as_warning()
+      Button('Danger').as_danger()
+      Button('Info').as_info()
+      Button('Light').as_light()
+      Button('Dark').as_dark()
+
+      # to make the outline look
+      Button('Primary').as_primary().as_outline()
+      Button('Secondary').as_secondary().as_outline()
+      Button('Success').as_success().as_outline()
+      Button('Warning').as_warning().as_outline()
+      Button('Danger').as_danger().as_outline()
+      Button('Info').as_info().as_outline()
+      Button('Light').as_light().as_outline()
+      Button('Dark').as_dark().as_outline()
+
+    evaluation: |
+      from bootwrap import Panel, Button, Separator
+
+      panel = Panel(
+        Button('Primary').as_primary(),
+        Button('Secondary').as_secondary(),
+        Button('Success').as_success(),
+        Button('Warning').as_warning(),
+        Button('Danger').as_danger(),
+        Button('Info').as_info(),
+        Button('Light').as_light(),
+        Button('Dark').as_dark(),
+        Separator(),
+        Button('Primary').as_primary().as_outline(),
+        Button('Secondary').as_secondary().as_outline(),
+        Button('Success').as_success().as_outline(),
+        Button('Warning').as_warning().as_outline(),
+        Button('Danger').as_danger().as_outline(),
+        Button('Info').as_info().as_outline(),
+        Button('Light').as_light().as_outline(),
+        Button('Dark').as_dark().as_outline()
+      )
+
+      for component in panel:
+        if isinstance(component, Button):
+          component.add_classes('mb-1')
+
+      output = panel
+
+Collection:
+  - class: List
+  - class: List.Item
+  - class: Deck
+  - class: Deck.Card
+
+Dialog:
+  - class: Dialog
+
+Form:
+  - class: Form
+  - class: Input
+  - class: CheckboxInput
+  - class: Freehand
+  - class: TextInput
+  - class: NumericInput
+  - class: SelectInput
+  - class: HiddenInput
+  - class: FileInput
+
+Icon:
+  - class: Icon
+  - class: Spinner
+
+Image:
+  - class: Image
+
+Javascript:
+  - class: Javascript
+
+Link:
+  - class: Link
+
+Navigation:
+  - class: Navigation
+  - class: Navigation.Item
+
+Panel:
+  - class: Panel
+
+Separator:
+  - class: Separator
+
+Table:
+  - class: Table
+
+Text:
+  - class: Text
