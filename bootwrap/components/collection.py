@@ -13,7 +13,71 @@ class List(WebComponent, ClassMixin):
     """A web-component for a list of items.
 
     Args:
-        items (list<List.Item>): The items to set.
+        *items (list): The `list` of `List.Item` elements.
+
+    Example:
+        from bootwrap import Button, List, Image
+
+        actions = [
+            Button("Buy"),
+            Button("Sell"),
+            Button("Transfer")
+        ]
+
+        List(
+            List.Item(
+                "Google (NASDAQ: GOOGL)",
+                description= "Price for a single Google share",
+                figure=Image("google-logo.png", width=32, height=32),
+                marker="12:04:58 12/01/2021"
+            ).add_menu(*actions).pack_actions().as_selected().link(
+                "https://www.google.com"),
+            List.Item(
+                "LinkedIn (NASDAQ: LNKD)",
+                description= "Price for a single LinkedIn share",
+                figure=Image("linkedin-logo.png", width=32, height=32),
+                marker="12:04:58 12/01/2021"
+            ).add_menu(*actions).pack_actions().link(
+                "https://www.linkedin.com"),
+            List.Item(
+                "Amazon (NASDAQ: AMZN)",
+                description= "Price for a single Amazon share",
+                figure=Image("amazon-logo.png", width=32, height=32),
+                marker="12:04:58 12/01/2021"
+            ).add_menu(*actions).pack_actions().link(
+                "https://www.amazon.com")
+        )
+
+    Demo:
+        from bootwrap import Button, List, Image
+        actions = [
+            Button("Buy").as_success(),
+            Button("Sell"),
+            Button("Transfer")
+        ]
+        output = List(
+            List.Item(
+                "Google (NASDAQ: GOOGL)",
+                description= "Price for a single Google share",
+                figure=Image("google-logo.png", width=32, height=32),
+                marker="12:04:58 12/01/2021"
+            ).add_menu(*actions).pack_actions().as_selected().link(
+                "https://www.google.com"),
+            List.Item(
+                "LinkedIn (NASDAQ: LNKD)",
+                description= "Price for a single LinkedIn share",
+                figure=Image("linkedin-logo.png", width=32, height=32),
+                marker="12:04:58 12/01/2021"
+            ).add_menu(*actions).pack_actions().link(
+                "https://www.linkedin.com"),
+            List.Item(
+                "Amazon (NASDAQ: AMZN)",
+                description= "Price for a single Amazon share",
+                figure=Image("amazon-logo.png", width=32, height=32),
+                marker="12:04:58 12/01/2021"
+            ).add_menu(*actions).pack_actions().link(
+                "https://www.amazon.com")
+        )
     """
     def __init__(self, *items):
         super().__init__()
@@ -31,10 +95,43 @@ class List(WebComponent, ClassMixin):
 
         Args:
             title (str|WebComponent): The item title.
-            description (str|WebComponent): The item description
-                (default=None).
-            marker (str|WebComponent): The item marker (default=None).
-            figure (str|WebComponent): The item figure (default=None).
+            description (str|WebComponent): The item description.
+            marker (str|WebComponent): The item marker.
+            figure (str|WebComponent): The item figure.
+
+        Example:
+            from bootwrap import Button, List, Image
+
+            actions = [
+                Button("Buy"),
+                Button("Sell"),
+                Button("Transfer")
+            ]
+
+            List.Item(
+                "Google (NASDAQ: GOOGL)",
+                description= "Price for a single Google share",
+                figure=Image("google-logo.png", width=32, height=32),
+                marker="12:04:58 12/01/2021"
+            ).add_menu(*actions).link(
+                "https://www.google.com")
+
+        Demo:
+            from bootwrap import Button, List, Image
+
+            actions = [
+                Button("Buy"),
+                Button("Sell"),
+                Button("Transfer")
+            ]
+
+            output = List.Item(
+                "Google (NASDAQ: GOOGL)",
+                description= "Price for a single Google share",
+                figure=Image("google-logo.png", width=32, height=32),
+                marker="12:04:58 12/01/2021"
+            ).add_menu(*actions).link(
+                "https://www.google.com")
         """
         def __init__(self, title, description=None, marker=None, figure=None):
             super().__init__()
@@ -50,6 +147,40 @@ class List(WebComponent, ClassMixin):
 
             Returns:
                 self
+
+            Example:
+                from bootwrap import Button, List, Image
+
+                actions = [
+                    Button("Buy"),
+                    Button("Sell"),
+                    Button("Transfer")
+                ]
+
+                List.Item(
+                    "Google (NASDAQ: GOOGL)",
+                    description= "Price for a single Google share",
+                    figure=Image("google-logo.png", width=32, height=32),
+                    marker="12:04:58 12/01/2021"
+                ).add_menu(*actions).as_selected().link(
+                    "https://www.google.com")
+
+            Demo:
+                from bootwrap import Button, List, Image
+
+                actions = [
+                    Button("Buy"),
+                    Button("Sell"),
+                    Button("Transfer")
+                ]
+
+                output = List.Item(
+                    "Google (NASDAQ: GOOGL)",
+                    description= "Price for a single Google share",
+                    figure=Image("google-logo.png", width=32, height=32),
+                    marker="12:04:58 12/01/2021"
+                ).add_menu(*actions).as_selected().link(
+                    "https://www.google.com")
             """
             self._selected = True
             return self
@@ -59,6 +190,40 @@ class List(WebComponent, ClassMixin):
 
             Returns:
                 self
+
+            Example:
+                from bootwrap import Button, List, Image
+
+                actions = [
+                    Button("Buy"),
+                    Button("Sell"),
+                    Button("Transfer")
+                ]
+
+                List.Item(
+                    "Google (NASDAQ: GOOGL)",
+                    description= "Price for a single Google share",
+                    figure=Image("google-logo.png", width=32, height=32),
+                    marker="12:04:58 12/01/2021"
+                ).add_menu(*actions).pack_actions().link(
+                    "https://www.google.com")
+
+            Demo:
+                from bootwrap import Button, List, Image
+
+                actions = [
+                    Button("Buy"),
+                    Button("Sell"),
+                    Button("Transfer")
+                ]
+
+                output = List.Item(
+                    "Google (NASDAQ: GOOGL)",
+                    description= "Price for a single Google share",
+                    figure=Image("google-logo.png", width=32, height=32),
+                    marker="12:04:58 12/01/2021"
+                ).add_menu(*actions).pack_actions().link(
+                    "https://www.google.com")
             """
             self._pack_actions = True
             return self
@@ -125,7 +290,77 @@ class Deck(WebComponent, ClassMixin):
     """A web-component for a deck of cards.
 
     Args:
-        items (list<Deck.Card>): The cards to set.
+        *cards (list): The `list` of `Deck.Card` elements.
+
+    Example:
+        from bootwrap import Button, Deck, Image
+
+        actions = [
+            Button("Buy"),
+            Button("Sell"),
+            Button("Transfer")
+        ]
+
+        Deck(
+            Deck.Card(
+                "Google (NASDAQ: GOOGL)",
+                description= "Price for a single Google share",
+                figure=Image("google-logo.png", width=128).add_classes(
+                    "mt-3"),
+                marker="12:04:58 12/01/2021"
+            ).add_menu(*actions).pack_actions().link(
+                "https://www.google.com"),
+            Deck.Card(
+                "LinkedIn (NASDAQ: LNKD)",
+                description= "Price for a single LinkedIn share",
+                figure=Image("linkedin-logo.png", width=128).add_classes(
+                    "mt-3"),
+                marker="12:04:58 12/01/2021"
+            ).add_menu(*actions).pack_actions().link(
+                "https://www.linkedin.com"),
+            Deck.Card(
+                "Amazon (NASDAQ: AMZN)",
+                description= "Price for a single Amazon share",
+                figure=Image("amazon-logo.png", width=128).add_classes(
+                    "mt-3"),
+                marker="12:04:58 12/01/2021"
+            ).add_menu(*actions).pack_actions().link(
+                "https://www.amazon.com")
+        )
+
+    Demo:
+        from bootwrap import Button, Deck, Image
+        actions = [
+            Button("Buy"),
+            Button("Sell"),
+            Button("Transfer")
+        ]
+        output = Deck(
+            Deck.Card(
+                "Google (NASDAQ: GOOGL)",
+                description= "Price for a single Google share",
+                figure=Image("google-logo.png", width=128).add_classes(
+                    "mt-3"),
+                marker="12:04:58 12/01/2021"
+            ).add_menu(*actions).pack_actions().link(
+                "https://www.google.com"),
+            Deck.Card(
+                "LinkedIn (NASDAQ: LNKD)",
+                description= "Price for a single LinkedIn share",
+                figure=Image("linkedin-logo.png", width=128).add_classes(
+                    "mt-3"),
+                marker="12:04:58 12/01/2021"
+            ).add_menu(*actions).pack_actions().link(
+                "https://www.linkedin.com"),
+            Deck.Card(
+                "Amazon (NASDAQ: AMZN)",
+                description= "Price for a single Amazon share",
+                figure=Image("amazon-logo.png", width=128).add_classes(
+                    "mt-3"),
+                marker="12:04:58 12/01/2021"
+            ).add_menu(*actions).pack_actions().link(
+                "https://www.amazon.com")
+        )
     """
     def __init__(self, *cards):
         super().__init__()
@@ -143,10 +378,43 @@ class Deck(WebComponent, ClassMixin):
 
         Args:
             title (str|WebComponent): The card title.
-            description (str|WebComponent): The card description
-                (default=None).
-            marker (str|WebComponent): The card marker (default=None).
-            figure (str|WebComponent): The card figure (default=None).
+            description (str|WebComponent): The card description.
+            marker (str|WebComponent): The card marker.
+            figure (str|WebComponent): The card figure.
+
+        Example:
+            from bootwrap import Button, Deck, Image
+
+            actions = [
+                Button("Buy"),
+                Button("Sell"),
+                Button("Transfer")
+            ]
+
+            Deck.Card(
+                "Google (NASDAQ: GOOGL)",
+                description= "Price for a single Google share",
+                figure=Image("google-logo.png", width=128).add_classes("mt-3"),
+                marker="12:04:58 12/01/2021"
+            ).add_menu(*actions).link(
+                "https://www.google.com")
+
+        Demo:
+            from bootwrap import Button, Deck, Image
+
+            actions = [
+                Button("Buy"),
+                Button("Sell"),
+                Button("Transfer")
+            ]
+
+            output = Deck.Card(
+                "Google (NASDAQ: GOOGL)",
+                description= "Price for a single Google share",
+                figure=Image("google-logo.png", width=128).add_classes("mt-3"),
+                marker="12:04:58 12/01/2021"
+            ).add_menu(*actions).link(
+                "https://www.google.com")
         """
         def __init__(self, title, description=None, marker=None, figure=None):
             super().__init__()
@@ -161,6 +429,40 @@ class Deck(WebComponent, ClassMixin):
 
             Returns:
                 self
+
+        Example:
+            from bootwrap import Button, Deck, Image
+
+            actions = [
+                Button("Buy"),
+                Button("Sell"),
+                Button("Transfer")
+            ]
+
+            Deck.Card(
+                "Google (NASDAQ: GOOGL)",
+                description= "Price for a single Google share",
+                figure=Image("google-logo.png", width=128).add_classes("mt-3"),
+                marker="12:04:58 12/01/2021"
+            ).add_menu(*actions).pack_actions().link(
+                "https://www.google.com")
+
+        Demo:
+            from bootwrap import Button, Deck, Image
+
+            actions = [
+                Button("Buy"),
+                Button("Sell"),
+                Button("Transfer")
+            ]
+
+            output = Deck.Card(
+                "Google (NASDAQ: GOOGL)",
+                description= "Price for a single Google share",
+                figure=Image("google-logo.png", width=128).add_classes("mt-3"),
+                marker="12:04:58 12/01/2021"
+            ).add_menu(*actions).pack_actions().link(
+                "https://www.google.com")
             """
             self._pack_actions = True
             return self

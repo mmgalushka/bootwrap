@@ -19,23 +19,26 @@ from .utils import attr, inject
 class Anchor(WebComponent, ClassMixin, ActionMixin, AppearanceMixin):
     """A web-component for an anchor.
 
-    An `Anchor` is used for creating a hyperlink to pages, files, email
-    addresses, locations on the same page, or other web-resources defined
-    by a URL address. The <i>Bootwrap</i> also uses the `Anchor` in
+    The `Anchor` component is used for creating a hyperlink to pages, files,
+    email addresses, locations on the same page, or other web-resources
+    defined by a URL address. The <i>Bootwrap</i> also uses the `Anchor` in
     conjunction with other components, for example, in creating a navigation
     menu.
 
     Args:
-        inner (obj): The `str` or `WebComponent` object wrapped by the anchor
-            (default=None).
-        role (str): The anchor role. This parameter is not used in a general
-            scenario. It usually set by other `WebComponent`, which is using
-            the anchor to introduce a specific action (default=None).
+        inner (str|WebComponent): The object wrapped by the anchor.
+
+    Example:
+        Anchor('Google Search').link('https://www.google.com/')
+
+    Demo:
+        from bootwrap import Anchor
+        output = Anchor('Google Search').link('https://www.google.com/')
     """
-    def __init__(self, inner=None, role=None):
+    def __init__(self, inner=None):
         super().__init__()
         self._inner = inner
-        self.__role = role
+        self.__role = None
 
     def __str__(self):
         name = None
@@ -60,22 +63,18 @@ class Anchor(WebComponent, ClassMixin, ActionMixin, AppearanceMixin):
                 </a>
             '''
         elif self._action == Action.TOGGLE:
-            if self.__role:
-                warnings.warn(
-                    'When you use the anchor toggle-function it is '
-                    'advisable to avoid of setting the role-parameter. '
-                    'Your role setting will overwrite the internally '
-                    'defined role. is may cause faulty anchor behaviour.',
-                    category=RuntimeWarning
-                )
-
             if isinstance(self._target, Panel):
+                data_toggle = 'tab'
+                if self._target.classes is not None:
+                    if 'collapse' in self._target.classes:
+                        data_toggle = 'collapse'
+
                 return f'''
-                    <a {attr("id", self.identifier)}
-                        {attr("class",self.classes)}
+                    <a {attr('id', self.identifier)}
+                        {attr('class', self.classes)}
                         {attr("href", f'#{self._target.identifier}')}
-                        {attr("data-toggle", "tab")}
-                        {attr("role", self.__role or 'tab')}>
+                        {attr("data-toggle", data_toggle)}
+                        data-target="#{self._target.identifier}">
                         {inject(self._inner)}
                     </a>
                 '''
@@ -89,21 +88,10 @@ class Anchor(WebComponent, ClassMixin, ActionMixin, AppearanceMixin):
                         {inject(self._inner)}
                     </a>
                 '''
-            else:
-                raise TypeError(
-                    'The toggle operation cannot be applied to the '
-                    f'{type(self._target)} web-component;',
-                )
-        elif self._action == Action.COLLAPSE:
-            return f'''
-                <a {attr('id', self.identifier)}
-                    {attr('class', self.classes)}
-                    {attr("href", f'#{self._target.identifier}')}
-                    data-toggle="collapse"
-                    data-target="#{self._target.identifier}">
-                    {inject(self._inner)}
-                </a>
-            '''
+            raise TypeError(
+                'The toggle operation cannot be applied to the '
+                f'{type(self._target)} web-component;',
+            )
         elif self._action == Action.DISMISS:
             return f'''
                 <a {attr('id', self.identifier)}

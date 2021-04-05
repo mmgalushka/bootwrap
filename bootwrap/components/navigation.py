@@ -20,7 +20,25 @@ class Navigation(WebComponent, ClassMixin):
     """A web-component for navigation.
 
     Args:
-        items (tuple): The navigation items.
+        *items (list): The list of `Navigation.Item`.
+
+    Example:
+        from bootwrap import Navigation
+
+        Navigation(
+            Navigation.Item('Chapter 1', 'Text 1', True),
+            Navigation.Item('Chapter 2', 'Text 2'),
+            Navigation.Item('Chapter 3', 'Text 3')
+        )
+
+    Demo:
+        from bootwrap import Navigation
+
+        output = Navigation(
+            Navigation.Item('Chapter 1', 'Text 1', True),
+            Navigation.Item('Chapter 2', 'Text 2'),
+            Navigation.Item('Chapter 3', 'Text 3')
+        )
     """
     def __init__(self, *items):
         super().__init__()
@@ -50,7 +68,25 @@ class Navigation(WebComponent, ClassMixin):
         """Makes the navigation vertical.
 
         Returns:
-            self
+            self (Navigation): The instance of this class.
+
+        Example:
+            from bootwrap import Navigation
+
+            Navigation(
+                Navigation.Item('Chapter 1', 'Text 1', True),
+                Navigation.Item('Chapter 2', 'Text 2'),
+                Navigation.Item('Chapter 3', 'Text 3')
+            ).as_vertical()
+
+        Demo:
+            from bootwrap import Navigation
+
+            output = Navigation(
+                Navigation.Item('Chapter 1', 'Text 1', True),
+                Navigation.Item('Chapter 2', 'Text 2'),
+                Navigation.Item('Chapter 3', 'Text 3')
+            ).as_vertical()
         """
         self.__vertical = True
         return self
@@ -59,7 +95,25 @@ class Navigation(WebComponent, ClassMixin):
         """Makes the navigation controls looks like buttons.
 
         Returns:
-            self
+            self (Navigation): The instance of this class.
+
+        Example:
+            from bootwrap import Navigation
+
+            Navigation(
+                Navigation.Item('Chapter 1', 'Text 1', True),
+                Navigation.Item('Chapter 2', 'Text 2'),
+                Navigation.Item('Chapter 3', 'Text 3')
+            ).as_tabs()
+
+        Demo:
+            from bootwrap import Navigation
+
+            output = Navigation(
+                Navigation.Item('Chapter 1', 'Text 1', True),
+                Navigation.Item('Chapter 2', 'Text 2'),
+                Navigation.Item('Chapter 3', 'Text 3')
+            ).as_tabs()
         """
         return self.add_classes('nav-tabs')
 
@@ -67,7 +121,25 @@ class Navigation(WebComponent, ClassMixin):
         """Makes the navigation controls looks like buttons.
 
         Returns:
-            self
+            self (Navigation): The instance of this class.
+
+        Example:
+            from bootwrap import Navigation
+
+            Navigation(
+                Navigation.Item('Chapter 1', 'Text 1', True),
+                Navigation.Item('Chapter 2', 'Text 2'),
+                Navigation.Item('Chapter 3', 'Text 3')
+            ).as_pills()
+
+        Demo:
+            from bootwrap import Navigation
+
+            output = Navigation(
+                Navigation.Item('Chapter 1', 'Text 1', True),
+                Navigation.Item('Chapter 2', 'Text 2'),
+                Navigation.Item('Chapter 3', 'Text 3')
+            ).as_pills()
         """
         return self.add_classes('nav-pills')
 

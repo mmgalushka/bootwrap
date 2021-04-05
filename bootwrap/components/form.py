@@ -11,8 +11,21 @@ from .utils import attr, inject
 class Form(WebComponent, ClassMixin):
     """A web-component for a form.
 
+    Use the `on_submit(href)` function to specify URL where entered
+    information should to be sent for processing.
+
     Args:
-        components (tuple): The form components.
+        *components (list): The list of `WebComponent` representing form
+            elements for input and action.
+
+    Example:
+        from bootwrap import Form
+
+        Form(
+            # here should be an enumeration  of
+            # input components and actions
+            ...
+        ).on_submit('go/to/this/url')
     """
     def __init__(self, *components):
         super().__init__()
@@ -25,8 +38,13 @@ class Form(WebComponent, ClassMixin):
         Args:
             href (str): The URL for submitting the form.
 
-        Return:
-            itself
+        Returns:
+            self (Form): The instance of this class.
+
+        Example:
+            from bootwrap import Form
+
+            Form(...).on_submit('go/to/this/url')
         """
         self.__href = href
         return self
@@ -60,7 +78,7 @@ class Input(ABC, WebComponent, ClassMixin, AvailabilityMixin):
         """Makes an input label showing on top.
 
         Returns:
-            self
+            self (Input): The instance of this class.
         """
         self.__label_on_top = True
         return self
@@ -102,20 +120,35 @@ class Input(ABC, WebComponent, ClassMixin, AvailabilityMixin):
 class CheckboxInput(Input):
     """A checkbox input.
 
+    Use the `as_disabled()` function to prevent the user from changing
+    status of the `CheckboxInput` component.
+
     Args:
         label (str): The input label.
         name (str): The input name.
-        checked (bool): The check box checked (default=False)
+        checked (bool): The check box status.
+
+    Example:
+        from bootwrap import Form, CheckboxInput
+
+        Form(
+            CheckboxInput('One', 'opt1'),
+            CheckboxInput('Two', 'opt2', True),
+            CheckboxInput('Three', 'opt3').as_disabled()
+        )
+
+    Demo:
+        from bootwrap import Form, CheckboxInput
+
+        output = Form(
+            CheckboxInput('One', 'opt1'),
+            CheckboxInput('Two', 'opt2', True),
+            CheckboxInput('Three', 'opt3').as_disabled()
+        )
     """
     def __init__(self, label, name, checked=False):
         super().__init__(label, name)
         self.__checked = checked
-
-    def label_on_top(self):
-        raise AssertionError(
-            'This "label_on_top" function is not used in '
-            '<class "CheckboxInput">'
-        )
 
     def _receiver(self):
         return f'''
@@ -174,11 +207,33 @@ class Freehand(Input):
 class TextInput(Freehand):
     """A text input.
 
+    Use the `as_disabled()` function to prevent the user from entering data
+    to the `TextInput` component.
+
     Args:
         label (str): The input label
         name (str): The input name.
-        value (str): The input value (default=None).
-        placeholder (str): The input placeholder (default=None).
+        value (str): The input value.
+        placeholder (str): The input placeholder.
+
+    Example:
+        from bootwrap import Form, TextInput
+
+        Form(
+            TextInput('Text1', 'text'),
+            TextInput('Text2', 'text', placeholder='type here'),
+            TextInput('Text3', 'text', 'Hello World!'),
+            TextInput('Text4', 'text').as_disabled()
+        )
+    Demo:
+        from bootwrap import Form, TextInput
+
+        output = Form(
+            TextInput('Text1', 'text'),
+            TextInput('Text2', 'text', placeholder='type here'),
+            TextInput('Text3', 'text', 'Hello World!'),
+            TextInput('Text4', 'text').as_disabled()
+        )
     """
     def __init__(self, label, name, value=None, placeholder=None):
         super().__init__(label, name, value, placeholder)
@@ -191,7 +246,20 @@ class TextInput(Freehand):
             n (int): The number of rows to set.
 
         Returns:
-            itself
+            self (TextInput): The instance of this class.
+
+        Example:
+            from bootwrap import Form, TextInput
+
+            Form(
+                TextInput('Text', 'text').with_multirows(3)
+            )
+        Demo:
+            from bootwrap import Form, TextInput
+
+            output = Form(
+                TextInput('Text', 'text').with_multirows(3)
+            )
         """
         self._rows = n
         return self
@@ -200,7 +268,20 @@ class TextInput(Freehand):
         """Configuring input for entering email.
 
         Returns:
-            itself
+            self (TextInput): The instance of this class.
+
+        Example:
+            from bootwrap import Form, TextInput
+
+            Form(
+                TextInput('Email', 'email', 'my@email.com').for_email()
+            )
+        Demo:
+            from bootwrap import Form, TextInput
+
+            output = Form(
+                TextInput('Email', 'email', 'my@email.com').for_email()
+            )
         """
         self._type = 'email'
         return self
@@ -209,7 +290,21 @@ class TextInput(Freehand):
         """Configuring input for entering password.
 
         Returns:
-            itself
+            self (TextInput): The instance of this class.
+
+        Example:
+            from bootwrap import Form, TextInput
+
+            Form(
+                TextInput('Password', 'password', '********').for_password()
+            )
+
+        Demo:
+            from bootwrap import Form, TextInput
+
+            output = Form(
+                TextInput('Password', 'password', '********').for_password()
+            )
         """
         self._type = 'password'
         return self
@@ -218,11 +313,33 @@ class TextInput(Freehand):
 class NumericInput(Freehand):
     """A numeric input.
 
+    Use the `as_disabled()` function to prevent the user from entering data
+    to the `NumericInput` component.
+
     Args:
         label (str): The input label
         name (str): The input name.
-        value (obj): The input value (default=None).
-        placeholder (str): The input placeholder (default=None).
+        value (obj): The input value.
+        placeholder (str): The input placeholder.
+
+    Example:
+        from bootwrap import Form, TextInput
+
+        Form(
+            NumericInput('Number1', 'number'),
+            NumericInput('Number2', 'number', placeholder='type here'),
+            NumericInput('Number3', 'number', 123),
+            NumericInput('Number4', 'number').as_disabled()
+        )
+    Demo:
+        from bootwrap import Form, NumericInput
+
+        output = Form(
+            NumericInput('Number1', 'number'),
+            NumericInput('Number2', 'number', placeholder='type here'),
+            NumericInput('Number3', 'number', 123),
+            NumericInput('Number4', 'number').as_disabled()
+        )
     """
     def __init__(self, label, name, value=None, placeholder=None):
         super().__init__(label, name, value, placeholder)
@@ -232,11 +349,42 @@ class NumericInput(Freehand):
 class SelectInput(Input):
     """A select input.
 
+    Use the `as_disabled()` function to prevent the user from entering data
+    to the `SelectInput` component.
+
     Args:
         label (str): The input label
         name (str): The input name.
-        value (str): The input value (default=None).
-        options (tuple): The input options (default=None).
+        value (str): The input value.
+        options (tuple): The input options.
+
+    Example:
+        from bootwrap import Form, SelectInput
+
+        options = [
+            SelectInput.Option('One', 1),
+            SelectInput.Option('Two', 2),
+            SelectInput.Option('Three', 3, disabled=True)
+        ]
+
+        Form(
+            SelectInput('Selector1', 'choice', 2, options)
+            SelectInput('Selector2', 'choice', 2, options).as_disabled()
+        )
+
+    Demo:
+        from bootwrap import Form, SelectInput
+
+        options = [
+            SelectInput.Option('One', 1),
+            SelectInput.Option('Two', 2),
+            SelectInput.Option('Three', 3, disabled=True)
+        ]
+
+        output = Form(
+            SelectInput('Selector1', 'choice', 2, options),
+            SelectInput('Selector2', 'choice', 2, options).as_disabled()
+        )
     """
     def __init__(self, label, name, value=None, options=None):
         super().__init__(label, name)
@@ -245,6 +393,14 @@ class SelectInput(Input):
         self.__radio = False
 
     class Option(WebComponent):
+        """An option used by `SelectInput`.
+
+        Args:
+            name (str): The option name.
+            value (str): The option value value.
+            disabled (bool): `True` makes the option disabled (in other words
+                user will not be able to choose this option).
+        """
         def __init__(self, name, value, disabled=False):
             super().__init__()
             self.__name = name
@@ -264,10 +420,36 @@ class SelectInput(Input):
             return self.__disabled
 
     def as_radio(self):
-        """Makes selection in a for of radio buttons.
+        """Makes selection in a form of radio buttons.
 
         Returns:
-            itself
+            self (SelectInput): The instance of this class.
+
+        Example:
+            from bootwrap import Form, SelectInput
+
+            options = [
+                SelectInput.Option('One', 1),
+                SelectInput.Option('Two', 2),
+                SelectInput.Option('Three', 3, disabled=True)
+            ]
+
+            Form(
+                SelectInput('Selector', 'choice', 2, options).as_radio()
+            )
+
+        Demo:
+            from bootwrap import Form, SelectInput
+
+            options = [
+                SelectInput.Option('One', 1),
+                SelectInput.Option('Two', 2),
+                SelectInput.Option('Three', 3, disabled=True)
+            ]
+
+            output = Form(
+                SelectInput('Selector', 'choice', 2, options).as_radio()
+            )
         """
         self.__radio = True
         return self
@@ -321,7 +503,14 @@ class HiddenInput(Input):
 
     Args:
         name (str): The input name.
-        value (obj): The input value (default=None).
+        value (obj): The input value.
+
+    Example:
+        from bootwrap import Form, SelectInput
+
+        Form(
+            HiddenInput('token', '123')
+        )
     """
     def __init__(self, name, value=None):
         super().__init__(None, name)
@@ -342,9 +531,28 @@ class HiddenInput(Input):
 class FileInput(Input):
     """A file input.
 
+    Use the `as_disabled()` function to prevent the user from entering data
+    to the `FileInput` component.
+
     Args:
         label (str): The input label
         name (str): The input name.
+
+    Example:
+        from bootwrap import Form, FileInput
+
+        output = Form(
+            FileInput('File', 'file'),
+            FileInput('File', 'file').as_disabled()
+        )
+
+    Demo:
+        from bootwrap import Form, FileInput
+
+        output = Form(
+            FileInput('File', 'file'),
+            FileInput('File', 'file').as_disabled()
+        )
     """
     def __init__(self, label, name):
         super().__init__(label, name)

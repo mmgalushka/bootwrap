@@ -5,13 +5,18 @@ Test for bootwrap/components/anchor.py
 import warnings
 import pytest
 
-from bootwrap import Anchor, Panel, Dialog, Text
+from bootwrap import (
+    Anchor,
+    Panel,
+    Dialog,
+    Text
+)
 from .helper import HelperHTMLParser
 
 
 @pytest.mark.anchor
 def test_anchor():
-    anchor = Anchor('somename', 'somerole').add_classes('someclass').\
+    anchor = Anchor('somename').add_classes('someclass').\
         as_primary()
     actual = HelperHTMLParser.parse(str(anchor))
     expected = HelperHTMLParser.parse(f'''
@@ -57,11 +62,18 @@ def test_link_anchor():
 
 @pytest.mark.anchor
 def test_toggle_anchor():
-    with warnings.catch_warnings(record=True) as out:
-        target = Panel()
-        str(Anchor('somename', 'somerole').toggle(target))
-        assert len(out) > 0
-        assert out[-1].category == RuntimeWarning
+    target = Dialog('sometitle', 'somecontent')
+    anchor = Anchor('somename').toggle(target)
+    actual = HelperHTMLParser.parse(str(anchor))
+    expected = HelperHTMLParser.parse(f'''
+        <a id="{anchor.identifier}"
+            href="#{target.identifier}"
+            data-toggle="modal"
+            role="modal">
+            somename
+        </a>
+    ''')
+    assert actual == expected
 
     target = Panel()
     anchor = Anchor('somename').toggle(target)
@@ -76,14 +88,14 @@ def test_toggle_anchor():
     ''')
     assert actual == expected
 
-    target = Dialog('sometitle', 'somecontent')
+    target = Panel().as_collapse()
     anchor = Anchor('somename').toggle(target)
     actual = HelperHTMLParser.parse(str(anchor))
     expected = HelperHTMLParser.parse(f'''
         <a id="{anchor.identifier}"
             href="#{target.identifier}"
-            data-toggle="modal"
-            role="modal">
+            data-toggle="collapse"
+            role="collapse">
             somename
         </a>
     ''')
@@ -91,22 +103,6 @@ def test_toggle_anchor():
 
     with pytest.raises(TypeError):
         str(Anchor('somename').toggle(Text('sometext')))
-
-
-@pytest.mark.anchor
-def test_collapse_anchor():
-    target = Panel()
-    anchor = Anchor('somename').collapse(target)
-    actual = HelperHTMLParser.parse(str(anchor))
-    expected = HelperHTMLParser.parse(f'''
-        <a id="{anchor.identifier}"
-            href="#{target.identifier}"
-            data-toggle="collapse"
-            data-target="#{target.identifier}">
-            somename
-        </a>
-    ''')
-    assert actual == expected
 
 
 @pytest.mark.anchor
@@ -126,7 +122,7 @@ def test_dismiss_anchor():
 @pytest.mark.anchor
 def test_toggle_submit():
     with warnings.catch_warnings(record=True) as out:
-        str(Anchor('somename', 'somerole').submit())
+        str(Anchor('somename').submit())
         assert len(out) > 0
         assert out[-1].category == RuntimeWarning
 

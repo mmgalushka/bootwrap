@@ -11,6 +11,8 @@ from .base import (
     AvailabilityMixin,
     Action
 )
+from .panel import Panel
+from .dialog import Dialog
 from .utils import attr, inject
 
 
@@ -18,8 +20,18 @@ class Button(WebComponent, ClassMixin, ActionMixin, AppearanceMixin,
              OutlineMixin, AvailabilityMixin):
     """A web-component for a button.
 
+    Without applying a stylized method `Button` will be appearing very
+    similar to the `Anchor`.
+
     Args:
         name (str): The button name.
+
+    Example:
+        Button('Google Search').link('https://www.google.com/')
+
+    Demo:
+        from bootwrap import Button
+        output = Button('Google Search').link('https://www.google.com/')
     """
     def __init__(self, name):
         super().__init__()
@@ -85,35 +97,39 @@ class Button(WebComponent, ClassMixin, ActionMixin, AppearanceMixin,
                 <a {attr('id', self.identifier)}
                     {attr('class', self.classes)}
                     {attr('href', href)}
-                    onclick="return false;"
                     role="button">
                     {self.__name}
                 </a>
             '''
         elif self._action == Action.TOGGLE:
-            return f'''
-                <button {attr('id', self.identifier)}
-                    {attr('class', self.classes)}
-                    type="button"
-                    data-toggle="modal"
-                    data-target="#{self._target.identifier}"
-                    onclick="return false;"
-                    {attr('disabled', self._disabled)}>
-                    {self.__name}
-                </button>
-            '''
-        elif self._action == Action.COLLAPSE:
-            return f'''
-                <button {attr('id', self.identifier)}
-                    {attr('class', self.classes)}
-                    type="button"
-                    data-toggle="collapse"
-                    data-target="#{self._target.identifier}"
-                    onclick="return false;"
-                    {attr('disabled', self._disabled)}>
-                    {self.__name}
-                </button>
-            '''
+            if isinstance(self._target, Panel):
+                return f'''
+                    <button {attr('id', self.identifier)}
+                        {attr('class', self.classes)}
+                        type="button"
+                        data-toggle="collapse"
+                        data-target="#{self._target.identifier}"
+                        onclick="return false;"
+                        {attr('disabled', self._disabled)}>
+                        {self.__name}
+                    </button>
+                '''
+            elif isinstance(self._target, Dialog):
+                return f'''
+                    <button {attr('id', self.identifier)}
+                        {attr('class', self.classes)}
+                        type="button"
+                        data-toggle="modal"
+                        data-target="#{self._target.identifier}"
+                        onclick="return false;"
+                        {attr('disabled', self._disabled)}>
+                        {self.__name}
+                    </button>
+                '''
+            raise TypeError(
+                'The toggle operation cannot be applied to the '
+                f'{type(self._target)} web-component;',
+            )
         elif self._action == Action.DISMISS:
             return f'''
                 <button {attr('id', self.identifier)}

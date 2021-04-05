@@ -3,7 +3,7 @@ import inspect
 
 
 def prettify(text):
-    pattern = re.compile(r"\`[A-Za-z]+\`")
+    pattern = re.compile(r"\`[A-Za-z._\(\)]+\`")
 
     p = 0
     new_text = ''
@@ -52,7 +52,9 @@ def get_sections(text):
     Returns:
         sections (list): The extracted sections.
     """
-    pattern = re.compile(r"(?<=\s)(Args|Returns|Example)\s*:\n", flags=re.S)
+    pattern = re.compile(
+        r"(?<=\s)(Args|Returns|Example|Demo)\s*:\n", flags=re.S
+    )
 
     sections = []
     if text is not None:
@@ -83,8 +85,7 @@ def parse_docstring(text):
     Returns:
         doc (dict): The arranged docstring elements.
     """
-    overview = ''
-    example = ''
+    overview, example, demo = '', '', ''
     arguments, returns = [], []
     for section in get_sections(prettify(str(text))):
         if section['header'] == 'Args':
@@ -93,6 +94,8 @@ def parse_docstring(text):
             returns.extend(get_params(section['body']))
         elif section['header'] in ['Example']:
             example = section['body']
+        elif section['header'] in ['Demo']:
+            demo = section['body']
         elif section['header'] in ['Overview']:
             overview = section['body']
         else:
@@ -114,7 +117,8 @@ def parse_docstring(text):
         'description': description,
         'arguments': arguments,
         'returns': returns,
-        'example': example
+        'example': example,
+        'demo': demo
     }
 
 
@@ -131,12 +135,13 @@ def generate_method_doc(m):
     return {
         'name': m.__name__,
         'init': str(inspect.signature(m))
-        .replace('self', ''),
+        .replace('self, ', '').replace('self', ''),
         'summary': doc['summary'],
         'description':  doc['description'],
         'arguments': doc['arguments'],
         'returns': doc['returns'],
-        'example': doc['example']
+        'example': doc['example'],
+        'demo': doc['demo']
     }
 
 
@@ -153,7 +158,7 @@ def generate_class_doc(c):
     methods = []
     for func in inspect.getmembers(c, predicate=inspect.isroutine):
         m = func[0]
-        if callable(getattr(c, m)) and not m.startswith('__'):
+        if callable(getattr(c, m)) and not m.startswith('_'):
             try:
                 if m not in c.__dict__:
                     # Not defined in class: method inherited;
@@ -171,11 +176,12 @@ def generate_class_doc(c):
         'name': c.__qualname__,
         'super': [],
         'init': str(inspect.signature(c.__init__))
-        .replace('self, ', ''),
+        .replace('self, ', '').replace('self', ''),
         'summary': doc['summary'],
         'description':  doc['description'],
         'arguments': doc['arguments'],
         'returns': [],
         'example': doc['example'],
+        'demo': doc['demo'],
         'methods': methods
     }

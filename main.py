@@ -30,7 +30,7 @@ class BlockDoc(bw.Panel):
     """
     def __init__(self, title, wc_block):
         super().__init__(
-            bw.Text(title).as_heading(6).as_strong(),
+            bw.Text(title).as_heading(6).as_strong() if title else None,
             wc_block
         )
         self.add_classes('ml-3')
@@ -63,12 +63,8 @@ class ParamsDoc(BlockDoc):
             bw.TableEntity.VALUE,
             lambda x: f'<code style="white-space: nowrap">{x}</code>'
         )
-        wc_parameters.body.transform(
-            2,
-            bw.TableEntity.VALUE,
-            lambda x: f'<span class="text-secondary">{x}</span>'
-        )
-        wc_parameters.as_small()
+
+        wc_parameters.as_small().add_classes('bg-light')
         super().__init__(title, wc_parameters)
         self.as_collapse()
 
@@ -88,34 +84,32 @@ class ReturnsDoc(ParamsDoc):
 class ExampleDoc(BlockDoc):
     """A component for visualizing class or method example.
 
-    This example represents a code fragment to show in documentation,
-    also a code fragment used to render `WebComponent`s to provide a
-    user with the look and feel for the component(s).
+    The example block represents a code fragment to show how a particular
+    web-component can be used.
+
+    Args:
+        code (str): The code fragment to show.
+    """
+    def __init__(self, code):
+        super().__init__('Example', bw.Text(code.rstrip()).as_code())
+
+
+class DemoDoc(BlockDoc):
+    """A component to render an example.
+
+    Renders an example code to provide a user with the look and feel for
+    the component(s).
 
     The code fragment to show and the code fragment to render must be
     separated by the `@eval` key-string.
 
     Args:
-        code (str): The code fragment to show and render.
+        code (str): The code fragment to render.
     """
     def __init__(self, code):
-        if '@eval' in code:
-            code_to_show, code_to_eval = code.split('@eval')
-
-            loc = {}
-            exec(textwrap.dedent(code_to_eval), {}, loc)
-            super().__init__(
-                'Example',
-                bw.Panel(
-                    bw.Text(code_to_show).as_code(),
-                    loc['output']
-                )
-            )
-        else:
-            super().__init__(
-                'Example',
-                bw.Text(code).as_code()
-            )
+        loc = {}
+        exec(textwrap.dedent(code), {}, loc)
+        super().__init__(None, loc['output'])
 
 
 class MethodDoc(bw.Panel):
@@ -134,7 +128,7 @@ class MethodDoc(bw.Panel):
                 as_primary().\
                 as_outline().\
                 add_classes('ml-1 mr-1 btn-sm').\
-                collapse(wc_arguments)
+                toggle(wc_arguments)
 
         wc_returns = None
         wc_returns_btn = None
@@ -144,11 +138,15 @@ class MethodDoc(bw.Panel):
                 as_primary().\
                 as_outline().\
                 add_classes('btn-sm').\
-                collapse(wc_returns)
+                toggle(wc_returns)
 
         wc_example = None
         if len(doc['example']) > 0:
             wc_example = ExampleDoc(doc['example'])
+
+        wc_demo = None
+        if len(doc['demo']) > 0:
+            wc_demo = DemoDoc(doc['demo'])
 
         wc_title = bw.Panel(
             bw.Text(
@@ -173,7 +171,8 @@ class MethodDoc(bw.Panel):
             wc_arguments,
             wc_returns,
             *description,
-            wc_example
+            wc_example,
+            wc_demo
         )
 
         self.add_classes('mt-5')
@@ -197,7 +196,7 @@ class ClassDoc(bw.Panel):
                 as_primary().\
                 as_outline().\
                 add_classes('ml-1 mr-1 btn-sm').\
-                collapse(wc_arguments)
+                toggle(wc_arguments)
 
         wc_returns = None
         wc_returns_btn = None
@@ -207,11 +206,15 @@ class ClassDoc(bw.Panel):
                 as_primary().\
                 as_outline().\
                 add_classes('btn-sm').\
-                collapse(wc_returns)
+                toggle(wc_returns)
 
         wc_example = None
         if len(doc['example']) > 0:
             wc_example = ExampleDoc(doc['example'])
+
+        wc_demo = None
+        if len(doc['demo']) > 0:
+            wc_demo = DemoDoc(doc['demo'])
 
         wc_title = bw.Panel(
             bw.Text(
@@ -246,6 +249,7 @@ class ClassDoc(bw.Panel):
             wc_returns,
             *description,
             wc_example,
+            wc_demo,
             *methods
         )
         self.add_classes('mt-3')
@@ -479,7 +483,7 @@ if __name__ == '__main__':
                 replace('href="/layout"', 'href="layout.html"').\
                 replace('href="/components"', 'href="components.html"')
             with open(f'docs/{filename}', 'w') as file:
-                soup = BeautifulSoup(page)
+                soup = BeautifulSoup(page, features='html.parser')
                 file.write(soup.prettify())
 
         save_page('index.html', home())

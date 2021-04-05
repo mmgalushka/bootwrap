@@ -4,7 +4,13 @@ Test for bootwrap/components/button.py
 
 import pytest
 
-from bootwrap import Button, WebComponent
+from bootwrap import (
+    WebComponent,
+    Button,
+    Panel,
+    Dialog,
+    Text
+)
 from .helper import HelperHTMLParser
 
 
@@ -108,10 +114,13 @@ def test_link_button():
     ''')
     assert actual == expected
 
+    with pytest.raises(TypeError):
+        str(Button('somename').toggle(Text('sometext')))
+
 
 @pytest.mark.button
 def test_toggle_button():
-    target = WebComponent()
+    target = Dialog('Somatitle', 'Someinfo')
     button = Button('Somename').toggle(target)
     actual = HelperHTMLParser.parse(str(button))
     expected = HelperHTMLParser.parse(f'''
@@ -126,11 +135,23 @@ def test_toggle_button():
     ''')
     assert actual == expected
 
+    target = Panel()
+    button = Button('Somename').toggle(target)
+    actual = HelperHTMLParser.parse(str(button))
+    expected = HelperHTMLParser.parse(f'''
+        <button id="{button.identifier}"
+            class="btn"
+            type="button"
+            data-toggle="tab"
+            data-target="#{target.identifier}"
+            onclick="return false;">
+            Somename
+        </button>
+    ''')
+    assert actual == expected
 
-@pytest.mark.button
-def test_collapse_button():
-    target = WebComponent()
-    button = Button('Somename').collapse(target)
+    target = Panel().as_collapse()
+    button = Button('Somename').toggle(target)
     actual = HelperHTMLParser.parse(str(button))
     expected = HelperHTMLParser.parse(f'''
         <button id="{button.identifier}"

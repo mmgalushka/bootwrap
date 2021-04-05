@@ -19,6 +19,17 @@ class Link(WebComponent):
             to the current document (from MDN WebDoc).
         ctype (str): This attribute is used to define the type of the content
             linked to (from MDN WebDoc).
+
+    Example:
+        from bootwrap import Page, Link
+
+        my_page = Page(
+            ...
+            resources = [
+                Link("https://cdnjs.cloudflare.com/.../all.min.css")
+            ]
+            ...
+        )
     """
     def __init__(self, href, rel='stylesheet', ctype='text/css'):
         super().__init__()

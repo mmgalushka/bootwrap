@@ -4,72 +4,315 @@
 # 
 # ==============================================================================
 
-# --- Anchor Tab -------------------------------------------------------------
+# --- Anchor Tab ---------------------------------------------------------------
 Anchor:
   - class: Anchor
+
+  - title: Appearance
+    description:
+      - Change <code>Anchor</code> appearance using the following functions <code>as_primary()</code>, <code>as_secondary()</code>, <code>as_success()</code>, <code>as_warning()</code>, <code>as_danger()</code>, <code>as_info()</code>, <code>as_light()</code>, and <code>as_dark()</code>.
+    code: |
+      @right
+      Anchor("Primary").as_primary()
+      Anchor("Secondary").as_secondary()
+      Anchor("Success").as_success()
+      Anchor("Warning").as_warning()
+      Anchor("Danger").as_danger()
+      Anchor("Info").as_info()
+      Anchor("Light").as_light()
+      Anchor("Dark").as_dark()
+    evaluation: |
+      from bootwrap import Panel, Anchor
+      panel = Panel(
+        Anchor("Primary").link("#").as_primary(),
+        Anchor("Secondary").link("#").as_secondary(),
+        Anchor("Success").link("#").as_success(),
+        Anchor("Warning").link("#").as_warning(),
+        Anchor("Danger").link("#").as_danger(),
+        Anchor("Info").link("#").as_info(),
+        Anchor("Light").link("#").as_light(),
+        Anchor("Dark").link("#").as_dark()
+      )
+      for anchor in panel:
+        anchor.add_classes("mb-1")
+      output = panel
+
+  - title: Link Resource
+    description: 
+      - Associate <code>Anchor</code> with a hyperlink using the <code>link()</code> function.
+    code: |
+      @right
+      Anchor("Google Search").link("https://www.google.com/")
+    evaluation: |
+      from bootwrap import Panel, Anchor
+      output = Panel(
+          Anchor("Google Search").link("https://www.google.com/")
+      )
+
+  - title: Open Dialog
+    description: 
+      - Use <code>Anchor</code> to open a dialog using the <code>toggle()</code> function.
+    code: |
+      @right
+      dialog = Dialog(
+        "Greeting",
+        "Hello World!"
+      )
+      anchor = Anchor("Say Hello").toggle(dialog)   
+    evaluation: |
+      from bootwrap import Panel, Dialog, Anchor
+      dialog = Dialog(
+        "Greeting",
+        "Hello World!"
+      )
+      anchor = Anchor("Say Hello").toggle(dialog)
+      output = Panel(dialog, anchor)
+
+  - title: Close Dialog
+    description: 
+      - Use <code>Anchor</code> to close a dialog using the <code>dismiss()</code> function.
+    code: |
+      @right
+      dialog = Dialog(
+        "Greeting",
+        "Hello World!",
+        Anchor("Bye").dismiss()
+      )
+      anchor = Anchor("Say Hello").toggle(dialog)   
+    evaluation: |
+      from bootwrap import Panel, Dialog, Anchor
+      dialog = Dialog(
+        "Greeting",
+        "Hello World!",
+        Anchor("Bye").dismiss()
+      )
+      anchor = Anchor("Say Hello").toggle(dialog)  
+      output = Panel(dialog, anchor)
+
+  - title: Expand/Collapse Panel
+    description: 
+      - Use <code>Anchor</code> to expand/collapse a panel using the <code>toggle()</code> function.
+    code: |
+      @right
+      quote = Panel(
+        "Sometimes life is going to hit you in " +
+        "the head with a brick. Don’t lose faith."
+      ).as_collapse()
+      Anchor("Steve Jobs Quote").toggle(quote)
+    evaluation: |
+      from bootwrap import Panel, Anchor
+      quote = Panel(
+        "Sometimes life is going to hit you in " +
+        "the head with a brick. Don’t lose faith."
+      ).as_collapse()
+      output = Panel(
+        Anchor("Steve Jobs Quote").toggle(quote),
+        quote
+      )
+    
+# --- Badge Tab ----------------------------------------------------------------
 
 Badge:
   - class: Badge
 
+  - title: Appearance
+    description:
+      - Change <code>Badge</code> appearance using the following functions <code>as_primary()</code>, <code>as_secondary()</code>, <code>as_success()</code>, <code>as_warning()</code>, <code>as_danger()</code>, <code>as_info()</code>, <code>as_light()</code>, and <code>as_dark()</code>.
+    code: |
+      @right
+      Badge("Primary").as_primary()
+      Badge("Secondary").as_secondary()
+      Badge("Success").as_success()
+      Badge("Warning").as_warning()
+      Badge("Danger").as_danger()
+      Badge("Info").as_info()
+      Badge("Light").as_light()
+      Badge("Dark").as_dark()
+    evaluation: |
+      from bootwrap import Panel, Badge
+      panel = Panel(
+        Badge("Primary").as_primary(),
+        Badge("Secondary").as_secondary(),
+        Badge("Success").as_success(),
+        Badge("Warning").as_warning(),
+        Badge("Danger").as_danger(),
+        Badge("Info").as_info(),
+        Badge("Light").as_light(),
+        Badge("Dark").as_dark()
+      )
+      for anchor in panel:
+        anchor.add_classes("mb-1")
+      output = panel
+
+# --- Button Tab ---------------------------------------------------------------
+
 Button:
   - class: Button
 
-  - title: Button Styles
+  - title: Appearance
     description:
-      - Use the following functions <code>as_primary()</code>, <code>as_secondary()</code>, <code>as_success()</code>, <code>as_warning()</code>, <code>as_danger()</code>, <code>as_info()</code>, <code>as_light()</code>, and <code>as_dark()</code> for changing the <code>Button</code> appearance.
-      - Use the <code>as_outline()</code> function to make the <code>Button</code> without background. Note, the <code>Button</code> will have an outline look only if you apply one of the predefined styles. For the <code>Button</code> without style, this function will have no effect.
-      - Follow the <a href='https://getbootstrap.com/'>Bootstrap</a> guideline to applying these styles.
+      - Change <code>Button</code> appearance using the following functions <code>as_primary()</code>, <code>as_secondary()</code>, <code>as_success()</code>, <code>as_warning()</code>, <code>as_danger()</code>, <code>as_info()</code>, <code>as_light()</code>, and <code>as_dark()</code>.
     code: |
       @right
-
-      # to make a different appearance
-      Button('Primary').as_primary()
-      Button('Secondary').as_secondary()
-      Button('Success').as_success()
-      Button('Warning').as_warning()
-      Button('Danger').as_danger()
-      Button('Info').as_info()
-      Button('Light').as_light()
-      Button('Dark').as_dark()
-
-      # to make the outline look
-      Button('Primary').as_primary().as_outline()
-      Button('Secondary').as_secondary().as_outline()
-      Button('Success').as_success().as_outline()
-      Button('Warning').as_warning().as_outline()
-      Button('Danger').as_danger().as_outline()
-      Button('Info').as_info().as_outline()
-      Button('Light').as_light().as_outline()
-      Button('Dark').as_dark().as_outline()
-
+      Button("Primary").as_primary()
+      Button("Secondary").as_secondary()
+      Button("Success").as_success()
+      Button("Warning").as_warning()
+      Button("Danger").as_danger()
+      Button("Info").as_info()
+      Button("Light").as_light()
+      Button("Dark").as_dark()
     evaluation: |
-      from bootwrap import Panel, Button, Separator
-
+      from bootwrap import Panel, Button
       panel = Panel(
-        Button('Primary').as_primary(),
-        Button('Secondary').as_secondary(),
-        Button('Success').as_success(),
-        Button('Warning').as_warning(),
-        Button('Danger').as_danger(),
-        Button('Info').as_info(),
-        Button('Light').as_light(),
-        Button('Dark').as_dark(),
-        Separator(),
-        Button('Primary').as_primary().as_outline(),
-        Button('Secondary').as_secondary().as_outline(),
-        Button('Success').as_success().as_outline(),
-        Button('Warning').as_warning().as_outline(),
-        Button('Danger').as_danger().as_outline(),
-        Button('Info').as_info().as_outline(),
-        Button('Light').as_light().as_outline(),
-        Button('Dark').as_dark().as_outline()
+        Button("Primary").link("#").as_primary(),
+        Button("Secondary").link("#").as_secondary(),
+        Button("Success").link("#").as_success(),
+        Button("Warning").link("#").as_warning(),
+        Button("Danger").link("#").as_danger(),
+        Button("Info").link("#").as_info(),
+        Button("Light").link("#").as_light(),
+        Button("Dark").link("#").as_dark()
+      )
+      for anchor in panel:
+        anchor.add_classes("mb-1")
+      output = panel
+
+  - title: Outline
+    description:
+      - Make <code>Button</code> without filling with surrounded by color border using the following function <code>as primary()</code>.
+    code: |
+      @right
+      Button("Primary").as_primary().as_outline()
+      Button("Secondary").as_secondary().as_outline()
+      Button("Success").as_success().as_outline()
+      Button("Warning").as_warning().as_outline()
+      Button("Danger").as_danger().as_outline()
+      Button("Info").as_info().as_outline()
+      Button("Light").as_light().as_outline()
+      Button("Dark").as_dark().as_outline()
+    evaluation: |
+      from bootwrap import Panel, Button
+      panel = Panel(
+        Button("Primary").link("#").as_primary().as_outline(),
+        Button("Secondary").link("#").as_secondary().as_outline(),
+        Button("Success").link("#").as_success().as_outline(),
+        Button("Warning").link("#").as_warning().as_outline(),
+        Button("Danger").link("#").as_danger().as_outline(),
+        Button("Info").link("#").as_info().as_outline(),
+        Button("Light").link("#").as_light().as_outline(),
+        Button("Dark").link("#").as_dark().as_outline()
+      )
+      for anchor in panel:
+        anchor.add_classes("mb-1")
+      output = panel
+
+  - title: Disable
+    description:
+      - But default the <code>Button</code> always enabled. Use the <code>as_disabled()</code> function to make the <code>Button</code> disabled. Disable status prevent user to initiate any action assigned to the <code>Button</code>.
+    code: |
+      @right
+      Button("Enabled").as_primary()
+      Button("Disabled").as_primary().as_disabled()
+    evaluation: |
+      from bootwrap import Panel, Button
+      output = Panel(
+        Button("Enabled").as_primary(),
+        Button("Disabled").as_primary().as_disabled()
       )
 
-      for component in panel:
-        if isinstance(component, Button):
-          component.add_classes('mb-1')
+  - title: Link Resource
+    description: 
+      - Associate <code>Button</code> with a hyperlink using the <code>link()</code> function.
+    code: |
+      @right
+      Button("Google Search").as_primary().link("https://www.google.com/")
+    evaluation: |
+      from bootwrap import Panel, Button
+      output = Panel(
+          Button("Google Search").as_primary().link("https://www.google.com/")
+      )
 
-      output = panel
+  - title: Open Dialog
+    description: 
+      - Use <code>Button</code> to open a dialog using the <code>toggle()</code> function.
+    code: |
+      @right
+      dialog = Dialog(
+        "Greeting",
+        "Hello World!"
+      )
+      button = Button("Say Hello").as_primary().toggle(dialog)   
+    evaluation: |
+      from bootwrap import Panel, Dialog, Button
+      dialog = Dialog(
+        "Greeting",
+        "Hello World!"
+      )
+      button = Button("Say Hello").as_primary().toggle(dialog)
+      output = Panel(dialog, button)
+
+  - title: Close Dialog
+    description: 
+      - Use <code>Button</code> to close a dialog using the <code>dismiss()</code> function.
+    code: |
+      @right
+      dialog = Dialog(
+        "Greeting",
+        "Hello World!",
+        Button("Bye").as_primary().dismiss()
+      )
+      button = Button("Say Hello").as_primary().toggle(dialog)   
+    evaluation: |
+      from bootwrap import Panel, Dialog, Button
+      dialog = Dialog(
+        "Greeting",
+        "Hello World!",
+        Button("Bye").as_primary().dismiss()
+      )
+      button = Button("Say Hello").as_primary().toggle(dialog)  
+      output = Panel(dialog, button)
+
+  - title: Expand/Collapse Panel
+    description: 
+      - Use <code>Button</code> to expand/collapse a panel using the <code>toggle()</code> function.
+    code: |
+      @right
+      quote = Panel(
+        "Sometimes life is going to hit you in " +
+        "the head with a brick. Don’t lose faith."
+      ).as_collapse()
+      Button("Steve Jobs Quote").as_primary().toggle(quote)
+    evaluation: |
+      from bootwrap import Panel, Button
+      quote = Panel(
+        "Sometimes life is going to hit you in " +
+        "the head with a brick. Don’t lose faith."
+      ).as_collapse()
+      output = Panel(
+        Button("Steve Jobs Quote").as_primary().toggle(quote),
+        quote
+      )
+
+  - title: Submit Action
+    description: 
+      - Use <code>Button</code> to submit form content using the <code>submit()</code> function.
+      - <strong>Note:</strong> to make a form submit do not forget to use the <code>Form</code> function <code>on_submit()</code>, which specifies a URL that handles the post request. For more information view the <code>Form</code> documentation.
+    code: |
+      @right
+      Form(
+        TextInput("Email", "email", "my@email.com").for_email(),
+        Button("Send").as_primary().submit()
+      )   
+    evaluation: |
+      from bootwrap import Form, TextInput, Button
+      output = Form(
+        TextInput("Email", "email", "my@email.com").for_email(),
+        Button("Send").as_primary().submit()
+      )
+
+
+# --- Collection Tab -----------------------------------------------------------
 
 Collection:
   - class: List
@@ -77,17 +320,90 @@ Collection:
   - class: Deck
   - class: Deck.Card
 
+# --- Dialog Tab ---------------------------------------------------------------
+
 Dialog:
   - class: Dialog
 
+  - title: Question Dialog
+    description:
+      - An example of how <code>Dialog</code> can be used for confirming a specific action. Make sure that you provide a correct URL, which <strong>Confirm</strong> <code>Button</code> linked to. You can specify define this URL something like this <code>local/file_system?file_id=1234567&action=delete</code> 
+    code: |
+      @right
+      from bootwrap import Dialog, Button
+
+      dialog = Dialog(
+        "Delete File",
+        "Are you sure?",
+        Button("Confirm").as_danger().link("url/to/act")
+        Button("Cancel").dismiss()
+      ).as_danger()
+
+      button = Button("Delete").as_danger().toggle(dialog)   
+    evaluation: |
+      from bootwrap import Panel, Dialog, Button
+
+      dialog = Dialog(
+        "Delete File",
+        "Are you sure that you want to delete this file?",
+        Button("Confirm").as_danger().dismiss(),
+        Button("Cancel").dismiss()
+      ).as_danger()
+
+      button = Button("Delete").as_danger().toggle(dialog)   
+
+      output = Panel(dialog, button)
+
+  - title: Complex Dialog
+    description:
+      - An example of how <code>Dialog</code> can be used for buying shares. It contains a web <code>Form</code> where a user can specify an amount (in Dollars) for buying shares. When the user presses the <strong>Buy</strong> <code>Button</code>, the form will be submitted to the server (at <code>url/to/act</code>). If the user selects <strong>Cancel</strong>, the dialog will be closed, discarding the buying action.
+    code: |
+      @right
+      from bootwrap import Form, NumericInput, Dialog, Button
+
+      dialog = Dialog(
+          "Buy Company Shares",
+          Form(
+              NumericInput(
+                  "Amount($)",
+                  "amount",
+                  placeholder=\
+                    "enter an amount for buying shares"
+              ),
+              Button("Cancel").add_classes("float-right").dismiss(),
+              Button("Buy").add_classes("float-right mr-2").as_success().
+                submit()
+          ).on_submit("url/to/act")
+      )
+
+      button = Button("Buy Shares").as_primary().toggle(dialog)     
+    evaluation: |
+      from bootwrap import Panel, Form, NumericInput, Dialog, Button
+
+      dialog = Dialog(
+          "Buy Company Shares",
+          Form(
+              NumericInput(
+                  "Amount($)",
+                  "amount",
+                  placeholder="enter an amount for buying shares"
+              ),
+              Button("Cancel").add_classes("float-right").dismiss(),
+              Button("Buy").add_classes("float-right mr-2").as_success().
+                dismiss()
+          )
+      )
+      button = Button("Buy Shares").as_primary().toggle(dialog)   
+
+      output = Panel(dialog, button) 
+
 Form:
   - class: Form
-  - class: Input
   - class: CheckboxInput
-  - class: Freehand
   - class: TextInput
   - class: NumericInput
   - class: SelectInput
+  - class: SelectInput.Option
   - class: HiddenInput
   - class: FileInput
 
@@ -100,6 +416,66 @@ Image:
 
 Javascript:
   - class: Javascript
+
+  - title: jQuery
+    description:
+      - Use <code>Javascript</code> for creating interactive web content with the help of jQuery.
+
+    code: |
+      @right
+
+      from bootwrap import Javascript, Button, Text
+
+      label = Text("Answer:").as_strong()
+      answer = Text("unknown").add_classes("mr-2 ml-2")
+      btn_yes = Button("Yes").as_success()
+      btn_no = Button("No").as_danger()
+
+      action = Javascript(
+        script='''
+          $("#btn_yes").on("click",function(){
+            $("#answer").text("Yes");
+          });
+          $("#btn_no").on("click",function(){
+            $("#answer").text("No");
+          });
+        '''
+        submap={
+          "answer": answer,
+          "btn_yes": btn_yes,
+          "btn_no": btn_no
+        }
+      )
+      
+      Panel(
+        label, answer, btn_yes, btn_no, action
+      )
+    evaluation: |
+      from bootwrap import Panel, Javascript, Button, Text
+
+      label = Text("Answer:").as_strong()
+      answer = Text("unknown").add_classes("mr-2 ml-2")
+      btn_yes = Button("Yes").as_success()
+      btn_no = Button("No").as_danger()
+
+      action = Javascript(
+        script='''
+          $("#btn_yes").on("click",function(){
+            $("#answer").text("Yes");
+          });
+          $("#btn_no").on("click",function(){
+            $("#answer").text("No");
+          });
+        ''',
+        submap={
+          "answer": answer,
+          "btn_yes": btn_yes,
+          "btn_no": btn_no
+        }
+      )
+      output = Panel(
+        label, answer, btn_yes, btn_no, action
+      )
 
 Link:
   - class: Link
@@ -116,6 +492,8 @@ Separator:
 
 Table:
   - class: Table
+  - class: Table.Head
+  - class: Table.Body
 
 Text:
   - class: Text

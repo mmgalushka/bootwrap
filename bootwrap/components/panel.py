@@ -7,11 +7,32 @@ from .utils import attr, inject
 
 
 class Panel(WebComponent, ClassMixin, ):
-    """A web-component for a panel."""
+    """A web-component for a panel.
+
+    Args:
+        *components (list): The list of `WebComponent`.
+
+    Example:
+        from bootwrap import Text, Panel
+
+        comp1 = Text("Component 1")
+        comp2 = Text("Component 2")
+        comp3 = Text("Component 3")
+
+        Panel(comp1, comp2, comp3)
+
+    Demo:
+        from bootwrap import Text, Panel
+
+        comp1 = Text("Component 1").add_classes("border ml-1")
+        comp2 = Text("Component 2").add_classes("border ml-1")
+        comp3 = Text("Component 3").add_classes("border ml-1")
+
+        output = Panel(comp1, comp2, comp3)
+    """
     def __init__(self, *components):
         super().__init__()
         self.__components = components
-        self.__collapse = False
         self.__arrangement = None
 
     def __iter__(self):
@@ -21,9 +42,9 @@ class Panel(WebComponent, ClassMixin, ):
         """Makes the panel collapsed.
 
         Returns:
-            self
+            self (Panel): The instance of this class.
         """
-        self.__collapse = True
+        self.add_classes('collapse')
         return self
 
     def vertical(self):
@@ -31,7 +52,25 @@ class Panel(WebComponent, ClassMixin, ):
         elements
 
         Returns:
-            self
+            self (Panel): The instance of this class.
+
+        Example:
+            from bootwrap import Text, Panel
+
+            comp1 = Text("Component 1")
+            comp2 = Text("Component 2")
+            comp3 = Text("Component 3")
+
+            Panel(comp1, comp2, comp3).vertical()
+
+        Demo:
+            from bootwrap import Text, Panel
+
+            comp1 = Text("Component 1").add_classes("border")
+            comp2 = Text("Component 2").add_classes("border")
+            comp3 = Text("Component 3").add_classes("border")
+
+            output = Panel(comp1, comp2, comp3).vertical()
         """
         self.__arrangement = 'vertical'
         return self
@@ -41,15 +80,30 @@ class Panel(WebComponent, ClassMixin, ):
         elements
 
         Returns:
-            self
+            self (Panel): The instance of this class.
+
+        Example:
+            from bootwrap import Text, Panel
+
+            comp1 = Text("Component 1")
+            comp2 = Text("Component 2")
+            comp3 = Text("Component 3")
+
+            Panel(comp1, comp2, comp3).horizontal()
+
+        Demo:
+            from bootwrap import Text, Panel
+
+            comp1 = Text("Component 1").add_classes("border")
+            comp2 = Text("Component 2").add_classes("border")
+            comp3 = Text("Component 3").add_classes("border")
+
+            output = Panel(comp1, comp2, comp3).horizontal()
         """
         self.__arrangement = 'horizontal'
         return self
 
     def __str__(self):
-        if self.__collapse:
-            self.add_classes('collapse')
-
         if self.__arrangement:
             if self.__arrangement == 'vertical':
 

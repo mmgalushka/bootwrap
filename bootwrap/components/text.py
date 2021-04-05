@@ -17,6 +17,16 @@ class Text(WebComponent, ClassMixin, AppearanceMixin):
 
     Args:
         content (str): The textual content.
+
+    Example:
+        from bootwrap import Text
+
+        Text("Normal text")
+
+    Demo:
+        from bootwrap import Text
+
+        output = Text("Normal text")
     """
     def __init__(self, content):
         super().__init__()
@@ -32,6 +42,16 @@ class Text(WebComponent, ClassMixin, AppearanceMixin):
 
         Returns:
             self (Text): The instance of this class.
+
+        Example:
+            from bootwrap import Text
+
+            Text("Muted text").as_muted()
+
+        Demo:
+            from bootwrap import Text
+
+            output = Text("Muted text").as_muted()
         """
         self._category = 'muted'
         return self
@@ -44,6 +64,28 @@ class Text(WebComponent, ClassMixin, AppearanceMixin):
 
         Returns:
             self (Text): The instance of this class.
+
+        Example:
+            from bootwrap import Text
+
+            Text("Header text 1").as_heading(1)
+            Text("Header text 2").as_heading(2)
+            Text("Header text 3").as_heading(3)
+            Text("Header text 4").as_heading(4)
+            Text("Header text 5").as_heading(5)
+            Text("Header text 6").as_heading(6)
+
+        Demo:
+            from bootwrap import Panel, Text
+
+            output = Panel(
+                Text("Header text 1").as_heading(1),
+                Text("Header text 2").as_heading(2),
+                Text("Header text 3").as_heading(3),
+                Text("Header text 4").as_heading(4),
+                Text("Header text 5").as_heading(5),
+                Text("Header text 6").as_heading(6)
+            )
         """
         if level < 1 or level > 6:
             raise ValueError(
@@ -58,6 +100,16 @@ class Text(WebComponent, ClassMixin, AppearanceMixin):
 
         Returns:
             self (Text): The instance of this class.
+
+        Example:
+            from bootwrap import Text
+
+            Text("Small text").as_small()
+
+        Demo:
+            from bootwrap import Text
+
+            output = Text("Small text").as_small()
         """
         self.__small = True
         return self
@@ -67,6 +119,16 @@ class Text(WebComponent, ClassMixin, AppearanceMixin):
 
         Returns:
             self (Text): The instance of this class.
+
+        Example:
+            from bootwrap import Text
+
+            Text("Strong text").as_strong()
+
+        Demo:
+            from bootwrap import Text
+
+            output = Text("Strong text").as_strong()
         """
         self.__strong = True
         return self
@@ -76,6 +138,21 @@ class Text(WebComponent, ClassMixin, AppearanceMixin):
 
         Returns:
             self (Text): The instance of this class.
+
+        Example:
+            from bootwrap import Text
+
+            Text("Paragraph 1").as_paragraph()
+            Text("Paragraph 2").as_paragraph()
+            Text("Paragraph 3").as_paragraph()
+        Demo:
+            from bootwrap import Panel, Text
+
+            output = Panel(
+                Text("Paragraph 1").as_paragraph(),
+                Text("Paragraph 2").as_paragraph(),
+                Text("Paragraph 3").as_paragraph()
+            )
         """
         self.__paragraph = True
         return self
@@ -85,6 +162,15 @@ class Text(WebComponent, ClassMixin, AppearanceMixin):
 
         Returns:
             self (Text): The instance of this class.
+
+        Example:
+            from bootwrap import Text
+
+            Text("print('Hello world!')").as_code()
+        Demo:
+            from bootwrap import Panel, Text
+
+            output = Text("print('Hello world!')").as_code()
         """
         self.__code = True
         return self

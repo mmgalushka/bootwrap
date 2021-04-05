@@ -17,6 +17,15 @@ class Image(WebComponent, ClassMixin):
         width (int): The image width.
         height (int): The image height.
         alt (str): The alt text.
+
+    Example:
+        from bootwrap import Image
+
+        Image("logo.png", width=64, height=64, alt="Bootwarp Logo")
+    Demo:
+        from bootwrap import Image
+
+        output = Image("logo.png")
     """
     def __init__(self, src, width=None, height=None, alt=None):
         super().__init__()

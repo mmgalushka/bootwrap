@@ -9,15 +9,23 @@ from .utils import attr
 class Javascript(WebComponent):
     """A web-component for a javascript.
 
-    See https://developer.mozilla.org/en-US/docs/Web/HTML/Element/link
-    for more information.
-
     Args:
         src (str): The URL to load javascript. A URL can be absolute or
-            relative (default=None).
-        script (str): The javascript code (default=None).
-        submap (dict): The map with substitutions, binding the
-            javascript with Python objects (default=None).
+            relative.
+        script (str): The javascript code.
+        submap (dict): The map with substitutions, binding the javascript
+            with Python objects.
+
+    Example:
+        from bootwrap import Page, Javascript
+
+        my_page = Page(
+            ...
+            resources = [
+                Javascript("https://ajax...0/jquery.min.js")
+            ]
+            ...
+        )
     """
     def __init__(self, src=None, script=None, submap=None):
         super().__init__()

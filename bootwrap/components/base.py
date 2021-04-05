@@ -94,24 +94,6 @@ class ActionMixin:
             f'instead got: {type(target)};'
         )
 
-    def collapse(self, target):
-        """Collapses an other web-component.
-
-        Args:
-            target (WebComponent): The web-component to collapse.
-
-        Returns:
-            self
-        """
-        self._action = Action.COLLAPSE
-        if isinstance(target, WebComponent):
-            self._target = target
-            return self
-        raise TypeError(
-            'The target must be not empty string <class "WebComponent">, '
-            f'instead got: {type(target)};'
-        )
-
     def dismiss(self):
         """Performes a dismiss action.
 
@@ -273,6 +255,5 @@ class Action(str, enum.Enum):
     """The most common actions."""
     LINK = 'link'
     TOGGLE = 'toggle'
-    COLLAPSE = 'collapse'
     DISMISS = 'dismiss'
     SUBMIT = 'submit'

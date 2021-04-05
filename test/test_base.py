@@ -62,13 +62,6 @@ def tests_action_mixin():
     with pytest.raises(TypeError):
         str(TestActionMixin().toggle(None))
 
-    # test collapse-action
-    target = WebComponent()
-    assert str(TestActionMixin().collapse(target)) == Action.COLLAPSE + \
-        f':{target.identifier}'
-    with pytest.raises(TypeError):
-        str(TestActionMixin().collapse(None))
-
     # test dismiss-action
     assert str(TestActionMixin().dismiss()) == Action.DISMISS + ':none'
 

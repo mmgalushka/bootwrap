@@ -133,10 +133,6 @@ def test_checkbox_input():
     ''')
     assert actual == expected
 
-    # testing exception...
-    with pytest.raises(AssertionError):
-        str(CheckboxInput('somelabel', 'somename', True).label_on_top())
-
 
 @pytest.mark.form
 def test_text_input():
