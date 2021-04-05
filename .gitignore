@@ -24,9 +24,9 @@
 !docs/**/
 !docs/**/*.*
 
-!test/
-!test/**/
-!test/**/*.py
+!tests/
+!tests/**/
+!tests/**/*.py
 
 !helper.sh
 !LICENSE

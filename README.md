@@ -1,5 +1,5 @@
 <p align="center" width="100%">
-    <img width="96px" src="docs/logo.png"> 
+    <img height="96px" src="docs/bootwrap-equation.png"> 
 </p>
 
 # Python Bootwrap
@@ -10,9 +10,12 @@
 [![Project License](https://img.shields.io/badge/License-MIT-blue.svg)](https://github.com/mmgalushka/python-bootwrap/blob/main/LICENSE)
 [![Project Documentation](https://img.shields.io/badge/docs-up--to--date-success)](https://mmgalushka.github.io/python-bootwrap/)
 
-This is a Python library for rapid developing of web-based user interfaces (WebUI). It helps creating WebUI using Python code only and can be used in conjunction with different web-development frameworks such as [Flask](https://palletsprojects.com/p/flask/). Under the hood, this library wraps one of the most popular front-end toolkit [Bootstrap](https://getbootstrap.com/). For more information, please visit the Python Bootwrap [documentation](https://mmgalushka.github.io/python-bootwrap/).
+**Bootwrap** is a Python library for rapid developing of web-based user interfaces (WebUI). It helps creating WebUI using Python code only and can be used in conjunction with different web-development frameworks such as [Flask](https://palletsprojects.com/p/flask/). Under the hood, this library wraps one of the most popular front-end toolkit [Bootstrap](https://getbootstrap.com/).
 
-Python Bootwrap would be useful for developers who want to build interactive web-application quickly and prefer focusing more on business logic rather than crafting HTML, CSS and Javascript.
+This library would be useful for developers and data scientists who wish to build interactive web-application without crafting HTML, CSS and Javascript.
+
+As a showcase of what this library is capable of please check the documentation. The entire [documentation](https://mmgalushka.github.io/python-bootwrap/) web interface is created using the **Bootwrap** library.
+
 
 ## Hello World Example
 
