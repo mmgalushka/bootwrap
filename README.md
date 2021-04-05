@@ -17,7 +17,18 @@ This library would be useful for developers and data scientists who wish to buil
 As a showcase of what this library is capable of please check the documentation. The entire [documentation](https://mmgalushka.github.io/python-bootwrap/) web interface is created using the **Bootwrap** library.
 
 
-## Hello World Example
+## Installing
+
+Install and update using [pip](https://pip.pypa.io/en/stable/quickstart/):
+
+```bash
+~$ pip install -i https://test.pypi.org/simple/ bootwrap
+```
+
+<p style="color: orange"><strong>Note:</strong> The Bootwrap is currently deployed using TestPyPI – which is a separate instance of the Python Package Index. This allows us to test distribution before moving this package to the real index.</p>
+
+
+## A Simple Example
 
 The following code will care three pages application with the top-level menu bar for navigations.  
 
@@ -67,7 +78,14 @@ if __name__ == '__main__':
     app.run(debug=True)
 ```
 
-This is a result:
+Use the following command to launch the application.
+
+```bash
+$ flask run
+  * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+```
+
+The result should look like.
 
 <img width="600px" src="docs/multi-pages-app.png"> 
 

@@ -24,7 +24,8 @@ action_usage(){
     echo -e "      ${OPT}-c ${NC}generates code coverage summary;"
     echo -e "      ${OPT}-r ${NC}generates code coverage report;"
     echo -e "   ${CMD}demo${NC} run web-server for demoing web-components;" 
-    echo -e "   ${CMD}docs${NC} generates documentation;" 
+    echo -e "   ${CMD}docs${NC} generates documentation;"
+    echo -e "   ${CMD}build${NC} generates distribution archives;" 
 }
 
 action_init(){
@@ -73,6 +74,24 @@ action_docs(){
     python main.py docs
 }
 
+action_build(){
+    source .venv/bin/activate
+    python -m build
+}
+
+action_stage(){
+    source .venv/bin/activate
+    read -p "Do you wish to stage Bootwrap to https://test.pypi.org (y/n)? " answer
+    case ${answer:0:1} in
+        y|Y )
+            python3 -m twine upload --repository testpypi dist/*
+        ;;
+        * )
+            echo -e "Aborted!"
+        ;;
+    esac
+}
+
 # =============================================================================
 # HELPER COMMANDS SELECTOR
 # =============================================================================
@@ -88,6 +107,12 @@ case $1 in
     ;;
     docs)
         action_docs
+    ;;
+    build)
+        action_build
+    ;;
+    stage)
+        action_stage
     ;;
     *)
         action_usage
