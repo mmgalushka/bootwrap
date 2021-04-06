@@ -34,5 +34,6 @@
 !docgen.py
 !setup.py
 !README.md
+!CONTRIBUTING.md
 !requirements.txt
 !pytest.ini

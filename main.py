@@ -434,7 +434,7 @@ class GenericPage(bw.Page):
                     bw.Button('GitHub').
                     as_outline().
                     as_light().
-                    link('https://github.com/mmgalushka/python-bootwrap')
+                    link('https://github.com/mmgalushka/bootwrap')
                 ]
             ),
             container=generate_documentation(content)
