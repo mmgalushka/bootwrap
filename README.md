@@ -89,3 +89,16 @@ The result should look like.
 
 <img width="600px" src="docs/multi-pages-app.png"> 
 
+
+## Contributing
+
+For information on how to set up a development environment and how to make a contribution to Bootwrap, see the [contributing guidelines](CONTRIBUTING.md).
+
+
+## Links
+
+ - Documentation: [https://mmgalushka.github.io/bootwrap/](https://mmgalushka.github.io/bootwrap/)
+ - PyPI Releases: [https://test.pypi.org/project/bootwrap/](https://test.pypi.org/project/bootwrap/)
+ - Source Code: [https://github.com/mmgalushka/bootwrap](https://github.com/mmgalushka/bootwrap/)
+ - Issue Tracker: [https://github.com/mmgalushka/bootwrap/issues](https://github.com/mmgalushka/bootwrap/)
+
