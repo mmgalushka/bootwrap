@@ -10,7 +10,7 @@ Thank you for considering contributing to Bootwrap!
 
 * Download and install the [latest version of git](https://git-scm.com/downloads).
 
-* Configure git with your username and email.
+* Configure git by setting up your username and email.
 
 ```bash
 ~$ git config --global user.name 'your name'
@@ -170,10 +170,23 @@ Run the `build` command to package the Bootwrap project for PIP installation. Th
 ~$ ./helper.sh build
 ```
 
+
 ### Stage
 
-**This command must be used by the repository administrator.**  It allows deploying Bootwrap prebuilt packages to the [Test Python Package Index](https://test.pypi.org/).
+Use the `stage` command to deploy prebuilt Bootwrap packages to the [Test Python Package Index](https://test.pypi.org/).
 
 ```bash
-~$ ./helper.sh build
+~$ ./helper.sh stage
 ```
+
+**This command must be used by the repository administrator.** 
+
+### Deploy
+
+Use the `deploy` command to deploy prebuilt Bootwrap packages to the [Python Package Index](https://pypi.org/).
+
+```bash
+~$ ./helper.sh deploy
+```
+
+**This command must be used by the repository administrator.** 

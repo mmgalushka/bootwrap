@@ -14,7 +14,7 @@
 
 This library would be useful for developers and data scientists who wish to build interactive web-application without crafting HTML, CSS and Javascript.
 
-As a showcase of what this library is capable of please check the documentation. The entire [documentation](https://mmgalushka.github.io/bootwrap/) web interface is created using the **Bootwrap** library.
+As a showcase of what this library is capable of please check the documentation. The entire [documentation](https://mmgalushka.github.io/bootwrap/) web interface is created using the **Bootwrap**.
 
 
 ## Installing
@@ -25,7 +25,7 @@ Install and update using [pip](https://pip.pypa.io/en/stable/quickstart/):
 ~$ pip install -i https://test.pypi.org/simple/ bootwrap
 ```
 
-<p style="color: orange"><strong>Note:</strong> The Bootwrap is currently deployed using TestPyPI – which is a separate instance of the Python Package Index. This allows us to test distribution before moving this package to the real index.</p>
+_Please note, The Bootwrap is currently deployed using TestPyPI – which is a separate instance of the Python Package Index. This allows us to test distribution before moving this package to the real index_
 
 
 ## A Simple Example
