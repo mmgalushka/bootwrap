@@ -25,7 +25,8 @@ action_usage(){
     echo -e "      ${OPT}-r ${NC}generates code coverage report;"
     echo -e "   ${CMD}demo${NC} run web-server for demoing web-components;" 
     echo -e "   ${CMD}docs${NC} generates documentation;"
-    echo -e "   ${CMD}build${NC} generates distribution archives;" 
+    echo -e "   ${CMD}build${NC} generates distribution archives;"
+    echo -e "   ${CMD}stage${NC} deploy Bootwrap to Test Python Package Index;"  
 }
 
 action_init(){

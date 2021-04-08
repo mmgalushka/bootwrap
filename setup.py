@@ -21,9 +21,9 @@ setuptools.setup(
     description="Package for rapid development of web-based user interfaces.",
     long_description=get_long_description(),
     long_description_content_type="text/markdown",
-    url="https://github.com/mmgalushka/python-bootwrap",
+    url="https://github.com/mmgalushka/bootwrap",
     project_urls={
-        "Bug Tracker": "https://github.com/mmgalushka/python-bootwrap/issues",
+        "Bug Tracker": "https://github.com/mmgalushka/bootwrap/issues",
     },
     classifiers=[
         'Intended Audience :: Developers',

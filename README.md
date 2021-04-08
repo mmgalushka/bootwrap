@@ -4,17 +4,17 @@
 
 # Python Bootwrap
 
-[![Continuous Integration Status](https://github.com/mmgalushka/python-bootwrap/workflows/CI/badge.svg)](https://github.com/mmgalushka/python-bootwrap/actions)
-[![Code Coverage Percentage](https://codecov.io/gh/mmgalushka/python-bootwrap/branch/main/graphs/badge.svg)](https://codecov.io/gh/mmgalushka/python-bootwrap)
-[![Codacy Badge](https://app.codacy.com/project/badge/Grade/763657a471ff424c85a5b894ddb750d0)](https://www.codacy.com/gh/mmgalushka/python-bootwrap/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=mmgalushka/python-bootwrap&amp;utm_campaign=Badge_Grade)
-[![Project License](https://img.shields.io/badge/License-MIT-blue.svg)](https://github.com/mmgalushka/python-bootwrap/blob/main/LICENSE)
-[![Project Documentation](https://img.shields.io/badge/docs-up--to--date-success)](https://mmgalushka.github.io/python-bootwrap/)
+[![Continuous Integration Status](https://github.com/mmgalushka/bootwrap/workflows/CI/badge.svg)](https://github.com/mmgalushka/bootwrap/actions)
+[![Code Coverage Percentage](https://codecov.io/gh/mmgalushka/bootwrap/branch/main/graphs/badge.svg)](https://codecov.io/gh/mmgalushka/bootwrap)
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/763657a471ff424c85a5b894ddb750d0)](https://www.codacy.com/gh/mmgalushka/bootwrap/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=mmgalushka/bootwrap&amp;utm_campaign=Badge_Grade)
+[![Project License](https://img.shields.io/badge/License-MIT-blue.svg)](https://github.com/mmgalushka/bootwrap/blob/main/LICENSE)
+[![Project Documentation](https://img.shields.io/badge/docs-up--to--date-success)](https://mmgalushka.github.io/bootwrap/)
 
 **Bootwrap** is a Python library for rapid developing of web-based user interfaces (WebUI). It helps creating WebUI using Python code only and can be used in conjunction with different web-development frameworks such as [Flask](https://palletsprojects.com/p/flask/). Under the hood, this library wraps one of the most popular front-end toolkit [Bootstrap](https://getbootstrap.com/).
 
 This library would be useful for developers and data scientists who wish to build interactive web-application without crafting HTML, CSS and Javascript.
 
-As a showcase of what this library is capable of please check the documentation. The entire [documentation](https://mmgalushka.github.io/python-bootwrap/) web interface is created using the **Bootwrap** library.
+As a showcase of what this library is capable of please check the documentation. The entire [documentation](https://mmgalushka.github.io/bootwrap/) web interface is created using the **Bootwrap**.
 
 
 ## Installing
@@ -25,7 +25,7 @@ Install and update using [pip](https://pip.pypa.io/en/stable/quickstart/):
 ~$ pip install -i https://test.pypi.org/simple/ bootwrap
 ```
 
-<p style="color: orange"><strong>Note:</strong> The Bootwrap is currently deployed using TestPyPI – which is a separate instance of the Python Package Index. This allows us to test distribution before moving this package to the real index.</p>
+_Please note, The Bootwrap is currently deployed using TestPyPI – which is a separate instance of the Python Package Index. This allows us to test distribution before moving this package to the real index_
 
 
 ## A Simple Example
@@ -88,4 +88,17 @@ $ flask run
 The result should look like.
 
 <img width="600px" src="docs/multi-pages-app.png"> 
+
+
+## Contributing
+
+For information on how to set up a development environment and how to make a contribution to Bootwrap, see the [contributing guidelines](CONTRIBUTING.md).
+
+
+## Links
+
+ - Documentation: [https://mmgalushka.github.io/bootwrap/](https://mmgalushka.github.io/bootwrap/)
+ - PyPI Releases: [https://test.pypi.org/project/bootwrap/](https://test.pypi.org/project/bootwrap/)
+ - Source Code: [https://github.com/mmgalushka/bootwrap](https://github.com/mmgalushka/bootwrap/)
+ - Issue Tracker: [https://github.com/mmgalushka/bootwrap/issues](https://github.com/mmgalushka/bootwrap/)
 
