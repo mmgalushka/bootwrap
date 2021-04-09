@@ -1,0 +1,26 @@
+# ==============================================================================
+# 
+#   H O M E     P A G E     C O N F I G U R A T I O N
+# 
+# ==============================================================================
+WebComponent:
+  - class: WebComponent
+
+ClassMixin:
+  - class: ClassMixin
+
+ActionMixin:
+  - class: ActionMixin
+
+AppearanceMixin:
+  - class: AppearanceMixin
+
+OutlineMixin:
+  - class: OutlineMixin
+
+AvailabilityMixin:
+  - class: AvailabilityMixin
+
+Constants:
+  - class: Breakpoint
+  - class: Action

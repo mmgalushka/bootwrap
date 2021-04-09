@@ -112,6 +112,44 @@ class DemoDoc(BlockDoc):
         super().__init__(None, loc['output'])
 
 
+class PropertyDoc(bw.Panel):
+    """A component to show a property-documentation.
+
+    Args:
+        doc (dict): The documentation about a property. For more information
+            about the property-documentation, see the `docgen` module.
+    """
+    def __init__(self, doc):
+        wc_example = None
+        if len(doc['example']) > 0:
+            wc_example = ExampleDoc(doc['example'])
+
+        wc_demo = None
+        if len(doc['demo']) > 0:
+            wc_demo = DemoDoc(doc['demo'])
+
+        wc_title = bw.Text(
+            'Property ' + str(bw.Text(doc['name']).as_primary())
+        ).as_heading(4)
+
+        wc_summary = bw.Text(doc['summary']).as_muted()
+
+        description = [
+            bw.Text(text).as_paragraph()
+            for text in doc['description']
+        ]
+
+        super().__init__(
+            wc_title,
+            wc_summary,
+            *description,
+            wc_example,
+            wc_demo
+        )
+
+        self.add_classes('mt-5')
+
+
 class MethodDoc(bw.Panel):
     """A component to show a method-documentation.
 
@@ -150,12 +188,12 @@ class MethodDoc(bw.Panel):
 
         wc_title = bw.Panel(
             bw.Text(
-                'Mathod ' + str(bw.Text(doc['name']).as_primary())
+                'Method ' + str(bw.Text(doc['name']).as_primary())
             ).as_heading(4),
             bw.Panel(wc_arguments_btn, wc_returns_btn)
         ).add_classes('d-flex justify-content-between')
 
-        wc_summary = bw.Text(doc['summary']).as_heading(6).as_muted()
+        wc_summary = bw.Text(doc['summary']).as_muted()
 
         wc_call = bw.Text(doc['name'] + doc['init']).as_code()
 
@@ -223,7 +261,7 @@ class ClassDoc(bw.Panel):
             bw.Panel(wc_arguments_btn, wc_returns_btn)
         ).add_classes('d-flex justify-content-between')
 
-        wc_summary = bw.Text(doc['summary']).as_heading(3).as_muted()
+        wc_summary = bw.Text(doc['summary']).as_muted()
 
         wc_call = bw.Text(doc['name'] + doc['init']).as_code()
 
@@ -232,6 +270,13 @@ class ClassDoc(bw.Panel):
             description = [
                 bw.Text(text).as_paragraph()
                 for text in doc['description']
+            ]
+
+        properties = []
+        if len(doc['properties']) > 0:
+            properties = [
+                PropertyDoc(property_doc)
+                for property_doc in doc['properties']
             ]
 
         methods = []
@@ -250,9 +295,10 @@ class ClassDoc(bw.Panel):
             *description,
             wc_example,
             wc_demo,
+            *properties,
             *methods
         )
-        self.add_classes('mt-3')
+        self.add_classes('mt-5')
 
     @property
     def name(self):
@@ -428,6 +474,7 @@ class GenericPage(bw.Page):
                 anchors=[
                     bw.Anchor('Home').link('/'),
                     bw.Anchor('Layout').link('/layout'),
+                    bw.Anchor('Base').link('/base'),
                     bw.Anchor('Components').link('/components')
                 ],
                 actions=[
@@ -451,6 +498,13 @@ def home():
 @app.route('/layout')
 def layout():
     with open('config/layout.yaml', 'r') as file:
+        content = yaml.load(file, Loader=yaml.FullLoader)
+    return Markup(GenericPage(content))
+
+
+@app.route('/base')
+def base():
+    with open('config/base.yaml', 'r') as file:
         content = yaml.load(file, Loader=yaml.FullLoader)
     return Markup(GenericPage(content))
 
@@ -481,6 +535,7 @@ if __name__ == '__main__':
             page = str(page).\
                 replace('href="/"', 'href="index.html"').\
                 replace('href="/layout"', 'href="layout.html"').\
+                replace('href="/base"', 'href="base.html"').\
                 replace('href="/components"', 'href="components.html"')
             with open(f'docs/{filename}', 'w') as file:
                 soup = BeautifulSoup(page, features='html.parser')
@@ -488,6 +543,7 @@ if __name__ == '__main__':
 
         save_page('index.html', home())
         save_page('layout.html', layout())
+        save_page('base.html', layout())
         save_page('components.html', components())
 
     else:

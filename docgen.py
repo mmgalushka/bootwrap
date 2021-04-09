@@ -1,5 +1,6 @@
 import re
 import inspect
+import types
 
 
 def prettify(text):
@@ -83,7 +84,7 @@ def parse_docstring(text):
         text (str): The raw Python-docstring to parse.
 
     Returns:
-        doc (dict): The arranged docstring elements.
+        doc (dict): The docstring elements arranged as a dictionary.
     """
     overview, example, demo = '', '', ''
     arguments, returns = [], []
@@ -129,17 +130,36 @@ def generate_method_doc(m):
         m (method): The method for generating documentation.
 
     Returns:
-        doc (dict): The The docstring element arranged as a dictionary.
+        doc (dict): The docstring element arranged as a dictionary.
     """
-    doc = parse_docstring(m.__doc__)
+    doc = parse_docstring(m[1].__doc__)
     return {
-        'name': m.__name__,
-        'init': str(inspect.signature(m))
+        'name': m[0],
+        'init': str(inspect.signature(m[1]))
         .replace('self, ', '').replace('self', ''),
         'summary': doc['summary'],
         'description':  doc['description'],
         'arguments': doc['arguments'],
         'returns': doc['returns'],
+        'example': doc['example'],
+        'demo': doc['demo']
+    }
+
+
+def generate_property_doc(p):
+    """Generates the specified property documentation from docstring.
+
+    Args:
+        m (method): The property for generating documentation.
+
+    Returns:
+        doc (dict): The docstring element arranged as a dictionary.
+    """
+    doc = parse_docstring(p[1].__doc__)
+    return {
+        'name': p[0],
+        'summary': doc['summary'],
+        'description':  doc['description'],
         'example': doc['example'],
         'demo': doc['demo']
     }
@@ -156,21 +176,40 @@ def generate_class_doc(c):
     """
     doc = parse_docstring(c.__doc__)
     methods = []
-    for func in inspect.getmembers(c, predicate=inspect.isroutine):
-        m = func[0]
-        if callable(getattr(c, m)) and not m.startswith('_'):
+    for m in inspect.getmembers(c, predicate=inspect.isroutine):
+        if callable(getattr(c, m[0])) and not m[0].startswith('_'):
             try:
-                if m not in c.__dict__:
+                if m[0] not in c.__dict__:
                     # Not defined in class: method inherited;
                     continue
-                elif hasattr(super(c), m):
+                elif hasattr(super(c), m[0]):
                     # Present in parent : method overloaded;
-                    methods.append(generate_method_doc(getattr(c, m)))
+                    methods.append(generate_method_doc(m))
                 else:
                     # Not present in parent : newly defined method;
-                    methods.append(generate_method_doc(getattr(c, m)))
+                    methods.append(generate_method_doc(m))
             except NameError:
                 continue
+
+    properties = []
+    for p in inspect.getmembers(
+        c, lambda o: isinstance(o, (property, types.MethodType))
+    ):
+        if not p[0].startswith('_'):
+            try:
+                if p[0] not in c.__dict__:
+                    # Not defined in class: property inherited;
+                    continue
+                elif hasattr(super(c), p[0]):
+                    # Present in parent : property overloaded;
+                    properties.append(generate_property_doc(p))
+                else:
+                    # Not present in parent : newly defined property;
+                    properties.append(generate_property_doc(p))
+            except NameError:
+                continue
+
+
 
     return {
         'name': c.__qualname__,
@@ -183,5 +222,6 @@ def generate_class_doc(c):
         'returns': [],
         'example': doc['example'],
         'demo': doc['demo'],
-        'methods': methods
+        'methods': methods,
+        'properties': properties
     }

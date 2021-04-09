@@ -7,14 +7,43 @@ import enum
 
 
 class WebComponent:
-    """A web-component base class."""
+    """A web-component base class.
+
+    This class must be inherited by all web components. 
+
+    In many operations where one web component encapsulates another one has
+    implemented a type check. If the received element is not `WebComponent`
+    will be generated a `TypeError`. To ensure correct handling of your
+    custom component, do not forget to inherit the `WebComponent` class. 
+
+    Example:
+        class CustomHeader(WebComponent):
+            def __init__(self, title):
+                self.__title = title
+
+            sef __str__(self):
+                return f'''
+                    &lt;h1 id="{self.identifier}"&gt
+                        {self.__title}
+                    &lt;/h1&gt
+                '''
+    """
     def __init__(self):
         super(WebComponent, self).__init__()
         self.__identifier = str(uuid.uuid4())
 
     @property
     def identifier(self):
-        """A unique web-component identifier."""
+        """A unique web-component identifier.
+
+        Every `WebComponent` has a unique identifier (ex. cfe040e6-df5f-4a3a-
+        b96e-b0cefc31bbd9). This identifier is used for referencing between
+        components inside a page. This property returns this identifier as
+        `str`.
+
+        When you create a custom  `WebComponent` it is advisable to set its
+        tag attribute `id` equals to `identifier`.
+        """
         return self.__identifier
 
 
