@@ -9,7 +9,7 @@ from .utils import attr, inject
 
 
 class Form(WebComponent, ClassMixin):
-    """A web-component for a form.
+    """A web component for a form.
 
     Use the `on_submit(href)` function to specify URL where entered
     information should to be sent for processing.
@@ -39,7 +39,7 @@ class Form(WebComponent, ClassMixin):
             href (str): The URL for submitting the form.
 
         Returns:
-            self (Form): The instance of this class.
+            obj (self): The instance of this class.
 
         Example:
             from bootwrap import Form
@@ -78,7 +78,7 @@ class Input(ABC, WebComponent, ClassMixin, AvailabilityMixin):
         """Makes an input label showing on top.
 
         Returns:
-            self (Input): The instance of this class.
+            obj (self): The instance of this class.
         """
         self.__label_on_top = True
         return self
@@ -246,7 +246,7 @@ class TextInput(Freehand):
             n (int): The number of rows to set.
 
         Returns:
-            self (TextInput): The instance of this class.
+            obj (self): The instance of this class.
 
         Example:
             from bootwrap import Form, TextInput
@@ -268,7 +268,7 @@ class TextInput(Freehand):
         """Configuring input for entering email.
 
         Returns:
-            self (TextInput): The instance of this class.
+            obj (self): The instance of this class.
 
         Example:
             from bootwrap import Form, TextInput
@@ -290,7 +290,7 @@ class TextInput(Freehand):
         """Configuring input for entering password.
 
         Returns:
-            self (TextInput): The instance of this class.
+            obj (self): The instance of this class.
 
         Example:
             from bootwrap import Form, TextInput
@@ -423,7 +423,7 @@ class SelectInput(Input):
         """Makes selection in a form of radio buttons.
 
         Returns:
-            self (SelectInput): The instance of this class.
+            obj (self): The instance of this class.
 
         Example:
             from bootwrap import Form, SelectInput

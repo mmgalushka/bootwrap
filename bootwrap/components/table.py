@@ -19,7 +19,7 @@ class TableEntity(Enum):
 
 
 class Table(WebComponent, ClassMixin):
-    """A web-component for a table.
+    """A web component for a table.
 
     Args:
         head (list): The table head (1D array).
@@ -334,7 +334,7 @@ class Table(WebComponent, ClassMixin):
         """Adds zebra-striping to any table row within the table body.
 
         Returns:
-            self (Table): The instance of this class.
+            obj (self): The instance of this class.
 
         Example:
             from bootwrap import Table
@@ -367,7 +367,7 @@ class Table(WebComponent, ClassMixin):
         """Adds borders on all sides of the table and cells.
 
         Returns:
-            self (Table): The instance of this class.
+            obj (self): The instance of this class.
 
         Example:
             from bootwrap import Table
@@ -400,7 +400,7 @@ class Table(WebComponent, ClassMixin):
         """Make tables more compact by cutting cell padding in half.
 
         Returns:
-            self (Table): The instance of this class.
+            obj (self): The instance of this class.
 
         Example:
             from bootwrap import Table
@@ -433,7 +433,7 @@ class Table(WebComponent, ClassMixin):
         """Inverts the colors—with light text on dark backgrounds.
 
         Returns:
-            self (Table): The instance of this class.
+            obj (self): The instance of this class.
 
         Example:
             from bootwrap import Table
@@ -469,7 +469,7 @@ class Table(WebComponent, ClassMixin):
             breakpoint (str): The breakpoint to apply.
 
         Returns:
-            self (Table): The instance of this class.
+            obj (self): The instance of this class.
 
         Example:
             from bootwrap import Table

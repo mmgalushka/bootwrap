@@ -6,7 +6,7 @@ from .components import Text, inject
 
 
 class Menu:
-    """A web-component for a menu bar at the page top.
+    """A web component for a menu bar at the page top.
 
     Args:
         logo (Image): The <code>Image</code> representing a company or

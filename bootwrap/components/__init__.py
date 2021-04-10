@@ -1,5 +1,5 @@
 """
-Base web-components.
+Base web components.
 """
 
 from .anchor import Anchor             # noqa: F401

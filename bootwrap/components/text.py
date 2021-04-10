@@ -13,7 +13,7 @@ from .utils import attr, tag
 
 
 class Text(WebComponent, ClassMixin, AppearanceMixin):
-    """A web-component for a text.
+    """A web component for a text.
 
     Args:
         content (str): The textual content.
@@ -41,7 +41,7 @@ class Text(WebComponent, ClassMixin, AppearanceMixin):
         """Makes the text muted.
 
         Returns:
-            self (Text): The instance of this class.
+            obj (self): The instance of this class.
 
         Example:
             from bootwrap import Text
@@ -63,7 +63,7 @@ class Text(WebComponent, ClassMixin, AppearanceMixin):
             level (int): The heading level;
 
         Returns:
-            self (Text): The instance of this class.
+            obj (self): The instance of this class.
 
         Example:
             from bootwrap import Text
@@ -99,7 +99,7 @@ class Text(WebComponent, ClassMixin, AppearanceMixin):
         """Makes the text as small.
 
         Returns:
-            self (Text): The instance of this class.
+            obj (self): The instance of this class.
 
         Example:
             from bootwrap import Text
@@ -118,7 +118,7 @@ class Text(WebComponent, ClassMixin, AppearanceMixin):
         """Makes the text as strong.
 
         Returns:
-            self (Text): The instance of this class.
+            obj (self): The instance of this class.
 
         Example:
             from bootwrap import Text
@@ -137,7 +137,7 @@ class Text(WebComponent, ClassMixin, AppearanceMixin):
         """Makes the text wrap in a paragraph.
 
         Returns:
-            self (Text): The instance of this class.
+            obj (self): The instance of this class.
 
         Example:
             from bootwrap import Text
@@ -161,7 +161,7 @@ class Text(WebComponent, ClassMixin, AppearanceMixin):
         """Makes the text wrap as a code snippet.
 
         Returns:
-            self (Text): The instance of this class.
+            obj (self): The instance of this class.
 
         Example:
             from bootwrap import Text

@@ -17,7 +17,7 @@ NavigationItem = namedtuple('NavigationItem', 'anchor panel')
 
 
 class Navigation(WebComponent, ClassMixin):
-    """A web-component for navigation.
+    """A web component for navigation.
 
     Args:
         *items (list): The list of `Navigation.Item`.
@@ -68,7 +68,7 @@ class Navigation(WebComponent, ClassMixin):
         """Makes the navigation vertical.
 
         Returns:
-            self (Navigation): The instance of this class.
+            obj (self): The instance of this class.
 
         Example:
             from bootwrap import Navigation
@@ -95,7 +95,7 @@ class Navigation(WebComponent, ClassMixin):
         """Makes the navigation controls looks like buttons.
 
         Returns:
-            self (Navigation): The instance of this class.
+            obj (self): The instance of this class.
 
         Example:
             from bootwrap import Navigation
@@ -121,7 +121,7 @@ class Navigation(WebComponent, ClassMixin):
         """Makes the navigation controls looks like buttons.
 
         Returns:
-            self (Navigation): The instance of this class.
+            obj (self): The instance of this class.
 
         Example:
             from bootwrap import Navigation

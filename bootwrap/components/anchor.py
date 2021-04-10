@@ -17,7 +17,7 @@ from .utils import attr, inject
 
 
 class Anchor(WebComponent, ClassMixin, ActionMixin, AppearanceMixin):
-    """A web-component for an anchor.
+    """A web component for an anchor.
 
     The `Anchor` component is used for creating a hyperlink to pages, files,
     email addresses, locations on the same page, or other web-resources
@@ -90,7 +90,7 @@ class Anchor(WebComponent, ClassMixin, ActionMixin, AppearanceMixin):
                 '''
             raise TypeError(
                 'The toggle operation cannot be applied to the '
-                f'{type(self._target)} web-component;',
+                f'{type(self._target)} web component;',
             )
         elif self._action == Action.DISMISS:
             return f'''

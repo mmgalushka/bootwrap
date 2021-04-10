@@ -18,7 +18,7 @@ from .utils import attr, inject
 
 class Button(WebComponent, ClassMixin, ActionMixin, AppearanceMixin,
              OutlineMixin, AvailabilityMixin):
-    """A web-component for a button.
+    """A web component for a button.
 
     Without applying a stylized method `Button` will be appearing very
     similar to the `Anchor`.
@@ -86,7 +86,7 @@ class Button(WebComponent, ClassMixin, ActionMixin, AppearanceMixin,
                 self.add_classes('disabled')
 
             # At this point, we only need to check whether the specified
-            # target is a web-component or a string. The ActionMixin makes
+            # target is a web component or a string. The ActionMixin makes
             # sure that a user can specify only these two types.
             if isinstance(self._target, WebComponent):
                 href = f'#{self._target.identifier}'
@@ -128,7 +128,7 @@ class Button(WebComponent, ClassMixin, ActionMixin, AppearanceMixin,
                 '''
             raise TypeError(
                 'The toggle operation cannot be applied to the '
-                f'{type(self._target)} web-component;',
+                f'{type(self._target)} web component;',
             )
         elif self._action == Action.DISMISS:
             return f'''

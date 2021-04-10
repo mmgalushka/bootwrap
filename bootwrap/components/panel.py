@@ -7,7 +7,7 @@ from .utils import attr, inject
 
 
 class Panel(WebComponent, ClassMixin, ):
-    """A web-component for a panel.
+    """A web component for a panel.
 
     Args:
         *components (list): The list of `WebComponent`.
@@ -42,7 +42,7 @@ class Panel(WebComponent, ClassMixin, ):
         """Makes the panel collapsed.
 
         Returns:
-            self (Panel): The instance of this class.
+            obj (self): The instance of this class.
         """
         self.add_classes('collapse')
         return self
@@ -52,7 +52,7 @@ class Panel(WebComponent, ClassMixin, ):
         elements
 
         Returns:
-            self (Panel): The instance of this class.
+            obj (self): The instance of this class.
 
         Example:
             from bootwrap import Text, Panel
@@ -80,7 +80,7 @@ class Panel(WebComponent, ClassMixin, ):
         elements
 
         Returns:
-            self (Panel): The instance of this class.
+            obj (self): The instance of this class.
 
         Example:
             from bootwrap import Text, Panel
