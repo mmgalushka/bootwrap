@@ -1,5 +1,5 @@
 """
-Web-components utilities.
+web components utilities.
 """
 
 
@@ -38,7 +38,7 @@ def attr(name, value):
 
 
 def inject(*components):
-    """Injects web-components.
+    """Injects web components.
 
     >>> inject(
     >>>    '<snap>a</snap>',
@@ -47,10 +47,10 @@ def inject(*components):
     >>> <snap>a</snap><snap>b</snap>
 
     Args:
-        components (WebComponents): The web-components to inject.
+        components (WebComponents): The web components to inject.
 
     Returns:
-        str: The string with injected web-components.
+        str: The string with injected web components.
     """
     return ''. join(map(str, filter(None, components)))
 

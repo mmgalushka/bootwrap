@@ -10,7 +10,7 @@ from .utils import attr, inject
 
 
 class List(WebComponent, ClassMixin):
-    """A web-component for a list of items.
+    """A web component for a list of items.
 
     Args:
         *items (list): The `list` of `List.Item` elements.
@@ -287,7 +287,7 @@ class List(WebComponent, ClassMixin):
 
 
 class Deck(WebComponent, ClassMixin):
-    """A web-component for a deck of cards.
+    """A web component for a deck of cards.
 
     Args:
         *cards (list): The `list` of `Deck.Card` elements.

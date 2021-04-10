@@ -7,7 +7,7 @@ from .utils import attr
 
 
 class Link(WebComponent):
-    """A web-component for an external resource link.
+    """A web component for an external resource link.
 
     See https://developer.mozilla.org/en-US/docs/Web/HTML/Element/link
     for more information.

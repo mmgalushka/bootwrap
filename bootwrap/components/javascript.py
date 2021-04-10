@@ -7,7 +7,7 @@ from .utils import attr
 
 
 class Javascript(WebComponent):
-    """A web-component for a javascript.
+    """A web component for a javascript.
 
     Args:
         src (str): The URL to load javascript. A URL can be absolute or

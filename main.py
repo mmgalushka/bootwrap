@@ -85,7 +85,7 @@ class ExampleDoc(BlockDoc):
     """A component for visualizing class or method example.
 
     The example block represents a code fragment to show how a particular
-    web-component can be used.
+    web component can be used.
 
     Args:
         code (str): The code fragment to show.
@@ -256,14 +256,19 @@ class ClassDoc(bw.Panel):
 
         wc_title = bw.Panel(
             bw.Text(
-                'Class ' + str(bw.Text(doc['name']).as_primary())
+                'Class ' if len(doc['attributes']) == 0 else 'Enum ' +
+                str(bw.Text(self.__name).as_primary())
             ).as_heading(1),
             bw.Panel(wc_arguments_btn, wc_returns_btn)
         ).add_classes('d-flex justify-content-between')
 
         wc_summary = bw.Text(doc['summary']).as_muted()
 
-        wc_call = bw.Text(doc['name'] + doc['init']).as_code()
+        # Shows constructor call only for classes None for Enum.
+        # for Class the doc['attributes'] should be empty.
+        wc_call = None
+        if len(doc['attributes']) == 0:
+            wc_call = bw.Text(doc['name'] + doc['init']).as_code()
 
         description = []
         if len(doc['description']) > 0:
@@ -271,6 +276,20 @@ class ClassDoc(bw.Panel):
                 bw.Text(text).as_paragraph()
                 for text in doc['description']
             ]
+
+        wc_attributes = None
+        if len(doc['attributes']) > 0:
+            wc_attributes = bw.Panel(
+                *[
+                    bw.Panel(
+                        '%s.<strong class="text-primary">%s</strong>' % (
+                            doc['name'], attribute_doc['name']
+                        )
+                    ).add_classes(
+                        'border p-1 m-1 text-center'
+                    ) for attribute_doc in doc['attributes']
+                ]
+            ).horizontal()
 
         properties = []
         if len(doc['properties']) > 0:
@@ -295,6 +314,7 @@ class ClassDoc(bw.Panel):
             *description,
             wc_example,
             wc_demo,
+            wc_attributes,
             *properties,
             *methods
         )

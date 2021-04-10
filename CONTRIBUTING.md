@@ -98,7 +98,7 @@ System Commands:
       -m <MARK> runs tests for mark;
       -c generates code coverage summary;
       -r generates code coverage report;
-   demo run web-server for demoing web-components;
+   demo run web-server for demoing web components;
    docs generates documentation;
    build generates distribution archives;
    stage deploy Bootwrap to Test Python Package Index;
@@ -122,7 +122,7 @@ System Commands:
 
 More information about code coverage can be found [here](https://pytest-cov.readthedocs.io/en/latest/).
 
-During development, you might need to work on a specific web component. If you wish to run the test for just one component only use the `-m` option,  followed by the marker name. The maker name defines what component should be tested. For example, the following command will run testa for the Button web-component.
+During development, you might need to work on a specific web component. If you wish to run the test for just one component only use the `-m` option,  followed by the marker name. The maker name defines what component should be tested. For example, the following command will run testa for the Button web component.
 
  ```bash
 ~$ ./helper.sh test -m button

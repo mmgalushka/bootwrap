@@ -10,7 +10,7 @@ from .utils import attr
 
 
 class Image(WebComponent, ClassMixin):
-    """A web-component for an image.
+    """A web component for an image.
 
     Args:
         src (obj): The image source to show.

@@ -1,6 +1,7 @@
 import re
 import inspect
 import types
+import enum
 
 
 def prettify(text):
@@ -26,7 +27,7 @@ def get_params(text):
     Returns:
         parameters (list): The extracted parameters.
     """
-    pat = re.compile(r"\s*([A-Za-z_]+)\s*\(([A-Za-z_\|\.\<\>]+)\)\s*:\s*")
+    pat = re.compile(r"\s*([\*A-Za-z_]+)\s*\(([A-Za-z_\|\.\<\>]+)\)\s*:\s*")
 
     tokens = []
     for m in pat.finditer(text):
@@ -136,7 +137,8 @@ def generate_method_doc(m):
     return {
         'name': m[0],
         'init': str(inspect.signature(m[1]))
-        .replace('self, ', '').replace('self', ''),
+            .replace('self, ', '')
+            .replace('self', ''),
         'summary': doc['summary'],
         'description':  doc['description'],
         'arguments': doc['arguments'],
@@ -209,13 +211,18 @@ def generate_class_doc(c):
             except NameError:
                 continue
 
-
+    attributes = []
+    for a in inspect.getmembers(
+        c, lambda o: isinstance(o, enum.Enum)
+    ):
+        attributes.append(generate_property_doc(a))
 
     return {
         'name': c.__qualname__,
         'super': [],
         'init': str(inspect.signature(c.__init__))
-        .replace('self, ', '').replace('self', ''),
+            .replace('self, ', '').replace('self', '')
+            .replace('/, *args, **kwargs', ''),
         'summary': doc['summary'],
         'description':  doc['description'],
         'arguments': doc['arguments'],
@@ -223,5 +230,6 @@ def generate_class_doc(c):
         'example': doc['example'],
         'demo': doc['demo'],
         'methods': methods,
-        'properties': properties
+        'properties': properties,
+        'attributes': attributes
     }

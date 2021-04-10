@@ -7,7 +7,7 @@ from .utils import attr
 
 
 class Badge(WebComponent, ClassMixin, AppearanceMixin):
-    """A web-component for a badge.
+    """A web component for a badge.
 
     Args:
         label (str): The badge label (text showing inside a badge).
