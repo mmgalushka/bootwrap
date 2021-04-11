@@ -562,7 +562,7 @@ if __name__ == '__main__':
 
         save_page('index.html', home())
         save_page('layout.html', layout())
-        save_page('base.html', layout())
+        save_page('base.html', base())
         save_page('components.html', components())
 
     else:
