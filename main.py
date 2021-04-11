@@ -256,8 +256,7 @@ class ClassDoc(bw.Panel):
 
         wc_title = bw.Panel(
             bw.Text(
-                'Class ' if len(doc['attributes']) == 0 else 'Enum ' +
-                str(bw.Text(self.__name).as_primary())
+                'Class ' + str(bw.Text(self.__name).as_primary())
             ).as_heading(1),
             bw.Panel(wc_arguments_btn, wc_returns_btn)
         ).add_classes('d-flex justify-content-between')
