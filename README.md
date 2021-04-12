@@ -1,5 +1,5 @@
 <p align="center" width="100%">
-    <img height="96px" src="docs/bootwrap-equation.png"> 
+    <img height="96px" src="https://github.com/mmgalushka/bootwrap/raw/main/docs/bootwrap-equation.png"> 
 </p>
 
 # Python Bootwrap
@@ -87,7 +87,7 @@ $ flask run
 
 The result should look like.
 
-<img width="600px" src="docs/multi-pages-app.png"> 
+<img width="600px" src="https://github.com/mmgalushka/bootwrap/raw/main/docs/multi-pages-app.png"> 
 
 
 ## Contributing

@@ -2,7 +2,7 @@
 Wrapper for Bootstrap components.
 """
 
-__version__ = '1.0.0-alpha'
+__version__ = '1.0.0-alpha4'
 
 from .menu import Menu                 # NOQA
 from .page import Page                 # NOQA
