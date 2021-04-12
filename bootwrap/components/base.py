@@ -107,6 +107,243 @@ class ClassMixin:
             return ' '.join(self.__classes)
         return None
 
+    def m(self, size):
+        """Sets margin for all four sides to the specified size.
+
+        Args:
+            size (int): Size of the margin to set.
+
+        Returns:
+            obj (self): The instance of this class.
+
+        Example:
+            from bootwrap import Button
+
+            # Note, that Button inherits ClassMixin.
+            button = Button("Hello").m(3)
+        """
+        return self.add_classes(f"m-{size}")
+
+    def mt(self, size):
+        """Sets margin for the top side to the specified size.
+
+        Args:
+            size (int): Size of the margin to set.
+
+        Returns:
+            obj (self): The instance of this class.
+
+        Example:
+            from bootwrap import Button
+
+            # Note, that Button inherits ClassMixin.
+            button = Button("Hello").mt(3)
+        """
+        return self.add_classes(f"mt-{size}")
+
+    def mb(self, size):
+        """Sets margin for the bottom side the specified size.
+
+        Args:
+            size (int): Size of the margin to set.
+
+        Returns:
+            obj (self): The instance of this class.
+
+        Example:
+            from bootwrap import Button
+
+            # Note, that Button inherits ClassMixin.
+            button = Button("Hello").mb(3)
+        """
+        return self.add_classes(f"mb-{size}")
+
+    def ml(self, size):
+        """Sets margin for the left side to the specified size.
+
+        Args:
+            size (int): Size of the margin to set.
+
+        Returns:
+            obj (self): The instance of this class.
+
+        Example:
+            from bootwrap import Button
+
+            # Note, that Button inherits ClassMixin.
+            button = Button("Hello").ml(3)
+        """
+        return self.add_classes(f"ml-{size}")
+
+    def mr(self, size):
+        """Sets margin for the right side to the specified size.
+
+        Args:
+            size (int): Size of the margin to set.
+
+        Returns:
+            obj (self): The instance of this class.
+
+        Example:
+            from bootwrap import Button
+
+            # Note, that Button inherits ClassMixin.
+            button = Button("Hello").mr(3)
+        """
+        return self.add_classes(f"mr-{size}")
+
+    def mx(self, size):
+        """Sets margin for left and right sides to the specified size.
+
+        Args:
+            size (int): Size of the margin to set.
+
+        Returns:
+            obj (self): The instance of this class.
+
+        Example:
+            from bootwrap import Button
+
+            # Note, that Button inherits ClassMixin.
+            button = Button("Hello").mx(3)
+        """
+        return self.add_classes(f"mx-{size}")
+
+    def my(self, size):
+        """Sets margin for top and bottom sides to the specified size.
+
+        Args:
+            size (int): Size of the margin to set.
+
+        Returns:
+            obj (self): The instance of this class.
+
+        Example:
+            from bootwrap import Button
+
+            # Note, that Button inherits ClassMixin.
+            button = Button("Hello").my(3)
+        """
+        return self.add_classes(f"my-{size}")
+
+    def p(self, size):
+        """Sets padding for all four sides to the specified size.
+
+        Args:
+            size (int): Size of the padding to set.
+
+        Returns:
+            obj (self): The instance of this class.
+
+        Example:
+            from bootwrap import Button
+
+            # Note, that Button inherits ClassMixin.
+            button = Button("Hello").p(3)
+        """
+        return self.add_classes(f"p-{size}")
+
+    def pt(self, size):
+        """Sets padding for the top side to the specified size.
+
+        Args:
+            size (int): Size of the padding to set.
+
+        Returns:
+            obj (self): The instance of this class.
+
+        Example:
+            from bootwrap import Button
+
+            # Note, that Button inherits ClassMixin.
+            button = Button("Hello").pt(3)
+        """
+        return self.add_classes(f"pt-{size}")
+
+    def pb(self, size):
+        """Sets padding for the bottom side the specified size.
+
+        Args:
+            size (int): Size of the padding to set.
+
+        Returns:
+            obj (self): The instance of this class.
+
+        Example:
+            from bootwrap import Button
+
+            # Note, that Button inherits ClassMixin.
+            button = Button("Hello").pb(3)
+        """
+        return self.add_classes(f"pb-{size}")
+
+    def pl(self, size):
+        """Sets padding for the left side to the specified size.
+
+        Args:
+            size (int): Size of the padding to set.
+
+        Returns:
+            obj (self): The instance of this class.
+
+        Example:
+            from bootwrap import Button
+
+            # Note, that Button inherits ClassMixin.
+            button = Button("Hello").pl(3)
+        """
+        return self.add_classes(f"pl-{size}")
+
+    def pr(self, size):
+        """Sets padding for the right side to the specified size.
+
+        Args:
+            size (int): Size of the padding to set.
+
+        Returns:
+            obj (self): The instance of this class.
+
+        Example:
+            from bootwrap import Button
+
+            # Note, that Button inherits ClassMixin.
+            button = Button("Hello").pr(3)
+        """
+        return self.add_classes(f"pr-{size}")
+
+    def px(self, size):
+        """Sets padding for left and right sides to the specified size.
+
+        Args:
+            size (int): Size of the padding to set.
+
+        Returns:
+            obj (self): The instance of this class.
+
+        Example:
+            from bootwrap import Button
+
+            # Note, that Button inherits ClassMixin.
+            button = Button("Hello").px(3)
+        """
+        return self.add_classes(f"px-{size}")
+
+    def py(self, size):
+        """Sets padding for top and bottom sides to the specified size.
+
+        Args:
+            size (int): Size of the padding to set.
+
+        Returns:
+            obj (self): The instance of this class.
+
+        Example:
+            from bootwrap import Button
+
+            # Note, that Button inherits ClassMixin.
+            button = Button("Hello").py(3)
+        """
+        return self.add_classes(f"py-{size}")
 
 class ActionMixin:
     """Mixin for a web component which able to perform an action."""
