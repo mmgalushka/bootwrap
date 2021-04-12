@@ -11,7 +11,8 @@ from bootwrap import (
     AppearanceMixin,
     OutlineMixin,
     AvailabilityMixin,
-    Action
+    Action,
+    ClassMixin
 )
 
 
@@ -103,3 +104,27 @@ def tests_availability_mixin():
             return 'disabled' if self._disabled else 'enabled'
     assert str(TestAvailabilityMixin()) == 'enabled'
     assert str(TestAvailabilityMixin().as_disabled()) == 'disabled'
+
+
+@pytest.mark.base
+def tests_class_mixin():
+    assert ClassMixin().classes == None
+    assert "test" in ClassMixin().add_classes("test").classes
+
+    # margin shorthand methods
+    assert "m-2" in ClassMixin().m(2).classes
+    assert "mt-2" in ClassMixin().mt(2).classes
+    assert "mb-2" in ClassMixin().mb(2).classes
+    assert "ml-2" in ClassMixin().ml(2).classes
+    assert "mr-2" in ClassMixin().mr(2).classes
+    assert "mx-2" in ClassMixin().mx(2).classes
+    assert "my-2" in ClassMixin().my(2).classes
+
+    # padding shorthand methods
+    assert "p-2" in ClassMixin().p(2).classes
+    assert "pt-2" in ClassMixin().pt(2).classes
+    assert "pb-2" in ClassMixin().pb(2).classes
+    assert "pl-2" in ClassMixin().pl(2).classes
+    assert "pr-2" in ClassMixin().pr(2).classes
+    assert "px-2" in ClassMixin().px(2).classes
+    assert "py-2" in ClassMixin().py(2).classes
