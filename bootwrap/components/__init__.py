@@ -3,8 +3,9 @@ Base web components.
 """
 
 # flake8: noqa
+# pylint: disable=unused-variable
 
-from .anchor import Anchor             
+from .anchor import Anchor
 from .badge import Badge
 from .base import (
     WebComponent,
