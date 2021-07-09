@@ -40,6 +40,7 @@ class Navigation(WebComponent, ClassMixin):
             Navigation.Item('Chapter 3', 'Text 3')
         )
     """
+
     def __init__(self, *items):
         super().__init__()
         self.__items = items
