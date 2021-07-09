@@ -2,9 +2,7 @@
 
 Thank you for considering contributing to Bootwrap!
 
-
 ## Get Started
-
 
 ### Configure Git & Clone Repository
 
@@ -28,14 +26,13 @@ Thank you for considering contributing to Bootwrap!
 ~$ cd bootwrap
 ```
 
-* Add fork as a remote where you will push your work to. Replace `{username}` with your username. 
+* Add fork as a remote where you will push your work to. Replace `{username}` with your username.
 
 ```bash
 ~$ git remote add fork https://github.com/{username}/bootwrap
 ```
 
-
-### Initialize Environment 
+### Initialize Environment
 
 * Use `helper.sh` to create a virtual environment and initialize required dependencies.
 
@@ -53,10 +50,9 @@ Thank you for considering contributing to Bootwrap!
 
 It should be no error :wink:.
 
-
 ### Start Coding
 
-* Create a branch to identify the issue you would like to work on. It is advisable to use the following convention for naming your issue: `issue-{number}`, where `number` is an issue identifier ex. `issue-123`. 
+* Create a branch to identify the issue you would like to work on. It is advisable to use the following convention for naming your issue: `issue-{number}`, where `number` is an issue identifier ex. `issue-123`.
 
 ```bash
 ~$ git fetch origin
@@ -65,7 +61,7 @@ It should be no error :wink:.
 
 * Using your favorite editor to start coding. [Commit](https://dont-be-afraid-to-commit.readthedocs.io/en/latest/git/commandlinegit.html#commit-your-changes) changes regularly.
 
-* Make sure you have all tests that cover any code changes you make. This project requires 100% coverage, no exception! 
+* Make sure you have all tests that cover any code changes you make. This project requires 100% coverage, no exception!
 
 ```bash
 ~$ ./helper.sh test
@@ -77,10 +73,9 @@ It should be no error :wink:.
 ~$ git push --set-upstream fork your-branch-name
 ```
 
-
 ## Helper Usage
 
-`helper.sh` provides a command-line shell to automate a lot of routine operations. To see the available commands call `helper.sh` without options. 
+`helper.sh` provides a command-line shell to automate a lot of routine operations. To see the available commands call `helper.sh` without options.
 
 ```text
 ~$ ./helper.sh
@@ -104,11 +99,9 @@ System Commands:
    stage deploy Bootwrap to Test Python Package Index;
 ```
 
-
 ### Init
 
 `init` command performs initialization of Bootwrap project from scratch. Usually, it should be called just once  (straight after cloning repository).  First, it creates a virtual environment and installs necessary dependencies defined in the `requirements.txt` file. If you introduce a new dependency (to `requirements.txt` file) run the `init` command again.
-
 
 ### Test
 
@@ -130,16 +123,16 @@ During development, you might need to work on a specific web component. If you w
 
 You can find a list of all available markers in the `pytest.ini` file.
 
----
-  **NOTE**
-  
-  This project requires 100% coverage! Please make sure  you introduced all necessary tests, before launching a pull request. Just run test command with coverage option `-c`. 
+---  
+  NOTE
+
+  This project requires 100% coverage! Please make sure  you introduced all necessary tests, before launching a pull request. Just run test command with coverage option `-c`.
 
  ```bash
 ~$ ./helper.sh test -c
   ```
----
 
+---
 
 ### Demo
 
@@ -151,16 +144,13 @@ Use the `demo` command to launch Flask web-server with documentation.  The Bootw
 
 Follow the link `http://127.0.0.1:5000/` to see the documentation in action.
 
-
 ### Docs
 
 Run the `docs` command to generate static HTML pages with the project documentation under `docs` folder. It is advisable to run this command before pushing your code to origin. This way, your documentation will be available via GitHub pages.
 
-
 ```bash
 ~$ ./helper.sh docs
 ```
-
 
 ### Build
 
@@ -170,7 +160,6 @@ Run the `build` command to package the Bootwrap project for PIP installation. Th
 ~$ ./helper.sh build
 ```
 
-
 ### Stage
 
 Use the `stage` command to deploy prebuilt Bootwrap packages to the [Test Python Package Index](https://test.pypi.org/).
@@ -179,7 +168,7 @@ Use the `stage` command to deploy prebuilt Bootwrap packages to the [Test Python
 ~$ ./helper.sh stage
 ```
 
-**This command must be used by the repository administrator.** 
+**This command must be used by the repository administrator.**
 
 ### Deploy
 
@@ -189,4 +178,4 @@ Use the `deploy` command to deploy prebuilt Bootwrap packages to the [Python Pac
 ~$ ./helper.sh deploy
 ```
 
-**This command must be used by the repository administrator.** 
+**This command must be used by the repository administrator.**
