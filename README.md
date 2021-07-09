@@ -1,5 +1,7 @@
 # Python Bootwrap
 
+![Python + Bootstrap = Bootwrap](https://github.com/mmgalushka/bootwrap/raw/main/docs/bootwrap-equation.png)
+
 [![Continuous Integration Status](https://github.com/mmgalushka/bootwrap/workflows/CI/badge.svg)](https://github.com/mmgalushka/bootwrap/actions)
 [![Code Coverage Percentage](https://codecov.io/gh/mmgalushka/bootwrap/branch/main/graphs/badge.svg)](https://codecov.io/gh/mmgalushka/bootwrap)
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/763657a471ff424c85a5b894ddb750d0)](https://www.codacy.com/gh/mmgalushka/bootwrap/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=mmgalushka/bootwrap&amp;utm_campaign=Badge_Grade)
@@ -7,8 +9,6 @@
 [![Project Documentation](https://img.shields.io/badge/docs-up--to--date-success)](https://mmgalushka.github.io/bootwrap/)
 
 **Bootwrap** is a Python library for rapid developing of web-based user interfaces (WebUI). It helps creating WebUI using Python code only and can be used in conjunction with different web-development frameworks such as [Flask](https://palletsprojects.com/p/flask/). Under the hood, this library wraps one of the most popular front-end toolkit [Bootstrap](https://getbootstrap.com/).
-
-![Python + Bootstrap = Bootwrap](https://github.com/mmgalushka/bootwrap/raw/main/docs/bootwrap-equation.png)
 
 This library would be useful for developers and data scientists who wish to build interactive web-application without crafting HTML, CSS and Javascript.
 
