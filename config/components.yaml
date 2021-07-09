@@ -312,11 +312,9 @@ Button:
       )
 
 
-# --- Collection Tab -----------------------------------------------------------
+# --- Deck Tab -----------------------------------------------------------------
 
-Collection:
-  - class: List
-  - class: List.Item
+Deck:
   - class: Deck
   - class: Deck.Card
 
@@ -477,23 +475,41 @@ Javascript:
         label, answer, btn_yes, btn_no, action
       )
 
+# --- Link Tab -----------------------------------------------------------------
+
 Link:
   - class: Link
+
+# --- List Tab -----------------------------------------------------------------
+
+List:
+  - class: List
+  - class: List.Item
+
+# --- Navigation Tab -----------------------------------------------------------
 
 Navigation:
   - class: Navigation
   - class: Navigation.Item
 
+# --- Panel Tab ----------------------------------------------------------------
+
 Panel:
   - class: Panel
 
+# --- Separator Tab ------------------------------------------------------------
+
 Separator:
   - class: Separator
+
+# --- Table Tab ----------------------------------------------------------------
 
 Table:
   - class: Table
   - class: Table.Head
   - class: Table.Body
+
+# --- Text Tab -----------------------------------------------------------------
 
 Text:
   - class: Text

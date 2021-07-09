@@ -28,6 +28,7 @@ class BlockDoc(bw.Panel):
         title (str): The block title.
         wc_content (WebComponent): The block content.
     """
+
     def __init__(self, title, wc_block):
         super().__init__(
             bw.Text(title).as_heading(6).as_strong() if title else None,
@@ -48,6 +49,7 @@ class ParamsDoc(BlockDoc):
             This information is represented as a list of lists
             `[[name, type, description], ...]`.
     """
+
     def __init__(self, title, params):
         wc_parameters = bw.Table(
             head=['Name', 'Type', 'Description'],
@@ -71,12 +73,14 @@ class ParamsDoc(BlockDoc):
 
 class ArgumentsDoc(ParamsDoc):
     """A component for visualizing class or method arguments."""
+
     def __init__(self, params):
         super().__init__('Arguments', params)
 
 
 class ReturnsDoc(ParamsDoc):
     """A component for visualizing class or method return values."""
+
     def __init__(self, params):
         super().__init__('Returns', params)
 
@@ -90,6 +94,7 @@ class ExampleDoc(BlockDoc):
     Args:
         code (str): The code fragment to show.
     """
+
     def __init__(self, code):
         super().__init__('Example', bw.Text(code.rstrip()).as_code())
 
@@ -106,6 +111,7 @@ class DemoDoc(BlockDoc):
     Args:
         code (str): The code fragment to render.
     """
+
     def __init__(self, code):
         loc = {}
         exec(textwrap.dedent(code), {}, loc)
@@ -119,6 +125,7 @@ class PropertyDoc(bw.Panel):
         doc (dict): The documentation about a property. For more information
             about the property-documentation, see the `docgen` module.
     """
+
     def __init__(self, doc):
         wc_example = None
         if len(doc['example']) > 0:
@@ -157,6 +164,7 @@ class MethodDoc(bw.Panel):
         doc (dict): The documentation about a method. For more information
             about the method-documentation, see the `docgen` module.
     """
+
     def __init__(self, doc):
         wc_arguments = None
         wc_arguments_btn = None
@@ -223,8 +231,9 @@ class ClassDoc(bw.Panel):
         doc (dict): The documentation about a class. For more information
             about the class-documentation, see the `docgen` module.
     """
+
     def __init__(self, doc):
-        self.__name = bw.Text(doc['name'])
+        self.__name = doc['name']
 
         wc_arguments = None
         wc_arguments_btn = None
@@ -331,6 +340,7 @@ class CustomDoc(bw.Panel):
     Args:
         doc (dict): The custom-documentation.
     """
+
     def __init__(self, doc):
         self.__name = doc.get('title')
 
@@ -480,6 +490,7 @@ class GenericPage(bw.Page):
         config (dict): The configuration for generating a documentation
             contant.
     """
+
     def __init__(self, content):
         super().__init__(
             favicon='favicon.ico',

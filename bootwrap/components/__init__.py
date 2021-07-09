@@ -3,8 +3,9 @@ Base web components.
 """
 
 # flake8: noqa
+# pylint: disable=unused-variable
 
-from .anchor import Anchor             
+from .anchor import Anchor
 from .badge import Badge
 from .base import (
     WebComponent,
@@ -17,7 +18,7 @@ from .base import (
     Action
 )
 from .button import Button
-from .collection import List, Deck
+from .deck import Deck
 from .dialog import Dialog
 from .form import (
     Form,
@@ -34,6 +35,7 @@ from .icon import Icon, Spinner
 from .image import Image
 from .javascript import Javascript
 from .link import Link
+from .list import List
 from .navigation import Navigation
 from .panel import Panel
 from .separator import Separator
