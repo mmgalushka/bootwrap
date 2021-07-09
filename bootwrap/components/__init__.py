@@ -2,9 +2,11 @@
 Base web components.
 """
 
-from .anchor import Anchor             # noqa: F401
-from .badge import Badge               # NOQA
-from .base import (                    # NOQA
+# flake8: noqa
+
+from .anchor import Anchor             
+from .badge import Badge
+from .base import (
     WebComponent,
     ClassMixin,
     ActionMixin,
@@ -14,10 +16,10 @@ from .base import (                    # NOQA
     Breakpoint,
     Action
 )
-from .button import Button             # NOQA
-from .collection import List, Deck     # NOQA
-from .dialog import Dialog             # NOQA
-from .form import (                    # NOQA
+from .button import Button
+from .collection import List, Deck
+from .dialog import Dialog
+from .form import (
     Form,
     Input,
     CheckboxInput,
@@ -28,13 +30,13 @@ from .form import (                    # NOQA
     HiddenInput,
     FileInput
 )
-from .icon import Icon, Spinner        # NOQA
-from .image import Image               # NOQA
-from .javascript import Javascript     # NOQA
-from .link import Link                 # NOQA
-from .navigation import Navigation     # NOQA
-from .panel import Panel               # NOQA
-from .separator import Separator       # NOQA 
-from .table import Table, TableEntity  # NOQA 
-from .text import Text                 # NOQA 
-from .utils import attr, inject        # NOQA 
+from .icon import Icon, Spinner
+from .image import Image
+from .javascript import Javascript
+from .link import Link
+from .navigation import Navigation
+from .panel import Panel
+from .separator import Separator
+from .table import Table, TableEntity
+from .text import Text
+from .utils import attr, inject
