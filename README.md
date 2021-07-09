@@ -1,8 +1,6 @@
-<p align="center" width="100%">
-    <img height="96px" src="https://github.com/mmgalushka/bootwrap/raw/main/docs/bootwrap-equation.png"> 
-</p>
-
 # Python Bootwrap
+
+![Python + Bootstrap = Bootwrap](https://github.com/mmgalushka/bootwrap/raw/main/docs/bootwrap-equation.png)
 
 [![Continuous Integration Status](https://github.com/mmgalushka/bootwrap/workflows/CI/badge.svg)](https://github.com/mmgalushka/bootwrap/actions)
 [![Code Coverage Percentage](https://codecov.io/gh/mmgalushka/bootwrap/branch/main/graphs/badge.svg)](https://codecov.io/gh/mmgalushka/bootwrap)
@@ -16,7 +14,6 @@ This library would be useful for developers and data scientists who wish to buil
 
 As a showcase of what this library is capable of please check the documentation. The entire [documentation](https://mmgalushka.github.io/bootwrap/) web interface is created using the **Bootwrap**.
 
-
 ## Installing
 
 Install and update using [pip](https://pip.pypa.io/en/stable/quickstart/):
@@ -25,8 +22,7 @@ Install and update using [pip](https://pip.pypa.io/en/stable/quickstart/):
 ~$ pip install -i https://test.pypi.org/simple/ bootwrap
 ```
 
-_Please note, The Bootwrap is currently deployed using TestPyPI – which is a separate instance of the Python Package Index. This allows us to test distribution before moving this package to the real index_
-
+Please note, The Bootwrap is currently deployed using TestPyPI – which is a separate instance of the Python Package Index. This allows us to test distribution before moving this package to the real index.
 
 ## A Simple Example
 
@@ -87,18 +83,15 @@ $ flask run
 
 The result should look like.
 
-<img width="600px" src="https://github.com/mmgalushka/bootwrap/raw/main/docs/multi-pages-app.png"> 
-
+![Simple Example](https://github.com/mmgalushka/bootwrap/raw/main/docs/multi-pages-app.png)
 
 ## Contributing
 
 For information on how to set up a development environment and how to make a contribution to Bootwrap, see the [contributing guidelines](CONTRIBUTING.md).
 
-
 ## Links
 
- - Documentation: [https://mmgalushka.github.io/bootwrap/](https://mmgalushka.github.io/bootwrap/)
- - PyPI Releases: [https://test.pypi.org/project/bootwrap/](https://test.pypi.org/project/bootwrap/)
- - Source Code: [https://github.com/mmgalushka/bootwrap](https://github.com/mmgalushka/bootwrap/)
- - Issue Tracker: [https://github.com/mmgalushka/bootwrap/issues](https://github.com/mmgalushka/bootwrap/)
-
+- Documentation: [https://mmgalushka.github.io/bootwrap/](https://mmgalushka.github.io/bootwrap/)
+- PyPI Releases: [https://test.pypi.org/project/bootwrap/](https://test.pypi.org/project/bootwrap/)
+- Source Code: [https://github.com/mmgalushka/bootwrap](https://github.com/mmgalushka/bootwrap/)
+- Issue Tracker: [https://github.com/mmgalushka/bootwrap/issues](https://github.com/mmgalushka/bootwrap/)
