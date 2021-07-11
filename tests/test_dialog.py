@@ -33,7 +33,10 @@ def test_without_dialog():
                         </button>
                     </div>
                     <div class="modal-body">
-                        <button id="..." class="btn" type="submit">
+                        <button id="..."
+                            class="btn"
+                            type="submit"
+                            onclick="return false;">
                             submit
                         </button>
                     </div>
@@ -74,7 +77,8 @@ def test_with_dialog():
                         <button id="..."
                             class="btn"
                             type="button"
-                            data-dismiss="modal">
+                            data-dismiss="modal"
+                            onclick="return false;">
                             Close
                         </button>
                     </div>

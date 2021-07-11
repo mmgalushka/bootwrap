@@ -23,6 +23,7 @@ def test_navigation():
                 <a id="..."
                     class="nav-link active"
                     href="..."
+                    data-target="..."
                     data-toggle="tab"
                     role="tab">
                     A
@@ -32,6 +33,7 @@ def test_navigation():
                 <a id="..."
                     class="nav-link"
                     href="..."
+                    data-target="..."
                     data-toggle="tab"
                     role="tab">
                     B

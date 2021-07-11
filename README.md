@@ -50,25 +50,25 @@ class MyMenu(Menu):
         )
 
 class MyPage(Page):
-    def __init__(self, content):
+    def __init__(self, container):
         super().__init__(
             favicon = 'favicon.ico',
             title='Hello World Application',
             menu=MyMenu(),
-            content=content
+            container=container
         )
 
 @app.route('/')
 def home():
-    return Markup(MyPage(content=[Text('Home').as_heading(1)]))
+    return Markup(MyPage(container=[Text('Home').as_heading(1)]))
 
 @app.route('/about')
 def about():
-    return Markup(MyPage(content=[Text('About').as_heading(1)]))
+    return Markup(MyPage(container=[Text('About').as_heading(1)]))
 
 @app.route('/signin')
 def signin():
-    return Markup(MyPage(content=[Text('Sign In').as_heading(1)]))
+    return Markup(MyPage(container=[Text('Sign In').as_heading(1)]))
 
 if __name__ == '__main__':
     app.run(debug=True)

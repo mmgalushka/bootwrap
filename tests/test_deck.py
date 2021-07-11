@@ -26,10 +26,10 @@ def test_deck_card():
             <div class="card-body">
                 <div class="text-right mb-2">
                     <span id="..."
-                        lass="text-muted"><small>somemarker</small>
+                        class="text-muted"><small>somemarker</small>
                     </span>
                 </div>
-                <h5 id="c33d4e31-0b40-4ac7-963f-46dc5de963ca"
+                <h5 id="..."
                     class="card-title">
                     sometitle
                 </h5>
@@ -81,7 +81,7 @@ def test_deck_card():
                     onclick="return false;">
                     A
                 </button>
-                <button id="8558f6d1-c323-4e63-b629-5dad7f877330"
+                <button id="..."
                     class="ml-1 btn"
                     onclick="return false;">
                     B
@@ -113,12 +113,12 @@ def test_deck_card():
                     </i>
                     <div class="dropdown-menu dropdown-menu-right">
                         <button id="..."
-                            class="ml-1 btn"
+                            class="dropdown-item btn"
                             onclick="return false;">
                             A
                         </button>
-                        <button id="8558f6d1-c323-4e63-b629-5dad7f877330"
-                            class="ml-1 btn"
+                        <button id="..."
+                            class="dropdown-item btn"
                             onclick="return false;">
                             B
                         </button>

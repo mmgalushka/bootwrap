@@ -47,11 +47,13 @@ def test_menu():
                 </ul>
 
                 <button id="{button1.identifier}"
-                    class="btn btn-primary ml-2">
+                    class="btn btn-primary ml-2"
+                    onclick="return false;">
                     Action1
                 </button>
                 <button id="{button2.identifier}"
-                    class="btn btn-outline-primary ml-2">
+                    class="btn btn-outline-primary ml-2"
+                    onclick="return false;">
                     Action2
                 </button>
             </div>

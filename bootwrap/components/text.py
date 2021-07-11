@@ -28,6 +28,7 @@ class Text(WebComponent, ClassMixin, AppearanceMixin):
 
         output = Text("Normal text")
     """
+
     def __init__(self, content):
         super().__init__()
         self.__content = content
@@ -205,7 +206,7 @@ class Text(WebComponent, ClassMixin, AppearanceMixin):
                     return tag(
                         'pre',
                         attrs,
-                        tag('code', attr('class', 'python'), dedent(c))
+                        tag('code', [attr('class', 'python')], dedent(c))
                     )
                 else:
                     if self.__paragraph:

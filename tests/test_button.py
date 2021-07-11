@@ -81,8 +81,7 @@ def test_link_button():
         <a id="{button.identifier}"
             class="btn"
             href="someurl"
-            role="button"
-            onclick="return false;">
+            role="button">
             Somename
         </a>
     ''')
@@ -94,8 +93,7 @@ def test_link_button():
     expected = HelperHTMLParser.parse(f'''
         <a id="{button.identifier}"
             class="btn" href="#{target.identifier}"
-            role="button"
-            onclick="return false;">
+            role="button">
             Somename
         </a>
     ''')
@@ -107,8 +105,7 @@ def test_link_button():
         <a id="{button.identifier}"
             class="btn disabled"
             href="someurl"
-            role="button"
-            onclick="return false;">
+            role="button">
             Somename
         </a>
     ''')
@@ -198,7 +195,7 @@ def test_submit_button():
 
 
 @pytest.mark.button
-def test_manu_button():
+def test_menu_button():
     actions = [Button('A'), Button('B')]
     button = Button('Somename').add_menu(*actions)
     actual = HelperHTMLParser.parse(str(button))
@@ -219,7 +216,7 @@ def test_manu_button():
                     onclick="return false;">
                     A
                 </button>
-                <button id="fa10ef8f-dcdb-474e-bb25-82d473709890"
+                <button id="..."
                     class="dropdown-item btn"
                     onclick="return false;">
                     B
@@ -234,19 +231,19 @@ def test_manu_button():
     actual = HelperHTMLParser.parse(str(button))
     expected = HelperHTMLParser.parse('''
         <div class="btn-group">
-            <i id="14edde5e-272f-443c-b5f6-1220582ff7bf"
+            <i id="..."
                 class="btn fas fa-ellipsis-v"
                 style="cursor: pointer"
                 data-toggle="dropdown"
                 onclick="return false;">
             </i>
             <div class="dropdown-menu dropdown-menu-right">
-                <button id="c2a83781-a624-48af-9f8c-a40596ac2d7a"
+                <button id="..."
                     class="dropdown-item btn"
                     onclick="return false;">
                     A
                 </button>
-                <button id="31e74d05-c234-4973-9142-6aaf2bb13da7"
+                <button id="..."
                     class="dropdown-item btn"
                     onclick="return false;">
                     B

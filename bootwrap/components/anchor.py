@@ -35,10 +35,10 @@ class Anchor(WebComponent, ClassMixin, ActionMixin, AppearanceMixin):
         from bootwrap import Anchor
         output = Anchor('Google Search').link('https://www.google.com/')
     """
+
     def __init__(self, inner=None):
         super().__init__()
         self._inner = inner
-        self.__role = None
 
     def __str__(self):
         name = None
@@ -57,23 +57,25 @@ class Anchor(WebComponent, ClassMixin, ActionMixin, AppearanceMixin):
             return f'''
                 <a {attr("id", self.identifier)}
                     {attr("class", self.classes)}
-                    {attr("href", href)}
-                    {attr("role", self.__role)}>
+                    {attr("href", href)}>
                     {inject(self._inner)}
                 </a>
             '''
         elif self._action == Action.TOGGLE:
             if isinstance(self._target, Panel):
                 data_toggle = 'tab'
+                role = 'tab'
                 if self._target.classes is not None:
                     if 'collapse' in self._target.classes:
                         data_toggle = 'collapse'
+                        role = 'collapse'
 
                 return f'''
                     <a {attr('id', self.identifier)}
                         {attr('class', self.classes)}
                         {attr("href", f'#{self._target.identifier}')}
                         {attr("data-toggle", data_toggle)}
+                        {attr("role", role)}
                         data-target="#{self._target.identifier}">
                         {inject(self._inner)}
                     </a>
@@ -84,7 +86,7 @@ class Anchor(WebComponent, ClassMixin, ActionMixin, AppearanceMixin):
                         {attr("class",self.classes)}
                         {attr("href", f'#{self._target.identifier}')}
                         {attr("data-toggle", "modal")}
-                        {attr("role", self.__role or 'modal')}>
+                        {attr("role", 'modal')}>
                         {inject(self._inner)}
                     </a>
                 '''
@@ -121,8 +123,7 @@ class Anchor(WebComponent, ClassMixin, ActionMixin, AppearanceMixin):
             return f'''
                 <a {attr("id", self.identifier)}
                     {attr("name", name)}
-                    {attr("class", self.classes)}
-                    {attr("role", self.__role)}>
+                    {attr("class", self.classes)}>
                     {inject(self._inner)}
                 </a>
             '''

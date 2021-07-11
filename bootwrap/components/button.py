@@ -33,6 +33,7 @@ class Button(WebComponent, ClassMixin, ActionMixin, AppearanceMixin,
         from bootwrap import Button
         output = Button('Google Search').link('https://www.google.com/')
     """
+
     def __init__(self, name):
         super().__init__()
         self.__name = name
@@ -103,11 +104,16 @@ class Button(WebComponent, ClassMixin, ActionMixin, AppearanceMixin,
             '''
         elif self._action == Action.TOGGLE:
             if isinstance(self._target, Panel):
+                data_toggle = 'tab'
+                if self._target.classes is not None:
+                    if 'collapse' in self._target.classes:
+                        data_toggle = 'collapse'
+
                 return f'''
                     <button {attr('id', self.identifier)}
                         {attr('class', self.classes)}
                         type="button"
-                        data-toggle="collapse"
+                        data-toggle="{data_toggle}"
                         data-target="#{self._target.identifier}"
                         onclick="return false;"
                         {attr('disabled', self._disabled)}>
