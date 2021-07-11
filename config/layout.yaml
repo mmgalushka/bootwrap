@@ -12,7 +12,7 @@
     height: 200
 
 - title: Page
-  constructor: Page(favicon=None, title=None, resources=None, menu=None, content=None)
+  constructor: Page(favicon=None, title=None, resources=None, menu=None, container=None)
   arguments:
     - ['favicon', 'str', 'the file name for the favorite icon displayed in a browser tab;']
     - ['title', 'str', 'the page title, displayed in a browser tab;']
@@ -25,7 +25,7 @@
     file: page.png
     height: 250
   code: |
-    @right
+    @left
     from bootwrap import Page
 
     page = Page(
@@ -46,7 +46,7 @@
     file: menu.png
     height: 100
   code: |
-    @right
+    @left
     from bootwrap import Menu
 
     menu = Menu(

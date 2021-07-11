@@ -69,7 +69,7 @@ def test_list_item():
     expected = HelperHTMLParser.parse(f'''
         <a id="{item.identifier}"
             class="list-group-item list-group-item-action flex-column
-                   align-items-start active">
+                   align-items-start">
             <div class="d-flex w-100 justify-content-between">
                 <div class="ml-2 mr-2 w-100">
                     <div class="d-flex w-100 justify-content-between">
@@ -100,7 +100,7 @@ def test_list_item():
     expected = HelperHTMLParser.parse(f'''
         <a id="{item.identifier}"
             class="list-group-item list-group-item-action flex-column
-                   align-items-start active">
+                   align-items-start">
             <div class="d-flex w-100 justify-content-between">
                 <div class="ml-2 mr-2 w-100">
                     <div class="d-flex w-100 justify-content-between">
@@ -117,12 +117,12 @@ def test_list_item():
                         </i>
                         <div class="dropdown-menu dropdown-menu-right">
                             <button id="..."
-                                class="ml-1 btn"
+                                class="dropdown-item btn"
                                 onclick="return false;">
                                 A
                             </button>
                             <button id="..."
-                                class="ml-1 btn"
+                                class="dropdown-item btn"
                                 onclick="return false;">
                                 B
                             </button>

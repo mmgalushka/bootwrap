@@ -4,42 +4,96 @@ Helper functions for tests automation.
 
 from html.parser import HTMLParser
 
+
+class AttributeNamesNotMatchError(AssertionError):
+    """This error is raised when attribute names are not matched."""
+    pass
+
+
+class AttributeValuesNotMatchError(AssertionError):
+    """This error is raised when attribute value are not matched."""
+    pass
+
+
+class TagNamesNotMatchError(AssertionError):
+    """This error is raised when tag names are not matched."""
+    pass
+
+
+class TagAttributesNotMatchError(AssertionError):
+    """This error is raised when tag attributes are not matched."""
+    pass
+
+
+class TagChildrenNotMatchError(AssertionError):
+    """This error is raised when tag children are not matched."""
+    pass
+
+
+class TagDataNotMatchError(AssertionError):
+    """This error is raised when tag data are not matched."""
+    pass
+
+
 class Attr:
     """A test HTML attribute.
-    
+
     Args:
         name (str): The attribute name.
         value (str): The attribute value.
     """
+
     def __init__(self, name, value):
         self.__name = name
         self.__value = None
         if value is not None:
             self.__value = value.strip()
 
-    @property
-    def name(self):
-        """The tag name."""
-        return self.__name    
-
-    def __eq__(self, other):
-        assert self.__name == other.__name, f'{self.__name} != {other.__name}'
-        if self.__value and other.__value:
-            if self.__value != '...' and other.__value != '...':
-                assert set(self.__value.split(' ')) == set(other.__value.split(' ')), f'{self.__value} != {other.__value}'
-        else:
-            assert self.__value == other.__value, f'{self.__value} != {other.__value}'
-        return True
-
     def __str__(self):
         return f'{self.__name}="{self.__value}"'
 
+    def __eq__(self, other):
+        # Checks that attributes names are the same.
+        if self.__name != other.__name:
+            raise AttributeNamesNotMatchError(
+                f'{self.__name} != {other.__name}')
+
+        # Checks that attributes values are the same.
+        if self.__value and other.__value:
+            def to_set(s):
+                ns = set()
+                for e in s.split(' '):
+                    if len(e.strip()) > 0:
+                        ns.add(e.strip())
+                return ns
+
+            if self.__value != '...' and other.__value != '...':
+                self_value_set = to_set(self.__value)
+                other_value_set = to_set(other.__value)
+                if self_value_set != other_value_set:
+                    raise AttributeValuesNotMatchError(
+                        f'{self_value_set} != {other_value_set}')
+        else:
+            if self.__value != other.__value:
+                raise AttributeValuesNotMatchError(
+                    f'{self.__value} != {other.__value}')
+
+        # Attributes are the same.
+        return True
+
+    @property
+    def name(self):
+        """The tag name."""
+        return self.__name
+
+
 class Tag:
     """A test HTML tag.
-    
+
     Args:
         name (str): The tag name.
     """
+
     def __init__(self, name):
         self.__name = name
         self.__attrs = list()
@@ -47,13 +101,48 @@ class Tag:
         self.__data = ''
 
     def __str__(self):
-        return f"<{self.__name} {' '.join(map(str, self.__attrs))}>...</{self.__name}>"
+        open_tag = f"<{self.__name} {' '.join(map(str, self.__attrs))}>"
+        inner = "..."
+        close_tag = f"</{self.__name}>"
+        return ''.join([open_tag, inner, close_tag])
 
     def __eq__(self, other):
-        assert self.__name == other.__name, f'{self.__name} != {other.__name}'
-        assert self.__attrs.sort(key=lambda a: a.name) == other.__attrs.sort(key=lambda a: a.name), f'{list(map(str, self.__attrs))} != {list(map(str, other.__attrs))}'
-        assert self.__tags == other.__tags, f'{" ".join(map(str, self.__tags))} != {" ".join(map(str, other.__tags))}'
-        assert self.__data.replace(" ", "") == other.__data.replace(" ", ""), f'{self.__data} != {other.__data}'
+        # Checks that tags names are the same.
+        if self.__name != other.__name:
+            raise TagNamesNotMatchError(f'{self.__name} != {other.__name}')
+
+        # Checks that tags attributes are matched.
+        self_attrs = sorted(self.__attrs, key=lambda a: a.name)
+        other_attrs = sorted(other.__attrs, key=lambda a: a.name)
+
+        if self_attrs != other_attrs:
+            if isinstance(self_attrs, list):
+                self_attrs_names = " ".join(map(str, self_attrs))
+            else:
+                self_attrs_names = str(self_attrs)
+
+            if isinstance(other_attrs, list):
+                other_attrs_names = " ".join(map(str, other_attrs))
+            else:
+                other_attrs_names = str(other_attrs)
+
+            raise TagAttributesNotMatchError(
+                f'{self_attrs_names} != {other_attrs_names}')
+
+        # Checks that tags data are matched.
+        self_data = self.__data.replace(" ", "")
+        other_data = other.__data.replace(" ", "")
+        if self_data != other_data:
+            raise TagDataNotMatchError(f'{self_data} != {other_data}')
+
+        # Checks that children tags are matched.
+        if len(self.__tags) != len(other.__tags):
+            raise TagChildrenNotMatchError(
+                f'{len(self.__tags)} != {len(other.__tags)}')
+        for child_self_tag, child_other_tag in zip(self.__tags, other.__tags):
+            assert child_self_tag == child_other_tag
+
+        # Tags are the same.
         return True
 
     def add_attr(self, attr):
@@ -88,6 +177,7 @@ class Tag:
 
 class HelperHTMLParser(HTMLParser):
     """The test HTML parser"""
+
     def __init__(self):
         super().__init__()
         self.__document = []

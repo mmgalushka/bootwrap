@@ -216,7 +216,7 @@ def test_text_area():
         return f'''
             <div class="form-group row">
                 <label class="col-sm-2 col-form-label d-flex
-                              align-items-center"
+                    align-items-center"
                     for="{element.identifier}">
                     somelabel
                 </label>

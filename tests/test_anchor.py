@@ -20,8 +20,7 @@ def test_anchor():
         as_primary()
     actual = HelperHTMLParser.parse(str(anchor))
     expected = HelperHTMLParser.parse(f'''
-        <a id="{anchor.identifier}" class="text-primary someclass"
-            role="somerole">
+        <a id="{anchor.identifier}" class="text-primary someclass">
             somename
         </a>
     ''')
@@ -81,6 +80,7 @@ def test_toggle_anchor():
     expected = HelperHTMLParser.parse(f'''
         <a id="{anchor.identifier}"
             href="#{target.identifier}"
+            data-target="#{target.identifier}"
             data-toggle="tab"
             role="tab">
             somename
@@ -94,6 +94,7 @@ def test_toggle_anchor():
     expected = HelperHTMLParser.parse(f'''
         <a id="{anchor.identifier}"
             href="#{target.identifier}"
+            data-target="#{target.identifier}"
             data-toggle="collapse"
             role="collapse">
             somename
