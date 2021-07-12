@@ -31,6 +31,9 @@ setuptools.setup(
     package_dir={"": "."},
     packages=setuptools.find_packages(where=".", exclude=["tests"]),
     python_requires=">=3.6",
-    use_scm_version={'local_scheme': 'no-local-version'},
+    # use_scm_version={'local_scheme': 'no-local-version'},
+    use_scm_version={'version_scheme': 'guess-next-dev',
+                     'local_scheme': 'no-local-version'},
+
     setup_requires=['setuptools_scm']
 )
