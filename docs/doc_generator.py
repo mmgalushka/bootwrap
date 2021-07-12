@@ -1,3 +1,7 @@
+"""
+Generator of documentation from the Pydoc-strings.
+"""
+
 import re
 import inspect
 import types
@@ -136,9 +140,9 @@ def generate_method_doc(m):
     doc = parse_docstring(m[1].__doc__)
     return {
         'name': m[0],
-        'init': str(inspect.signature(m[1]))
-            .replace('self, ', '')
-            .replace('self', ''),
+        'init': str(inspect.signature(m[1])).
+        replace('self, ', '').
+        replace('self', ''),
         'summary': doc['summary'],
         'description':  doc['description'],
         'arguments': doc['arguments'],
@@ -221,8 +225,8 @@ def generate_class_doc(c):
         'name': c.__qualname__,
         'super': [],
         'init': str(inspect.signature(c.__init__))
-            .replace('self, ', '').replace('self', '')
-            .replace('/, *args, **kwargs', ''),
+        .replace('self, ', '').replace('self', '')
+        .replace('/, *args, **kwargs', ''),
         'summary': doc['summary'],
         'description':  doc['description'],
         'arguments': doc['arguments'],

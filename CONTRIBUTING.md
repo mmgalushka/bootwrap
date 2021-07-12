@@ -93,10 +93,11 @@ System Commands:
       -m <MARK> runs tests for mark;
       -c generates code coverage summary;
       -r generates code coverage report;
-   demo run web-server for demoing web components;
-   docs generates documentation;
+   preview runs web-server with documentation preview;
+   docs generates documentation (HTML-pages);
+   demo runs web-server with showcase project;
    build generates distribution archives;
-   stage deploy Bootwrap to Test Python Package Index;
+   stage deploys Bootwrap to Test Python Package Index;
 ```
 
 ### Init
@@ -134,12 +135,12 @@ You can find a list of all available markers in the `pytest.ini` file.
 
 ---
 
-### Demo
+### Preview
 
-Use the `demo` command to launch Flask web-server with documentation.  The Bootwrap documentation is not just a place describing class/methods and their usage. It is a project showcase of how each component can be used and how it looks like.  
+Use the `preview` command to launch Flask web-server with documentation.  The Bootwrap documentation is not just a place describing class/methods and their usage. It is a project showcase of how each component can be used and how it looks like.  
 
 ```bash
-~$ ./helper.sh demo
+~$ ./helper.sh preview
 ```
 
 Follow the link `http://127.0.0.1:5000/` to see the documentation in action.
@@ -151,6 +152,16 @@ Run the `docs` command to generate static HTML pages with the project documentat
 ```bash
 ~$ ./helper.sh docs
 ```
+
+### Demo
+
+Use the `demo` command to launch Flask web-server with show-case project. This project allows users to see how the Bootstrap library can be used for creating applications with a rich web interface.
+
+```bash
+~$ ./helper.sh preview
+```
+
+Follow the link `http://127.0.0.1:5000/` to see the demo in action.
 
 ### Build
 
