@@ -4,8 +4,6 @@ Bootwrap setup script.
 
 import setuptools
 
-from bootwrap import __version__
-
 
 def get_long_description():
     """Reads the long project description from the 'README.md' file."""
@@ -15,7 +13,6 @@ def get_long_description():
 
 setuptools.setup(
     name="bootwrap",
-    version=__version__,
     author="Mykola Galushka",
     author_email="mm.galushka@gmail.com",
     description="Package for rapid development of web-based user interfaces.",
@@ -34,4 +31,6 @@ setuptools.setup(
     package_dir={"": "."},
     packages=setuptools.find_packages(where=".", exclude=["tests"]),
     python_requires=">=3.6",
+    use_scm_version=True,
+    setup_requires=['setuptools_scm']
 )

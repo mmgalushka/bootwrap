@@ -5,8 +5,6 @@ Wrapper for Bootstrap components.
 # flake8: noqa
 # pylint: disable=unused-variable
 
-__version__ = '1.0.0-alpha4'
-
 from .menu import Menu
 from .page import Page
 
