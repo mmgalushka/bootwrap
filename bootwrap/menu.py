@@ -18,6 +18,7 @@ class Menu:
         actions (list): The list of <code>Button</code> allowing to perform
             specific actions such as login, logout, etc. (default=None).
     """
+
     def __init__(self, logo=None, brand=None, anchors=None, actions=None):
         super().__init__()
         self.__logo = logo
@@ -39,7 +40,7 @@ class Menu:
             anchors = '\n'.join([
                 f'''
                     <li class="nav-item">
-                        {inject(anchor.add_classes('nav-link ml-2'))}
+                        {inject(anchor.ml(2).add_classes('nav-link'))}
                     </li>
                 '''
                 for anchor in self.__anchors
@@ -48,7 +49,7 @@ class Menu:
         actions = ''
         if self.__actions is not None:
             actions = '\n'.join([
-                f'''{inject(action.add_classes('ml-2'))}'''
+                f'''{inject(action.ml(2))}'''
                 for action in self.__actions
             ])
 

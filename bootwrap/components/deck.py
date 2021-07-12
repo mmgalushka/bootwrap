@@ -28,24 +28,21 @@ class Deck(WebComponent, ClassMixin):
             Deck.Card(
                 "Google (NASDAQ: GOOGL)",
                 description= "Price for a single Google share",
-                figure=Image("google-logo.png", width=128).add_classes(
-                    "mt-3"),
+                figure=Image("google-logo.png", width=128).mt(3),
                 marker="12:04:58 12/01/2021"
             ).add_menu(*actions).pack_actions().link(
                 "https://www.google.com"),
             Deck.Card(
                 "LinkedIn (NASDAQ: LNKD)",
                 description= "Price for a single LinkedIn share",
-                figure=Image("linkedin-logo.png", width=128).add_classes(
-                    "mt-3"),
+                figure=Image("linkedin-logo.png", width=128).mt(3),
                 marker="12:04:58 12/01/2021"
             ).add_menu(*actions).pack_actions().link(
                 "https://www.linkedin.com"),
             Deck.Card(
                 "Amazon (NASDAQ: AMZN)",
                 description= "Price for a single Amazon share",
-                figure=Image("amazon-logo.png", width=128).add_classes(
-                    "mt-3"),
+                figure=Image("amazon-logo.png", width=128).mt(3),
                 marker="12:04:58 12/01/2021"
             ).add_menu(*actions).pack_actions().link(
                 "https://www.amazon.com")
@@ -62,29 +59,27 @@ class Deck(WebComponent, ClassMixin):
             Deck.Card(
                 "Google (NASDAQ: GOOGL)",
                 description= "Price for a single Google share",
-                figure=Image("google-logo.png", width=128).add_classes(
-                    "mt-3"),
+                figure=Image("google-logo.png", width=128).mt(3),
                 marker="12:04:58 12/01/2021"
             ).add_menu(*actions).pack_actions().link(
                 "https://www.google.com"),
             Deck.Card(
                 "LinkedIn (NASDAQ: LNKD)",
                 description= "Price for a single LinkedIn share",
-                figure=Image("linkedin-logo.png", width=128).add_classes(
-                    "mt-3"),
+                figure=Image("linkedin-logo.png", width=128).mt(3),
                 marker="12:04:58 12/01/2021"
             ).add_menu(*actions).pack_actions().link(
                 "https://www.linkedin.com"),
             Deck.Card(
                 "Amazon (NASDAQ: AMZN)",
                 description= "Price for a single Amazon share",
-                figure=Image("amazon-logo.png", width=128).add_classes(
-                    "mt-3"),
+                figure=Image("amazon-logo.png", width=128).mt(3),
                 marker="12:04:58 12/01/2021"
             ).add_menu(*actions).pack_actions().link(
                 "https://www.amazon.com")
         )
     """
+
     def __init__(self, *cards):
         super().__init__()
 
@@ -117,7 +112,7 @@ class Deck(WebComponent, ClassMixin):
             Deck.Card(
                 "Google (NASDAQ: GOOGL)",
                 description= "Price for a single Google share",
-                figure=Image("google-logo.png", width=128).add_classes("mt-3"),
+                figure=Image("google-logo.png", width=128).mt(3),
                 marker="12:04:58 12/01/2021"
             ).add_menu(*actions).link(
                 "https://www.google.com")
@@ -134,11 +129,12 @@ class Deck(WebComponent, ClassMixin):
             output = Deck.Card(
                 "Google (NASDAQ: GOOGL)",
                 description= "Price for a single Google share",
-                figure=Image("google-logo.png", width=128).add_classes("mt-3"),
+                figure=Image("google-logo.png", width=128).mt(3),
                 marker="12:04:58 12/01/2021"
             ).add_menu(*actions).link(
                 "https://www.google.com")
         """
+
         def __init__(self, title, description=None, marker=None, figure=None):
             super().__init__()
             self._title = title
@@ -165,7 +161,7 @@ class Deck(WebComponent, ClassMixin):
             Deck.Card(
                 "Google (NASDAQ: GOOGL)",
                 description= "Price for a single Google share",
-                figure=Image("google-logo.png", width=128).add_classes("mt-3"),
+                figure=Image("google-logo.png", width=128).mt(3),
                 marker="12:04:58 12/01/2021"
             ).add_menu(*actions).pack_actions().link(
                 "https://www.google.com")
@@ -182,7 +178,7 @@ class Deck(WebComponent, ClassMixin):
             output = Deck.Card(
                 "Google (NASDAQ: GOOGL)",
                 description= "Price for a single Google share",
-                figure=Image("google-logo.png", width=128).add_classes("mt-3"),
+                figure=Image("google-logo.png", width=128).mt(3),
                 marker="12:04:58 12/01/2021"
             ).add_menu(*actions).pack_actions().link(
                 "https://www.google.com")
@@ -218,7 +214,7 @@ class Deck(WebComponent, ClassMixin):
                     '''
                 else:
                     for action in self._menu:
-                        action.add_classes('ml-1')
+                        action.ml(1)
                     wc_actions = f'''
                         <div class="card-footer text-right">
                             {inject(*self._menu)}

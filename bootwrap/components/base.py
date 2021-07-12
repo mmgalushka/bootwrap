@@ -9,12 +9,12 @@ import enum
 class WebComponent:
     """A web component base class.
 
-    This class must be inherited by all web components. 
+    This class must be inherited by all web components.
 
     In many operations where one web component encapsulates another one has
     implemented a type check. If the received element is not `WebComponent`
     will be generated a `TypeError`. To ensure correct handling of your
-    custom component, do not forget to inherit the `WebComponent` class. 
+    custom component, do not forget to inherit the `WebComponent` class.
 
     Example:
         from bootwrap import WebComponent
@@ -30,6 +30,7 @@ class WebComponent:
                     &lt;/h1&gt
                 '''
     """
+
     def __init__(self):
         super(WebComponent, self).__init__()
         self.__identifier = str(uuid.uuid4())
@@ -59,8 +60,9 @@ class ClassMixin:
     """Mixin for a web component which class can be amended.
 
     The vast majority of web components in Bootwrap inherit this class.
-    It allows a user to adjust web components look and feel. 
+    It allows a user to adjust web components look and feel.
     """
+
     def __init__(self):
         super(ClassMixin, self).__init__()
         self.__classes = []
@@ -68,8 +70,8 @@ class ClassMixin:
     def add_classes(self, classes):
         """Adds other classes.
 
-        Note, the order of specified classes will be preserved during the 
-        component rendering. 
+        Note, the order of specified classes will be preserved during the
+        component rendering.
 
         Args:
             classes (str): The classes to add. The specified classes must be
@@ -93,7 +95,7 @@ class ClassMixin:
     @property
     def classes(self):
         """The web component classes.
-        
+
         Example:
             from bootwrap import Button
 
@@ -345,8 +347,10 @@ class ClassMixin:
         """
         return self.add_classes(f"py-{size}")
 
+
 class ActionMixin:
     """Mixin for a web component which able to perform an action."""
+
     def __init__(self):
         super(ActionMixin, self).__init__()
         self._action = None
@@ -358,7 +362,7 @@ class ActionMixin:
 
         Args:
             target (str|WebComponent): The URL to the linking web-page or
-                linking `WebComponent`. 
+                linking `WebComponent`.
 
         Returns:
             obj (self): The instance of this class.
@@ -467,6 +471,7 @@ class ActionMixin:
 class AppearanceMixin:
     """Mixin for a web component which appearance can be associated
     with predefined categories."""
+
     def __init__(self):
         super(AppearanceMixin, self).__init__()
         self._category = None
@@ -594,10 +599,11 @@ class AppearanceMixin:
 
 class OutlineMixin:
     """Mixin for a web component that can be surrounded by a border.
-    
+
     Usually `OutlineMixin` is used in conjunction with `AppearanceMixin` to
     specify the border appearance.
     """
+
     def __init__(self):
         super(OutlineMixin, self).__init__()
         self._border = False
@@ -624,6 +630,7 @@ class AvailabilityMixin:
     By default, every web component is enabled. The web components inheriting
     this class can be forced to be disabled.
     """
+
     def __init__(self):
         super(AvailabilityMixin, self).__init__()
         self._disabled = False

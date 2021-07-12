@@ -79,6 +79,7 @@ class List(WebComponent, ClassMixin):
                 "https://www.amazon.com")
         )
     """
+
     def __init__(self, *items):
         super().__init__()
 
@@ -133,6 +134,7 @@ class List(WebComponent, ClassMixin):
             ).add_menu(*actions).link(
                 "https://www.google.com")
         """
+
         def __init__(self, title, description=None, marker=None, figure=None):
             super().__init__()
             self._title = title
@@ -245,7 +247,7 @@ class List(WebComponent, ClassMixin):
                     wc_actions = Button('...').add_menu(*self._menu)
                 else:
                     for action in self._menu:
-                        action.add_classes('ml-1')
+                        action.ml(1)
                     wc_actions = inject(*self._menu)
                 wc_actions = f'''
                     <div class="d-flex align-items-start">

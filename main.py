@@ -34,7 +34,7 @@ class BlockDoc(bw.Panel):
             bw.Text(title).as_heading(6).as_strong() if title else None,
             wc_block
         )
-        self.add_classes('ml-3')
+        self.ml(3)
 
 
 class ParamsDoc(BlockDoc):
@@ -154,7 +154,7 @@ class PropertyDoc(bw.Panel):
             wc_demo
         )
 
-        self.add_classes('mt-5')
+        self.mt(5)
 
 
 class MethodDoc(bw.Panel):
@@ -173,7 +173,9 @@ class MethodDoc(bw.Panel):
             wc_arguments_btn = bw.Button('Argument').\
                 as_primary().\
                 as_outline().\
-                add_classes('ml-1 mr-1 btn-sm').\
+                ml(1).\
+                mr(1).\
+                add_classes('btn-sm').\
                 toggle(wc_arguments)
 
         wc_returns = None
@@ -221,7 +223,7 @@ class MethodDoc(bw.Panel):
             wc_demo
         )
 
-        self.add_classes('mt-5')
+        self.mt(5)
 
 
 class ClassDoc(bw.Panel):
@@ -242,7 +244,9 @@ class ClassDoc(bw.Panel):
             wc_arguments_btn = bw.Button('Argument').\
                 as_primary().\
                 as_outline().\
-                add_classes('ml-1 mr-1 btn-sm').\
+                ml(1).\
+                mr(1).\
+                add_classes('btn-sm').\
                 toggle(wc_arguments)
 
         wc_returns = None
@@ -293,9 +297,8 @@ class ClassDoc(bw.Panel):
                         '%s.<strong class="text-primary">%s</strong>' % (
                             doc['name'], attribute_doc['name']
                         )
-                    ).add_classes(
-                        'border p-1 m-1 text-center'
-                    ) for attribute_doc in doc['attributes']
+                    ).p(1).m(1).add_classes('border text-center')
+                    for attribute_doc in doc['attributes']
                 ]
             ).horizontal()
 
@@ -326,9 +329,9 @@ class ClassDoc(bw.Panel):
             *properties,
             *methods
         )
-        self.add_classes('mt-5')
+        self.mt(5)
 
-    @property
+    @ property
     def name(self):
         """The section name"""
         return self.__name
@@ -350,7 +353,8 @@ class CustomDoc(bw.Panel):
 
         subtitle = None
         if 'subtitle' in doc:
-            subtitle = bw.Text(doc['subtitle']).as_heading(2).\
+            subtitle = bw.Text(doc['subtitle']).\
+                as_heading(2).\
                 add_classes('text-muted')
 
         image = None
@@ -395,9 +399,9 @@ class CustomDoc(bw.Panel):
                 bw.Panel(image, code_right, evaluation)
             ).horizontal()
         )
-        self.add_classes('mt-3')
+        self.mt(3)
 
-    @property
+    @ property
     def name(self):
         """The section name"""
         return self.__name
@@ -518,28 +522,28 @@ class GenericPage(bw.Page):
         )
 
 
-@app.route('/')
+@ app.route('/')
 def home():
     with open('config/home.yaml', 'r') as file:
         content = yaml.load(file, Loader=yaml.FullLoader)
     return Markup(GenericPage(content))
 
 
-@app.route('/layout')
+@ app.route('/layout')
 def layout():
     with open('config/layout.yaml', 'r') as file:
         content = yaml.load(file, Loader=yaml.FullLoader)
     return Markup(GenericPage(content))
 
 
-@app.route('/base')
+@ app.route('/base')
 def base():
     with open('config/base.yaml', 'r') as file:
         content = yaml.load(file, Loader=yaml.FullLoader)
     return Markup(GenericPage(content))
 
 
-@app.route('/components')
+@ app.route('/components')
 def components():
     with open('config/components.yaml', 'r') as file:
         content = yaml.load(file, Loader=yaml.FullLoader)
