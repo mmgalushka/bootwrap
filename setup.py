@@ -14,7 +14,7 @@ def get_long_description():
 
 def clean_scheme(version):
     timestamp = datetime.now()
-    schema = timestamp.strftime('%d%m%Y_%H%M%S')
+    schema = timestamp.strftime('.%d%m%Y%H%M%S')
     return schema
 
 
