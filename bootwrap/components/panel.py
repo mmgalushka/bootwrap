@@ -24,12 +24,13 @@ class Panel(WebComponent, ClassMixin, ):
     Demo:
         from bootwrap import Text, Panel
 
-        comp1 = Text("Component 1").add_classes("border ml-1")
-        comp2 = Text("Component 2").add_classes("border ml-1")
-        comp3 = Text("Component 3").add_classes("border ml-1")
+        comp1 = Text("Component 1").add_classes("border").ml(1)
+        comp2 = Text("Component 2").add_classes("border").ml(1)
+        comp3 = Text("Component 3").add_classes("border").ml(1)
 
         output = Panel(comp1, comp2, comp3)
     """
+
     def __init__(self, *components):
         super().__init__()
         self.__components = components

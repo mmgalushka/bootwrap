@@ -34,7 +34,7 @@ Anchor:
         Anchor("Dark").link("#").as_dark()
       )
       for anchor in panel:
-        anchor.add_classes("mb-1")
+        anchor.mb(1)
       output = panel
 
   - title: Link Resource
@@ -141,7 +141,7 @@ Badge:
         Badge("Dark").as_dark()
       )
       for anchor in panel:
-        anchor.add_classes("mb-1")
+        anchor.mb(1)
       output = panel
 
 # --- Button Tab ---------------------------------------------------------------
@@ -175,7 +175,7 @@ Button:
         Button("Dark").link("#").as_dark()
       )
       for anchor in panel:
-        anchor.add_classes("mb-1")
+        anchor.mb(1)
       output = panel
 
   - title: Outline
@@ -204,7 +204,7 @@ Button:
         Button("Dark").link("#").as_dark().as_outline()
       )
       for anchor in panel:
-        anchor.add_classes("mb-1")
+        anchor.mb(1)
       output = panel
 
   - title: Disable
@@ -369,7 +369,7 @@ Dialog:
                     "enter an amount for buying shares"
               ),
               Button("Cancel").add_classes("float-right").dismiss(),
-              Button("Buy").add_classes("float-right mr-2").as_success().
+              Button("Buy").add_classes("float-right).mr(2).as_success().
                 submit()
           ).on_submit("url/to/act")
       )
@@ -387,7 +387,7 @@ Dialog:
                   placeholder="enter an amount for buying shares"
               ),
               Button("Cancel").add_classes("float-right").dismiss(),
-              Button("Buy").add_classes("float-right mr-2").as_success().
+              Button("Buy").add_classes("float-right").mr(2).as_success().
                 dismiss()
           )
       )
@@ -425,7 +425,7 @@ Javascript:
       from bootwrap import Javascript, Button, Text
 
       label = Text("Answer:").as_strong()
-      answer = Text("unknown").add_classes("mr-2 ml-2")
+      answer = Text("unknown").mr(2).ml(2)
       btn_yes = Button("Yes").as_success()
       btn_no = Button("No").as_danger()
 
@@ -452,7 +452,7 @@ Javascript:
       from bootwrap import Panel, Javascript, Button, Text
 
       label = Text("Answer:").as_strong()
-      answer = Text("unknown").add_classes("mr-2 ml-2")
+      answer = Text("unknown").mr(2).ml(2)
       btn_yes = Button("Yes").as_success()
       btn_no = Button("No").as_danger()
 

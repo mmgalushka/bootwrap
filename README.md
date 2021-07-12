@@ -39,7 +39,7 @@ class MyMenu(Menu):
     def __init__(self):
         super().__init__(
             logo=Image('logo.png', width=32, alt='Logo'),
-            brand=Text('Bootwrap').as_strong().as_light().add_classes('ml-2'),
+            brand=Text('Bootwrap').as_strong().as_light().ml(2),
             anchors=[
                 Anchor('Home').link('/'),
                 Anchor('About').link('/about')
