@@ -3,12 +3,19 @@ Bootwrap setup script.
 """
 
 import setuptools
+from datetime import datetime
 
 
 def get_long_description():
     """Reads the long project description from the 'README.md' file."""
     with open("README.md", "r", encoding="utf-8") as f:
         return f.read()
+
+
+def clean_scheme(version):
+    timestamp = datetime.now()
+    schema = timestamp.strftime('.%d%m%Y.%H%M%S')
+    return schema
 
 
 setuptools.setup(
@@ -31,6 +38,6 @@ setuptools.setup(
     package_dir={"": "."},
     packages=setuptools.find_packages(where=".", exclude=["tests"]),
     python_requires=">=3.6",
-    use_scm_version=True,
+    use_scm_version={"local_scheme": clean_scheme},
     setup_requires=['setuptools_scm']
 )
