@@ -155,7 +155,7 @@ Run the `docs` command to generate static HTML pages with the project documentat
 
 ### Demo
 
-Use the `demo` command to launch Flask web-server with show-case project. This project allows users to see how the Bootstrap library can be used for creating applications with a rich web interface.
+Use the `demo` command to launch Flask web-server with show-case project. This project allows users to see how the Bootwrap library can be used for creating applications with a rich web interface.
 
 ```bash
 ~$ ./helper.sh preview
