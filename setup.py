@@ -12,6 +12,12 @@ def get_long_description():
         return f.read()
 
 
+def clean_scheme(version):
+    timestamp = datetime.now()
+    schema = timestamp.strftime('%d%m%Y_%H%M%S')
+    return schema
+
+
 setuptools.setup(
     name="bootwrap",
     author="Mykola Galushka",
@@ -32,6 +38,6 @@ setuptools.setup(
     package_dir={"": "."},
     packages=setuptools.find_packages(where=".", exclude=["tests"]),
     python_requires=">=3.6",
-    use_scm_version={'local_scheme': 'no-local-version'},
+    use_scm_version={'local_scheme': clean_scheme},
     setup_requires=['setuptools_scm']
 )
