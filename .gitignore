@@ -16,13 +16,17 @@
 
 # Except test bootwrap modules
 
-!config/
-!config/**/
-!config/**/*.yaml
-
 !docs/
 !docs/**/
-!docs/**/*.*
+!docs/**/*.yaml
+!docs/**/*.py
+!docs/**/*.png
+!docs/**/*.ico
+!docs/**/*.html
+
+!demo/
+!demo/**/
+!demo/**/*.py
 
 !tests/
 !tests/**/
@@ -31,7 +35,6 @@
 !helper.sh
 !LICENSE
 !main.py
-!docgen.py
 !setup.py
 !README.md
 !CONTRIBUTING.md

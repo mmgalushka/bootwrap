@@ -23,10 +23,11 @@ action_usage(){
     echo -e "      ${OPT}-m <MARK> ${NC}runs tests for mark;"
     echo -e "      ${OPT}-c ${NC}generates code coverage summary;"
     echo -e "      ${OPT}-r ${NC}generates code coverage report;"
-    echo -e "   ${CMD}demo${NC} run web-server for demoing web components;" 
-    echo -e "   ${CMD}docs${NC} generates documentation;"
+    echo -e "   ${CMD}preview${NC} runs web-server with documentation preview;"
+    echo -e "   ${CMD}docs${NC} generates documentation (HTML-pages);"
+    echo -e "   ${CMD}demo${NC} runs web-server with showcase project;" 
     echo -e "   ${CMD}build${NC} generates distribution archives;"
-    echo -e "   ${CMD}stage${NC} deploy Bootwrap to Test Python Package Index;"  
+    echo -e "   ${CMD}stage${NC} deploys Bootwrap to Test Python Package Index;"  
 }
 
 action_init(){
@@ -65,14 +66,19 @@ action_test(){
     pytest --capture=no -p no:warnings ${OPTS[@]}
 }
 
-action_run(){
+action_preview(){
     source .venv/bin/activate
-    python main.py demo
+    python main.py preview
 }
 
 action_docs(){
     source .venv/bin/activate
     python main.py docs
+}
+
+action_demo(){
+    source .venv/bin/activate
+    python main.py demo
 }
 
 action_build(){
@@ -103,11 +109,14 @@ case $1 in
     test)
         action_test ${@:2}
     ;;
-    demo)
-        action_run
+    preview)
+        action_preview
     ;;
     docs)
         action_docs
+    ;;
+    demo)
+        action_demo
     ;;
     build)
         action_build
