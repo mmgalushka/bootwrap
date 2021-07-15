@@ -11,6 +11,10 @@ def get_long_description():
         return f.read()
 
 
+def local_scheme(version):
+    return ''
+
+
 setuptools.setup(
     name="bootwrap",
     author="Mykola Galushka",
@@ -31,9 +35,8 @@ setuptools.setup(
     package_dir={"": "."},
     packages=setuptools.find_packages(where=".", exclude=["tests"]),
     python_requires=">=3.6",
-    # use_scm_version={'local_scheme': 'no-local-version'},
-    use_scm_version={'version_scheme': 'guess-next-dev',
-                     'local_scheme': 'no-local-version'},
-
+    # use_scm_version={'version_scheme': 'guess-next-dev',
+    #                  'local_scheme': 'no-local-version'},
+    use_scm_version={"local_scheme": local_scheme},
     setup_requires=['setuptools_scm']
 )
