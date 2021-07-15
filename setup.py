@@ -3,6 +3,14 @@ Bootwrap setup script.
 """
 
 import setuptools
+import subprocess
+
+
+def get_git_revision_short_hash():
+    short_hash = subprocess.check_output(
+        ['git', 'rev-parse', '--short', 'HEAD'])
+    short_hash = str(short_hash, "utf-8").strip()
+    return short_hash
 
 
 def get_long_description():
@@ -12,7 +20,7 @@ def get_long_description():
 
 
 def local_scheme(version):
-    return ''
+    return '.' + get_git_revision_short_hash()
 
 
 setuptools.setup(
