@@ -19,10 +19,8 @@ As a showcase of what this library is capable of please check the documentation.
 Install and update using [pip](https://pip.pypa.io/en/stable/quickstart/):
 
 ```bash
-~$ pip install -i https://test.pypi.org/simple/ bootwrap
+~$ pip install bootwrap
 ```
-
-Please note, The Bootwrap is currently deployed using TestPyPI – which is a separate instance of the Python Package Index. This allows us to test distribution before moving this package to the real index.
 
 ## A Simple Example
 
