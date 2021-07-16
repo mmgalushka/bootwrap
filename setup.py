@@ -3,24 +3,12 @@ Bootwrap setup script.
 """
 
 import setuptools
-import subprocess
-
-
-def get_git_revision_short_hash():
-    short_hash = subprocess.check_output(
-        ['git', 'rev-parse', '--short', 'HEAD'])
-    short_hash = str(short_hash, "utf-8").strip()
-    return short_hash
 
 
 def get_long_description():
     """Reads the long project description from the 'README.md' file."""
     with open("README.md", "r", encoding="utf-8") as f:
         return f.read()
-
-
-def local_scheme(version):
-    return '.' + get_git_revision_short_hash()
 
 
 setuptools.setup(
@@ -43,8 +31,6 @@ setuptools.setup(
     package_dir={"": "."},
     packages=setuptools.find_packages(where=".", exclude=["tests"]),
     python_requires=">=3.6",
-    # use_scm_version={'version_scheme': 'guess-next-dev',
-    #                  'local_scheme': 'no-local-version'},
-    use_scm_version={"local_scheme": local_scheme},
+    use_scm_version=True,
     setup_requires=['setuptools_scm']
 )
