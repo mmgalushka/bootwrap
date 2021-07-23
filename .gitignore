@@ -27,6 +27,8 @@
 !demo/
 !demo/**/
 !demo/**/*.py
+!demo/**/*.png
+!demo/**/*.ico
 
 !tests/
 !tests/**/

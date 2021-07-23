@@ -152,7 +152,6 @@ class Button(WebComponent, ClassMixin, ActionMixin, AppearanceMixin,
                 <button {attr('id', self.identifier)}
                     {attr('class', self.classes)}
                     type="submit"
-                    onclick="return false;"
                     {attr('disabled', self._disabled)}>
                     {self.__name}
                 </button>

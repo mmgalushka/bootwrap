@@ -52,11 +52,11 @@ def test_generic_input():
     actual = HelperHTMLParser.parse(str(generic))
     expected = HelperHTMLParser.parse(f'''
         <div class="form-group someclass row">
-            <label class="col-sm-2 col-form-label d-flex align-items-center"
+            <label class="col-sm-4 col-form-label d-flex align-items-center"
                 for="{generic.identifier}">
                 somelabel
             </label>
-            <div class="col-sm-10 d-flex align-items-center">
+            <div class="col-sm-8 d-flex align-items-center">
                 <xyz id="{generic.identifier}">somename</xyz>
             </div>
         </div>
@@ -98,11 +98,11 @@ def test_checkbox_input():
     actual = HelperHTMLParser.parse(str(checkbox))
     expected = HelperHTMLParser.parse(f'''
         <div class="form-group row">
-            <label class="col-sm-2 col-form-label d-flex align-items-center"
+            <label class="col-sm-4 col-form-label d-flex align-items-center"
                 for="{checkbox.identifier}">
                 somelabel
             </label>
-            <div class="col-sm-10 d-flex align-items-center">
+            <div class="col-sm-8 d-flex align-items-center">
                 <input id="{checkbox.identifier}"
                     name="somename"
                     type="checkbox"
@@ -118,11 +118,11 @@ def test_checkbox_input():
     actual = HelperHTMLParser.parse(str(checkbox))
     expected = HelperHTMLParser.parse(f'''
         <div class="form-group row">
-            <label class="col-sm-2 col-form-label d-flex align-items-center"
+            <label class="col-sm-4 col-form-label d-flex align-items-center"
                 for="{checkbox.identifier}">
                 somelabel
             </label>
-            <div class="col-sm-10 d-flex align-items-center">
+            <div class="col-sm-8 d-flex align-items-center">
             <input id="{checkbox.identifier}"
                 name="somename"
                 type="checkbox"
@@ -143,11 +143,11 @@ def test_text_input():
     actual = HelperHTMLParser.parse(str(text))
     expected = HelperHTMLParser.parse(f'''
         <div class="form-group row">
-            <label class="col-sm-2 col-form-label d-flex align-items-center"
+            <label class="col-sm-4 col-form-label d-flex align-items-center"
                 for="{text.identifier}">
                 somelabel
             </label>
-            <div class="col-sm-10 d-flex align-items-center">
+            <div class="col-sm-8 d-flex align-items-center">
                 <input id="{text.identifier}"
                     name="somename"
                     value="somevalue"
@@ -164,11 +164,11 @@ def test_text_input():
     actual = HelperHTMLParser.parse(str(email))
     expected = HelperHTMLParser.parse(f'''
         <div class="form-group row">
-            <label class="col-sm-2 col-form-label d-flex align-items-center"
+            <label class="col-sm-4 col-form-label d-flex align-items-center"
                 for="{email.identifier}">
                 somelabel
             </label>
-            <div class="col-sm-10 d-flex align-items-center">
+            <div class="col-sm-8 d-flex align-items-center">
                 <input id="{email.identifier}"
                     name="somename"
                     type="email"
@@ -183,11 +183,11 @@ def test_text_input():
     actual = HelperHTMLParser.parse(str(password))
     expected = HelperHTMLParser.parse(f'''
         <div class="form-group row">
-            <label class="col-sm-2 col-form-label d-flex align-items-center"
+            <label class="col-sm-4 col-form-label d-flex align-items-center"
                 for="{password.identifier}">
                 somelabel
             </label>
-            <div class="col-sm-10 d-flex align-items-center">
+            <div class="col-sm-8 d-flex align-items-center">
                 <input id="{password.identifier}"
                     name="somename"
                     type="password"
@@ -215,12 +215,12 @@ def test_text_area():
     def get_expected(element, disabled=False):
         return f'''
             <div class="form-group row">
-                <label class="col-sm-2 col-form-label d-flex
+                <label class="col-sm-4 col-form-label d-flex
                     align-items-center"
                     for="{element.identifier}">
                     somelabel
                 </label>
-                <div class="col-sm-10 d-flex align-items-center">
+                <div class="col-sm-8 d-flex align-items-center">
                     <textarea id="{element.identifier}"
                         name="somename"
                         class="form-control"
@@ -254,11 +254,11 @@ def test_numeric_input():
     actual = HelperHTMLParser.parse(str(numeric))
     expected = HelperHTMLParser.parse(f'''
         <div class="form-group row">
-            <label class="col-sm-2 col-form-label d-flex align-items-center"
+            <label class="col-sm-4 col-form-label d-flex align-items-center"
                 for="{numeric.identifier}">
                 somelabel
             </label>
-            <div class="col-sm-10 d-flex align-items-center">
+            <div class="col-sm-8 d-flex align-items-center">
                 <input id="{numeric.identifier}"
                     name="somename"
                     value="somevalue"
@@ -282,11 +282,11 @@ def test_select_input():
     actual = HelperHTMLParser.parse(str(select))
     expected = HelperHTMLParser.parse(f'''
         <div class="form-group row">
-            <label class="col-sm-2 col-form-label d-flex align-items-center"
+            <label class="col-sm-4 col-form-label d-flex align-items-center"
                 for="{select.identifier}">
                 somelabel
             </label>
-            <div class="col-sm-10 d-flex align-items-center">
+            <div class="col-sm-8 d-flex align-items-center">
                 <select id="{select.identifier}"
                     name="somename"
                     class="form-control"
@@ -308,11 +308,11 @@ def test_select_input():
     actual = HelperHTMLParser.parse(str(select))
     expected = HelperHTMLParser.parse(f'''
         <div class="form-group row">
-            <label class="col-sm-2 col-form-label d-flex align-items-center"
+            <label class="col-sm-4 col-form-label d-flex align-items-center"
                 for="{select.identifier}">
                 somelabel
             </label>
-            <div class="col-sm-10 d-flex align-items-center">
+            <div class="col-sm-8 d-flex align-items-center">
                 <select id="{select.identifier}"
                     name="somename"
                     class="form-control"
@@ -343,11 +343,11 @@ def test_radio_input():
     actual = HelperHTMLParser.parse(str(radio))
     expected = HelperHTMLParser.parse(f'''
         <div class="form-group row">
-            <label class="col-sm-2 col-form-label d-flex align-items-center"
+            <label class="col-sm-4 col-form-label d-flex align-items-center"
                 for="{radio.identifier}">
                 somelabel
             </label>
-            <div class="col-sm-10 d-flex align-items-center">
+            <div class="col-sm-8 d-flex align-items-center">
                 <div class="form-check mr-3">
                     <input id="{option_0.identifier}"
                         name="somename"
@@ -400,11 +400,11 @@ def test_file_input():
     actual = HelperHTMLParser.parse(str(file))
     expected = HelperHTMLParser.parse(f'''
         <div class="form-group someclass row">
-            <label class="col-sm-2 col-form-label d-flex align-items-center"
+            <label class="col-sm-4 col-form-label d-flex align-items-center"
                 for="{file.identifier}">
                 somelabel
             </label>
-            <div class="col-sm-10 d-flex align-items-center">
+            <div class="col-sm-8 d-flex align-items-center">
                 <div class="input-group">
                     <span class="form-control input-group-append"></span>
                     <div class="input-group-append">
@@ -428,11 +428,11 @@ def test_file_input():
     actual = HelperHTMLParser.parse(str(file))
     expected = HelperHTMLParser.parse(f'''
         <div class="form-group row">
-            <label class="col-sm-2 col-form-label d-flex align-items-center"
+            <label class="col-sm-4 col-form-label d-flex align-items-center"
                 for="{file.identifier}">
                 somelabel
             </label>
-            <div class="col-sm-10 d-flex align-items-center">
+            <div class="col-sm-8 d-flex align-items-center">
                 <div class="input-group">
                     <span class="form-control input-group-append"></span>
                     <div class="input-group-append">

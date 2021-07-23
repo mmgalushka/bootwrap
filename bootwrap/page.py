@@ -17,6 +17,7 @@ class Page:
         menu (Menu): The page top level menu (default=None).
         container (WebComponent): The page container (default=None).
     """
+
     def __init__(
             self,
             favicon=None,
@@ -40,7 +41,7 @@ class Page:
         """Renders an HTML page."""
 
         links = [
-            Link('https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css'),                   # NOQA 
+            Link('https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css'),                   # NOQA
             Link('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css'),               # NOQA
             Link('https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/default.min.css')        # NOQA
         ]
@@ -53,7 +54,7 @@ class Page:
             Javascript('https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js'),         # NOQA
             Javascript('https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js'),               # NOQA
             Javascript('https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js'),       # NOQA
-            Javascript('https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/languages/python.min.js') # NOQA
+            Javascript('https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/languages/python.min.js')  # NOQA
         ]
 
         if self.__resources:

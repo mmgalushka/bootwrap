@@ -35,8 +35,7 @@ def test_without_dialog():
                     <div class="modal-body">
                         <button id="..."
                             class="btn"
-                            type="submit"
-                            onclick="return false;">
+                            type="submit">
                             submit
                         </button>
                     </div>

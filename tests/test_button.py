@@ -186,8 +186,7 @@ def test_submit_button():
     expected = HelperHTMLParser.parse(f'''
         <button id="{button.identifier}"
             class="btn"
-            type="submit"
-            onclick="return false;">
+            type="submit">
             Somename
         </button>
     ''')
