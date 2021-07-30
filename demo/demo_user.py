@@ -2,11 +2,39 @@
 User database for demo-application.
 """
 
+from enum import Enum
+from datetime import datetime
+
+from collections import namedtuple
 from flask_login import UserMixin
 from werkzeug.security import (
     check_password_hash,
     generate_password_hash
 )
+
+
+class TransactionTarget(str, Enum):
+    ACCOUNT = 'account'
+    PORTFOLIO = 'portfolio'
+
+
+class TransactionAction(str, Enum):
+    BUY = 'buy'
+    SELL = 'sell'
+    DEPOSIT = 'deposit'
+    WITHDRAW = 'withdraw'
+
+
+UserTransaction = namedtuple(
+    'UserTransaction', ['timestamp', 'target', 'action', 'description']
+)
+"""The user transaction."""
+
+
+LedgerRecord = namedtuple(
+    'LedgerRecord', ['sid', 'nos', 'investment']
+)
+"""The ledger record."""
 
 
 class User(UserMixin):
@@ -25,6 +53,9 @@ class User(UserMixin):
         self.__email = email
         self.__name = name
         self.__password = password
+        self.__balance = 100.0
+        self.__portfolio = {}
+        self.__activity = []
 
     @property
     def id(self):
@@ -46,13 +77,137 @@ class User(UserMixin):
         """The user password."""
         return self.__password
 
+    @property
+    def balance(self):
+        """The user balance."""
+        return self.__balance
+
+    @property
+    def portfolio(self):
+        """The user portfolio iterator."""
+        return iter(self.__portfolio.values())
+
+    def deposit(self, amount):
+        """Deposits money to the user account.
+
+        Args:
+            amount (float): The deposit amount.
+        """
+        self.__balance += amount
+        self.__activity.append(
+            UserTransaction(
+                datetime.now(),
+                TransactionTarget.ACCOUNT,
+                TransactionAction.DEPOSIT,
+                (
+                    'You deposit $%.2f to your account, ' +
+                    'your new balance is $%.2f'
+                ) % (amount, self.__balance)
+            )
+        )
+
+    def withdraw(self, amount):
+        """Withdraws money from the user account.
+
+        Args:
+            amount (float): The withdraw amount.
+        """
+        self.__balance -= amount
+        self.__activity.append(
+            UserTransaction(
+                datetime.now(),
+                TransactionTarget.ACCOUNT,
+                TransactionAction.DEPOSIT,
+                (
+                    'You withdraw $%.2f from your account, ' +
+                    'your new balance is $%.2f'
+                ) % (amount, self.__balance)
+            )
+        )
+
+    def buy(self, sid, company, nos, amount):
+        """Buys a new shares.
+
+        Args:
+            sid (str): The share ID to buy.
+            nos (int): The number of shares to buy.
+            amount (float): The te total price for all shares.
+        """
+        if sid in self.__portfolio:
+            record = self.__portfolio[sid]
+            self.__portfolio[sid] = LedgerRecord(
+                sid,
+                record.nos + nos,
+                record.investment + amount
+            )
+        else:
+            self.__portfolio[sid] = LedgerRecord(
+                sid,
+                nos,
+                amount
+            )
+        self.__activity.append(
+            UserTransaction(
+                datetime.now(),
+                TransactionTarget.PORTFOLIO,
+                TransactionAction.BUY,
+                (
+                    'You bought %d share(s) of %s, ' +
+                    'by spending in total $%.2f;'
+                ) % (nos, company, amount)
+            )
+        )
+
+    def sell(self, sid, company, nos, amount):
+        """Sells a existing shares.
+
+        Args:
+            sid (str): The share ID to sell.
+            nos (int): The number of shares to sell.
+        """
+        if sid in self.__portfolio:
+            record = self.__portfolio[sid]
+            self.__portfolio[sid] = LedgerRecord(
+                sid,
+                record.nos - nos,
+                record.investment - nos * record.investment / record.nos
+            )
+            self.__activity.append(
+                UserTransaction(
+                    datetime.now(),
+                    TransactionTarget.PORTFOLIO,
+                    TransactionAction.SELL,
+                    (
+                        'You sold %d share(s) of %s, ' +
+                        'by getting in total $%.2f;'
+                    ) % (nos, company, amount)
+                )
+            )
+
+    def get_record(self, sid):
+        return self.__portfolio[sid]
+
+    def get_activity(self):
+        columns = ['Date/Time', 'Target', 'Action', 'Description']
+        log = [
+            [
+                record.timestamp,
+                record.target,
+                record.action,
+                record.description
+            ]
+            for record in self.__activity
+        ]
+        return columns, log
+
     def __str__(self):
         return f'''
             User(
                 id: {self.id},
                 email: {self.email},
                 name: {self.name},
-                password: {self.password}
+                password: {self.password},
+                balance:  {self.balance}
             )
         '''
 
@@ -83,8 +238,6 @@ class UserManager:
             generate_password_hash(password)
         )
         self.__database[email] = user
-
-        print('Added a new user: ', user)
         return user
 
     def get_user(self, email, password):
@@ -102,9 +255,7 @@ class UserManager:
         user = self.__database[email]
         if check_password_hash(user.password, password):
             return user
-
-        print('Retrieved the existing user: ', user)
-        return InvalidEmailOrPasswordError
+        raise InvalidEmailOrPasswordError
 
     def get_user_by_id(self, id):
         """Gets user by ID
@@ -114,13 +265,10 @@ class UserManager:
         Returns:
             user (User): The retrieved user.
         """
-        # for user in self.__database.values():
-        #     if user.id == id:
-        #         return user
-        # raise UserNotFoundError
-        return User(
-            '0', 'a@b.com', 'Nick', 'asdf'
-        )
+        for user in self.__database.values():
+            if user.id == id:
+                return user
+        raise UserNotFoundError
 
 
 class UserError(Exception):
@@ -137,6 +285,3 @@ class UserAlreadyExistError(UserError):
 
 class InvalidEmailOrPasswordError(UserError):
     """This error is thrown if email or password is invalid."""
-
-
-USERS = UserManager()
