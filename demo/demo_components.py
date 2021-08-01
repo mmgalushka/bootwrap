@@ -1,5 +1,6 @@
 
 from datetime import datetime
+from demo.demo_user import TransactionAction
 
 import bootwrap as bw
 
@@ -25,11 +26,11 @@ class ShareDialog(bw.Dialog):
                 ),
                 wc_cancel,
                 wc_confirm
-            ).on_submit(f'portfolio/buy/{sid}')
+            ).on_submit(f'portfolio/{action}/{sid}')
         )
 
 
-class BuyShareDialog(ShareDialog):
+class BuyDialog(ShareDialog):
     def __init__(self, share, user):
         # Gets the number of shares a user is allowed to buy.
         nos = int(user.balance / share.price)
@@ -38,14 +39,14 @@ class BuyShareDialog(ShareDialog):
         super().__init__('buy', share.id, share.company, nos)
 
 
-class SellShareDialog(ShareDialog):
+class SellDialog(ShareDialog):
     def __init__(self, share, user):
         # Gets the number of shares a user is allowed to sell.
         record = user.get_record(share.id)
         nos = record.nos
 
         # Initializes a sell action dialog window.
-        super().__init__('buy', share.id, share.company, nos)
+        super().__init__('sell', share.id, share.company, nos)
 
 
 class ShareCard(bw.Deck.Card):
@@ -122,59 +123,71 @@ class ShareItem(bw.List.Item):
 # ------------------------------------------------------------------------------
 
 
+class AccountDialog(bw.Dialog):
+    def __init__(self, action, balance):
+        # Defines dialog actions.
+        wc_cancel = bw.Button('Cancel').add_classes('float-right').dismiss()
+        wc_confirm = bw.Button('Confirm').add_classes(
+            'float-right').mr(2).as_success().submit()
+
+        if action == TransactionAction.DEPOSIT:
+            limit = 1000.0
+        else:
+            limit = balance
+
+        super().__init__(
+            f'{action.capitalize()} Money',
+            bw.Form(
+                bw.NumericInput(
+                    'Amount($)',
+                    'amount',
+                    placeholder='amount to %s (<=%.2f)' % (action, limit)
+                ),
+                wc_cancel, wc_confirm
+            ).on_submit(f'account/{action}')
+        )
+
+
+class DepositDialog(AccountDialog):
+    def __init__(self, user):
+        # Initializes a buy action dialog window.
+        super().__init__('deposit', user.balance)
+
+
+class WithdrawDialog(AccountDialog):
+    def __init__(self, user):
+        # Initializes a buy action dialog window.
+        super().__init__('withdraw', user.balance)
+
+
 class UserAccountCard(bw.Deck.Card):
-    def __init__(self, user, view=True):
-        wc_deposit_dialog = bw.Dialog(
-            'Deposit Money',
-            bw.Form(
-                bw.NumericInput(
-                    'Amount($)',
-                    'amount',
-                    placeholder='amount to deposit'
-                ),
-                bw.Button('Cancel').add_classes('float-right').dismiss(),
-                bw.Button('Confirm').add_classes('float-right').mr(2).
-                as_success().
-                submit()
-            ).on_submit('account/deposit')
-        )
-
-        wc_withdraw_dialog = bw.Dialog(
-            'Withdraw Money',
-            bw.Form(
-                bw.NumericInput(
-                    'Amount($)',
-                    'amount',
-                    placeholder=f'amount to withdraw (<{user.balance})'
-                ),
-                bw.Button('Cancel').add_classes('float-right').dismiss(),
-                bw.Button('Confirm').add_classes('float-right').mr(2).
-                as_success().
-                submit()
-            ).on_submit('account/withdraw')
-        )
-
+    def __init__(self, user, wc_deposit_dialog, wc_withdraw_dialog):
         super().__init__(
             bw.Panel(
                 bw.Text('Your Balance').as_strong(),
-                bw.Text('$%.2f' % user.balance).as_heading(3).
+                bw.Text('$%.2f' % user.balance).as_heading(3).as_primary().
                 add_classes('float-right')
             ),
             description=bw.Panel(
-                bw.Text('Account number: 12345678').as_paragraph(),
-                bw.Text('Sort code: 12-34-56').as_paragraph(),
-                wc_deposit_dialog,
-                wc_withdraw_dialog
+                bw.Panel(
+                    bw.Text('Account number: '),
+                    bw.Text('89012345').as_primary()
+                ),
+                bw.Panel(
+                    bw.Text('Sort code: '),
+                    bw.Text('12-34-56').as_primary()
+                )
             ),
-            figure=bw.Image('bank.png', width=128).mt(3),
-            marker=datetime.now().strftime("%d-%b-%Y %H:%M:%S")
+            figure=bw.Image('bank.png', width=256).mt(3),
+            marker=datetime.now().strftime("%d-%b-%Y %H:%M:%S"),
+
         )
 
-        if not view:
-            self.add_menu(
-                bw.Button("Deposit").toggle(wc_deposit_dialog).as_primary(),
-                bw.Button("Withdraw").toggle(wc_withdraw_dialog).as_secondary()
-            )
+        self.add_menu(
+            bw.Button("Deposit").toggle(wc_deposit_dialog).as_primary(),
+            bw.Button("Withdraw").toggle(wc_withdraw_dialog).as_secondary()
+        )
+
 
 # ------------------------------------------------------------------------------
 # Web-components for handling user ACTIVITIES
@@ -182,9 +195,11 @@ class UserAccountCard(bw.Deck.Card):
 
 
 class ActivityTable(bw.Table):
-    def __init__(self, user):
-        head, body = user.get_activity()
+    def __init__(self, user, filter=[]):
+        head, body = user.get_activity(filter)
         super().__init__(head, body)
+
+        self.head.as_light()
 
         def get_icon(target):
             if target == 'account':
@@ -224,3 +239,5 @@ class ActivityTable(bw.Table):
             bw.TableEntity.CELL,
             lambda timestamp: 'text-dark font-weight-bold'
         )
+
+        self.as_responsive()

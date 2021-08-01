@@ -94,7 +94,8 @@ class User(UserMixin):
             amount (float): The deposit amount.
         """
         self.__balance += amount
-        self.__activity.append(
+        self.__activity.insert(
+            0,
             UserTransaction(
                 datetime.now(),
                 TransactionTarget.ACCOUNT,
@@ -113,11 +114,12 @@ class User(UserMixin):
             amount (float): The withdraw amount.
         """
         self.__balance -= amount
-        self.__activity.append(
+        self.__activity.insert(
+            0,
             UserTransaction(
                 datetime.now(),
                 TransactionTarget.ACCOUNT,
-                TransactionAction.DEPOSIT,
+                TransactionAction.WITHDRAW,
                 (
                     'You withdraw $%.2f from your account, ' +
                     'your new balance is $%.2f'
@@ -146,7 +148,8 @@ class User(UserMixin):
                 nos,
                 amount
             )
-        self.__activity.append(
+        self.__activity.insert(
+            0,
             UserTransaction(
                 datetime.now(),
                 TransactionTarget.PORTFOLIO,
@@ -172,7 +175,8 @@ class User(UserMixin):
                 record.nos - nos,
                 record.investment - nos * record.investment / record.nos
             )
-            self.__activity.append(
+            self.__activity.insert(
+                0,
                 UserTransaction(
                     datetime.now(),
                     TransactionTarget.PORTFOLIO,
@@ -187,17 +191,28 @@ class User(UserMixin):
     def get_record(self, sid):
         return self.__portfolio[sid]
 
-    def get_activity(self):
+    def get_activity(self, filter=[]):
+        """Returns user activity log.
+
+        Args:
+            filter (str): The log items to filter;
+
+        Returns:
+            log (list): The user activity log;
+        """
         columns = ['Date/Time', 'Target', 'Action', 'Description']
-        log = [
-            [
-                record.timestamp,
-                record.target,
-                record.action,
-                record.description
-            ]
-            for record in self.__activity
-        ]
+
+        log = []
+        for record in self.__activity:
+            if record.action not in filter:
+                log.append(
+                    [
+                        record.timestamp,
+                        record.target,
+                        record.action,
+                        record.description
+                    ]
+                )
         return columns, log
 
     def __str__(self):

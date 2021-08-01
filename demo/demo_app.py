@@ -13,14 +13,16 @@ from flask_login import (
 
 import bootwrap as bw
 
-from .demo_user import UserManager
+from .demo_user import TransactionAction, UserManager
 from .demo_stock import StockMarket
 from .demo_components import (
-    BuyShareDialog,
-    SellShareDialog,
+    BuyDialog,
+    SellDialog,
     ShareCard,
     ShareItem,
     UserAccountCard,
+    DepositDialog,
+    WithdrawDialog,
     ActivityTable
 )
 
@@ -65,7 +67,7 @@ class DemoPage(bw.Page):
             contant.
     """
 
-    def __init__(self, content):
+    def __init__(self, title, *wc):
         super().__init__(
             favicon='favicon.ico',
             menu=bw.Menu(
@@ -78,8 +80,8 @@ class DemoPage(bw.Page):
                 anchors=[
                     bw.Anchor('Portfolio').link('/portfolio'),
                     bw.Anchor('Discovery').link('/discovery'),
-                    bw.Anchor('Activity').link('/activity'),
                     bw.Anchor('Account').link('/account'),
+                    bw.Anchor('Activity').link('/activity')
                 ],
                 actions=[
                     bw.Button('Logout').
@@ -88,7 +90,7 @@ class DemoPage(bw.Page):
                     link('/logout')
                 ]
             ),
-            container=content
+            container=bw.Panel(bw.Text(title).as_heading(1), *wc)
         )
 
 
@@ -164,9 +166,9 @@ def portfolio(action=None, sid=None):
         amount = nos * share.price
         if action == 'buy':
             current_user.withdraw(amount)
-            current_user.buy(sid, nos, company, amount)
+            current_user.buy(sid, company, nos, amount)
         if action == 'sell':
-            current_user.sell(sid, nos, company, amount)
+            current_user.sell(sid, company, nos, amount)
             current_user.deposit(amount)
         return redirect(url_for('portfolio'))
 
@@ -176,39 +178,44 @@ def portfolio(action=None, sid=None):
     for record in current_user.portfolio:
         share = STOCKS.get_stock(record.sid)
 
-        wc_sell_dialog = SellShareDialog(share, current_user)
+        wc_sell_dialog = SellDialog(share, current_user)
         wc_item = ShareItem(share, current_user, wc_sell_dialog)
 
         wc_dialogs.append(wc_sell_dialog)
         wc_items.append(wc_item)
 
-    return Markup(DemoPage(bw.Panel(bw.List(*wc_items), *wc_dialogs)))
+    return Markup(
+        DemoPage(
+            'My Portfolio', bw.List(*wc_items), *wc_dialogs,
+            bw.Text('Portfolio Transactions').as_heading(4).mt(4),
+            ActivityTable(
+                current_user,
+                [TransactionAction.DEPOSIT, TransactionAction.WITHDRAW]
+            )
+        )
+    )
 
 
-@demo_app.route('/discovery')
+@ demo_app.route('/discovery')
 def discovery():
     wc_dialogs = []
     wc_cards = []
     for share in STOCKS.get_stocks():
-        wc_buy_dialog = BuyShareDialog(share, current_user)
+        wc_buy_dialog = BuyDialog(share, current_user)
         wc_card = ShareCard(share, current_user, wc_buy_dialog)
 
         wc_dialogs.append(wc_buy_dialog)
         wc_cards.append(wc_card)
 
-    return Markup(DemoPage(bw.Panel(bw.Deck(*wc_cards), *wc_dialogs)))
+    return Markup(
+        DemoPage(
+            'Available Shares', bw.Deck(*wc_cards), *wc_dialogs
+        )
+    )
 
 
-@demo_app.route('/activity')
-def activity():
-    return Markup(DemoPage(bw.Panel(
-        bw.Text('My Activity').as_heading(1),
-        ActivityTable(current_user))
-    ))
-
-
-@demo_app.route('/account', methods=['GET'])
-@demo_app.route('/account/<action>', methods=['POST'])
+@ demo_app.route('/account', methods=['GET'])
+@ demo_app.route('/account/<action>', methods=['POST'])
 def account(action=None):
     if request.method == 'POST':
         amount = float(request.form.get('amount'))
@@ -219,4 +226,29 @@ def account(action=None):
         return redirect(url_for('account'))
 
     # request.method == 'GET'
-    return Markup(DemoPage(UserAccountCard(current_user, view=False)))
+    wc_deposit_dialog = DepositDialog(current_user)
+    wc_withdraw_dialog = WithdrawDialog(current_user)
+    return Markup(
+        DemoPage(
+            'My Account',
+            UserAccountCard(current_user, wc_deposit_dialog,
+                            wc_withdraw_dialog),
+            bw.Text('Account Transactions').as_heading(4).mt(4),
+            ActivityTable(
+                current_user,
+                [TransactionAction.BUY, TransactionAction.SELL],
+
+            ),
+            wc_deposit_dialog,
+            wc_withdraw_dialog
+        )
+    )
+
+
+@ demo_app.route('/activity')
+def activity():
+    return Markup(
+        DemoPage(
+            'My Activity', ActivityTable(current_user)
+        )
+    )
