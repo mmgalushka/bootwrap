@@ -19,7 +19,7 @@ def test_deck_card():
     )
     actual = HelperHTMLParser.parse(str(card))
     expected = HelperHTMLParser.parse(f'''
-        <a id="{card.identifier}" class="card">
+        <div id="{card.identifier}" class="card">
             <div class="row justify-content-center">
                 <i id="..." class="someicon"></i>
             </div>
@@ -35,7 +35,7 @@ def test_deck_card():
                 </h5>
                 somedescr
             </div>
-        </a>
+        </div>
     ''')
     assert actual == expected
 
@@ -48,7 +48,7 @@ def test_deck_card():
     )
     actual = HelperHTMLParser.parse(str(card))
     expected = HelperHTMLParser.parse(f'''
-        <a id="{card.identifier}" class="card">
+        <div id="{card.identifier}" class="card">
             <div class="row justify-content-center">
                 <i id="..." class="someicon"></i>
             </div>
@@ -59,7 +59,7 @@ def test_deck_card():
                 <span id="..." class="card-title">sometitle</span>
                 <span id="..." >somedescr</span>
             </div>
-        </a>
+        </div>
     ''')
     assert actual == expected
 
@@ -68,7 +68,7 @@ def test_deck_card():
     card = Deck.Card('sometitle').add_menu(*actions)
     actual = HelperHTMLParser.parse(str(card))
     expected = HelperHTMLParser.parse(f'''
-        <a id="{card.identifier}" class="card">
+        <div id="{card.identifier}" class="card">
             <div class="row justify-content-center"></div>
             <div class="card-body">
                 <h5 id="..." class="card-title">
@@ -77,17 +77,17 @@ def test_deck_card():
             </div>
             <div class="card-footer text-right">
                 <button id="..."
-                    class="ml-1 btn"
+                    class="btn"
                     onclick="return false;">
                     A
                 </button>
                 <button id="..."
-                    class="ml-1 btn"
+                    class="btn"
                     onclick="return false;">
                     B
                 </button>
             </div>
-        </a>
+        </div>
     ''')
     assert actual == expected
 
@@ -96,7 +96,7 @@ def test_deck_card():
     card = Deck.Card('sometitle').add_menu(*actions).pack_actions()
     actual = HelperHTMLParser.parse(str(card))
     expected = HelperHTMLParser.parse(f'''
-        <a id="{card.identifier}" class="card">
+        <div id="{card.identifier}" class="card">
             <div class="row justify-content-center"></div>
             <div class="card-body">
                 <h5 id="..." class="card-title">
@@ -125,7 +125,36 @@ def test_deck_card():
                     </div>
                 </div>
             </div>
-        </a>
+        </div>
+    ''')
+    assert actual == expected
+
+    # Tests a linked deck card.
+    card = Deck.Card(
+        'sometitle',
+        description='somedescr',
+        figure=Icon('someicon'),
+        marker="somemarker",
+    ).link('somewhere')
+    actual = HelperHTMLParser.parse(str(card))
+    expected = HelperHTMLParser.parse(f'''
+        <div id="{card.identifier}" class="card">
+            <div class="row justify-content-center" onclick="location.href='somewhere';">
+                <i id="..." class="someicon"></i>
+            </div>
+            <div class="card-body"  onclick="location.href='somewhere';">
+                <div class="text-right mb-2">
+                    <span id="..."
+                        class="text-muted"><small>somemarker</small>
+                    </span>
+                </div>
+                <h5 id="..."
+                    class="card-title">
+                    sometitle
+                </h5>
+                somedescr
+            </div>
+        </div>
     ''')
     assert actual == expected
 
@@ -140,33 +169,29 @@ def test_deck():
     actual = HelperHTMLParser.parse(str(dk))
     expected = HelperHTMLParser.parse(f'''
         <div id="{dk.identifier}" class="card-deck grid-container">
-            <a id="..." class="card">
+            <div id="..." class="card">
                 <div class="row justify-content-center"></div>
                 <div class="card-body">
                     <h5 id="..." class="card-title">sometitle1</h5>
                 </div>
-            </a>
-            <a id="..." class="card">
+            </div>
+            <div id="..." class="card">
                 <div class="row justify-content-center"></div>
                 <div class="card-body">
                     <h5 id="..." class="card-title">sometitle2</h5>
                 </div>
-            </a>
-            <a id="..." class="card">
+            </div>
+            <div id="..." class="card">
                 <div class="row justify-content-center"></div>
                 <div class="card-body">
                     <h5 id="..." class="card-title">sometitle3</h5>
                 </div>
-            </a>
+            </div>
         </div>
     ''' + '''
         <style>
-            a.card {
-                text-decoration: none;
-            }
-
-            a.card, a.card:visited, a.card:hover, a.card:active {
-                color: inherit;
+            div.card {
+                cursor:pointer
             }
         </style>
     ''')

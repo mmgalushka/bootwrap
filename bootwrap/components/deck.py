@@ -213,8 +213,6 @@ class Deck(WebComponent, ClassMixin):
                         </div>
                     '''
                 else:
-                    # for action in self._menu:
-                    #     action.ml(1)
                     wc_actions = f'''
                         <div class="card-footer text-right">
                             {inject(*self._menu)}
@@ -226,7 +224,7 @@ class Deck(WebComponent, ClassMixin):
                 onclick = f"location.href='{self._target}';"
 
             return f'''
-                <div class="card">
+                <div {attr("id", self.identifier)} class="card">
                     <div class="row justify-content-center" {attr('onclick', onclick)}>
                         {inject(self._figure)}
                     </div>
