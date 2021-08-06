@@ -120,7 +120,40 @@ class StockMarket(Thread):
                 'professional networking, and allows job seekers to post '
                 'their CVs and employers to post jobs.',
                 'https://www.linkedin.com',
-                70)
+                70),
+            'AAPL': Share(
+                'AAPL',
+                'Apple Inc.',
+                'aapl-logo.png',
+                'Apple Inc. is an American multinational technology company '
+                'that specializes in consumer electronics, computer software, '
+                'and online services. Apple is the world\'s largest '
+                'technology company by revenue and, since January 2021, the '
+                'world\'s most valuable company.',
+                'https://www.apple.com',
+                75),
+            'NVDA': Share(
+                'NVDA',
+                'NVIDIA Corporation',
+                'nvda-logo.png',
+                'Nvidia Corporation is an American multinational technology '
+                'company incorporated in Delaware and based in Santa Clara, '
+                'California. It designs graphics processing units for the '
+                'gaming and professional markets, as well as system on a chip '
+                'units for the mobile computing and automotive market.',
+                'https://www.nvidia.com',
+                125),
+            'TSLA': Share(
+                'TSLA',
+                'Tesla, Inc.',
+                'tsla-logo.png',
+                'Tesla, Inc. is an American electric vehicle and clean energy '
+                'company based in Palo Alto, California. Tesla\'s current '
+                'products include electric cars, battery energy storage from '
+                'home to grid-scale, solar panels and solar roof tiles, as '
+                'well as other related products and services.',
+                'https://www.tesla.com',
+                125)
         }
 
     def run(self):

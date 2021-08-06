@@ -84,7 +84,6 @@ class Deck(WebComponent, ClassMixin):
 
         for card in cards:
             if not isinstance(card, Deck.Card):
-                print(Deck.Card.__name__)
                 raise TypeError(
                     f'A deck must contain the <class \'Deck.Card\'> only '
                     f'but got {type(card)};'
@@ -235,7 +234,7 @@ class Deck(WebComponent, ClassMixin):
                     </div>
                     {inject(wc_actions)}
                 </div>
-            '''
+            '''  # NOQA
 
     def __str__(self):
         style = '''

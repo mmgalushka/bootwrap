@@ -36,3 +36,12 @@ body{
         margin-top: 0px
     }
 }
+
+.grid-container {
+    display: grid;  
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+}
+
+.card {
+    margin-top: 10px;
+}  
