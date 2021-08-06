@@ -53,12 +53,12 @@ class ShareCard(bw.Deck.Card):
     def __init__(self, share, user, wc_buy_dialog):
         super().__init__(
             bw.Panel(
-                bw.Text(f'NASDAQ: {share.id}').as_strong(),
-                bw.Text('$%.2f' % share.price).as_heading(3).as_success().
+                bw.Text(f'NASDAQ: {share.id}').as_muted(),
+                bw.Text('$%.2f' % share.price).as_heading(3).as_primary().
                 add_classes('float-right')
             ),
             description=bw.Panel(
-                bw.Text(share.company).as_heading(3).as_primary(),
+                bw.Text(share.company).as_heading(3),
                 bw.Text(share.description)
             ),
             figure=bw.Image(
@@ -67,7 +67,7 @@ class ShareCard(bw.Deck.Card):
         )
 
         self.add_menu(
-            bw.Button("Buy").toggle(wc_buy_dialog)
+            bw.Button("Buy").toggle(wc_buy_dialog).as_primary()
         )
 
         self.link(share.url)

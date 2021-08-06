@@ -13,7 +13,7 @@ from flask_login import (
 
 import bootwrap as bw
 
-from .demo_user import TransactionAction, UserManager
+from .demo_user import TransactionAction, UserManager, UserAlreadyExistError
 from .demo_stock import StockMarket
 from .demo_components import (
     BuyDialog,
@@ -39,17 +39,48 @@ STOCKS = StockMarket()
 
 @demo_app.before_first_request
 def initialize():
-    if not STOCKS.is_alive():
-        # STOCKS.start()
-        pass
+    # "The Wolf of Wall Street is a 2013 American epic biographical black
+    # comedy crime film directed by Martin Scorsese and written by Terence
+    # Winter, based on the 2007 memoir of the same name by Jordan Belfort."
+    # ---------------------------------------------------------------------
+    #                                                             Wikipedia
 
-    USERS.add_user('j.belfort@notexist.com', 'Jordan Belfort', 'HardWork@2021')
-    user = USERS.get_user_by_id('0')
-    user.deposit(25000)
-    user.buy('GOOGL', 'Alphabet Inc.', 2,  1285.0)
-    user.withdraw(1200)
-    user.buy('AMZN',  'Amazon Inc.', 4, 125.0)
-    user.sell('AMZN',  'Amazon Inc.', 1, 45.0)
+    # For software demonstration purposes we need to create an account, so
+    # anybody can log in and play with it. Why not make a mock of Jordan
+    # Belfort's account. If he managed to get rich, then why not you? :)
+    try:
+        user = USERS.add_user(
+            'j.belfort@notexist.com', 'Jordan Belfort', 'HardWork@2021'
+        )
+        # Transaction 1
+        user.deposit(25000)
+        # Transaction 2
+        user.withdraw(560.0)
+        user.buy('GOOGL', 'Alphabet Inc.', 2,  560.0)
+        # Transaction 3
+        user.withdraw(7090.0)
+        user.buy('TSLA', 'Tesla Inc.', 10,  7090.0)
+        # Transaction 4
+        user.withdraw(1250)
+        # Transaction 5
+        user.withdraw(125)
+        user.buy('AMZN', 'Amazon Inc.', 5, 125.0)
+        # Transaction 6
+        user.sell('AMZN', 'Amazon Inc.', 2, 625.0)
+        user.deposit(625.0)
+        # Transaction 7
+        user.withdraw(590.0)
+        user.buy('AAPL', 'Apple Inc.', 25,  590.0)
+        # Transaction 8
+        user.withdraw(16090.0)
+        user.buy('NVDA', 'Nvidia Corporation.', 15,  16090.0)
+        # Transaction 9
+        user.sell('AAPL', 'Apple Inc.', 15,  18340.0)
+        user.deposit(18340.0)
+        # Transaction 10
+        user.withdraw(16990.0)
+    except UserAlreadyExistError:
+        pass
 
     print('Stock market is open...')
 
@@ -187,6 +218,8 @@ def portfolio(action=None, sid=None):
         return redirect(url_for('portfolio'))
 
     # request.method == 'GET'
+    STOCKS.update()
+
     wc_dialogs = []
     wc_items = []
     for record in current_user.portfolio:
@@ -212,6 +245,8 @@ def portfolio(action=None, sid=None):
 
 @ demo_app.route('/discovery')
 def discovery():
+    STOCKS.update()
+
     wc_dialogs = []
     wc_cards = []
     for share in STOCKS.get_stocks():

@@ -1,6 +1,3 @@
-from threading import Thread
-from time import sleep
-
 import numpy as np
 
 
@@ -82,7 +79,7 @@ class Share:
         '''
 
 
-class StockMarket(Thread):
+class StockMarket:
     """A stock market simulator."""
 
     def __init__(self):
@@ -156,11 +153,9 @@ class StockMarket(Thread):
                 125)
         }
 
-    def run(self):
-        while True:
-            for share in self.__market.values():
-                share.update()
-            sleep(1)
+    def update(self):
+        for share in self.__market.values():
+            share.update()
 
     def get_stocks(self):
         return self.__market.values()

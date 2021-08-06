@@ -245,7 +245,7 @@ class UserManager:
             user (User): The created user.
         """
         if email in self.__database:
-            raise UserAlreadyExistError
+            raise UserAlreadyExistError()
         user = User(
             str(len(self.__database)),
             email,
@@ -266,11 +266,11 @@ class UserManager:
             user (User): The retrieved user.
         """
         if email not in self.__database:
-            raise UserNotFoundError
+            raise UserNotFoundError()
         user = self.__database[email]
         if check_password_hash(user.password, password):
             return user
-        raise InvalidEmailOrPasswordError
+        raise InvalidEmailOrPasswordError()
 
     def get_user_by_id(self, id):
         """Gets user by ID
@@ -283,7 +283,7 @@ class UserManager:
         for user in self.__database.values():
             if user.id == id:
                 return user
-        raise UserNotFoundError
+        raise UserNotFoundError()
 
 
 class UserError(Exception):
