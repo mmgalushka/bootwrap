@@ -10,7 +10,13 @@ from .components import (
 )
 
 EMAIL_REGEX = '/^\\S+@\\S+\\.\\S+$/i'
-PASSWORD_REGEX = '/^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\\s).{8,15}$/i'
+PASSWORD_REGEX = '/^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\\s).{8,15}$/i'  # NOQA
+PASSWORD_TIPS = (
+    'Your password must be between 8 and 30 characters, contain at '
+    'least one: an uppercase or lowercase letter (ex: A, B, etc.), '
+    'a digit (ex: 0, 1, 2, 3, etc.) and a special character(ex: '
+    '$, #, @, !,%,^,&,*).'
+)
 
 WC_EMAIL = TextInput(
     'Your email',
@@ -76,7 +82,7 @@ class KeyActionActivator(Javascript):
                         $('#wc_to_activate').attr('disabled', 'disabled');
                     }
                 });
-            ''',
+            ''',  # NOQA
             submap={
                 'email_regex': EMAIL_REGEX,
                 'password_regex': PASSWORD_REGEX,
@@ -117,7 +123,7 @@ class Auth(Page):
                 wc_brand,
                 wc_form,
                 KeyActionActivator(wc_to_activate)
-            ).add_classes('mx-auto w-50').p(3)
+            ).add_classes('mx-auto bg-light border rounded auth').p(3)
         )
 
 
@@ -132,6 +138,10 @@ class Signup(Auth):
             favicon=None,
             title=None,
     ):
+
+        wc_form_title = Text('Registration Form').as_heading(
+            3).as_primary().my(3)
+
         wc_sign_up = Button('Sign up').submit().as_primary().as_disabled().mt(
             3).mr(2)
         wc_cancel = Button('Cancel').link(href_on_cancel).as_light().mt(3)
@@ -139,12 +149,10 @@ class Signup(Auth):
         # Defines the input user password.
         wc_password_hint = Text(
             'Your password must be between 8 and 30 characters, contain at '
-            'least one: an uppercase or lowercase letter (ex: A, B, etc.), '
-            'a digit (ex: 0, 1, 2, 3, etc.) and a special character(ex: '
+            'least one: an uppercase or lowercase letter (ex: A, b, etc.), '
+            'a digit (ex: 0, 1, 2, 3  etc.) and a special character(ex: '
             '$, #, @, !,%,^,&,*).'
         ).as_secondary().as_small().add_classes('form-group')
-
-        wc_form_title = Text('Registration Form').as_heading(3).as_primary()
 
         wc_form = Form(
             wc_form_title,
@@ -178,18 +186,18 @@ class Login(Auth):
             favicon=None,
             title=None,
     ):
+        wc_form_title = Panel(
+            Button('Sign up').link('/signup').
+            as_primary().as_outline().add_classes('float-right'),
+            Text('Sign In').as_heading(3).as_primary()
+        ).my(3)
 
         wc_login = Button('Login').submit().\
-            as_primary().as_disabled().mt(3).mr(2)
+            as_primary().as_disabled().mr(2)
         wc_cancel = Button('Cancel').link(href_on_cancel).\
-            as_light().mt(3)
-
-        wc_sign_up = Button('Sign up').link('/signup').\
-            as_primary().as_outline().add_classes('float-right')
-        wc_form_title = Text('Sign In').as_heading(3).as_primary()
+            as_light()
 
         wc_form = Form(
-            wc_sign_up,
             wc_form_title,
             WC_EMAIL,
             WC_PASSWORD,

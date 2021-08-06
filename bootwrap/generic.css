@@ -1,0 +1,38 @@
+html{
+    width: 100%;
+    height: 100%;
+}
+
+body{
+    background-color: var(--body-background-color);
+    background-image: var(--body-background-image);
+    background-position: var(--body-background-position);
+    background-size: var(--body-background-size);
+    -webkit-background-size: var(--body-background-size);
+    -moz-background-size: var(--body-background-size);
+    -o-background-size: var(--body-background-size);
+    background-repeat: var(--body-background-repeat);
+    background-origin: var(--body-background-origin);
+    background-clip: var(--body-background-clip);
+    background-attachment: var(--body-background-attachment);
+}
+
+.container-fluid{
+    margin-top: var(--container-margin-top);
+}
+
+.auth{
+    width: 400px;
+    margin-top: 150px
+}
+
+@media only screen and (max-width: 420px){
+    body{
+        background-image: none;
+    }
+
+    .auth{
+        width: 100%;
+        margin-top: 0px
+    }
+}

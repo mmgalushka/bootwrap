@@ -13,6 +13,8 @@
 !bootwrap/
 !bootwrap/**/
 !bootwrap/**/*.py
+!bootwrap/**/*.js
+!bootwrap/**/*.css
 
 # Except test bootwrap modules
 
@@ -28,6 +30,7 @@
 !demo/**/
 !demo/**/*.py
 !demo/**/*.png
+!demo/**/*.jpg
 !demo/**/*.ico
 
 !tests/

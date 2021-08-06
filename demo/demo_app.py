@@ -74,9 +74,9 @@ class DemoPage(bw.Page):
                 logo=bw.Image(
                     'logo.png',
                     width=32,
-                    alt='PiggyShares Logo'
+                    alt='PiggyBank Logo'
                 ),
-                brand=bw.Text('PiggyShares').as_strong().as_light(),
+                brand=bw.Text('PiggyBank').as_strong().as_light(),
                 anchors=[
                     bw.Anchor('Portfolio').link('/portfolio'),
                     bw.Anchor('Discovery').link('/discovery'),
@@ -95,8 +95,8 @@ class DemoPage(bw.Page):
 
 
 WC_BRAND = bw.Panel(
-    bw.Image('logo.png', height=32, width=32),
-    bw.Text('PiggyShares').as_heading(1)
+    bw.Image('logo.png', height=48, width=48),
+    bw.Text('PiggyBank').as_heading(1)
 ).add_classes("d-flex justify-content-center")
 FAVICON = 'favicon.ico'
 
@@ -121,13 +121,20 @@ def login():
         return redirect(url_for('index'))
 
     # request.method == 'GET'
-    return Markup(bw.LoginPage(
-        WC_BRAND,
-        href_on_submit='/login',
-        href_on_cancel='/',
-        favicon=FAVICON,
-        title="PiggyShares Login Form",
-    ))
+    return Markup(
+        bw.LoginPage(
+            WC_BRAND,
+            href_on_submit='/login',
+            href_on_cancel='/',
+            favicon=FAVICON,
+            title="PiggyBank Login Form",
+        ).background(
+            image='url("background.jpg")',
+            repeat='no-repeat',
+            position='center',
+            size='cover'
+        )
+    )
 
 
 @demo_app.route('/logout')
@@ -147,13 +154,20 @@ def signup():
         return redirect(url_for('login'))
 
     # request.method == 'GET'
-    return Markup(bw.SignupPage(
-        WC_BRAND,
-        href_on_submit='/signup',
-        href_on_cancel='/',
-        favicon=FAVICON,
-        title="PiggyShares Sign-up Form",
-    ))
+    return Markup(
+        bw.SignupPage(
+            WC_BRAND,
+            href_on_submit='/signup',
+            href_on_cancel='/',
+            favicon=FAVICON,
+            title="PiggyBank Sign-up Form",
+        ).background(
+            image='url("background.jpg")',
+            position='center',
+            repeat='no-repeat',
+            size='cover'
+        )
+    )
 
 
 @demo_app.route('/portfolio', methods=['GET'])

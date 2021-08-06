@@ -35,6 +35,7 @@ class Panel(WebComponent, ClassMixin, ):
         super().__init__()
         self.__components = components
         self.__arrangement = None
+        self.__background = None
 
     def __iter__(self):
         return iter(self.__components)

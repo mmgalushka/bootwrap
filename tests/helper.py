@@ -132,15 +132,16 @@ class Tag:
         # Checks that tags data are matched.
         self_data = self.__data.replace(" ", "")
         other_data = other.__data.replace(" ", "")
-        if self_data != other_data:
-            raise TagDataNotMatchError(f'{self_data} != {other_data}')
+        if self_data.strip() != '...' and other_data.strip() != '...':
+            if self_data != other_data:
+                raise TagDataNotMatchError(f'{self_data} != {other_data}')
 
-        # Checks that children tags are matched.
-        if len(self.__tags) != len(other.__tags):
-            raise TagChildrenNotMatchError(
-                f'{len(self.__tags)} != {len(other.__tags)}')
-        for child_self_tag, child_other_tag in zip(self.__tags, other.__tags):
-            assert child_self_tag == child_other_tag
+            # Checks that children tags are matched.
+            if len(self.__tags) != len(other.__tags):
+                raise TagChildrenNotMatchError(
+                    f'{len(self.__tags)} != {len(other.__tags)}')
+            for child_self_tag, child_other_tag in zip(self.__tags, other.__tags):
+                assert child_self_tag == child_other_tag
 
         # Tags are the same.
         return True

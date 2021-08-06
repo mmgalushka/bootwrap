@@ -659,8 +659,8 @@ class Breakpoint(str, enum.Enum):
     changes.
 
     See <a href="https://getbootstrap.com/docs/4.0/layout/overview/#responsive-breakpoints">
-    Bootstrap documentation</a> for more information.
-    """
+    for more information.
+    """  # NOQA
     XS = 'xs'
     SM = 'sm'
     MD = 'md'
