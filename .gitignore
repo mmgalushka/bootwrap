@@ -32,6 +32,7 @@
 !demo/**/*.png
 !demo/**/*.jpg
 !demo/**/*.ico
+!demo/**/*.md
 
 !tests/
 !tests/**/
