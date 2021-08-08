@@ -23,9 +23,11 @@ Install and update using [pip](https://pip.pypa.io/en/stable/quickstart/):
 
 ## Why & where you might use Bootwrap?
 
-The vast majority of web applications consist of frontend and backend. If you are a small team or even a solo developer you need to divide resources and time to focus on both parts. This ofter results in switching between different platforms such as Python and [React](https://reactjs.org/), [AngularJs](https://angular.io/) etc.  But what if your main focus is the backend however you also don't want to compromise too much on the visual quality of your application. In this case, the Bootwrap library is for you. It will allow you developed Web UI without leaving the Python ecosystem and to waste your time on HTML, CSS, and Javascript. To better understand its capability just clone the project and run the [demo application](demo/demo.md) ":pig: PiggyBank".
+The vast majority of web applications consist of frontend and backend. If you are a small team or even a solo developer you need to divide resources and time to focus on both parts. This ofter results in switching between different platforms such as Python and [React](https://reactjs.org/), [AngularJs](https://angular.io/), Flask templates (HTML, CSS, JS) etc. But what if your main focus is the backend and you also don't want to compromise on quality of your WebUI. In this case, the Bootwrap library is for you!  It will help you to develop WebUI without leaving the Python ecosystem and do not waste your time on HTML, CSS, and Javascript. To understand its capability just clone the project and run the [demo application](demo/demo.md) ":pig: PiggyBank".
 
 ![Screenshots Collage](demo/collage.png)
+
+For more information also read the Bootwrap [documentation](https://mmgalushka.github.io/bootwrap/).
 
 ## Hello World Application
 
