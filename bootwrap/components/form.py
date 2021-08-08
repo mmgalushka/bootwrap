@@ -27,6 +27,7 @@ class Form(WebComponent, ClassMixin):
             ...
         ).on_submit('go/to/this/url')
     """
+
     def __init__(self, *components):
         super().__init__()
         self.__components = components
@@ -68,6 +69,7 @@ class Input(ABC, WebComponent, ClassMixin, AvailabilityMixin):
         label (str): The input label.
         name (str): The input name.
     """
+
     def __init__(self, label, name):
         super().__init__()
         self.__label = label
@@ -96,9 +98,9 @@ class Input(ABC, WebComponent, ClassMixin, AvailabilityMixin):
             if not self.__label_on_top:
                 self.add_classes('row')
                 label_classes = \
-                    'col-sm-2 col-form-label d-flex align-items-center'
+                    'col-sm-4 col-form-label d-flex align-items-center'
                 receiver_classes = \
-                    'col-sm-10 d-flex align-items-center'
+                    'col-sm-8 d-flex align-items-center'
             return f'''
                 <div {attr('class', self.classes)}>
                     <label {attr('class', label_classes)}
@@ -146,6 +148,7 @@ class CheckboxInput(Input):
             CheckboxInput('Three', 'opt3').as_disabled()
         )
     """
+
     def __init__(self, label, name, checked=False):
         super().__init__(label, name)
         self.__checked = checked
@@ -171,6 +174,7 @@ class Freehand(Input):
         value (str): The input value.
         placeholder (str): The input placeholder.
     """
+
     def __init__(self, label, name, value, placeholder):
         super().__init__(label, name)
         self.__value = value
@@ -235,6 +239,7 @@ class TextInput(Freehand):
             TextInput('Text4', 'text').as_disabled()
         )
     """
+
     def __init__(self, label, name, value=None, placeholder=None):
         super().__init__(label, name, value, placeholder)
         self._type = 'text'
@@ -341,6 +346,7 @@ class NumericInput(Freehand):
             NumericInput('Number4', 'number').as_disabled()
         )
     """
+
     def __init__(self, label, name, value=None, placeholder=None):
         super().__init__(label, name, value, placeholder)
         self._type = 'number'
@@ -386,6 +392,7 @@ class SelectInput(Input):
             SelectInput('Selector2', 'choice', 2, options).as_disabled()
         )
     """
+
     def __init__(self, label, name, value=None, options=None):
         super().__init__(label, name)
         self.__value = value
@@ -401,6 +408,7 @@ class SelectInput(Input):
             disabled (bool): `True` makes the option disabled (in other words
                 user will not be able to choose this option).
         """
+
         def __init__(self, name, value, disabled=False):
             super().__init__()
             self.__name = name
@@ -512,6 +520,7 @@ class HiddenInput(Input):
             HiddenInput('token', '123')
         )
     """
+
     def __init__(self, name, value=None):
         super().__init__(None, name)
         self.__value = value
@@ -554,6 +563,7 @@ class FileInput(Input):
             FileInput('File', 'file').as_disabled()
         )
     """
+
     def __init__(self, label, name):
         super().__init__(label, name)
 

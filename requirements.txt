@@ -1,5 +1,7 @@
 Flask
+flask-login
 beautifulsoup4
+numpy
 PyYAML
 wheel
 build

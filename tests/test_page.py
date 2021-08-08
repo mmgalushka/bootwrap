@@ -1,5 +1,5 @@
 """
-Test for bootwrap/components/page.py
+Test for bootwrap/page.py
 """
 
 import pytest
@@ -19,6 +19,15 @@ def test_page_resources():
         title='Some Title',
         menu=Menu(logo='somelogo.jpg'),
         container=Text('sometext')
+    ).background(
+        color='somevalue',
+        image='somevalue',
+        position='somevalue',
+        size='somevalue',
+        repeat='somevalue',
+        origin='somevalue',
+        clip='somevalue',
+        attachment='somevalue'
     )
     actual = HelperHTMLParser.parse(page.__html__())
     expected = HelperHTMLParser.parse(f''' 
@@ -26,7 +35,7 @@ def test_page_resources():
         <html lang="en">
             <head>
                 <meta charset="utf-8"/>
-                <meta name="viewport" container="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+                <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
                 
                 <link rel="stylesheet"
                     type="text/css"
@@ -77,13 +86,14 @@ def test_page_resources():
                         <ul class="navbar-nav mr-auto"></ul>
                     </div>
                 </nav>
-                <div class="container" style="margin-top: 90px;">
+                <div class="container-fluid">
                     <span id="...">
                         sometext
                     </span>
                 </div>
             </body>
-            <script>hljs.initHighlightingOnLoad();</script>
+            <script>...</script>
+            <style>...</style>
         </html>
     ''')  # NOQA
     assert actual == expected

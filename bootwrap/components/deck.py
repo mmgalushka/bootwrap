@@ -2,8 +2,7 @@
 A collection of items.
 """
 
-from .base import WebComponent, ClassMixin
-from .anchor import Anchor
+from .base import ActionMixin, WebComponent, ClassMixin
 from .button import Button
 from .text import Text
 from .utils import attr, inject
@@ -86,12 +85,12 @@ class Deck(WebComponent, ClassMixin):
         for card in cards:
             if not isinstance(card, Deck.Card):
                 raise TypeError(
-                    f'A deck must contain the {Deck.Card.__class__} only '
+                    f'A deck must contain the <class \'Deck.Card\'> only '
                     f'but got {type(card)};'
                 )
         self._cards = cards
 
-    class Card(Anchor):
+    class Card(WebComponent, ActionMixin):
         """A deck card.
 
         Args:
@@ -213,39 +212,35 @@ class Deck(WebComponent, ClassMixin):
                         </div>
                     '''
                 else:
-                    for action in self._menu:
-                        action.ml(1)
                     wc_actions = f'''
                         <div class="card-footer text-right">
                             {inject(*self._menu)}
                         </div>
                     '''
 
-            self._inner = f'''
-                <div class="row justify-content-center">
-                    {inject(self._figure)}
-                </div>
-                <div class="card-body">
-                    {inject(wc_marker)}
-                    {inject(wc_title)}
-                    {inject(self._description)}
-                </div>
-                {inject(wc_actions)}
-            '''
+            onclick = None
+            if self._target:
+                onclick = f"location.href='{self._target}';"
 
-            self.add_classes('card')
-
-            return super().__str__()
+            return f'''
+                <div {attr("id", self.identifier)} class="card">
+                    <div class="row justify-content-center" {attr('onclick', onclick)}>
+                        {inject(self._figure)}
+                    </div>
+                    <div class="card-body" {attr('onclick', onclick)}>
+                        {inject(wc_marker)}
+                        {inject(wc_title)}
+                        {inject(self._description)}
+                    </div>
+                    {inject(wc_actions)}
+                </div>
+            '''  # NOQA
 
     def __str__(self):
         style = '''
             <style>
-                a.card {
-                    text-decoration: none;
-                }
-
-                a.card, a.card:visited, a.card:hover, a.card:active {
-                    color: inherit;
+                div.card {
+                    cursor:pointer
                 }
             </style>
         '''

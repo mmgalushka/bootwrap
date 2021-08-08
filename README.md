@@ -10,9 +10,8 @@
 
 **Bootwrap** is a Python library for rapid developing of web-based user interfaces (WebUI). It helps creating WebUI using Python code only and can be used in conjunction with different web-development frameworks such as [Flask](https://palletsprojects.com/p/flask/). Under the hood, this library wraps one of the most popular front-end toolkit [Bootstrap](https://getbootstrap.com/).
 
-This library would be useful for developers and data scientists who wish to build interactive web-application without crafting HTML, CSS and Javascript.
-
 As a showcase of what this library is capable of please check the documentation. The entire [documentation](https://mmgalushka.github.io/bootwrap/) web interface is created using the **Bootwrap**.
+
 
 ## Installing
 
@@ -22,7 +21,15 @@ Install and update using [pip](https://pip.pypa.io/en/stable/quickstart/):
 ~$ pip install bootwrap
 ```
 
-## A Simple Example
+## Why & where you might use Bootwrap?
+
+The vast majority of web applications consist of frontend and backend. If you are a small team or even a solo developer you need to divide resources and time to focus on both parts. This ofter results in switching between different platforms such as Python and [React](https://reactjs.org/), [AngularJs](https://angular.io/), Flask templates (HTML, CSS, JS) etc. But what if your main focus is the backend and you also don't want to compromise on quality of your WebUI. In this case, the Bootwrap library is for you!  It will help you to develop WebUI without leaving the Python ecosystem and do not waste your time on HTML, CSS, and Javascript. To understand its capability just clone the project and run the [demo application](demo/demo.md) ":pig: PiggyBank".
+
+![Screenshots Collage](demo/collage.png)
+
+For more information also read the Bootwrap [documentation](https://mmgalushka.github.io/bootwrap/).
+
+## Hello World Application
 
 The following code will care three pages application with the top-level menu bar for navigations.  
 
