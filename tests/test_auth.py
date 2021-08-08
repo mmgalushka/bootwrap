@@ -15,7 +15,6 @@ def test_signup_page():
         title='Signup Page',
         favicon='somename.ico'
     )
-    print(str(page))
     actual = HelperHTMLParser.parse(page.__html__())
     expected = HelperHTMLParser.parse(f''' 
         <!DOCTYPE html>
