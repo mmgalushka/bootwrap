@@ -21,6 +21,8 @@ Install and update using [pip](https://pip.pypa.io/en/stable/quickstart/):
 ~$ pip install bootwrap
 ```
 
+Bootwrap package has no external dependencies!
+
 ## Why & where you might use Bootwrap?
 
 The vast majority of web applications consist of frontend and backend. If you are a small team or even a solo developer you need to divide resources and time to focus on both parts. This ofter results in switching between different platforms such as Python and [React](https://reactjs.org/), [AngularJs](https://angular.io/), Flask templates (HTML, CSS, JS) etc. But what if your main focus is the backend and you also don't want to compromise on quality of your WebUI. In this case, the Bootwrap library is for you!  It will help you to develop WebUI without leaving the Python ecosystem and do not waste your time on HTML, CSS, and Javascript. To understand its capability just clone the project and run the [demo application](demo/demo.md) ":pig: PiggyBank".
@@ -31,19 +33,21 @@ For more information also read the Bootwrap [documentation](https://mmgalushka.g
 
 ## Hello World Application
 
-The following code will care three pages application with the top-level menu bar for navigations.  
+The following code will care three pages application with the top-level menu bar for navigations. Since this application is based on [Flask](https://palletsprojects.com/p/flask/) make sure that your pip installs it as well.
 
 ```Python
 from flask import Flask, Markup
 from bootwrap import Page, Menu, Image, Anchor, Button, Text
 
-# Both 'logo.png' and 'favicon.ico' are stored in 'docs' folder
 app = Flask(__name__, static_folder='docs', static_url_path='')
+
+LOGO = 'https://github.com/mmgalushka/bootwrap/blob/main/docs/logo.png?raw=true'
+FAVICON = 'https://raw.githubusercontent.com/mmgalushka/bootwrap/main/docs/favicon.ico'
 
 class MyMenu(Menu):
     def __init__(self):
         super().__init__(
-            logo=Image('logo.png', width=32, alt='Logo'),
+            logo=Image(LOGO, width=32, alt='Logo'),
             brand=Text('Bootwrap').as_strong().as_light().ml(2),
             anchors=[
                 Anchor('Home').link('/'),
@@ -57,7 +61,7 @@ class MyMenu(Menu):
 class MyPage(Page):
     def __init__(self, container):
         super().__init__(
-            favicon = 'favicon.ico',
+            favicon = FAVICON,
             title='Hello World Application',
             menu=MyMenu(),
             container=container
@@ -65,15 +69,15 @@ class MyPage(Page):
 
 @app.route('/')
 def home():
-    return Markup(MyPage(container=[Text('Home').as_heading(1)]))
+    return Markup(MyPage(container=Text('Home').as_heading(1)))
 
 @app.route('/about')
 def about():
-    return Markup(MyPage(container=[Text('About').as_heading(1)]))
+    return Markup(MyPage(container=Text('About').as_heading(1)))
 
 @app.route('/signin')
 def signin():
-    return Markup(MyPage(container=[Text('Sign In').as_heading(1)]))
+    return Markup(MyPage(container=Text('Sign In').as_heading(1)))
 
 if __name__ == '__main__':
     app.run(debug=True)
