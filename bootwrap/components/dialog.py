@@ -15,16 +15,6 @@ class Dialog(WebComponent, AppearanceMixin):
         *actions (list): The dialog actions.
 
     Example:
-        from bootwrap import Dialog, Button
-
-        dialog = Dialog(
-            'Greeting',
-            'Hello World!',
-            Button('Bye').dismiss()
-        )
-        button = Button('Say Hello').toggle(dialog)
-
-    Demo:
         from bootwrap import Panel, Dialog, Button
 
         dialog = Dialog(
@@ -36,6 +26,7 @@ class Dialog(WebComponent, AppearanceMixin):
 
         output = Panel(dialog, button)
     """
+
     def __init__(self, title, content, *actions):
         super().__init__()
         self.__title = title

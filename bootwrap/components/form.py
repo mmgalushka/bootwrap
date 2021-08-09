@@ -133,15 +133,6 @@ class CheckboxInput(Input):
     Example:
         from bootwrap import Form, CheckboxInput
 
-        Form(
-            CheckboxInput('One', 'opt1'),
-            CheckboxInput('Two', 'opt2', True),
-            CheckboxInput('Three', 'opt3').as_disabled()
-        )
-
-    Demo:
-        from bootwrap import Form, CheckboxInput
-
         output = Form(
             CheckboxInput('One', 'opt1'),
             CheckboxInput('Two', 'opt2', True),
@@ -223,15 +214,6 @@ class TextInput(Freehand):
     Example:
         from bootwrap import Form, TextInput
 
-        Form(
-            TextInput('Text1', 'text'),
-            TextInput('Text2', 'text', placeholder='type here'),
-            TextInput('Text3', 'text', 'Hello World!'),
-            TextInput('Text4', 'text').as_disabled()
-        )
-    Demo:
-        from bootwrap import Form, TextInput
-
         output = Form(
             TextInput('Text1', 'text'),
             TextInput('Text2', 'text', placeholder='type here'),
@@ -256,12 +238,6 @@ class TextInput(Freehand):
         Example:
             from bootwrap import Form, TextInput
 
-            Form(
-                TextInput('Text', 'text').with_multirows(3)
-            )
-        Demo:
-            from bootwrap import Form, TextInput
-
             output = Form(
                 TextInput('Text', 'text').with_multirows(3)
             )
@@ -278,12 +254,6 @@ class TextInput(Freehand):
         Example:
             from bootwrap import Form, TextInput
 
-            Form(
-                TextInput('Email', 'email', 'my@email.com').for_email()
-            )
-        Demo:
-            from bootwrap import Form, TextInput
-
             output = Form(
                 TextInput('Email', 'email', 'my@email.com').for_email()
             )
@@ -298,13 +268,6 @@ class TextInput(Freehand):
             obj (self): The instance of this class.
 
         Example:
-            from bootwrap import Form, TextInput
-
-            Form(
-                TextInput('Password', 'password', '********').for_password()
-            )
-
-        Demo:
             from bootwrap import Form, TextInput
 
             output = Form(
@@ -328,15 +291,6 @@ class NumericInput(Freehand):
         placeholder (str): The input placeholder.
 
     Example:
-        from bootwrap import Form, TextInput
-
-        Form(
-            NumericInput('Number1', 'number'),
-            NumericInput('Number2', 'number', placeholder='type here'),
-            NumericInput('Number3', 'number', 123),
-            NumericInput('Number4', 'number').as_disabled()
-        )
-    Demo:
         from bootwrap import Form, NumericInput
 
         output = Form(
@@ -365,20 +319,6 @@ class SelectInput(Input):
         options (tuple): The input options.
 
     Example:
-        from bootwrap import Form, SelectInput
-
-        options = [
-            SelectInput.Option('One', 1),
-            SelectInput.Option('Two', 2),
-            SelectInput.Option('Three', 3, disabled=True)
-        ]
-
-        Form(
-            SelectInput('Selector1', 'choice', 2, options)
-            SelectInput('Selector2', 'choice', 2, options).as_disabled()
-        )
-
-    Demo:
         from bootwrap import Form, SelectInput
 
         options = [
@@ -434,19 +374,6 @@ class SelectInput(Input):
             obj (self): The instance of this class.
 
         Example:
-            from bootwrap import Form, SelectInput
-
-            options = [
-                SelectInput.Option('One', 1),
-                SelectInput.Option('Two', 2),
-                SelectInput.Option('Three', 3, disabled=True)
-            ]
-
-            Form(
-                SelectInput('Selector', 'choice', 2, options).as_radio()
-            )
-
-        Demo:
             from bootwrap import Form, SelectInput
 
             options = [
@@ -548,14 +475,6 @@ class FileInput(Input):
         name (str): The input name.
 
     Example:
-        from bootwrap import Form, FileInput
-
-        output = Form(
-            FileInput('File', 'file'),
-            FileInput('File', 'file').as_disabled()
-        )
-
-    Demo:
         from bootwrap import Form, FileInput
 
         output = Form(

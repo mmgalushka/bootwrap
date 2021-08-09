@@ -25,15 +25,6 @@ class Navigation(WebComponent, ClassMixin):
     Example:
         from bootwrap import Navigation
 
-        Navigation(
-            Navigation.Item('Chapter 1', 'Text 1', True),
-            Navigation.Item('Chapter 2', 'Text 2'),
-            Navigation.Item('Chapter 3', 'Text 3')
-        )
-
-    Demo:
-        from bootwrap import Navigation
-
         output = Navigation(
             Navigation.Item('Chapter 1', 'Text 1', True),
             Navigation.Item('Chapter 2', 'Text 2'),
@@ -74,15 +65,6 @@ class Navigation(WebComponent, ClassMixin):
         Example:
             from bootwrap import Navigation
 
-            Navigation(
-                Navigation.Item('Chapter 1', 'Text 1', True),
-                Navigation.Item('Chapter 2', 'Text 2'),
-                Navigation.Item('Chapter 3', 'Text 3')
-            ).as_vertical()
-
-        Demo:
-            from bootwrap import Navigation
-
             output = Navigation(
                 Navigation.Item('Chapter 1', 'Text 1', True),
                 Navigation.Item('Chapter 2', 'Text 2'),
@@ -101,15 +83,6 @@ class Navigation(WebComponent, ClassMixin):
         Example:
             from bootwrap import Navigation
 
-            Navigation(
-                Navigation.Item('Chapter 1', 'Text 1', True),
-                Navigation.Item('Chapter 2', 'Text 2'),
-                Navigation.Item('Chapter 3', 'Text 3')
-            ).as_tabs()
-
-        Demo:
-            from bootwrap import Navigation
-
             output = Navigation(
                 Navigation.Item('Chapter 1', 'Text 1', True),
                 Navigation.Item('Chapter 2', 'Text 2'),
@@ -125,15 +98,6 @@ class Navigation(WebComponent, ClassMixin):
             obj (self): The instance of this class.
 
         Example:
-            from bootwrap import Navigation
-
-            Navigation(
-                Navigation.Item('Chapter 1', 'Text 1', True),
-                Navigation.Item('Chapter 2', 'Text 2'),
-                Navigation.Item('Chapter 3', 'Text 3')
-            ).as_pills()
-
-        Demo:
             from bootwrap import Navigation
 
             output = Navigation(

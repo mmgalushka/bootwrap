@@ -97,6 +97,6 @@ For information on how to set up a development environment and how to make a con
 ## Links
 
 - Documentation: [https://mmgalushka.github.io/bootwrap/](https://mmgalushka.github.io/bootwrap/)
-- PyPI Releases: [https://test.pypi.org/project/bootwrap/](https://test.pypi.org/project/bootwrap/)
+- PyPI Releases: [https://pypi.org/project/bootwrap/](https://pypi.org/project/bootwrap/)
 - Source Code: [https://github.com/mmgalushka/bootwrap](https://github.com/mmgalushka/bootwrap/)
 - Issue Tracker: [https://github.com/mmgalushka/bootwrap/issues](https://github.com/mmgalushka/bootwrap/)

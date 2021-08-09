@@ -85,7 +85,7 @@ It should be no error :wink:.
   / __  / __ \/ __ \/ __/ | /| / / ___/ __ '/ __ \ 
  / /_/ / /_/ / /_/ / /_ | |/ |/ / /  / /_/ / /_/ / 
 /_____/\____/\____/\__/ |__/|__/_/   \__,_/ .___/  
-                                         /_/       
+Python + Bootstrap                       /_/       
 
 System Commands:
    init initializers environment;
@@ -97,7 +97,6 @@ System Commands:
    docs generates documentation (HTML-pages);
    demo runs web-server with showcase project;
    build generates distribution archives;
-   stage deploys Bootwrap to Test Python Package Index;
 ```
 
 ### Init
@@ -170,23 +169,3 @@ Run the `build` command to package the Bootwrap project for PIP installation. Th
 ```bash
 ~$ ./helper.sh build
 ```
-
-### Stage
-
-Use the `stage` command to deploy prebuilt Bootwrap packages to the [Test Python Package Index](https://test.pypi.org/).
-
-```bash
-~$ ./helper.sh stage
-```
-
-**This command must be used by the repository administrator.**
-
-### Deploy
-
-Use the `deploy` command to deploy prebuilt Bootwrap packages to the [Python Package Index](https://pypi.org/).
-
-```bash
-~$ ./helper.sh deploy
-```
-
-**This command must be used by the repository administrator.**

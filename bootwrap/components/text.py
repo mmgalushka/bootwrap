@@ -21,11 +21,6 @@ class Text(WebComponent, ClassMixin, AppearanceMixin):
     Example:
         from bootwrap import Text
 
-        Text("Normal text")
-
-    Demo:
-        from bootwrap import Text
-
         output = Text("Normal text")
     """
 
@@ -47,11 +42,6 @@ class Text(WebComponent, ClassMixin, AppearanceMixin):
         Example:
             from bootwrap import Text
 
-            Text("Muted text").as_muted()
-
-        Demo:
-            from bootwrap import Text
-
             output = Text("Muted text").as_muted()
         """
         self._category = 'muted'
@@ -67,16 +57,6 @@ class Text(WebComponent, ClassMixin, AppearanceMixin):
             obj (self): The instance of this class.
 
         Example:
-            from bootwrap import Text
-
-            Text("Header text 1").as_heading(1)
-            Text("Header text 2").as_heading(2)
-            Text("Header text 3").as_heading(3)
-            Text("Header text 4").as_heading(4)
-            Text("Header text 5").as_heading(5)
-            Text("Header text 6").as_heading(6)
-
-        Demo:
             from bootwrap import Panel, Text
 
             output = Panel(
@@ -105,11 +85,6 @@ class Text(WebComponent, ClassMixin, AppearanceMixin):
         Example:
             from bootwrap import Text
 
-            Text("Small text").as_small()
-
-        Demo:
-            from bootwrap import Text
-
             output = Text("Small text").as_small()
         """
         self.__small = True
@@ -124,11 +99,6 @@ class Text(WebComponent, ClassMixin, AppearanceMixin):
         Example:
             from bootwrap import Text
 
-            Text("Strong text").as_strong()
-
-        Demo:
-            from bootwrap import Text
-
             output = Text("Strong text").as_strong()
         """
         self.__strong = True
@@ -141,12 +111,6 @@ class Text(WebComponent, ClassMixin, AppearanceMixin):
             obj (self): The instance of this class.
 
         Example:
-            from bootwrap import Text
-
-            Text("Paragraph 1").as_paragraph()
-            Text("Paragraph 2").as_paragraph()
-            Text("Paragraph 3").as_paragraph()
-        Demo:
             from bootwrap import Panel, Text
 
             output = Panel(
@@ -165,10 +129,6 @@ class Text(WebComponent, ClassMixin, AppearanceMixin):
             obj (self): The instance of this class.
 
         Example:
-            from bootwrap import Text
-
-            Text("print('Hello world!')").as_code()
-        Demo:
             from bootwrap import Panel, Text
 
             output = Text("print('Hello world!')").as_code()

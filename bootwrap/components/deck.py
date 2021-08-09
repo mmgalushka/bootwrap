@@ -23,37 +23,6 @@ class Deck(WebComponent, ClassMixin):
             Button("Transfer")
         ]
 
-        Deck(
-            Deck.Card(
-                "Google (NASDAQ: GOOGL)",
-                description= "Price for a single Google share",
-                figure=Image("google-logo.png", width=128).mt(3),
-                marker="12:04:58 12/01/2021"
-            ).add_menu(*actions).pack_actions().link(
-                "https://www.google.com"),
-            Deck.Card(
-                "LinkedIn (NASDAQ: LNKD)",
-                description= "Price for a single LinkedIn share",
-                figure=Image("linkedin-logo.png", width=128).mt(3),
-                marker="12:04:58 12/01/2021"
-            ).add_menu(*actions).pack_actions().link(
-                "https://www.linkedin.com"),
-            Deck.Card(
-                "Amazon (NASDAQ: AMZN)",
-                description= "Price for a single Amazon share",
-                figure=Image("amazon-logo.png", width=128).mt(3),
-                marker="12:04:58 12/01/2021"
-            ).add_menu(*actions).pack_actions().link(
-                "https://www.amazon.com")
-        )
-
-    Demo:
-        from bootwrap import Button, Deck, Image
-        actions = [
-            Button("Buy"),
-            Button("Sell"),
-            Button("Transfer")
-        ]
         output = Deck(
             Deck.Card(
                 "Google (NASDAQ: GOOGL)",
@@ -108,23 +77,6 @@ class Deck(WebComponent, ClassMixin):
                 Button("Transfer")
             ]
 
-            Deck.Card(
-                "Google (NASDAQ: GOOGL)",
-                description= "Price for a single Google share",
-                figure=Image("google-logo.png", width=128).mt(3),
-                marker="12:04:58 12/01/2021"
-            ).add_menu(*actions).link(
-                "https://www.google.com")
-
-        Demo:
-            from bootwrap import Button, Deck, Image
-
-            actions = [
-                Button("Buy"),
-                Button("Sell"),
-                Button("Transfer")
-            ]
-
             output = Deck.Card(
                 "Google (NASDAQ: GOOGL)",
                 description= "Price for a single Google share",
@@ -148,39 +100,22 @@ class Deck(WebComponent, ClassMixin):
             Returns:
                 self
 
-        Example:
-            from bootwrap import Button, Deck, Image
+            Example:
+                from bootwrap import Button, Deck, Image
 
-            actions = [
-                Button("Buy"),
-                Button("Sell"),
-                Button("Transfer")
-            ]
+                actions = [
+                    Button("Buy"),
+                    Button("Sell"),
+                    Button("Transfer")
+                ]
 
-            Deck.Card(
-                "Google (NASDAQ: GOOGL)",
-                description= "Price for a single Google share",
-                figure=Image("google-logo.png", width=128).mt(3),
-                marker="12:04:58 12/01/2021"
-            ).add_menu(*actions).pack_actions().link(
-                "https://www.google.com")
-
-        Demo:
-            from bootwrap import Button, Deck, Image
-
-            actions = [
-                Button("Buy"),
-                Button("Sell"),
-                Button("Transfer")
-            ]
-
-            output = Deck.Card(
-                "Google (NASDAQ: GOOGL)",
-                description= "Price for a single Google share",
-                figure=Image("google-logo.png", width=128).mt(3),
-                marker="12:04:58 12/01/2021"
-            ).add_menu(*actions).pack_actions().link(
-                "https://www.google.com")
+                output = Deck.Card(
+                    "Google (NASDAQ: GOOGL)",
+                    description= "Price for a single Google share",
+                    figure=Image("google-logo.png", width=128).mt(3),
+                    marker="12:04:58 12/01/2021"
+                ).add_menu(*actions).pack_actions().link(
+                    "https://www.google.com")
             """
             self._pack_actions = True
             return self

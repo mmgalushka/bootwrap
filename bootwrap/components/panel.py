@@ -15,15 +15,6 @@ class Panel(WebComponent, ClassMixin, ):
     Example:
         from bootwrap import Text, Panel
 
-        comp1 = Text("Component 1")
-        comp2 = Text("Component 2")
-        comp3 = Text("Component 3")
-
-        Panel(comp1, comp2, comp3)
-
-    Demo:
-        from bootwrap import Text, Panel
-
         comp1 = Text("Component 1").add_classes("border").ml(1)
         comp2 = Text("Component 2").add_classes("border").ml(1)
         comp3 = Text("Component 3").add_classes("border").ml(1)
@@ -59,15 +50,6 @@ class Panel(WebComponent, ClassMixin, ):
         Example:
             from bootwrap import Text, Panel
 
-            comp1 = Text("Component 1")
-            comp2 = Text("Component 2")
-            comp3 = Text("Component 3")
-
-            Panel(comp1, comp2, comp3).vertical()
-
-        Demo:
-            from bootwrap import Text, Panel
-
             comp1 = Text("Component 1").add_classes("border")
             comp2 = Text("Component 2").add_classes("border")
             comp3 = Text("Component 3").add_classes("border")
@@ -85,15 +67,6 @@ class Panel(WebComponent, ClassMixin, ):
             obj (self): The instance of this class.
 
         Example:
-            from bootwrap import Text, Panel
-
-            comp1 = Text("Component 1")
-            comp2 = Text("Component 2")
-            comp3 = Text("Component 3")
-
-            Panel(comp1, comp2, comp3).horizontal()
-
-        Demo:
             from bootwrap import Text, Panel
 
             comp1 = Text("Component 1").add_classes("border")

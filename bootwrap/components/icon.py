@@ -17,19 +17,6 @@ class Icon(WebComponent, ClassMixin, AppearanceMixin):
         name (str): The icon name.
 
     Example:
-        from bootwrap import Icon
-
-        Icon("fas fa-folder")
-        Icon("fas fa-folder").as_primary()
-        Icon("fas fa-folder").as_secondary()
-        Icon("fas fa-folder").as_success()
-        Icon("fas fa-folder").as_warning()
-        Icon("fas fa-folder").as_danger()
-        Icon("fas fa-folder").as_info()
-        Icon("fas fa-folder").as_light()
-        Icon("fas fa-folder").as_dark()
-
-    Demo:
         from bootwrap import Icon, Panel
 
         output = Panel(
@@ -44,6 +31,7 @@ class Icon(WebComponent, ClassMixin, AppearanceMixin):
             Icon("fas fa-folder").as_dark()
         )
     """
+
     def __init__(self, name):
         super().__init__()
         self.__name = name
@@ -65,19 +53,6 @@ class Spinner(WebComponent, ClassMixin, AppearanceMixin):
     """A spinner icon.
 
     Example:
-        from bootwrap import Spinner
-
-        Spinner()
-        Spinner().as_primary()
-        Spinner().as_secondary()
-        Spinner().as_success()
-        Spinner().as_warning()
-        Spinner().as_danger()
-        Spinner().as_info()
-        Spinner().as_light()
-        Spinner().as_dark()
-
-    Demo:
         from bootwrap import Spinner, Panel
 
         output = Panel(
@@ -92,6 +67,7 @@ class Spinner(WebComponent, ClassMixin, AppearanceMixin):
             Spinner().as_dark()
         )
     """
+
     def __str__(self):
         self.add_classes('spinner')
 

@@ -21,12 +21,9 @@ class Image(WebComponent, ClassMixin):
     Example:
         from bootwrap import Image
 
-        Image("logo.png", width=64, height=64, alt="Bootwarp Logo")
-    Demo:
-        from bootwrap import Image
-
         output = Image("logo.png")
     """
+
     def __init__(self, src, width=None, height=None, alt=None):
         super().__init__()
         self.__src = src

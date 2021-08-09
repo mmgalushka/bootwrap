@@ -12,7 +12,7 @@
 
 - title: Installation
   description: 
-    - "Use the following command to install Python Bootwrap (<span class='text-danger'>Please note, the PIP install is currently unavailable. The first version of Python Bootstrap should be released toward the end of March 2021.</span>)"
+    - "Use the following command to install Python Bootwrap:"
   code:
     ~$ pip install bootwrap
 
