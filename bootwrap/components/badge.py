@@ -13,12 +13,10 @@ class Badge(WebComponent, ClassMixin, AppearanceMixin):
         label (str): The badge label (text showing inside a badge).
 
     Example:
-        Badge('Some Badge')
-
-    Demo:
         from bootwrap import Badge
         output = Badge('Some Badge')
     """
+
     def __init__(self, label):
         super().__init__()
         self.__label = label

@@ -15,7 +15,7 @@ action_usage(){
     echo -e "  / __  / __ \/ __ \/ __/ | /| / / ___/ __ '/ __ \ "
     echo -e " / /_/ / /_/ / /_/ / /_ | |/ |/ / /  / /_/ / /_/ / "
     echo -e "/_____/\____/\____/\__/ |__/|__/_/   \__,_/ .___/  "
-    echo -e "                                         /_/       " 
+    echo -e "Python + Bootstrap                       /_/       " 
     echo -e ""                                          
     echo -e "${BOLD}System Commands:${NC}"
     echo -e "   ${CMD}init${NC} initializers environment;"
@@ -26,8 +26,7 @@ action_usage(){
     echo -e "   ${CMD}preview${NC} runs web-server with documentation preview;"
     echo -e "   ${CMD}docs${NC} generates documentation (HTML-pages);"
     echo -e "   ${CMD}demo${NC} runs web-server with showcase project;" 
-    echo -e "   ${CMD}build${NC} generates distribution archives;"
-    echo -e "   ${CMD}stage${NC} deploys Bootwrap to Test Python Package Index;"  
+    echo -e "   ${CMD}build${NC} generates distribution archives;"  
 }
 
 action_init(){
@@ -86,19 +85,6 @@ action_build(){
     python -m build
 }
 
-action_stage(){
-    source .venv/bin/activate
-    read -p "Do you wish to stage Bootwrap to https://test.pypi.org (y/n)? " answer
-    case ${answer:0:1} in
-        y|Y )
-            python3 -m twine upload --repository testpypi dist/*
-        ;;
-        * )
-            echo -e "Aborted!"
-        ;;
-    esac
-}
-
 # =============================================================================
 # HELPER COMMANDS SELECTOR
 # =============================================================================
@@ -120,9 +106,6 @@ case $1 in
     ;;
     build)
         action_build
-    ;;
-    stage)
-        action_stage
     ;;
     *)
         action_usage

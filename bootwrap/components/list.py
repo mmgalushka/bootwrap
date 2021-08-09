@@ -19,42 +19,11 @@ class List(WebComponent, ClassMixin):
         from bootwrap import Button, List, Image
 
         actions = [
-            Button("Buy"),
-            Button("Sell"),
-            Button("Transfer")
-        ]
-
-        List(
-            List.Item(
-                "Google (NASDAQ: GOOGL)",
-                description= "Price for a single Google share",
-                figure=Image("google-logo.png", width=32, height=32),
-                marker="12:04:58 12/01/2021"
-            ).add_menu(*actions).pack_actions().as_selected().link(
-                "https://www.google.com"),
-            List.Item(
-                "LinkedIn (NASDAQ: LNKD)",
-                description= "Price for a single LinkedIn share",
-                figure=Image("linkedin-logo.png", width=32, height=32),
-                marker="12:04:58 12/01/2021"
-            ).add_menu(*actions).pack_actions().link(
-                "https://www.linkedin.com"),
-            List.Item(
-                "Amazon (NASDAQ: AMZN)",
-                description= "Price for a single Amazon share",
-                figure=Image("amazon-logo.png", width=32, height=32),
-                marker="12:04:58 12/01/2021"
-            ).add_menu(*actions).pack_actions().link(
-                "https://www.amazon.com")
-        )
-
-    Demo:
-        from bootwrap import Button, List, Image
-        actions = [
             Button("Buy").as_success(),
             Button("Sell"),
             Button("Transfer")
         ]
+
         output = List(
             List.Item(
                 "Google (NASDAQ: GOOGL)",
@@ -109,23 +78,6 @@ class List(WebComponent, ClassMixin):
                 Button("Transfer")
             ]
 
-            List.Item(
-                "Google (NASDAQ: GOOGL)",
-                description= "Price for a single Google share",
-                figure=Image("google-logo.png", width=32, height=32),
-                marker="12:04:58 12/01/2021"
-            ).add_menu(*actions).link(
-                "https://www.google.com")
-
-        Demo:
-            from bootwrap import Button, List, Image
-
-            actions = [
-                Button("Buy"),
-                Button("Sell"),
-                Button("Transfer")
-            ]
-
             output = List.Item(
                 "Google (NASDAQ: GOOGL)",
                 description= "Price for a single Google share",
@@ -159,23 +111,6 @@ class List(WebComponent, ClassMixin):
                     Button("Transfer")
                 ]
 
-                List.Item(
-                    "Google (NASDAQ: GOOGL)",
-                    description= "Price for a single Google share",
-                    figure=Image("google-logo.png", width=32, height=32),
-                    marker="12:04:58 12/01/2021"
-                ).add_menu(*actions).as_selected().link(
-                    "https://www.google.com")
-
-            Demo:
-                from bootwrap import Button, List, Image
-
-                actions = [
-                    Button("Buy"),
-                    Button("Sell"),
-                    Button("Transfer")
-                ]
-
                 output = List.Item(
                     "Google (NASDAQ: GOOGL)",
                     description= "Price for a single Google share",
@@ -194,23 +129,6 @@ class List(WebComponent, ClassMixin):
                 self
 
             Example:
-                from bootwrap import Button, List, Image
-
-                actions = [
-                    Button("Buy"),
-                    Button("Sell"),
-                    Button("Transfer")
-                ]
-
-                List.Item(
-                    "Google (NASDAQ: GOOGL)",
-                    description= "Price for a single Google share",
-                    figure=Image("google-logo.png", width=32, height=32),
-                    marker="12:04:58 12/01/2021"
-                ).add_menu(*actions).pack_actions().link(
-                    "https://www.google.com")
-
-            Demo:
                 from bootwrap import Button, List, Image
 
                 actions = [

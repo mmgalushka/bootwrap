@@ -28,18 +28,6 @@ class Table(WebComponent, ClassMixin):
     Example:
         from bootwrap import Table
 
-        Table(
-            ["Column 1", "Column 2", "Column 3"],
-            [
-                ["Value 11", "Value 12", "Value 13"],
-                ["Value 21", "Value 22", "Value 23"],
-                ["Value 31", "Value 32", "Value 33"],
-            ]
-        )
-
-    Demo:
-        from bootwrap import Table
-
         output = Table(
             ["Column 1", "Column 2", "Column 3"],
             [
@@ -49,6 +37,7 @@ class Table(WebComponent, ClassMixin):
             ]
         )
     """
+
     def __init__(self, head, body):
         super().__init__()
         self.__head = Table.Head(head)
@@ -56,6 +45,7 @@ class Table(WebComponent, ClassMixin):
 
     class Head(WebComponent):
         """The table head."""
+
         def __init__(self, head):
             if head is None:
                 self.__head = []
@@ -87,19 +77,6 @@ class Table(WebComponent, ClassMixin):
                 )
                 table.head.as_light()
 
-            Demo:
-                from bootwrap import Table
-
-                table = Table(
-                    ["Column 1", "Column 2", "Column 3"],
-                    [
-                        ["Value 11", "Value 12", "Value 13"],
-                        ["Value 21", "Value 22", "Value 23"],
-                        ["Value 31", "Value 32", "Value 33"],
-                    ]
-                )
-                table.head.as_light()
-
                 output = table
             """
             self.__class = 'thead-light'
@@ -108,19 +85,6 @@ class Table(WebComponent, ClassMixin):
             """Makes the table head appears as dark gray.
 
             Example:
-                from bootwrap import Table
-
-                table = Table(
-                    ["Column 1", "Column 2", "Column 3"],
-                    [
-                        ["Value 11", "Value 12", "Value 13"],
-                        ["Value 21", "Value 22", "Value 23"],
-                        ["Value 31", "Value 32", "Value 33"],
-                    ]
-                )
-                table.head.as_dark()
-
-            Demo:
                 from bootwrap import Table
 
                 table = Table(
@@ -156,6 +120,7 @@ class Table(WebComponent, ClassMixin):
 
     class Body(WebComponent):
         """The table body."""
+
         def __init__(self, body):
             if body is None:
                 self.__body = []
@@ -182,35 +147,6 @@ class Table(WebComponent, ClassMixin):
                 fn (func): The function to use for transformation.
 
             Example:
-                from bootwrap import Table, TableEntity, Text
-
-                table = Table(
-                    ["Column 1", "Column 2", "Column 3"],
-                    [
-                        ["val1", "int", "this is a description for val1;"],
-                        ["val2", "str", "this is a description for val2;"],
-                        ["val3", "bool", "this is a description for val3;"],
-                    ]
-                )
-
-                table.body.transform(
-                    0,
-                    TableEntity.CELL,
-                    lambda v: "font-weight-bold" if v.startswith("val") else ""
-                )
-
-                table.body.transform(
-                    0,
-                    TableEntity.ROW,
-                    lambda v: "bg-warning" if v == "val2" else ""
-                )
-
-                table.body.transform(
-                    1,
-                    TableEntity.VALUE,
-                    lambda v: f"<code>{v}</code>"
-
-            Demo:
                 from bootwrap import Table, TableEntity, Text
 
                 table = Table(
@@ -339,18 +275,6 @@ class Table(WebComponent, ClassMixin):
         Example:
             from bootwrap import Table
 
-            Table(
-                ["Column 1", "Column 2", "Column 3"],
-                [
-                    ["Value 11", "Value 12", "Value 13"],
-                    ["Value 21", "Value 22", "Value 23"],
-                    ["Value 31", "Value 32", "Value 33"],
-                ]
-            ).as_striped()
-
-        Demo:
-            from bootwrap import Table
-
             output = Table(
                 ["Column 1", "Column 2", "Column 3"],
                 [
@@ -370,18 +294,6 @@ class Table(WebComponent, ClassMixin):
             obj (self): The instance of this class.
 
         Example:
-            from bootwrap import Table
-
-            Table(
-                ["Column 1", "Column 2", "Column 3"],
-                [
-                    ["Value 11", "Value 12", "Value 13"],
-                    ["Value 21", "Value 22", "Value 23"],
-                    ["Value 31", "Value 32", "Value 33"],
-                ]
-            ).as_bordered()
-
-        Demo:
             from bootwrap import Table
 
             output = Table(
@@ -405,18 +317,6 @@ class Table(WebComponent, ClassMixin):
         Example:
             from bootwrap import Table
 
-            Table(
-                ["Column 1", "Column 2", "Column 3"],
-                [
-                    ["Value 11", "Value 12", "Value 13"],
-                    ["Value 21", "Value 22", "Value 23"],
-                    ["Value 31", "Value 32", "Value 33"],
-                ]
-            ).as_small()
-
-        Demo:
-            from bootwrap import Table
-
             output = Table(
                 ["Column 1", "Column 2", "Column 3"],
                 [
@@ -436,18 +336,6 @@ class Table(WebComponent, ClassMixin):
             obj (self): The instance of this class.
 
         Example:
-            from bootwrap import Table
-
-            Table(
-                ["Column 1", "Column 2", "Column 3"],
-                [
-                    ["Value 11", "Value 12", "Value 13"],
-                    ["Value 21", "Value 22", "Value 23"],
-                    ["Value 31", "Value 32", "Value 33"],
-                ]
-            ).as_dark()
-
-        Demo:
             from bootwrap import Table
 
             output = Table(
@@ -472,18 +360,6 @@ class Table(WebComponent, ClassMixin):
             obj (self): The instance of this class.
 
         Example:
-            from bootwrap import Table
-
-            Table(
-                ["Column 1", "Column 2", "Column 3"],
-                [
-                    ["Value 11", "Value 12", "Value 13"],
-                    ["Value 21", "Value 22", "Value 23"],
-                    ["Value 31", "Value 32", "Value 33"],
-                ]
-            ).as_responsive()
-
-        Demo:
             from bootwrap import Table
 
             output = Table(

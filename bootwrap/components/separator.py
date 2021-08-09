@@ -9,13 +9,6 @@ class Separator(WebComponent):
     """A horizontal line separator.
 
     Example:
-        from bootwrap import Separator, Text
-
-        Text("Top Text")
-        Separator()
-        Text("Bottom Text")
-
-    Demo:
         from bootwrap import Panel, Separator, Text
 
         output = Panel(
@@ -24,6 +17,7 @@ class Separator(WebComponent):
             Text("Bottom Text")
         )
     """
+
     def __init__(self):
         super().__init__()
 

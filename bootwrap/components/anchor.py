@@ -29,9 +29,6 @@ class Anchor(WebComponent, ClassMixin, ActionMixin, AppearanceMixin):
         inner (str|WebComponent): The object wrapped by the anchor.
 
     Example:
-        Anchor('Google Search').link('https://www.google.com/')
-
-    Demo:
         from bootwrap import Anchor
         output = Anchor('Google Search').link('https://www.google.com/')
     """

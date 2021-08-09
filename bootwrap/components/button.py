@@ -27,9 +27,6 @@ class Button(WebComponent, ClassMixin, ActionMixin, AppearanceMixin,
         name (str): The button name.
 
     Example:
-        Button('Google Search').link('https://www.google.com/')
-
-    Demo:
         from bootwrap import Button
         output = Button('Google Search').link('https://www.google.com/')
     """

@@ -3,6 +3,7 @@ The web-application for showing the project documentation.
 """
 
 import os
+import re
 import textwrap
 import pathlib
 import glob
@@ -98,7 +99,12 @@ class ExampleDoc(BlockDoc):
     """
 
     def __init__(self, code):
-        super().__init__('Example', bw.Text(code.rstrip()).as_code())
+        super().__init__(
+            'Example',
+            bw.Text(
+                re.sub(r'(^\n\s)*output\s*=\s*', '', code)
+            ).as_code()
+        )
 
 
 class DemoDoc(BlockDoc):
@@ -130,12 +136,11 @@ class PropertyDoc(bw.Panel):
 
     def __init__(self, doc):
         wc_example = None
+        wc_demo = None
         if len(doc['example']) > 0:
             wc_example = ExampleDoc(doc['example'])
-
-        wc_demo = None
-        if len(doc['demo']) > 0:
-            wc_demo = DemoDoc(doc['demo'])
+            if re.search(r'(^\s)*output\s*=\s*', doc['example']):
+                wc_demo = DemoDoc(doc['example'])
 
         wc_title = bw.Text(
             'Property ' + str(bw.Text(doc['name']).as_primary())
@@ -191,12 +196,11 @@ class MethodDoc(bw.Panel):
                 toggle(wc_returns)
 
         wc_example = None
+        wc_demo = None
         if len(doc['example']) > 0:
             wc_example = ExampleDoc(doc['example'])
-
-        wc_demo = None
-        if len(doc['demo']) > 0:
-            wc_demo = DemoDoc(doc['demo'])
+            if re.search(r'(^\s)*output\s*=\s*', doc['example']):
+                wc_demo = DemoDoc(doc['example'])
 
         wc_title = bw.Panel(
             bw.Text(
@@ -262,12 +266,11 @@ class ClassDoc(bw.Panel):
                 toggle(wc_returns)
 
         wc_example = None
+        wc_demo = None
         if len(doc['example']) > 0:
             wc_example = ExampleDoc(doc['example'])
-
-        wc_demo = None
-        if len(doc['demo']) > 0:
-            wc_demo = DemoDoc(doc['demo'])
+            if re.search(r'(^\s)*output\s*=\s*', doc['example']):
+                wc_demo = DemoDoc(doc['example'])
 
         wc_title = bw.Panel(
             bw.Text(
@@ -371,20 +374,25 @@ class CustomDoc(bw.Panel):
 
         code_left = None
         code_right = None
+        evaluation = None
         if 'code' in doc:
             c = doc['code']
-            if '@right' in c:
-                c = c.replace('@right', '').strip()
+
+            is_right = '@right' in c
+
+            c = c.replace('@right', '').replace('@left', '').strip()
+
+            if re.search(r'(^\s)*output\s*=\s*', c):
+                loc = {}
+                exec(c, {}, loc)
+                evaluation = loc['output']
+
+            c = re.sub(r'(^\n\s)*output\s*=\s*', '', c)
+
+            if is_right:
                 code_right = bw.Text(c).as_code()
             else:
-                c = c.replace('@left', '').strip()
                 code_left = bw.Text(c).as_code()
-
-        evaluation = None
-        if 'evaluation' in doc:
-            loc = {}
-            exec(doc['evaluation'], {}, loc)
-            evaluation = loc['output']
 
         description = []
         if 'description' in doc:
