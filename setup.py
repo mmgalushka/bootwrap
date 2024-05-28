@@ -30,7 +30,9 @@ setuptools.setup(
     ],
     package_dir={"": "."},
     packages=setuptools.find_packages(where=".", exclude=["tests"]),
+    package_data={"bootwrap": ["*.css", "*.js"]},
+    include_package_data=True,    
     python_requires=">=3.6",
     use_scm_version=True,
-    setup_requires=['setuptools_scm']
+    setup_requires=['setuptools_scm'],
 )
