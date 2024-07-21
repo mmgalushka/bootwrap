@@ -51,10 +51,10 @@ class Dialog(WebComponent, AppearanceMixin):
                                 {self.__title}
                             </h5>
                             <button type="button"
-                                class="close"
-                                data-dismiss="modal"
+                                class="btn-close"
+                                data-bs-dismiss="modal"
                                 aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
+                                
                             </button>
                         </div>
                         <div class="modal-body">

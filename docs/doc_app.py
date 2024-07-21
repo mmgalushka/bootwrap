@@ -10,7 +10,8 @@ import glob
 
 import yaml
 
-from flask import Flask, Markup
+from flask import Flask
+from markupsafe import Markup
 from bs4 import BeautifulSoup
 
 import bootwrap as bw
@@ -37,7 +38,7 @@ class BlockDoc(bw.Panel):
             bw.Text(title).as_heading(6).as_strong() if title else None,
             wc_block
         )
-        self.ml(3)
+        self.ms(3)
 
 
 class ParamsDoc(BlockDoc):
@@ -180,8 +181,8 @@ class MethodDoc(bw.Panel):
             wc_arguments_btn = bw.Button('Argument').\
                 as_primary().\
                 as_outline().\
-                ml(1).\
-                mr(1).\
+                ms(1).\
+                me(1).\
                 add_classes('btn-sm').\
                 toggle(wc_arguments)
 
@@ -250,8 +251,8 @@ class ClassDoc(bw.Panel):
             wc_arguments_btn = bw.Button('Argument').\
                 as_primary().\
                 as_outline().\
-                ml(1).\
-                mr(1).\
+                ms(1).\
+                me(1).\
                 add_classes('btn-sm').\
                 toggle(wc_arguments)
 

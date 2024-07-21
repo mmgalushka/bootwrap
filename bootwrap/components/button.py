@@ -54,7 +54,7 @@ class Button(WebComponent, ClassMixin, ActionMixin, AppearanceMixin,
                     <i {attr('id', self.identifier)}
                         {attr('class', self.classes)}
                         style="cursor: pointer"
-                        data-toggle="dropdown"
+                        data-bs-toggle="dropdown"
                         onclick="return false;">
                     </i>
                 '''
@@ -64,7 +64,7 @@ class Button(WebComponent, ClassMixin, ActionMixin, AppearanceMixin,
                     <button {attr('id', self.identifier)}
                         {attr('class', self.classes)}
                         type="button"
-                        data-toggle="dropdown"
+                        data-bs-toggle="dropdown"
                         aria-haspopup="true"
                         aria-expanded="false"
                         onclick="return false;">
@@ -110,8 +110,8 @@ class Button(WebComponent, ClassMixin, ActionMixin, AppearanceMixin,
                     <button {attr('id', self.identifier)}
                         {attr('class', self.classes)}
                         type="button"
-                        data-toggle="{data_toggle}"
-                        data-target="#{self._target.identifier}"
+                        data-bs-toggle="{data_toggle}"
+                        data-bs-target="#{self._target.identifier}"
                         onclick="return false;"
                         {attr('disabled', self._disabled)}>
                         {self.__name}
@@ -122,8 +122,8 @@ class Button(WebComponent, ClassMixin, ActionMixin, AppearanceMixin,
                     <button {attr('id', self.identifier)}
                         {attr('class', self.classes)}
                         type="button"
-                        data-toggle="modal"
-                        data-target="#{self._target.identifier}"
+                        data-bs-toggle="modal"
+                        data-bs-target="#{self._target.identifier}"
                         onclick="return false;"
                         {attr('disabled', self._disabled)}>
                         {self.__name}
@@ -138,7 +138,7 @@ class Button(WebComponent, ClassMixin, ActionMixin, AppearanceMixin,
                 <button {attr('id', self.identifier)}
                     {attr('class', self.classes)}
                     type="button"
-                    data-dismiss="modal"
+                    data-bs-dismiss="modal"
                     onclick="return false;"
                     {attr('disabled', self._disabled)}>
                     {self.__name}
@@ -162,3 +162,35 @@ class Button(WebComponent, ClassMixin, ActionMixin, AppearanceMixin,
                     {self.__name}
                 </button>
             '''
+
+class ButtonGroup(WebComponent, ClassMixin):
+    """A web component for a button group.
+
+    Group a series of buttons together on a single line or stack them in
+    a vertical column.
+
+    Args:
+        *buttons (list): The list of `WebComponent`.
+
+    Example:
+        from bootwrap import Button, ButtonGroup
+
+        button1 = Button('One').as_success()
+        button2 = Button('Two').as_warning()
+        button3 = Button('Three').as_danger()
+
+        output = ButtonGroup(button1, button2, button3)
+    """
+    def __init__(self, *buttons):
+        super().__init__()
+        self.__buttons = buttons
+
+    def __str__(self):
+        self.add_classes("btn-group")
+        return f'''
+            <div {attr("id", self.identifier)}
+                {attr("class", self.classes)}
+                role="group">
+                {inject(*self.__buttons)}
+            </div>
+        '''

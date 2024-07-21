@@ -115,8 +115,8 @@ def tests_class_mixin():
     assert "m-2" in ClassMixin().m(2).classes
     assert "mt-2" in ClassMixin().mt(2).classes
     assert "mb-2" in ClassMixin().mb(2).classes
-    assert "ml-2" in ClassMixin().ml(2).classes
-    assert "mr-2" in ClassMixin().mr(2).classes
+    assert "ms-2" in ClassMixin().ms(2).classes
+    assert "me-2" in ClassMixin().me(2).classes
     assert "mx-2" in ClassMixin().mx(2).classes
     assert "my-2" in ClassMixin().my(2).classes
 
@@ -124,7 +124,7 @@ def tests_class_mixin():
     assert "p-2" in ClassMixin().p(2).classes
     assert "pt-2" in ClassMixin().pt(2).classes
     assert "pb-2" in ClassMixin().pb(2).classes
-    assert "pl-2" in ClassMixin().pl(2).classes
-    assert "pr-2" in ClassMixin().pr(2).classes
+    assert "ps-2" in ClassMixin().ps(2).classes
+    assert "pe-2" in ClassMixin().pe(2).classes
     assert "px-2" in ClassMixin().px(2).classes
     assert "py-2" in ClassMixin().py(2).classes

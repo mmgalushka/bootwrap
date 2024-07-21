@@ -24,7 +24,7 @@ def test_list_item():
                    align-items-start active">
             <div class="d-flex w-100 justify-content-between">
                 <i id="..." class="someicon"> </i>
-                <div class="ml-2 mr-2 w-100">
+                <div class="ms-2 me-2 w-100">
                     <div class="d-flex w-100 justify-content-between">
                         <h5 id="...">sometitle</h5>
                         <span id="..."><small>somemarker</small></span>
@@ -50,7 +50,7 @@ def test_list_item():
                    align-items-start active">
             <div class="d-flex w-100 justify-content-between">
                 <i id="..." class="someicon"> </i>
-                <div class="ml-2 mr-2 w-100">
+                <div class="ms-2 me-2 w-100">
                     <div class="d-flex w-100 justify-content-between">
                         <span id="...">sometitle</span>
                         <span id="...">somemarker</span>
@@ -71,19 +71,19 @@ def test_list_item():
             class="list-group-item list-group-item-action flex-column
                    align-items-start">
             <div class="d-flex w-100 justify-content-between">
-                <div class="ml-2 mr-2 w-100">
+                <div class="ms-2 me-2 w-100">
                     <div class="d-flex w-100 justify-content-between">
                         <h5 id="...">sometitle</h5>
                      </div>
                 </div>
                 <div class="d-flex align-items-start">
                     <button id="..."
-                        class="ml-1 btn"
+                        class="ms-1 btn"
                         onclick="return false;">
                         A
                     </button>
                     <button id="..."
-                        class="ml-1 btn"
+                        class="ms-1 btn"
                         onclick="return false;">
                         B
                     </button>
@@ -102,7 +102,7 @@ def test_list_item():
             class="list-group-item list-group-item-action flex-column
                    align-items-start">
             <div class="d-flex w-100 justify-content-between">
-                <div class="ml-2 mr-2 w-100">
+                <div class="ms-2 me-2 w-100">
                     <div class="d-flex w-100 justify-content-between">
                         <h5 id="...">sometitle</h5>
                      </div>
@@ -112,7 +112,7 @@ def test_list_item():
                         <i id="..."
                             class="btn fas fa-ellipsis-v"
                             style="cursor: pointer"
-                            data-toggle="dropdown"
+                            data-bs-toggle="dropdown"
                             onclick="return false;">
                         </i>
                         <div class="dropdown-menu dropdown-menu-right">
@@ -149,7 +149,7 @@ def test_list():
                 class="list-group-item list-group-item-action flex-column
                        align-items-start active">
                 <div class="d-flex w-100 justify-content-between">
-                    <div class="ml-2 mr-2 w-100">
+                    <div class="ms-2 me-2 w-100">
                         <div class="d-flex w-100 justify-content-between">
                             <h5 id="...">sometitle1</h5>
                         </div>
@@ -160,7 +160,7 @@ def test_list():
                 class="list-group-item list-group-item-action flex-column
                        align-items-start">
                 <div class="d-flex w-100 justify-content-between">
-                    <div class="ml-2 mr-2 w-100">
+                    <div class="ms-2 me-2 w-100">
                         <div class="d-flex w-100 justify-content-between">
                             <h5 id="...">sometitle2</h5>
                         </div>
@@ -171,7 +171,7 @@ def test_list():
                 class="list-group-item list-group-item-action flex-column
                        align-items-start">
                 <div class="d-flex w-100 justify-content-between">
-                    <div class="ml-2 mr-2 w-100">
+                    <div class="ms-2 me-2 w-100">
                         <div class="d-flex w-100 justify-content-between">
                             <h5 id="...">sometitle3</h5>
                         </div>

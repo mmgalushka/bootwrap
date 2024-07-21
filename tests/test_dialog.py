@@ -26,10 +26,10 @@ def test_without_dialog():
                             sometitle
                         </h5>
                         <button type="button"
-                            class="close"
-                            data-dismiss="modal"
+                            class="btn-close"
+                            data-bs-dismiss="modal"
                             aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
+                            
                         </button>
                     </div>
                     <div class="modal-body">
@@ -63,10 +63,10 @@ def test_with_dialog():
                             sometitle
                         </h5>
                         <button type="button"
-                            class="close"
-                            data-dismiss="modal"
+                            class="btn-close"
+                            data-bs-dismiss="modal"
                             aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
+                            
                         </button>
                     </div>
                     <div class="modal-body">
@@ -76,7 +76,7 @@ def test_with_dialog():
                         <button id="..."
                             class="btn"
                             type="button"
-                            data-dismiss="modal"
+                            data-bs-dismiss="modal"
                             onclick="return false;">
                             Close
                         </button>

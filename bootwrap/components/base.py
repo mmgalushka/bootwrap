@@ -84,7 +84,7 @@ class ClassMixin:
             from bootwrap import Button
 
             # Note, that Button inherits ClassMixin.
-            button = Button("Hello").add_classes("ml-1 mr-1")
+            button = Button("Hello").add_classes("ms-1 me-1")
         """
         for c in classes.split(' '):
             if len(c) > 0:
@@ -100,10 +100,10 @@ class ClassMixin:
             from bootwrap import Button
 
             # Note, that Button inherits ClassMixin.
-            button = Button("Hello").add_classes("ml-1 mr-1")
+            button = Button("Hello").add_classes("ms-1 me-1")
             print(button.classes)
 
-            # Result: ml-1 mr-1
+            # Result: ms-1 me-1
         """
         if len(self.__classes) > 0:
             return ' '.join(self.__classes)
@@ -160,8 +160,8 @@ class ClassMixin:
         """
         return self.add_classes(f"mb-{size}")
 
-    def ml(self, size):
-        """Sets margin for the left side to the specified size.
+    def ms(self, size):
+        """Sets margin for the start(left-side) to the specified size.
 
         Args:
             size (int): Size of the margin to set.
@@ -173,12 +173,12 @@ class ClassMixin:
             from bootwrap import Button
 
             # Note, that Button inherits ClassMixin.
-            button = Button("Hello").ml(3)
+            button = Button("Hello").ms(3)
         """
-        return self.add_classes(f"ml-{size}")
+        return self.add_classes(f"ms-{size}")
 
-    def mr(self, size):
-        """Sets margin for the right side to the specified size.
+    def me(self, size):
+        """Sets margin for the end(right-side) to the specified size.
 
         Args:
             size (int): Size of the margin to set.
@@ -190,9 +190,9 @@ class ClassMixin:
             from bootwrap import Button
 
             # Note, that Button inherits ClassMixin.
-            button = Button("Hello").mr(3)
+            button = Button("Hello").me(3)
         """
-        return self.add_classes(f"mr-{size}")
+        return self.add_classes(f"me-{size}")
 
     def mx(self, size):
         """Sets margin for left and right sides to the specified size.
@@ -279,8 +279,8 @@ class ClassMixin:
         """
         return self.add_classes(f"pb-{size}")
 
-    def pl(self, size):
-        """Sets padding for the left side to the specified size.
+    def ps(self, size):
+        """Sets padding for the start(left-side) to the specified size.
 
         Args:
             size (int): Size of the padding to set.
@@ -292,12 +292,12 @@ class ClassMixin:
             from bootwrap import Button
 
             # Note, that Button inherits ClassMixin.
-            button = Button("Hello").pl(3)
+            button = Button("Hello").ps(3)
         """
-        return self.add_classes(f"pl-{size}")
+        return self.add_classes(f"ps-{size}")
 
-    def pr(self, size):
-        """Sets padding for the right side to the specified size.
+    def pe(self, size):
+        """Sets padding for the end(right-side) to the specified size.
 
         Args:
             size (int): Size of the padding to set.
@@ -309,9 +309,9 @@ class ClassMixin:
             from bootwrap import Button
 
             # Note, that Button inherits ClassMixin.
-            button = Button("Hello").pr(3)
+            button = Button("Hello").pe(3)
         """
-        return self.add_classes(f"pr-{size}")
+        return self.add_classes(f"pe-{size}")
 
     def px(self, size):
         """Sets padding for left and right sides to the specified size.

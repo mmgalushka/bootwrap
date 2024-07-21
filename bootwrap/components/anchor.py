@@ -71,9 +71,9 @@ class Anchor(WebComponent, ClassMixin, ActionMixin, AppearanceMixin):
                     <a {attr('id', self.identifier)}
                         {attr('class', self.classes)}
                         {attr("href", f'#{self._target.identifier}')}
-                        {attr("data-toggle", data_toggle)}
+                        {attr("data-bs-toggle", data_toggle)}
                         {attr("role", role)}
-                        data-target="#{self._target.identifier}">
+                        data-bs-target="#{self._target.identifier}">
                         {inject(self._inner)}
                     </a>
                 '''
@@ -82,7 +82,7 @@ class Anchor(WebComponent, ClassMixin, ActionMixin, AppearanceMixin):
                     <a {attr("id", self.identifier)}
                         {attr("class",self.classes)}
                         {attr("href", f'#{self._target.identifier}')}
-                        {attr("data-toggle", "modal")}
+                        {attr("data-bs-toggle", "modal")}
                         {attr("role", 'modal')}>
                         {inject(self._inner)}
                     </a>
@@ -96,7 +96,7 @@ class Anchor(WebComponent, ClassMixin, ActionMixin, AppearanceMixin):
                 <a {attr('id', self.identifier)}
                     {attr('class', self.classes)}
                     {attr("href", f'#')}
-                    data-dismiss="modal">
+                    data-bs-dismiss="modal">
                     {inject(self._inner)}
                 </a>
             '''

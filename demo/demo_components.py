@@ -14,7 +14,7 @@ class ShareDialog(bw.Dialog):
         # Defines dialog actions.
         wc_cancel = bw.Button('Cancel').add_classes('float-right').dismiss()
         wc_confirm = bw.Button('Confirm').add_classes(
-            'float-right').mr(2).as_success().submit()
+            'float-right').me(2).as_success().submit()
 
         super().__init__(
             f'{action.capitalize()} "{company}" Shares',
@@ -114,7 +114,7 @@ class ShareItem(bw.List.Item):
             bw.Panel(
                 bw.Text('$%.2f' % (nos * share.price)).as_strong(),
                 wc_gain
-            ).vertical().mr(2),
+            ).vertical().me(2),
             wc_sell
         )
 
@@ -128,7 +128,7 @@ class AccountDialog(bw.Dialog):
         # Defines dialog actions.
         wc_cancel = bw.Button('Cancel').add_classes('float-right').dismiss()
         wc_confirm = bw.Button('Confirm').add_classes(
-            'float-right').mr(2).as_success().submit()
+            'float-right').me(2).as_success().submit()
 
         if action == TransactionAction.DEPOSIT:
             limit = 1000.0

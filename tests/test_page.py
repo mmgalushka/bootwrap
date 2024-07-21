@@ -39,29 +39,29 @@ def test_page_resources():
                 
                 <link rel="stylesheet"
                     type="text/css"
-                    href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"/>
+                    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"/>
                 <link rel="stylesheet"
                     type="text/css"
-                    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css"/>
+                    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"/>
                 <link rel="stylesheet"
                     type="text/css"
-                    href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/default.min.css"/>
+                    href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css"/>
                 <link rel="icon" type="image/x-icon" href="somename.ico"/>
                 <link rel="stylesheet" type="text/css" href="https//someresource.com/some.css"/>
 
-                <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
                     type="application/javascript">
                 </script>
-                <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.11.8/umd/popper.min.js"
                     type="application/javascript">
                 </script>
-                <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+                <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
                     type="application/javascript">
                 </script>
-                <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"
                     type="application/javascript">
                 </script>
-                <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/languages/python.min.js"
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/python.min.js"
                     type="application/javascript">
                 </script>
                 <script src="https//someresource.com/some.js"
@@ -74,8 +74,8 @@ def test_page_resources():
                 <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
                     somelogo.jpg
                     <button class="navbar-toggler"
-                        type="button" data-toggle="collapse"
-                        data-target="#menu"
+                        type="button" data-bs-toggle="collapse"
+                        data-bs-target="#menu"
                         aria-controls="menu"
                         aria-expanded="false"
                         aria-label="Toggle menu">
@@ -83,7 +83,7 @@ def test_page_resources():
                     </button>
                     
                     <div class="collapse navbar-collapse" id="menu">
-                        <ul class="navbar-nav mr-auto"></ul>
+                        <ul class="navbar-nav me-auto"></ul>
                     </div>
                 </nav>
                 <div class="container-fluid">

@@ -143,7 +143,7 @@ class Signup(Auth):
             3).as_primary().my(3)
 
         wc_sign_up = Button('Sign up').submit().as_primary().as_disabled().mt(
-            3).mr(2)
+            3).me(2)
         wc_cancel = Button('Cancel').link(href_on_cancel).as_light().mt(3)
 
         # Defines the input user password.
@@ -193,7 +193,7 @@ class Login(Auth):
         ).my(3)
 
         wc_login = Button('Login').submit().\
-            as_primary().as_disabled().mr(2)
+            as_primary().as_disabled().me(2)
         wc_cancel = Button('Cancel').link(href_on_cancel).\
             as_light()
 

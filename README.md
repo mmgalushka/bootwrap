@@ -35,7 +35,8 @@ For more information also read the Bootwrap [documentation](https://mmgalushka.g
 The following code will create three pages application with a top-level menu bar for navigations. Since this application is based on [Flask](https://palletsprojects.com/p/flask/) make sure that you installed it as well.
 
 ```Python
-from flask import Flask, Markup
+from flask import Flask
+from markupsafe import Markup
 from bootwrap import Page, Menu, Image, Anchor, Button, Text
 
 app = Flask(__name__, static_folder='docs', static_url_path='')
@@ -47,7 +48,7 @@ class MyMenu(Menu):
     def __init__(self):
         super().__init__(
             logo=Image(LOGO, width=32, alt='Logo'),
-            brand=Text('Bootwrap').as_strong().as_light().ml(2),
+            brand=Text('Bootwrap').as_strong().as_light().ms(2),
             anchors=[
                 Anchor('Home').link('/'),
                 Anchor('About').link('/about')

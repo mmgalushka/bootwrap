@@ -2,7 +2,8 @@
 The web-application for showing the project documentation.
 """
 
-from flask import Flask, Markup, redirect, url_for, request
+from flask import Flask, redirect, url_for, request
+from markupsafe import Markup
 
 from flask_login import (
     LoginManager,
@@ -37,7 +38,8 @@ USERS = UserManager()
 STOCKS = StockMarket()
 
 
-@demo_app.before_first_request
+
+
 def initialize():
     # "The Wolf of Wall Street is a 2013 American epic biographical black
     # comedy crime film directed by Martin Scorsese and written by Terence
@@ -84,6 +86,8 @@ def initialize():
 
     print('Stock market is open...')
 
+
+demo_app.before_request_funcs = [(None, initialize())]
 
 @login_manager.user_loader
 def load_user(user_id):

@@ -78,13 +78,14 @@ class List(WebComponent, ClassMixin):
                 Button("Transfer")
             ]
 
-            output = List.Item(
-                "Google (NASDAQ: GOOGL)",
-                description= "Price for a single Google share",
-                figure=Image("google-logo.png", width=32, height=32),
-                marker="12:04:58 12/01/2021"
-            ).add_menu(*actions).link(
-                "https://www.google.com")
+            output = List(
+                List.Item(
+                    "Google (NASDAQ: GOOGL)",
+                    description= "Price for a single Google share",
+                    figure=Image("google-logo.png", width=32, height=32),
+                    marker="12:04:58 12/01/2021"
+                ).add_menu(*actions).link("https://www.google.com")
+            )
         """
 
         def __init__(self, title, description=None, marker=None, figure=None):
@@ -111,13 +112,15 @@ class List(WebComponent, ClassMixin):
                     Button("Transfer")
                 ]
 
-                output = List.Item(
-                    "Google (NASDAQ: GOOGL)",
-                    description= "Price for a single Google share",
-                    figure=Image("google-logo.png", width=32, height=32),
-                    marker="12:04:58 12/01/2021"
-                ).add_menu(*actions).as_selected().link(
-                    "https://www.google.com")
+                output = List(
+                    List.Item(
+                        "Google (NASDAQ: GOOGL)",
+                        description= "Price for a single Google share",
+                        figure=Image("google-logo.png", width=32, height=32),
+                        marker="12:04:58 12/01/2021"
+                    ).add_menu(*actions).as_selected().link(
+                        "https://www.google.com")
+                )
             """
             self._selected = True
             return self
@@ -137,13 +140,15 @@ class List(WebComponent, ClassMixin):
                     Button("Transfer")
                 ]
 
-                output = List.Item(
-                    "Google (NASDAQ: GOOGL)",
-                    description= "Price for a single Google share",
-                    figure=Image("google-logo.png", width=32, height=32),
-                    marker="12:04:58 12/01/2021"
-                ).add_menu(*actions).pack_actions().link(
-                    "https://www.google.com")
+                output = List(
+                    List.Item(
+                        "Google (NASDAQ: GOOGL)",
+                        description= "Price for a single Google share",
+                        figure=Image("google-logo.png", width=32, height=32),
+                        marker="12:04:58 12/01/2021"
+                    ).add_menu(*actions).pack_actions().link(
+                        "https://www.google.com")
+                )
             """
             self._pack_actions = True
             return self
@@ -165,7 +170,7 @@ class List(WebComponent, ClassMixin):
                     wc_actions = Button('...').add_menu(*self._menu)
                 else:
                     for action in self._menu:
-                        action.ml(1)
+                        action.ms(1)
                     wc_actions = inject(*self._menu)
                 wc_actions = f'''
                     <div class="d-flex align-items-start">
@@ -176,7 +181,7 @@ class List(WebComponent, ClassMixin):
             self._inner = f'''
                 <div class="d-flex w-100 justify-content-between">
                     {inject(self._figure)}
-                    <div class="ml-2 mr-2 w-100">
+                    <div class="ms-2 me-2 w-100">
                         <div class="d-flex w-100 justify-content-between">
                             {inject(wc_title)}
                             {inject(wc_marker)}

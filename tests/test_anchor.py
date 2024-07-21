@@ -67,7 +67,7 @@ def test_toggle_anchor():
     expected = HelperHTMLParser.parse(f'''
         <a id="{anchor.identifier}"
             href="#{target.identifier}"
-            data-toggle="modal"
+            data-bs-toggle="modal"
             role="modal">
             somename
         </a>
@@ -80,8 +80,8 @@ def test_toggle_anchor():
     expected = HelperHTMLParser.parse(f'''
         <a id="{anchor.identifier}"
             href="#{target.identifier}"
-            data-target="#{target.identifier}"
-            data-toggle="tab"
+            data-bs-target="#{target.identifier}"
+            data-bs-toggle="tab"
             role="tab">
             somename
         </a>
@@ -94,8 +94,8 @@ def test_toggle_anchor():
     expected = HelperHTMLParser.parse(f'''
         <a id="{anchor.identifier}"
             href="#{target.identifier}"
-            data-target="#{target.identifier}"
-            data-toggle="collapse"
+            data-bs-target="#{target.identifier}"
+            data-bs-toggle="collapse"
             role="collapse">
             somename
         </a>
@@ -113,7 +113,7 @@ def test_dismiss_anchor():
     expected = HelperHTMLParser.parse(f'''
         <a id="{anchor.identifier}"
             href="#"
-            data-dismiss="modal">
+            data-bs-dismiss="modal">
             somename
         </a>
     ''')

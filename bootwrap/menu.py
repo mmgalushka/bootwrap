@@ -40,7 +40,7 @@ class Menu:
             anchors = '\n'.join([
                 f'''
                     <li class="nav-item">
-                        {inject(anchor.ml(2).add_classes('nav-link'))}
+                        {inject(anchor.ms(2).add_classes('nav-link'))}
                     </li>
                 '''
                 for anchor in self.__anchors
@@ -49,7 +49,7 @@ class Menu:
         actions = ''
         if self.__actions is not None:
             actions = '\n'.join([
-                f'''{inject(action.ml(2))}'''
+                f'''{inject(action.ms(2))}'''
                 for action in self.__actions
             ])
 
@@ -57,8 +57,8 @@ class Menu:
             <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
                 {inject(self.__logo, self.__brand)}
                 <button class="navbar-toggler"
-                    type="button" data-toggle="collapse"
-                    data-target="#menu"
+                    type="button" data-bs-toggle="collapse"
+                    data-bs-target="#menu"
                     aria-controls="menu"
                     aria-expanded="false"
                     aria-label="Toggle menu">
@@ -66,7 +66,7 @@ class Menu:
                 </button>
 
                 <div class="collapse navbar-collapse" id="menu">
-                    <ul class="navbar-nav mr-auto">
+                    <ul class="navbar-nav me-auto">
                         {anchors}
                     </ul>
                     {actions}
