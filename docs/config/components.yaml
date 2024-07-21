@@ -225,6 +225,37 @@ Button:
         Button("Send").as_primary().submit()
       )
 
+# --- Button Group Tab ----------------------------------------------------------
+
+ButtonGroup:
+  - class: ButtonGroup
+
+  - title: As check boxes
+    description:
+      - Group a series of buttons together, which act as check boxes.
+    code: |
+      @right
+      from bootwrap import CheckboxInput, ButtonGroup
+
+      button1 = CheckboxInput('One', 'opt1').as_button().as_secondary()
+      button2 = CheckboxInput('Two', 'opt2').as_button().as_secondary()
+      button3 = CheckboxInput('Three', 'opt3').as_button().as_secondary()
+
+      output = ButtonGroup(button1, button2, button3)
+
+  - title: As radio buttons
+    description:
+      - Group a series of buttons together, which act as radio buttons.
+    code: |
+      @right
+      from bootwrap import CheckboxInput, ButtonGroup
+
+      button1 = CheckboxInput('One', 'opt').as_radio(1).as_button().as_secondary()
+      button2 = CheckboxInput('Two', 'opt').as_radio(2).as_button().as_secondary()
+      button3 = CheckboxInput('Three', 'opt').as_radio(3).as_button().as_secondary()
+
+      output = ButtonGroup(button1, button2, button3)
+
 
 # --- Deck Tab -----------------------------------------------------------------
 
@@ -271,7 +302,7 @@ Dialog:
                   placeholder="enter an amount for buying shares"
               ),
               Button("Cancel").add_classes("float-right").dismiss(),
-              Button("Buy").add_classes("float-right").mr(2).as_success().
+              Button("Buy").add_classes("float-right").me(2).as_success().
                 dismiss()
           )
       )
@@ -288,6 +319,7 @@ Form:
   - class: SelectInput.Option
   - class: HiddenInput
   - class: FileInput
+  - class: InputGroup
 
 Icon:
   - class: Icon
@@ -308,7 +340,7 @@ Javascript:
       from bootwrap import Panel, Javascript, Button, Text
 
       label = Text("Answer:").as_strong()
-      answer = Text("unknown").mr(2).ml(2)
+      answer = Text("unknown").me(2).ms(2)
       btn_yes = Button("Yes").as_success()
       btn_no = Button("No").as_danger()
 

@@ -17,7 +17,7 @@ from .base import (
     Breakpoint,
     Action
 )
-from .button import Button
+from .button import Button, ButtonGroup
 from .deck import Deck
 from .dialog import Dialog
 from .form import (
@@ -29,7 +29,8 @@ from .form import (
     NumericInput,
     SelectInput,
     HiddenInput,
-    FileInput
+    FileInput,
+    InputGroup
 )
 from .icon import Icon, Spinner
 from .image import Image

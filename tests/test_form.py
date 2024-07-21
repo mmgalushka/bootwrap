@@ -13,7 +13,9 @@ from bootwrap import (
     NumericInput,
     SelectInput,
     HiddenInput,
-    FileInput
+    FileInput,
+    InputGroup,
+    Text
 )
 from .helper import HelperHTMLParser
 
@@ -85,9 +87,7 @@ def test_generic_input():
         add_classes('someclass')
     actual = HelperHTMLParser.parse(str(generic))
     expected = HelperHTMLParser.parse(f'''
-        <div class="form-group someclass">
-            <xyz id="{generic.identifier}">somename</xyz>
-        </div>
+        <xyz id="{generic.identifier}">somename</xyz>
     ''')
     assert actual == expected
 
@@ -97,18 +97,17 @@ def test_checkbox_input():
     checkbox = CheckboxInput('somelabel', 'somename')
     actual = HelperHTMLParser.parse(str(checkbox))
     expected = HelperHTMLParser.parse(f'''
-        <div class="form-group row">
-            <label class="col-sm-4 col-form-label d-flex align-items-center"
+        <div class="form-check">
+            <input id="{checkbox.identifier}"
+                name="somename"
+                class="form-check-input"
+                type="checkbox"
+                autocomplete="off">
+            </input>    
+            <label class="form-check-label" 
                 for="{checkbox.identifier}">
                 somelabel
             </label>
-            <div class="col-sm-8 d-flex align-items-center">
-                <input id="{checkbox.identifier}"
-                    name="somename"
-                    type="checkbox"
-                    class="form-check-input"
-                    autocomplete="off"/>
-            </div>
         </div>
     ''')
     assert actual == expected
@@ -117,21 +116,120 @@ def test_checkbox_input():
         as_disabled()
     actual = HelperHTMLParser.parse(str(checkbox))
     expected = HelperHTMLParser.parse(f'''
-        <div class="form-group row">
-            <label class="col-sm-4 col-form-label d-flex align-items-center"
+        <div class="form-check">
+            <input id="{checkbox.identifier}"
+                name="somename"
+                class="form-check-input"
+                type="checkbox"
+                autocomplete="off"
+                checked disabled>
+            </input>    
+            <label class="form-check-label" 
                 for="{checkbox.identifier}">
                 somelabel
             </label>
-            <div class="col-sm-8 d-flex align-items-center">
-            <input id="{checkbox.identifier}"
-                name="somename"
-                type="checkbox"
-                class="form-check-input"
-                autocomplete="off" checked disabled/>
-            </div>
         </div>
     ''')
     assert actual == expected
+
+    # testing checkbox as switch
+    checkbox = CheckboxInput('somelabel', 'somename', False).\
+        as_switch()
+    actual = HelperHTMLParser.parse(str(checkbox))
+    expected = HelperHTMLParser.parse(f'''
+        <div class="form-check form-switch">
+            <input id="{checkbox.identifier}"
+                name="somename"
+                class="form-check-input"
+                type="checkbox"
+                autocomplete="off">
+            </input>    
+            <label class="form-check-label" 
+                for="{checkbox.identifier}">
+                somelabel
+            </label>
+        </div>
+    ''')
+    assert actual == expected
+
+    # testing checkbox as radio
+    checkbox = CheckboxInput('somelabel', 'somename', False).\
+        as_radio(1)
+    actual = HelperHTMLParser.parse(str(checkbox))
+    expected = HelperHTMLParser.parse(f'''
+        <div class="form-check">
+            <input id="{checkbox.identifier}"
+                name="somename"
+                class="form-check-input"
+                value="1"
+                type="radio"
+                autocomplete="off">
+            </input>    
+            <label class="form-check-label" 
+                for="{checkbox.identifier}">
+                somelabel
+            </label>
+        </div>
+    ''')
+    assert actual == expected
+
+    # testing checkbox as button
+    checkbox = CheckboxInput('somelabel', 'somename', False).\
+        as_button().as_primary()
+    actual = HelperHTMLParser.parse(str(checkbox))
+    expected = HelperHTMLParser.parse(f'''
+        <input id="{checkbox.identifier}"
+            name="somename"
+            class="btn-check"
+            type="checkbox"
+            autocomplete="off">
+        </input>    
+        <label class="btn btn-primary" 
+            for="{checkbox.identifier}">
+            somelabel
+        </label>
+    ''')
+    assert actual == expected
+
+    checkbox = CheckboxInput('somelabel', 'somename', False).\
+        as_button().as_primary().as_outline()
+    actual = HelperHTMLParser.parse(str(checkbox))
+    expected = HelperHTMLParser.parse(f'''
+        <input id="{checkbox.identifier}"
+            name="somename"
+            class="btn-check"
+            type="checkbox"
+            autocomplete="off">
+        </input>    
+        <label class="btn btn-outline-primary" 
+            for="{checkbox.identifier}">
+            somelabel
+        </label>
+    ''')
+    assert actual == expected
+
+    # testing checkbox inline
+    checkbox = CheckboxInput('somelabel', 'somename', False).\
+        inline()
+    actual = HelperHTMLParser.parse(str(checkbox))
+    expected = HelperHTMLParser.parse(f'''
+        <div class="form-check form-check-inline">
+            <input id="{checkbox.identifier}"
+                name="somename"
+                class="form-check-input"
+                type="checkbox"
+                autocomplete="off">
+            </input>    
+            <label class="form-check-label" 
+                for="{checkbox.identifier}">
+                somelabel
+            </label>
+        </div>
+    ''')
+    assert actual == expected
+
+    # make sure that reciver is empty
+    assert CheckboxInput('somelabel', 'somename', False)._receiver() == ""
 
 
 @pytest.mark.form
@@ -348,7 +446,7 @@ def test_radio_input():
                 somelabel
             </label>
             <div class="col-sm-8 d-flex align-items-center">
-                <div class="form-check mr-3">
+                <div class="form-check me-3">
                     <input id="{option_0.identifier}"
                         name="somename"
                         value=0
@@ -356,12 +454,12 @@ def test_radio_input():
                         class="form-check-input"
                         autocomplete="off"
                         checked/>
-                    <label class="form-check-label mr-1"
+                    <label class="form-check-label me-1"
                         for="{option_0.identifier}">
                         Zero
                     </label>
                 </div>
-                <div class="form-check mr-3">
+                <div class="form-check me-3">
                     <input id="{option_1.identifier}"
                         name="somename"
                         value=1
@@ -369,7 +467,7 @@ def test_radio_input():
                         class="form-check-input"
                         autocomplete="off"
                         disabled/>
-                    <label class="form-check-label mr-1"
+                    <label class="form-check-label me-1"
                         for="{option_1.identifier}">
                         One
                     </label>
@@ -414,7 +512,7 @@ def test_file_input():
                         </span>
                         <input id="{file.identifier}"
                             name="somename"
-                            onchange="$(this).parent().parent().find('.form-control').html($(this).val().split({regexp}).pop());"
+                            onchange="$(this).parent().parent().find('.form-control').htms($(this).val().split({regexp}).pop());"
                             style="display: none;"
                             type="file"/>
                     </div>
@@ -442,13 +540,36 @@ def test_file_input():
                         </span>
                         <input id="{file.identifier}"
                             name="somename"
-                            onchange="$(this).parent().parent().find('.form-control').html($(this).val().split({regexp}).pop());"
+                            onchange="$(this).parent().parent().find('.form-control').htms($(this).val().split({regexp}).pop());"
                             style="display: none;"
                             type="file"
                             disabled/>
                     </div>
                 </div>
             </div>
+        </div>
+    ''')
+    assert actual == expected
+
+
+@pytest.mark.button
+def test_button_group():
+    input_group = InputGroup(
+        Text("@"),
+        TextInput(None, 'username', placeholder='type username')
+    )
+    actual = HelperHTMLParser.parse(str(input_group))
+    expected = HelperHTMLParser.parse('''
+        <div id="..."
+            class="input-group"
+            role="group">
+            <span id="..." class="input-group-text">@</span>
+            <input id="..."
+                name="username"
+                type="text"
+                class="form-control"
+                placeholder="type username"
+                />
         </div>
     ''')
     assert actual == expected

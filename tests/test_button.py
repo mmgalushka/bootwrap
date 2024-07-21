@@ -6,6 +6,7 @@ import pytest
 
 from bootwrap import (
     WebComponent,
+    ButtonGroup,
     Button,
     Panel,
     Dialog,
@@ -124,8 +125,8 @@ def test_toggle_button():
         <button id="{button.identifier}"
             class="btn"
             type="button"
-            data-toggle="modal"
-            data-target="#{target.identifier}"
+            data-bs-toggle="modal"
+            data-bs-target="#{target.identifier}"
             onclick="return false;">
             Somename
         </button>
@@ -139,8 +140,8 @@ def test_toggle_button():
         <button id="{button.identifier}"
             class="btn"
             type="button"
-            data-toggle="tab"
-            data-target="#{target.identifier}"
+            data-bs-toggle="tab"
+            data-bs-target="#{target.identifier}"
             onclick="return false;">
             Somename
         </button>
@@ -154,8 +155,8 @@ def test_toggle_button():
         <button id="{button.identifier}"
             class="btn"
             type="button"
-            data-toggle="collapse"
-            data-target="#{target.identifier}"
+            data-bs-toggle="collapse"
+            data-bs-target="#{target.identifier}"
             onclick="return false;">
             Somename
         </button>
@@ -171,7 +172,7 @@ def test_dismiss_button():
         <button id="{button.identifier}"
             class="btn"
             type="button"
-            data-dismiss="modal"
+            data-bs-dismiss="modal"
             onclick="return false;">
             Somename
         </button>
@@ -203,7 +204,7 @@ def test_menu_button():
             <button id="..."
                 class="btn dropdown-toggle"
                 type="button"
-                data-toggle="dropdown"
+                data-bs-toggle="dropdown"
                 aria-haspopup="true"
                 aria-expanded="false"
                 onclick="return false;">
@@ -233,7 +234,7 @@ def test_menu_button():
             <i id="..."
                 class="btn fas fa-ellipsis-v"
                 style="cursor: pointer"
-                data-toggle="dropdown"
+                data-bs-toggle="dropdown"
                 onclick="return false;">
             </i>
             <div class="dropdown-menu dropdown-menu-right">
@@ -248,6 +249,32 @@ def test_menu_button():
                     B
                 </button>
             </div>
+        </div>
+    ''')
+    assert actual == expected
+
+
+
+@pytest.mark.button
+def test_button_group():
+    btn_a = Button('A')
+    btn_b = Button('B')
+    button_group = ButtonGroup( btn_a, btn_b)
+    actual = HelperHTMLParser.parse(str(button_group))
+    expected = HelperHTMLParser.parse('''
+        <div id="..."
+            class="btn-group"
+            role="group">
+            <button id="..."
+                class="btn"
+                onclick="return false;">
+                A
+            </button>
+            <button id="..."
+                class="btn"
+                onclick="return false;">
+                B
+            </button>
         </div>
     ''')
     assert actual == expected

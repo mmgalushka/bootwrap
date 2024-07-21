@@ -24,8 +24,8 @@ def test_menu():
             <img id="{logo.identifier}" src="samelogo"/>
             <span id="{brand.identifier}">somebrand</span>
             <button class="navbar-toggler"
-                type="button" data-toggle="collapse"
-                data-target="#menu"
+                type="button" data-bs-toggle="collapse"
+                data-bs-target="#menu"
                 aria-controls="menu"
                 aria-expanded="false"
                 aria-label="Toggle menu">
@@ -33,26 +33,26 @@ def test_menu():
             </button>
 
             <div class="collapse navbar-collapse" id="menu">
-                <ul class="navbar-nav mr-auto">
+                <ul class="navbar-nav me-auto">
                     <li class="nav-item">
-                        <a id="{anchor1.identifier}" class="nav-link ml-2">
+                        <a id="{anchor1.identifier}" class="nav-link ms-2">
                             Menu1
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a id="{anchor2.identifier}" class="nav-link ml-2">
+                        <a id="{anchor2.identifier}" class="nav-link ms-2">
                             Menu2
                         </a>
                     </li>
                 </ul>
 
                 <button id="{button1.identifier}"
-                    class="btn btn-primary ml-2"
+                    class="btn btn-primary ms-2"
                     onclick="return false;">
                     Action1
                 </button>
                 <button id="{button2.identifier}"
-                    class="btn btn-outline-primary ml-2"
+                    class="btn btn-outline-primary ms-2"
                     onclick="return false;">
                     Action2
                 </button>

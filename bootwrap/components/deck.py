@@ -157,11 +157,13 @@ class Deck(WebComponent, ClassMixin):
             if self._target:
                 onclick = f"location.href='{self._target}';"
 
+            if self._figure:
+                self._figure.add_classes("card-img-top")
             return f'''
                 <div {attr("id", self.identifier)} class="card">
-                    <div class="row justify-content-center" {attr('onclick', onclick)}>
+                    <a {attr('onclick', onclick)}>
                         {inject(self._figure)}
-                    </div>
+                    </a>
                     <div class="card-body" {attr('onclick', onclick)}>
                         {inject(wc_marker)}
                         {inject(wc_title)}

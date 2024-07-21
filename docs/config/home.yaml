@@ -21,7 +21,8 @@
     - "A single-page Bootwrap application looks something like this:"
   code: |
     @left
-    from flask import Flask, Markup
+    from flask import Flask
+    from markupsafe import Markup
     from bootwrap import Page, Text
 
     app = Flask(__name__)
@@ -43,7 +44,8 @@
     - "A multi-pages Bootwrap application looks something like this:"
   code: |
     @left
-    from flask import Flask, Markup
+    from flask import Flask
+    from markupsafe import Markup
     from bootwrap import (
       Page, Menu, Image, Anchor, Button, Text
     )
@@ -66,7 +68,7 @@
                 brand=Text('Bootwrap').\
                   as_strong().\
                   as_light().\
-                  ml(2),
+                  ms(2),
                 anchors=[
                     Anchor('Home').\
                     link('/'),

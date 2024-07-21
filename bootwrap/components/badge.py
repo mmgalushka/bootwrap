@@ -14,7 +14,7 @@ class Badge(WebComponent, ClassMixin, AppearanceMixin):
 
     Example:
         from bootwrap import Badge
-        output = Badge('Some Badge')
+        output = Badge('Some Badge').as_dark()
     """
 
     def __init__(self, label):
@@ -24,7 +24,7 @@ class Badge(WebComponent, ClassMixin, AppearanceMixin):
     def __str__(self):
         classes = 'badge'
         if self._category:
-            classes += f' badge-{self._category}'
+            classes += f' text-bg-{self._category}'
 
         if self.classes:
             classes += f' {self.classes}'

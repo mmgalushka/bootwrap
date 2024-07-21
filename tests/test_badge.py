@@ -14,7 +14,7 @@ def test_badge():
     actual = HelperHTMLParser.parse(str(badge))
     expected = HelperHTMLParser.parse(f'''
         <span id="{badge.identifier}"
-            class="badge badge-primary someclass">
+            class="badge text-bg-primary someclass">
             sometext
         </span>
     ''')

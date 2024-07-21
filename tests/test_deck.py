@@ -17,12 +17,13 @@ def test_deck_card():
         figure=Icon('someicon'),
         marker="somemarker",
     )
+    print(str(card))
     actual = HelperHTMLParser.parse(str(card))
     expected = HelperHTMLParser.parse(f'''
         <div id="{card.identifier}" class="card">
-            <div class="row justify-content-center">
-                <i id="..." class="someicon"></i>
-            </div>
+            <a>
+                <i id="..." class="card-img-top someicon"></i>
+            </a>
             <div class="card-body">
                 <div class="text-right mb-2">
                     <span id="..."
@@ -49,9 +50,9 @@ def test_deck_card():
     actual = HelperHTMLParser.parse(str(card))
     expected = HelperHTMLParser.parse(f'''
         <div id="{card.identifier}" class="card">
-            <div class="row justify-content-center">
-                <i id="..." class="someicon"></i>
-            </div>
+            <a>
+                <i id="..." class="card-img-top someicon"></i>
+            </a>
             <div class="card-body">
                 <div class="text-right mb-2">
                     <span id="...">somemarker</span>
@@ -69,7 +70,7 @@ def test_deck_card():
     actual = HelperHTMLParser.parse(str(card))
     expected = HelperHTMLParser.parse(f'''
         <div id="{card.identifier}" class="card">
-            <div class="row justify-content-center"></div>
+            <a></a>
             <div class="card-body">
                 <h5 id="..." class="card-title">
                     sometitle
@@ -97,7 +98,7 @@ def test_deck_card():
     actual = HelperHTMLParser.parse(str(card))
     expected = HelperHTMLParser.parse(f'''
         <div id="{card.identifier}" class="card">
-            <div class="row justify-content-center"></div>
+            <a></a>
             <div class="card-body">
                 <h5 id="..." class="card-title">
                     sometitle
@@ -108,7 +109,7 @@ def test_deck_card():
                     <i id="..."
                         class="btn fas fa-ellipsis-v"
                         style="cursor: pointer"
-                        data-toggle="dropdown"
+                        data-bs-toggle="dropdown"
                         onclick="return false;">
                     </i>
                     <div class="dropdown-menu dropdown-menu-right">
@@ -139,9 +140,9 @@ def test_deck_card():
     actual = HelperHTMLParser.parse(str(card))
     expected = HelperHTMLParser.parse(f'''
         <div id="{card.identifier}" class="card">
-            <div class="row justify-content-center" onclick="location.href='somewhere';">
-                <i id="..." class="someicon"></i>
-            </div>
+            <a onclick="location.href='somewhere';">
+                <i id="..." class="someicon card-img-top"></i>
+            </a>
             <div class="card-body"  onclick="location.href='somewhere';">
                 <div class="text-right mb-2">
                     <span id="..."
@@ -170,19 +171,19 @@ def test_deck():
     expected = HelperHTMLParser.parse(f'''
         <div id="{dk.identifier}" class="card-deck grid-container">
             <div id="..." class="card">
-                <div class="row justify-content-center"></div>
+                <a></a>
                 <div class="card-body">
                     <h5 id="..." class="card-title">sometitle1</h5>
                 </div>
             </div>
             <div id="..." class="card">
-                <div class="row justify-content-center"></div>
+                <a></a>
                 <div class="card-body">
                     <h5 id="..." class="card-title">sometitle2</h5>
                 </div>
             </div>
             <div id="..." class="card">
-                <div class="row justify-content-center"></div>
+                <a></a>
                 <div class="card-body">
                     <h5 id="..." class="card-title">sometitle3</h5>
                 </div>

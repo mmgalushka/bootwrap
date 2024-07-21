@@ -121,7 +121,7 @@ class StockMarket:
             'AAPL': Share(
                 'AAPL',
                 'Apple Inc.',
-                'aapl-logo.png',
+                'aaps-logo.png',
                 'Apple Inc. is an American multinational technology company '
                 'that specializes in consumer electronics, computer software, '
                 'and online services. Apple is the world\'s largest '

@@ -2,10 +2,11 @@
 A form with input elements.
 """
 
-from abc import ABC, abstractclassmethod
+from abc import ABC, abstractmethod
 
-from .base import WebComponent, ClassMixin, AvailabilityMixin
+from .base import WebComponent, ClassMixin, AvailabilityMixin, AppearanceMixin, OutlineMixin
 from .utils import attr, inject
+from .text import Text
 
 
 class Form(WebComponent, ClassMixin):
@@ -72,7 +73,7 @@ class Input(ABC, WebComponent, ClassMixin, AvailabilityMixin):
 
     def __init__(self, label, name):
         super().__init__()
-        self.__label = label
+        self._label = label
         self._name = name
         self.__label_on_top = False
 
@@ -85,14 +86,14 @@ class Input(ABC, WebComponent, ClassMixin, AvailabilityMixin):
         self.__label_on_top = True
         return self
 
-    @abstractclassmethod
+    @abstractmethod
     def _receiver(self):
         """A component for rendering a receiver."""
 
     def __str__(self):
         self.add_classes('form-group')
 
-        if self.__label:
+        if self._label:
             label_classes = None
             receiver_classes = None
             if not self.__label_on_top:
@@ -105,7 +106,7 @@ class Input(ABC, WebComponent, ClassMixin, AvailabilityMixin):
                 <div {attr('class', self.classes)}>
                     <label {attr('class', label_classes)}
                         {attr('for', self.identifier)}>
-                        {self.__label}
+                        {self._label}
                     </label>
                     <div {attr('class', receiver_classes)}>
                         {self._receiver()}
@@ -113,13 +114,11 @@ class Input(ABC, WebComponent, ClassMixin, AvailabilityMixin):
                 </div>
             '''
         return f'''
-            <div {attr('class', self.classes)}>
-                {self._receiver()}
-            </div>
+            {self._receiver()}
         '''
 
 
-class CheckboxInput(Input):
+class CheckboxInput(Input, AppearanceMixin, OutlineMixin):
     """A checkbox input.
 
     Use the `as_disabled()` function to prevent the user from changing
@@ -136,25 +135,146 @@ class CheckboxInput(Input):
         output = Form(
             CheckboxInput('One', 'opt1'),
             CheckboxInput('Two', 'opt2', True),
-            CheckboxInput('Three', 'opt3').as_disabled()
+            CheckboxInput('Three', 'opt3').as_disabled(),
+            CheckboxInput('Four', 'opt4', True).as_disabled()
         )
     """
 
     def __init__(self, label, name, checked=False):
         super().__init__(label, name)
         self.__checked = checked
+        self.__value = None
+        self.__switch = False
+        self.__button = False
+        self.__inline = False
+
+    def as_radio(self, value):
+        """Makes a chack box as radio button. 
+
+        Returns:
+            obj (self): The instance of this class.
+
+        Example:
+            from bootwrap import Form, CheckboxInput
+
+            output = Form(
+                CheckboxInput('One', 'opt').as_radio(1),
+                CheckboxInput('Two', 'opt', True).as_radio(2),
+                CheckboxInput('Three', 'opt').as_radio(3).as_disabled(),
+                CheckboxInput('Four', 'opt', True).as_radio(4).as_disabled()
+            )
+        """
+        self.__value = value
+        return self
+
+    def as_switch(self):
+        """Sets the "switch"-style to the check box.
+
+        Returns:
+            obj (self): The instance of this class.
+
+        Example:
+            from bootwrap import Form, CheckboxInput
+
+            output = Form(
+                CheckboxInput('One', 'opt1').as_switch(),
+                CheckboxInput('Two', 'opt2', True).as_switch(),
+                CheckboxInput('Three', 'opt3').as_switch().as_disabled(),
+                CheckboxInput('Four', 'opt4', True).as_switch().as_disabled()
+            )
+        """
+        self.__switch = True
+        self.__button = False
+        return self
+    
+    def as_button(self):
+        """Sets the "button"-style to the check box.
+
+        Returns:
+            obj (self): The instance of this class.
+
+        Example:
+            from bootwrap import Form, CheckboxInput
+
+            output = Form(
+                CheckboxInput('One', 'opt1').as_button().as_primary().as_outline(),
+                CheckboxInput('Two', 'opt2', True).as_button(),
+                CheckboxInput('Three', 'opt3').as_button().as_disabled(),
+                CheckboxInput('Four', 'opt4', True).as_button().as_disabled()
+            )
+        """
+        self.__button = True
+        self.__switch = False
+        return self
+
+    def inline(self):
+        """Sets the check box in line.
+
+        Returns:
+            obj (self): The instance of this class.
+
+        Example:
+            from bootwrap import Form, CheckboxInput
+
+            output = Form(
+                CheckboxInput('One', 'opt1').inline(),
+                CheckboxInput('Two', 'opt2', True).inline(),
+                CheckboxInput('Three', 'opt3').inline().as_disabled(),
+                CheckboxInput('Four', 'opt4', True).inline().as_disabled()
+            )
+        """
+        self.__inline = True
+        return self
 
     def _receiver(self):
-        return f'''
+        return ""
+
+    def __str__(self):
+        self.add_classes('form-check')
+        type = "checkbox" if self.__value is None else "radio"
+        if self.__inline:
+            self.add_classes('form-check-inline')
+        if self.__switch:
+            self.add_classes('form-switch')
+        # Sets input class (for the button look)
+        input_classes = "form-check-input"    
+        if self.__button:
+            input_classes = "btn-check"
+        # Sets label class (for the button look)
+        label_classes = "form-check-label"    
+        if self.__button:
+            label_classes = "btn"
+            if self._category:
+                if self._border:
+                    label_classes += f' btn-outline-{self._category}'
+                else:
+                    label_classes += f' btn-{self._category}'
+        
+        wc_input_n_label = f'''
             <input {attr('id', self.identifier)}
                 {attr('name', self._name)}
-                type="checkbox"
-                class="form-check-input"
+                {attr('value', self.__value)}
+                {attr('class', input_classes)}
+                type="{type}"
                 autocomplete="off"
                 {attr('checked', self.__checked)}
-                {attr('disabled', self._disabled)}/>
+                {attr('disabled', self._disabled)}>
+            </input>    
+            <label {attr('class', label_classes)} 
+                {attr('for', self.identifier)}>
+                {self._label or ''}
+            </label>
         '''
 
+        if self.__button:
+            return wc_input_n_label
+        else:
+            return f'''
+                <div {attr('class', self.classes)}>
+                    {wc_input_n_label}
+                </div>
+            '''
+        
 
 class Freehand(Input):
     """A freehand value input.
@@ -394,7 +514,7 @@ class SelectInput(Input):
             options = []
             for option in self.__options:
                 options.append(f'''
-                    <div class="form-check mr-3">
+                    <div class="form-check me-3">
                         <input {attr('id', option.identifier)}
                             {attr('name', self._name)}
                             {attr('value', option.value)}
@@ -403,7 +523,7 @@ class SelectInput(Input):
                             autocomplete="off"
                             {attr('checked', option.value == self.__value)}
                             {attr('disabled', option.disabled)}/>
-                        <label class="form-check-label mr-1"
+                        <label class="form-check-label me-1"
                             {attr('for', option.identifier)}>
                             {option.name}
                         </label>
@@ -501,10 +621,64 @@ class FileInput(Input):
                     </span>
                     <input {attr('id', self.identifier)}
                         {attr('name', self._name)}
-                        onchange="$(this).parent().parent().find('.form-control').html($(this).val().split(/[\\|/]/).pop());"
+                        onchange="$(this).parent().parent().find('.form-control').htms($(this).val().split(/[\\|/]/).pop());"
                         style="display: none;"
                         type="file"
                         {attr('disabled', self._disabled)}/>
                 </div>
+            </div>
+        '''
+
+class InputGroup(WebComponent, ClassMixin):
+    """A web component for an input group.
+
+    Grous together a series of input components
+
+    Args:
+        *components (list): The list of `WebComponent`.
+
+    Example:
+        from bootwrap import Text, TextInput, NumericInput, InputGroup, Form
+
+        at = Text("@")
+        username = TextInput(None, 'username', placeholder='type username')
+        ig1 = InputGroup(at, username).mb(2)
+
+        recipient = TextInput(None, 'recipient', placeholder='Recipient username')
+        domain = Text("@example.com")
+        ig2 = InputGroup(recipient, domain).mb(2)
+
+        recipient = TextInput(None, 'recipient', placeholder='Recipient username')
+        domain = Text("@example.com")
+        ig2 = InputGroup(recipient, domain).mb(2)
+
+        money = Text("$")
+        amount = NumericInput(None, 'amount', placeholder='Amount (to the nearest dollar)')
+        cents = Text(".00")
+        ig3 = InputGroup(money, amount, cents).mb(2)
+
+        login = TextInput(None, 'login', placeholder='Login')
+        at = Text("@")
+        password = TextInput(None, 'password', placeholder='Password').for_password()
+        ig4 = InputGroup(login, at, password).mb(2)
+
+        output=Form(ig1,ig2,ig3,ig4)
+    """
+    def __init__(self, *inputs):
+        super().__init__()
+        self.__inputs = inputs
+
+    def __str__(self):
+        self.add_classes("input-group")
+
+        for input in self.__inputs:
+            if isinstance(input, Text):
+                input.add_classes("input-group-text")
+
+        return f'''
+            <div {attr("id", self.identifier)}
+                {attr("class", self.classes)}
+                role="group">
+                {inject(*self.__inputs)}
             </div>
         '''
