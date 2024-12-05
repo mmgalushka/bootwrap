@@ -10,7 +10,8 @@ from bootwrap import (
     Button,
     Panel,
     Dialog,
-    Text
+    Text,
+    Icon
 )
 from .helper import HelperHTMLParser
 
@@ -72,6 +73,38 @@ def test_button():
         </button>
     ''')
     assert actual == expected
+
+
+@pytest.mark.button
+def test_button_with_icon():
+    left_button = Button('Left').with_icon(
+        Icon("fa-solid fa-arrow-left")
+    )
+    actual = HelperHTMLParser.parse(str(left_button))
+    expected = HelperHTMLParser.parse(f'''
+        <button id="{left_button.identifier}"
+            class="btn"
+            onclick="return false;">
+            <i id="..." class="fa-solid fa-arrow-left"></i>
+            Left
+        </button>
+    ''')
+    assert actual == expected
+
+    right_button = Button('Left').with_icon(
+        Icon("fa-solid fa-arrow-left"), True
+    )
+    actual = HelperHTMLParser.parse(str(right_button))
+    expected = HelperHTMLParser.parse(f'''
+        <button id="{right_button.identifier}"
+            class="btn"
+            onclick="return false;">
+            Right
+            <i id="..." class="fa-solid fa-arrow-left"></i>
+        </button>
+    ''')
+    assert actual == expected
+
 
 
 @pytest.mark.button
