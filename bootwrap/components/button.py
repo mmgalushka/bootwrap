@@ -13,6 +13,7 @@ from .base import (
 )
 from .panel import Panel
 from .dialog import Dialog
+from .icon import Icon
 from .utils import attr, inject
 
 
@@ -34,6 +35,34 @@ class Button(WebComponent, ClassMixin, ActionMixin, AppearanceMixin,
     def __init__(self, name):
         super().__init__()
         self.__name = name
+        self.__icon = None
+        self.__right_side = None
+
+    def with_icon(self, icon, right_side = False):
+        """Makes button with icon.
+
+        Args:
+            icon (Icon):
+                The icon to add on button.
+            right_side (bool):
+                If `True` the icon is placed on the right side of the button
+                name and `False` on the right side accordingly. 
+
+        Returns:
+            self
+        
+        Example:
+            from bootwrap import Button, Icon, Panel
+            ico_left = Icon("fa-solid fa-arrow-left")
+            btn_left = Button("Left").with_icon(ico_left).as_primary()
+            ico_right = Icon("fa-solid fa-arrow-right")
+            btn_right = Button("Right").with_icon(ico_right, True).as_primary()
+            output = Panel(btn_left, btn_right)
+        """
+        self.__icon = icon
+        self.__right_side = right_side
+        return self
+
 
     def __str__(self):
         self.add_classes('btn')
@@ -43,6 +72,14 @@ class Button(WebComponent, ClassMixin, ActionMixin, AppearanceMixin,
                 self.add_classes(f'btn-outline-{self._category}')
             else:
                 self.add_classes(f'btn-{self._category}')
+
+        button_name = self.__name
+        if self.__icon:
+            if self.__right_side:
+                button_name = f"{self.__name}{inject(self.__icon)}"
+            else:
+                button_name = f"{inject(self.__icon)}{self.__name}"   
+        
 
         if self._menu:
             for item in self._menu:
@@ -68,7 +105,7 @@ class Button(WebComponent, ClassMixin, ActionMixin, AppearanceMixin,
                         aria-haspopup="true"
                         aria-expanded="false"
                         onclick="return false;">
-                        {self.__name}
+                        {button_name}
                     </button>
                 '''
             return f'''
@@ -96,7 +133,7 @@ class Button(WebComponent, ClassMixin, ActionMixin, AppearanceMixin,
                     {attr('class', self.classes)}
                     {attr('href', href)}
                     role="button">
-                    {self.__name}
+                    {button_name}
                 </a>
             '''
         elif self._action == Action.TOGGLE:
@@ -114,7 +151,7 @@ class Button(WebComponent, ClassMixin, ActionMixin, AppearanceMixin,
                         data-bs-target="#{self._target.identifier}"
                         onclick="return false;"
                         {attr('disabled', self._disabled)}>
-                        {self.__name}
+                        {button_name}
                     </button>
                 '''
             elif isinstance(self._target, Dialog):
@@ -126,7 +163,7 @@ class Button(WebComponent, ClassMixin, ActionMixin, AppearanceMixin,
                         data-bs-target="#{self._target.identifier}"
                         onclick="return false;"
                         {attr('disabled', self._disabled)}>
-                        {self.__name}
+                        {button_name}
                     </button>
                 '''
             raise TypeError(
@@ -141,7 +178,7 @@ class Button(WebComponent, ClassMixin, ActionMixin, AppearanceMixin,
                     data-bs-dismiss="modal"
                     onclick="return false;"
                     {attr('disabled', self._disabled)}>
-                    {self.__name}
+                    {button_name}
                 </button>
             '''
         elif self._action == Action.SUBMIT:
@@ -150,7 +187,7 @@ class Button(WebComponent, ClassMixin, ActionMixin, AppearanceMixin,
                     {attr('class', self.classes)}
                     type="submit"
                     {attr('disabled', self._disabled)}>
-                    {self.__name}
+                    {button_name}
                 </button>
             '''
         else:
@@ -159,7 +196,7 @@ class Button(WebComponent, ClassMixin, ActionMixin, AppearanceMixin,
                     {attr('class', self.classes)}
                     onclick="return false;"
                     {attr('disabled', self._disabled)}>
-                    {self.__name}
+                    {button_name}
                 </button>
             '''
 
