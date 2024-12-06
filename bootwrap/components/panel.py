@@ -158,17 +158,66 @@ class Panel(WebComponent, ClassMixin, ):
         self.__arrangement = None
         if not isinstance(style, str):
             raise TypeError(
-                "Invalid panel justify content style type, expected "
+                "Invalid justify panel content style type, expected "
                 f"{type(style)}, but got {type(style)}."
             )
         if style not in [
             "start","end","center","between","around","evenly"
         ]:
             raise ValueError(
-                f"Invalid panel justify content style: {style}."
+                f"Invalid justify panel content style: {style}."
             )
 
         self.add_classes(f"d-flex justify-content-{style}")
+        return self
+    
+    def align_items(self, style):
+        """Align panel items.
+
+        Args:
+            style (str): 
+                The style for aligning items can be one of "start",
+                "end", "center", "baseline", "stretch".
+
+        Returns:
+            obj (self): The instance of this class.
+
+        Example:
+            from bootwrap import Text, Panel, Image
+
+            image  = Image("logo.png", height="200px")
+            comp1 = Text("Component 1").as_light().add_classes("border").p(2).m(2)
+            comp2 = Text("Component 2").as_light().add_classes("border").p(2).m(2)
+            comp3 = Text("Component 3").as_light().add_classes("border").p(2).m(2)
+
+            pnl_start = Panel(image, comp1, comp2, comp3).background("dark").align_items("start").mt(1)
+            pnl_end = Panel(image, comp1, comp2, comp3).background("dark").align_items("end").mt(1)
+            pnl_center = Panel(image, comp1, comp2, comp3).background("dark").align_items("center").mt(1)
+            pnl_baseline = Panel(image, comp1, comp2, comp3).background("dark").align_items("baseline").mt(1)
+            pnl_stretch = Panel(image, comp1, comp2, comp3).background("dark").align_items("stretch").mt(1)
+
+            output = Panel(
+                pnl_start,
+                pnl_end,
+                pnl_center,
+                pnl_baseline,
+                pnl_stretch,
+            ).vertical()
+        """
+        self.__arrangement = None
+        if not isinstance(style, str):
+            raise TypeError(
+                "Invalid align panel items style type, expected "
+                f"{type(style)}, but got {type(style)}."
+            )
+        if style not in [
+            "start", "end", "center", "baseline", "stretch"
+        ]:
+            raise ValueError(
+                f"Invalid align panel items style: {style}."
+            )
+
+        self.add_classes(f"d-flex align-items-{style}")
         return self
 
     def __str__(self):
