@@ -22,6 +22,40 @@ def test_panel():
 
 
 @pytest.mark.panel
+def test_panel_background():
+    panel = Panel().background('primary')
+    actual = HelperHTMLParser.parse(str(panel))
+    expected = HelperHTMLParser.parse(f'''
+        <div id="{panel.identifier}" class="bg-primary">
+        </div>
+    ''')
+    assert actual == expected
+
+    with pytest.raises(TypeError):
+        Panel().background(0)
+
+    with pytest.raises(ValueError):
+        Panel().background("xyz")
+
+
+@pytest.mark.panel
+def test_panel_justify_content():
+    panel = Panel().justify_content('start')
+    actual = HelperHTMLParser.parse(str(panel))
+    expected = HelperHTMLParser.parse(f'''
+        <div id="{panel.identifier}" class="d-flex justify-content-start">
+        </div>
+    ''')
+    assert actual == expected
+
+    with pytest.raises(TypeError):
+        Panel().justify_content(0)
+
+    with pytest.raises(ValueError):
+        Panel().justify_content("xyz")
+
+
+@pytest.mark.panel
 def test_iter():
     text1 = Text('sometext1')
     text2 = Text('sometext2')
