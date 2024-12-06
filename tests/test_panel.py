@@ -56,6 +56,23 @@ def test_panel_justify_content():
 
 
 @pytest.mark.panel
+def test_panel_align_items():
+    panel = Panel().align_items('start')
+    actual = HelperHTMLParser.parse(str(panel))
+    expected = HelperHTMLParser.parse(f'''
+        <div id="{panel.identifier}" class="d-flex align-items-start">
+        </div>
+    ''')
+    assert actual == expected
+
+    with pytest.raises(TypeError):
+        Panel().align_items(0)
+
+    with pytest.raises(ValueError):
+        Panel().align_items("xyz")
+
+
+@pytest.mark.panel
 def test_iter():
     text1 = Text('sometext1')
     text2 = Text('sometext2')
