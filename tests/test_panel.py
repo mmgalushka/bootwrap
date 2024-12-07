@@ -22,8 +22,8 @@ def test_panel():
 
 
 @pytest.mark.panel
-def test_panel_background():
-    panel = Panel().background('primary')
+def test_panel_appearance():
+    panel = Panel().as_primary()
     actual = HelperHTMLParser.parse(str(panel))
     expected = HelperHTMLParser.parse(f'''
         <div id="{panel.identifier}" class="bg-primary">
@@ -31,12 +31,23 @@ def test_panel_background():
     ''')
     assert actual == expected
 
-    with pytest.raises(TypeError):
-        Panel().background(0)
+@pytest.mark.panel
+def test_panel_outline():
+    panel = Panel().as_outline()
+    actual = HelperHTMLParser.parse(str(panel))
+    expected = HelperHTMLParser.parse(f'''
+        <div id="{panel.identifier}" class="border">
+        </div>
+    ''')
+    assert actual == expected
 
-    with pytest.raises(ValueError):
-        Panel().background("xyz")
-
+    panel = Panel().as_primary().as_outline()
+    actual = HelperHTMLParser.parse(str(panel))
+    expected = HelperHTMLParser.parse(f'''
+        <div id="{panel.identifier}" class="border border-primary">
+        </div>
+    ''')
+    assert actual == expected
 
 @pytest.mark.panel
 def test_panel_justify_content():
