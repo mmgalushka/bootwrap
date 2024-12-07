@@ -2,11 +2,11 @@
 A panel.
 """
 
-from .base import WebComponent, ClassMixin
+from .base import WebComponent, ClassMixin, AppearanceMixin, OutlineMixin
 from .utils import attr, inject
 
 
-class Panel(WebComponent, ClassMixin, ):
+class Panel(WebComponent, ClassMixin, AppearanceMixin, OutlineMixin):
     """A web component for a panel.
 
     Args:
@@ -15,9 +15,9 @@ class Panel(WebComponent, ClassMixin, ):
     Example:
         from bootwrap import Text, Panel
 
-        comp1 = Text("Component 1").add_classes("border").ms(1)
-        comp2 = Text("Component 2").add_classes("border").ms(1)
-        comp3 = Text("Component 3").add_classes("border").ms(1)
+        comp1 = Text("Component 1").as_outline().ms(1)
+        comp2 = Text("Component 2").as_outline().ms(1)
+        comp3 = Text("Component 3").as_outline().ms(1)
 
         output = Panel(comp1, comp2, comp3)
     """
@@ -29,50 +29,6 @@ class Panel(WebComponent, ClassMixin, ):
 
     def __iter__(self):
         return iter(self.__components)
-
-    def background(self, color):
-        """Sets the panel background color.
-
-        Args:
-            color (str):
-                The background color to set can be one of "primary",
-                "secondary", "success", "danger", "warning", "info",
-                "light", "dark", "body", "white","transparent"
-
-        Returns:
-            obj (self): The instance of this class.
-
-        Example:
-            from bootwrap import Panel, Text
-
-            output = Panel(
-                Panel(Text("primary").as_light()).background("primary").mb(1),
-                Panel(Text("secondary").as_light()).background("secondary").mb(1),
-                Panel(Text("success").as_light()).background("success").mb(1),
-                Panel(Text("danger").as_light()).background("danger").mb(1),
-                Panel(Text("warning")).background("warning").mb(1),
-                Panel(Text("info")).background("info").mb(1),
-                Panel(Text("light")).background("light").mb(1),
-                Panel(Text("dark").as_light()).background("dark").mb(1),
-                Panel(Text("body")).background("body").mb(1),
-                Panel(Text("white")).background("white").mb(1),
-                Panel(Text("transparent")).background("transparent").mb(1),
-            )
-        """
-        if not isinstance(color, str):
-            raise TypeError(
-                f"Invalid background color type, expected {type(str)}, "
-                f"but got {type(color)}."
-            )
-        if color not in [
-            "primary", "secondary", "success", "danger", "warning", 
-            "info", "light", "dark", "body", "white", "transparent"
-        ]:
-            raise ValueError(
-                f"Invalid panel background color: '{color}'."
-            )
-        self.add_classes(f"bg-{color}")
-        return self
 
     def as_collapse(self):
         """Makes the panel collapsed.
@@ -93,9 +49,9 @@ class Panel(WebComponent, ClassMixin, ):
         Example:
             from bootwrap import Text, Panel
 
-            comp1 = Text("Component 1").add_classes("border")
-            comp2 = Text("Component 2").add_classes("border")
-            comp3 = Text("Component 3").add_classes("border")
+            comp1 = Text("Component 1").as_outline()
+            comp2 = Text("Component 2").as_outline()
+            comp3 = Text("Component 3").as_outline()
 
             output = Panel(comp1, comp2, comp3).vertical()
         """
@@ -112,9 +68,9 @@ class Panel(WebComponent, ClassMixin, ):
         Example:
             from bootwrap import Text, Panel
 
-            comp1 = Text("Component 1").add_classes("border")
-            comp2 = Text("Component 2").add_classes("border")
-            comp3 = Text("Component 3").add_classes("border")
+            comp1 = Text("Component 1").as_outline()
+            comp2 = Text("Component 2").as_outline()
+            comp3 = Text("Component 3").as_outline()
 
             output = Panel(comp1, comp2, comp3).horizontal()
         """
@@ -135,16 +91,16 @@ class Panel(WebComponent, ClassMixin, ):
         Example:
             from bootwrap import Text, Panel
 
-            comp1 = Text("Component 1").as_light().add_classes("border").p(2).m(2)
-            comp2 = Text("Component 2").as_light().add_classes("border").p(2).m(2)
-            comp3 = Text("Component 3").as_light().add_classes("border").p(2).m(2)
+            comp1 = Text("Component 1").as_light().as_outline().p(2).m(2)
+            comp2 = Text("Component 2").as_light().as_outline().p(2).m(2)
+            comp3 = Text("Component 3").as_light().as_outline().p(2).m(2)
 
-            pnl_start = Panel(comp1, comp2, comp3).background("dark").justify_content("start").mt(1)
-            pnl_end = Panel(comp1, comp2, comp3).background("dark").justify_content("end").mt(1)
-            pnl_center = Panel(comp1, comp2, comp3).background("dark").justify_content("center").mt(1)
-            pnl_between = Panel(comp1, comp2, comp3).background("dark").justify_content("between").mt(1)
-            pnl_around = Panel(comp1, comp2, comp3).background("dark").justify_content("around").mt(1)
-            pnl_evenly = Panel(comp1, comp2, comp3).background("dark").justify_content("evenly").mt(1)
+            pnl_start = Panel(comp1, comp2, comp3).as_dark().justify_content("start").mt(1)
+            pnl_end = Panel(comp1, comp2, comp3).as_dark().justify_content("end").mt(1)
+            pnl_center = Panel(comp1, comp2, comp3).as_dark().justify_content("center").mt(1)
+            pnl_between = Panel(comp1, comp2, comp3).as_dark().justify_content("between").mt(1)
+            pnl_around = Panel(comp1, comp2, comp3).as_dark().justify_content("around").mt(1)
+            pnl_evenly = Panel(comp1, comp2, comp3).as_dark().justify_content("evenly").mt(1)
 
             output = Panel(
                 pnl_start,
@@ -186,15 +142,15 @@ class Panel(WebComponent, ClassMixin, ):
             from bootwrap import Text, Panel, Image
 
             image  = Image("logo.png", height="200px")
-            comp1 = Text("Component 1").as_light().add_classes("border").p(2).m(2)
-            comp2 = Text("Component 2").as_light().add_classes("border").p(2).m(2)
-            comp3 = Text("Component 3").as_light().add_classes("border").p(2).m(2)
+            comp1 = Text("Component 1").as_light().as_outline().p(2).m(2)
+            comp2 = Text("Component 2").as_light().as_outline().p(2).m(2)
+            comp3 = Text("Component 3").as_light().as_outline().p(2).m(2)
 
-            pnl_start = Panel(image, comp1, comp2, comp3).background("dark").align_items("start").mt(1)
-            pnl_end = Panel(image, comp1, comp2, comp3).background("dark").align_items("end").mt(1)
-            pnl_center = Panel(image, comp1, comp2, comp3).background("dark").align_items("center").mt(1)
-            pnl_baseline = Panel(image, comp1, comp2, comp3).background("dark").align_items("baseline").mt(1)
-            pnl_stretch = Panel(image, comp1, comp2, comp3).background("dark").align_items("stretch").mt(1)
+            pnl_start = Panel(image, comp1, comp2, comp3).as_dark().align_items("start").mt(1)
+            pnl_end = Panel(image, comp1, comp2, comp3).as_dark().align_items("end").mt(1)
+            pnl_center = Panel(image, comp1, comp2, comp3).as_dark().align_items("center").mt(1)
+            pnl_baseline = Panel(image, comp1, comp2, comp3).as_dark().align_items("baseline").mt(1)
+            pnl_stretch = Panel(image, comp1, comp2, comp3).as_dark().align_items("stretch").mt(1)
 
             output = Panel(
                 pnl_start,
@@ -221,6 +177,14 @@ class Panel(WebComponent, ClassMixin, ):
         return self
 
     def __str__(self):
+        if self._border:
+            self.add_classes(f'border')
+            if self._category:
+                self.add_classes(f'border-{self._category}')
+        else:
+            if self._category:
+                self.add_classes(f'bg-{self._category}')
+
         if self.__arrangement:
             if self.__arrangement == 'vertical':
 

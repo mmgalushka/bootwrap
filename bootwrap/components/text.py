@@ -7,21 +7,32 @@ from textwrap import dedent
 from .base import (
     WebComponent,
     ClassMixin,
-    AppearanceMixin
+    AppearanceMixin,
+    OutlineMixin
 )
 from .utils import attr, tag
 
 
-class Text(WebComponent, ClassMixin, AppearanceMixin):
+class Text(WebComponent, ClassMixin, AppearanceMixin, OutlineMixin):
     """A web component for a text.
 
     Args:
         content (str): The textual content.
 
     Example:
-        from bootwrap import Text
+        from bootwrap import Text, Panel
 
-        output = Text("Normal text")
+        txt = Text("Text")
+        txt_outline = Text("Text with border").as_outline()
+        txt_primary = Text("Text of primary color").as_primary()
+        txt_primary_outline = Text("Text of primary color with border").as_primary().as_outline()
+
+        output = Panel(
+            txt,
+            txt_outline,
+            txt_primary,
+            txt_primary_outline
+        ).vertical()
     """
 
     def __init__(self, content):
@@ -83,9 +94,19 @@ class Text(WebComponent, ClassMixin, AppearanceMixin):
             obj (self): The instance of this class.
 
         Example:
-            from bootwrap import Text
+            from bootwrap import Text, Panel
 
-            output = Text("Small text").as_small()
+            txt_small = Text("Small text").as_small()
+            txt_small_outline = Text("Small text with border").as_small().as_outline()
+            txt_small_primary = Text("Small text of primary color").as_small().as_primary()
+            txt_small_primary_outline = Text("Small text of primary color with border").as_small().as_primary().as_outline()
+
+            output = Panel(
+                txt_small,
+                txt_small_outline,
+                txt_small_primary,
+                txt_small_primary_outline
+            ).vertical()
         """
         self.__small = True
         return self
@@ -97,9 +118,19 @@ class Text(WebComponent, ClassMixin, AppearanceMixin):
             obj (self): The instance of this class.
 
         Example:
-            from bootwrap import Text
+            from bootwrap import Text, Panel
 
-            output = Text("Strong text").as_strong()
+            txt_strong = Text("Strong text").as_strong()
+            txt_strong_outline = Text("Strong text with border").as_strong().as_outline()
+            txt_strong_primary = Text("Strong text of primary color").as_strong().as_primary()
+            txt_strong_primary_outline = Text("Strong text of primary color with border").as_strong().as_primary().as_outline()
+
+            output = Panel(
+                txt_strong,
+                txt_strong_outline,
+                txt_strong_primary,
+                txt_strong_primary_outline
+            ).vertical()
         """
         self.__strong = True
         return self
@@ -137,39 +168,34 @@ class Text(WebComponent, ClassMixin, AppearanceMixin):
         return self
 
     def __str__(self):
-        def wrap_as_small(c):
-            if self.__small:
-                return f'<small>{c}</small>'
-            return c
+        if self._category:
+            self.add_classes(f'text-{self._category}')
 
-        def wrap_as_strong(c):
-            if self.__strong:
-                return f'<strong>{c}</strong>'
-            return c
-
-        def wrap_as_main(c):
-            classes = ''
+        if self._border:
+            self.add_classes(f'border')
             if self._category:
-                classes = f'text-{self._category}'
+                self.add_classes(f'border-{self._category}')
 
-            if self.classes:
-                classes += f' {self.classes}'
+        attrs = [
+            attr("id", self.identifier),
+            attr("class", self.classes)
+        ]
 
-            attrs = [
-                attr("id", self.identifier),
-                attr("class", classes)
-            ]
-            if self.__level:
-                return tag(f'h{self.__level}', attrs, c)
+        if self.__level:
+            return tag(f'h{self.__level}', attrs, dedent(self.__content))
+        else:
+            if self.__code:
+                return tag(
+                    'pre',
+                    attrs,
+                    tag('code', [attr('class', 'python')], dedent(self.__content))
+                )
             else:
-                if self.__code:
-                    return tag(
-                        'pre',
-                        attrs,
-                        tag('code', [attr('class', 'python')], dedent(c))
-                    )
+                if self.__paragraph:
+                    return tag('p', attrs, dedent(self.__content))
+                elif self.__strong:
+                    return tag('strong', attrs, dedent(self.__content))
+                elif self.__small:
+                    return tag('small', attrs, dedent(self.__content))
                 else:
-                    if self.__paragraph:
-                        return tag('p', attrs, c)
-                    return tag('span', attrs, c)
-        return wrap_as_main(wrap_as_strong(wrap_as_small(self.__content)))
+                    return tag('span', attrs, dedent(self.__content))

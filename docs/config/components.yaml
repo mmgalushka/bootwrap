@@ -385,6 +385,46 @@ Navigation:
 Panel:
   - class: Panel
 
+  - title: Appearance
+    description:
+      - Change <code>Panel</code> appearance using the following functions <code>as_primary()</code>, <code>as_secondary()</code>, <code>as_success()</code>, <code>as_warning()</code>, <code>as_danger()</code>, <code>as_info()</code>, <code>as_light()</code>, and <code>as_dark()</code>.
+    code: |
+      @right
+      from bootwrap import Panel, Text
+      panel = Panel(
+        Panel(Text("Primary")).as_primary(),
+        Panel(Text("Secondary")).as_secondary(),
+        Panel(Text("Success")).as_success(),
+        Panel(Text("Warning")).as_warning(),
+        Panel(Text("Danger")).as_danger(),
+        Panel(Text("Info")).as_info(),
+        Panel(Text("Light")).as_light(),
+        Panel(Text("Dark").as_light()).as_dark()
+      )
+      for anchor in panel:
+        anchor.mb(1)
+      output = panel
+
+  - title: Outline
+    description:
+      - Make <code>Panel</code> without filling with surrounded by color border using the following function <code>as_outline()</code>.
+    code: |
+      @right
+      from bootwrap import Panel, Text
+      panel = Panel(
+        Panel(Text("Primary").as_primary()).as_primary().as_outline(),
+        Panel(Text("Secondary").as_secondary()).as_secondary().as_outline(),
+        Panel(Text("Success").as_success()).as_success().as_outline(),
+        Panel(Text("Warning").as_warning()).as_warning().as_outline(),
+        Panel(Text("Danger").as_danger()).as_danger().as_outline(),
+        Panel(Text("Info").as_info()).as_info().as_outline(),
+        Panel(Text("Light").as_light()).as_light().as_outline(),
+        Panel(Text("Dark").as_dark()).as_dark().as_outline()
+      )
+      for anchor in panel:
+        anchor.mb(1)
+      output = panel
+
 # --- Separator Tab ------------------------------------------------------------
 
 Separator:

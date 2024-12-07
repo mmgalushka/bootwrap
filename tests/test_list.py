@@ -27,7 +27,7 @@ def test_list_item():
                 <div class="ms-2 me-2 w-100">
                     <div class="d-flex w-100 justify-content-between">
                         <h5 id="...">sometitle</h5>
-                        <span id="..."><small>somemarker</small></span>
+                        <small id="...">somemarker</small>
                      </div>
                     somedescr
                 </div>

@@ -56,9 +56,7 @@ def test_signup_page():
                             <div class="form-group row">...</div>
                             <div class="form-group row">...</div>
 
-                            <span id="..." class="text-secondary form-group">
-                                <small>...</small>
-                            </span>
+                            <small id="..." class="text-secondary form-group">...</small>
 
                             <div id="..." class="d-flex justify-content-end">
                                 ...

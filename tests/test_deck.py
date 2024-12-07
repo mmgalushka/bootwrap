@@ -26,9 +26,7 @@ def test_deck_card():
             </a>
             <div class="card-body">
                 <div class="text-right mb-2">
-                    <span id="..."
-                        class="text-muted"><small>somemarker</small>
-                    </span>
+                    <small id="..." class="text-muted">somemarker</small>
                 </div>
                 <h5 id="..."
                     class="card-title">
@@ -145,9 +143,7 @@ def test_deck_card():
             </a>
             <div class="card-body"  onclick="location.href='somewhere';">
                 <div class="text-right mb-2">
-                    <span id="..."
-                        class="text-muted"><small>somemarker</small>
-                    </span>
+                    <small id="..." class="text-muted">somemarker</small>
                 </div>
                 <h5 id="..."
                     class="card-title">
