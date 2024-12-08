@@ -64,6 +64,15 @@ def test_page_resources():
                 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/python.min.js"
                     type="application/javascript">
                 </script>
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/json.min.js"
+                    type="application/javascript">
+                </script>                  
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/yaml.min.js"
+                    type="application/javascript">
+                </script>   
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/bash.min.js"
+                    type="application/javascript">
+                </script>   
                 <script src="https//someresource.com/some.js"
                     type="application/javascript">
                 </script>

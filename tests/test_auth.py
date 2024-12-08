@@ -35,7 +35,10 @@ def test_signup_page():
                 <script src="..." type="application/javascript"></script>
                 <script src="..." type="application/javascript"></script>
                 <script src="..." type="application/javascript"></script>
-        
+                <script src="..." type="application/javascript"></script>
+                <script src="..." type="application/javascript"></script>
+                <script src="..." type="application/javascript"></script>
+                                      
                 <title>Signup Page</title>
             </head>
             <body>
@@ -100,7 +103,10 @@ def test_login_page():
                 <script src="..." type="application/javascript"></script>
                 <script src="..." type="application/javascript"></script>
                 <script src="..." type="application/javascript"></script>
-        
+                <script src="..." type="application/javascript"></script>
+                <script src="..." type="application/javascript"></script>
+                <script src="..." type="application/javascript"></script>
+                                      
                 <title>Login Page</title>
             </head>
             <body>

@@ -114,9 +114,15 @@ def test_text_code():
     actual = HelperHTMLParser.parse(str(text))
     expected = HelperHTMLParser.parse(f'''
         <pre id="{text.identifier}">
-            <code class="python">
+            <code class="language-python">
                 def print_somevalue(somevalue): print(somevalue)
             </code>
         </pre>
     ''')
     assert actual == expected
+
+    with pytest.raises(TypeError):
+        Text("").as_code(0)
+
+    with pytest.raises(ValueError):
+        Text("").as_code("xyz")
