@@ -96,11 +96,14 @@ class Page:
 
         # Collects JS scriptis supporting JQuery and code highlights.
         scripts = [
-            Javascript('https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js'),                 # NOQA
-            Javascript('https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.11.8/umd/popper.min.js'),         # NOQA
-            Javascript('https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js'),      # NOQA
-            Javascript('https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js'),       # NOQA
-            Javascript('https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/python.min.js') # NOQA
+            Javascript('https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js'),                  # NOQA
+            Javascript('https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.11.8/umd/popper.min.js'),          # NOQA
+            Javascript('https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js'),       # NOQA
+            Javascript('https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js'),        # NOQA
+            Javascript('https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/python.min.js'), # NOQA
+            Javascript('https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/json.min.js'),   # NOQA
+            Javascript('https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/yaml.min.js'),   # NOQA
+            Javascript('https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/bash.min.js')    # NOQA
         ]
 
         # Adds customer defined resources which could be CSS or JS files.

@@ -42,7 +42,7 @@ class Text(WebComponent, ClassMixin, AppearanceMixin, OutlineMixin):
         self.__small = False
         self.__strong = False
         self.__paragraph = False
-        self.__code = False
+        self.__language = None
 
     def as_muted(self):
         """Makes the text muted.
@@ -153,8 +153,13 @@ class Text(WebComponent, ClassMixin, AppearanceMixin, OutlineMixin):
         self.__paragraph = True
         return self
 
-    def as_code(self):
+    def as_code(self, language="python"):
         """Makes the text wrap as a code snippet.
+
+        Args:
+            language (str): 
+                The language to highlight, currently supported:
+                "python", "json", "yaml", "bash"
 
         Returns:
             obj (self): The instance of this class.
@@ -162,9 +167,26 @@ class Text(WebComponent, ClassMixin, AppearanceMixin, OutlineMixin):
         Example:
             from bootwrap import Panel, Text
 
-            output = Text("print('Hello world!')").as_code()
+            output = Panel(
+                Text('print("language python")').as_code("python"),
+                Text('{"language": "json"}').as_code("json"),
+                Text("language: yaml").as_code("yaml"),
+                Text("~$ ls language/bash").as_code("bash")
+            ).vertical()
         """
-        self.__code = True
+        if not isinstance(language, str):
+            raise TypeError(
+                "Invalid language type, expected "
+                f"{type(language)}, but got {type(language)}."
+            )
+        if language not in [
+            "python", "json", "yaml", "bash"
+        ]:
+            raise ValueError(
+                f"Unsupported language: {language}."
+            )
+
+        self.__language = language
         return self
 
     def __str__(self):
@@ -184,11 +206,11 @@ class Text(WebComponent, ClassMixin, AppearanceMixin, OutlineMixin):
         if self.__level:
             return tag(f'h{self.__level}', attrs, dedent(self.__content))
         else:
-            if self.__code:
+            if self.__language:
                 return tag(
                     'pre',
                     attrs,
-                    tag('code', [attr('class', 'python')], dedent(self.__content))
+                    tag('code', [attr('class', f"language-{self.__language}")], dedent(self.__content))
                 )
             else:
                 if self.__paragraph:
