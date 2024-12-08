@@ -42,4 +42,5 @@ from .panel import Panel
 from .separator import Separator
 from .table import Table, TableEntity
 from .text import Text
+from .toast import Toast
 from .utils import attr, inject
