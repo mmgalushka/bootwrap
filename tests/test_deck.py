@@ -17,7 +17,6 @@ def test_deck_card():
         figure=Icon('someicon'),
         marker="somemarker",
     )
-    print(str(card))
     actual = HelperHTMLParser.parse(str(card))
     expected = HelperHTMLParser.parse(f'''
         <div id="{card.identifier}" class="card">

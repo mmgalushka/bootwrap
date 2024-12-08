@@ -441,3 +441,177 @@ Table:
 
 Text:
   - class: Text
+
+# --- Toast Tab ---------------------------------------------------------------
+
+Toast:
+  - class: Toast
+
+  - title: Default
+    description:
+      - Make <code>Toast</code> with and without title</code>.
+    code: |
+      @right
+      from bootwrap import Panel, Toast, Button, Icon, Text, Javascript
+
+      tst_with_title = Toast(
+          title="Bootwrap",
+          description="Hello, world! This is a toast message.",
+          marker="11 mins ago",
+          figure=Icon("fa-solid fa-info"),
+      )
+      tst_without_title = Toast(
+          description="Hello, world! This is a toast message.",
+      )
+
+      btn_show_toast_with_title = Button("Show toast with title")
+      btn_show_toast_without_title = Button("Show toast without title")
+
+      action = Javascript(
+          script='''
+          $("#btn_show_toast_with_title").on("click",function(){
+              $("#tst_with_title").toast("show");
+          });
+          $("#btn_show_toast_without_title").on("click",function(){
+              $("#tst_without_title").toast("show");
+          });
+          ''',
+          submap={
+              "tst_with_title": tst_with_title,
+              "tst_without_title": tst_without_title,
+              "btn_show_toast_with_title": btn_show_toast_with_title,
+              "btn_show_toast_without_title": btn_show_toast_without_title,
+          }
+      )
+
+      output = Panel(
+          tst_with_title,
+          tst_without_title,
+          btn_show_toast_with_title,
+          btn_show_toast_without_title,
+          action
+      )
+
+  - title: Appearance
+    description:
+      - Change <code>Toast</code> appearance using the one of the following functions <code>as_primary()</code>, <code>as_secondary()</code>, <code>as_success()</code>, <code>as_warning()</code>, <code>as_danger()</code>, <code>as_info()</code>, <code>as_light()</code>, and <code>as_dark()</code>.
+    code: |
+      @right
+      from bootwrap import Panel, Toast, Button, Icon, Text, Javascript
+
+      tst_with_title = Toast(
+          title="Bootwrap",
+          description="Hello, world! This is a toast message.",
+          marker="11 mins ago",
+          figure=Icon("fa-solid fa-info"),
+      ).as_primary()
+      tst_without_title = Toast(
+          description="Hello, world! This is a toast message.",
+      ).as_primary()
+
+      btn_show_toast_with_title = Button("Show toast with title").as_primary()
+      btn_show_toast_without_title = Button("Show toast without title").as_primary()
+
+      action = Javascript(
+          script='''
+          $("#btn_show_toast_with_title").on("click",function(){
+              $("#tst_with_title").toast("show");
+          });
+          $("#btn_show_toast_without_title").on("click",function(){
+              $("#tst_without_title").toast("show");
+          });
+          ''',
+          submap={
+              "tst_with_title": tst_with_title,
+              "tst_without_title": tst_without_title,
+              "btn_show_toast_with_title": btn_show_toast_with_title,
+              "btn_show_toast_without_title": btn_show_toast_without_title,
+          }
+      )
+      
+      output = Panel(
+          tst_with_title,
+          tst_without_title,
+          btn_show_toast_with_title,
+          btn_show_toast_without_title,
+          action
+      )
+
+  - title: Outline
+    description:
+      - Make <code>Toast</code> without filling with surrounded by color border using the following function <code>as_outline()</code>.
+    code: |
+      @right
+      from bootwrap import Panel, Toast, Button, Icon, Text, Javascript
+
+      tst_with_title = Toast(
+          title="Bootwrap",
+          description="Hello, world! This is a toast message.",
+          marker="11 mins ago",
+          figure=Icon("fa-solid fa-info"),
+      ).as_success().as_outline()
+      tst_without_title = Toast(
+          description="Hello, world! This is a toast message.",
+      ).as_success().as_outline()
+
+      btn_show_toast_with_title = Button("Show toast with title").as_success().as_outline()
+      btn_show_toast_without_title = Button("Show toast without title").as_success().as_outline()
+
+      action = Javascript(
+          script='''
+          $("#btn_show_toast_with_title").on("click",function(){
+              $("#tst_with_title").toast("show");
+          });
+          $("#btn_show_toast_without_title").on("click",function(){
+              $("#tst_without_title").toast("show");
+          });
+          ''',
+          submap={
+              "tst_with_title": tst_with_title,
+              "tst_without_title": tst_without_title,
+              "btn_show_toast_with_title": btn_show_toast_with_title,
+              "btn_show_toast_without_title": btn_show_toast_without_title,
+          }
+      )
+      
+      output = Panel(
+          tst_with_title,
+          tst_without_title,
+          btn_show_toast_with_title,
+          btn_show_toast_without_title,
+          action
+      )
+
+  - title: Delay
+    description:
+      - Make <code>Toast</code> with custom delay.
+    code: |
+      @right
+      from bootwrap import Panel, Toast, Button, Icon, Text, Javascript
+
+      tst_example = Toast(
+          title="Bootwrap",
+          description="Hello, world! This is a toast message will hide in 5 sec.",
+          marker="11 mins ago",
+          figure=Icon("fa-solid fa-info"),
+          hide_delay=5000
+      )
+      btn_show_toast = Button("Show toast")
+
+      action = Javascript(
+          script='''
+          $("#btn_show_toast").on("click",function(){
+              $("#tst_example").toast("show");
+          });
+          ''',
+          submap={
+              "tst_example": tst_example,
+              "btn_show_toast": btn_show_toast,
+          }
+      )
+
+      output = Panel(
+          tst_example,
+          btn_show_toast,
+          action
+      )
