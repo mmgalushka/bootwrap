@@ -28,6 +28,7 @@ from .form import (
     TextInput,
     NumericInput,
     SelectInput,
+    JsonInput,
     HiddenInput,
     FileInput,
     InputGroup

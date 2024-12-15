@@ -317,6 +317,7 @@ Form:
   - class: NumericInput
   - class: SelectInput
   - class: SelectInput.Option
+  - class: JsonInput
   - class: HiddenInput
   - class: FileInput
   - class: InputGroup
