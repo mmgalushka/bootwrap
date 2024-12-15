@@ -12,6 +12,7 @@ from bootwrap import (
     TextInput,
     NumericInput,
     SelectInput,
+    JsonInput,
     HiddenInput,
     FileInput,
     InputGroup,
@@ -476,6 +477,52 @@ def test_radio_input():
         </div>
     ''')
     assert actual == expected
+
+
+@pytest.mark.form
+def test_json_input():
+    # testing json-input...
+    json = JsonInput(
+        'somelabel', 'somename', '{ "hello": "test" }'
+    )
+    actual = HelperHTMLParser.parse(str(json))
+    expected = HelperHTMLParser.parse(f'''
+        <div class="form-group row">
+            <label class="col-sm-4 col-form-label d-flex align-items-center"
+                for="{json.identifier}">
+                somelabel
+            </label>
+            <div class="col-sm-8 d-flex align-items-center">
+                <pre contenteditable="true" class="w-100" onkeyup="javascript:$('#{json.identifier}').val($(this).text())">
+                    <code class="language-json">{{ "hello": "test" }}</code>
+                </pre>
+                <input id="{json.identifier}" name="somename" value="{{ &quot;hello&quot;: &quot;test&quot; }}" type="hidden"></input>
+            </div>
+        </div>
+    ''')
+    assert actual == expected
+
+    json = JsonInput(
+        'somelabel', 'somename', '{ "hello": "test" }'
+    ).as_disabled()
+    actual = HelperHTMLParser.parse(str(json))
+    expected = HelperHTMLParser.parse(f'''
+        <div class="form-group row">
+            <label class="col-sm-4 col-form-label d-flex align-items-center"
+                for="{json.identifier}">
+                somelabel
+            </label>
+            <div class="col-sm-8 d-flex align-items-center">
+                <pre contenteditable="false" class="w-100" onkeyup="javascript:$('#{json.identifier}').val($(this).text())">
+                    <code class="language-json">{{ "hello": "test" }}</code>
+                </pre>
+                <input id="{json.identifier}" name="somename" value="{{ &quot;hello&quot;: &quot;test&quot; }}" type="hidden"></input>
+            </div>
+        </div>
+    ''')
+    assert actual == expected
+
+
 
 
 @pytest.mark.form

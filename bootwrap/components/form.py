@@ -3,11 +3,12 @@ A form with input elements.
 """
 
 from abc import ABC, abstractmethod
+from textwrap import dedent
+from html import escape
 
 from .base import WebComponent, ClassMixin, AvailabilityMixin, AppearanceMixin, OutlineMixin
-from .utils import attr, inject
-from .text import Text
-
+from .utils import attr, tag, inject
+from .text import Text#
 
 class Form(WebComponent, ClassMixin):
     """A web component for a form.
@@ -552,6 +553,54 @@ class SelectInput(Input):
                 </select>
             '''
 
+
+class JsonInput(Input):
+    """A JSON input.
+
+    Args:
+        label (str): The input label
+        name (str): The input name.
+        value (str): The input value.
+
+        Example:
+            from bootwrap import Form, JsonInput
+
+            output = Form(
+                JsonInput('JSON Config', 'code', '{"hello": "world enable"}'),
+                JsonInput('JSON Config', 'code', '{"hello": "world disable"}').as_disabled()
+            )
+
+    """
+
+    def __init__(self, label, name, value=None):
+        super().__init__(label, name)
+        self.__value = value
+
+    def _receiver(self):
+        input_attr = [
+            attr('id', self.identifier),
+            attr('name', self._name),
+            attr('value', escape(self.__value)),
+            attr('type', "hidden"),
+        ]
+        input_tag = tag('input', input_attr, '')
+
+        json_attr = [
+            attr('class', 'language-json')
+        ]
+        code_tag = tag('code', json_attr, dedent(self.__value))
+
+        onkeyup = 'javascript:$(\'#'+self.identifier+'\').val($(this).text())'
+        pre_attr = [
+            attr('contenteditable', 'false' if self._disabled else 'true'),
+            attr('class', "w-100"),
+            attr('onkeyup', onkeyup)
+        ]
+        pre_tag = tag('pre', pre_attr, dedent(code_tag))
+
+        return pre_tag + input_tag
+
+    
 
 class HiddenInput(Input):
     """A hidden input.
