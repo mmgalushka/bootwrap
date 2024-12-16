@@ -116,6 +116,30 @@ def test_checkbox_input():
     ''')
     assert actual == expected
 
+
+    checkbox = CheckboxInput('somelabel', 'somename').label_on_left()
+    actual = HelperHTMLParser.parse(str(checkbox))
+    expected = HelperHTMLParser.parse(f'''
+        <div class="form-group row">
+            <label class="col-sm-4 col-form-label d-flex align-items-center"
+                for="...">
+                somelabel
+            </label>
+            <div class="col-sm-8 d-flex align-items-center">
+                <input id="..."
+                    name="somename"
+                    class="form-check-input"
+                    value="true"
+                    type="checkbox"
+                    autocomplete="off">
+                </input>    
+                <input type="hidden" name="somename" value="false">
+                </input> 
+            </div>
+        </div>
+    ''')
+    assert actual == expected
+
     checkbox = CheckboxInput('somelabel', 'somename', True).\
         as_disabled()
     actual = HelperHTMLParser.parse(str(checkbox))
