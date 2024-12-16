@@ -66,10 +66,10 @@ class Navigation(WebComponent, ClassMixin):
             from bootwrap import Navigation
 
             output = Navigation(
-                Navigation.Item('Chapter 1', 'Text 1', True),
-                Navigation.Item('Chapter 2', 'Text 2'),
-                Navigation.Item('Chapter 3', 'Text 3')
-            ).as_vertical()
+                Navigation.Item('Chapter1', 'Text 1', True),
+                Navigation.Item('Chapter2', 'Text 2'),
+                Navigation.Item('Chapter3', 'Text 3')
+            ).as_vertical().as_pills()
         """
         self.__vertical = True
         return self
@@ -143,7 +143,7 @@ class Navigation(WebComponent, ClassMixin):
                 role="tablist">
                 {''.join(menus)}
             </ul>
-            <div class="tab-content">
+            <div class="tab-content w-100">
                 {inject(*panels)}
             </div>
         '''
