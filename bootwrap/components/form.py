@@ -5,6 +5,7 @@ A form with input elements.
 from abc import ABC, abstractmethod
 from textwrap import dedent
 from html import escape
+from json import dumps
 
 from .base import WebComponent, ClassMixin, AvailabilityMixin, AppearanceMixin, OutlineMixin
 from .utils import attr, tag, inject
@@ -148,6 +149,26 @@ class CheckboxInput(Input, AppearanceMixin, OutlineMixin):
         self.__switch = False
         self.__button = False
         self.__inline = False
+        self.__label_on_left = False
+
+    def label_on_left(self):
+        """Makes an input label showing on left.
+
+        Returns:
+            obj (self): The instance of this class.
+
+        Example:
+            from bootwrap import Form, CheckboxInput
+
+            output = Form(
+                CheckboxInput('One', 'opt1').label_on_left(),
+                CheckboxInput('Two', 'opt2', True).label_on_left().as_switch(),
+                CheckboxInput('Three', 'opt3').label_on_left().as_disabled(),
+                CheckboxInput('Four', 'opt4', True).label_on_left().as_disabled()
+            )
+        """
+        self.__label_on_left = True
+        return self
 
     def as_radio(self, value):
         """Makes a chack box as radio button. 
@@ -231,50 +252,79 @@ class CheckboxInput(Input, AppearanceMixin, OutlineMixin):
         return ""
 
     def __str__(self):
-        self.add_classes('form-check')
-        type = "checkbox" if self.__value is None else "radio"
-        if self.__inline:
-            self.add_classes('form-check-inline')
-        if self.__switch:
-            self.add_classes('form-switch')
-        # Sets input class (for the button look)
-        input_classes = "form-check-input"    
-        if self.__button:
-            input_classes = "btn-check"
-        # Sets label class (for the button look)
-        label_classes = "form-check-label"    
-        if self.__button:
-            label_classes = "btn"
-            if self._category:
-                if self._border:
-                    label_classes += f' btn-outline-{self._category}'
-                else:
-                    label_classes += f' btn-{self._category}'
-        
-        wc_input_n_label = f'''
-            <input {attr('id', self.identifier)}
-                {attr('name', self._name)}
-                {attr('value', self.__value)}
-                {attr('class', input_classes)}
-                type="{type}"
-                autocomplete="off"
-                {attr('checked', self.__checked)}
-                {attr('disabled', self._disabled)}>
-            </input>    
-            <label {attr('class', label_classes)} 
-                {attr('for', self.identifier)}>
-                {self._label or ''}
-            </label>
-        '''
-
-        if self.__button:
-            return wc_input_n_label
-        else:
+        if self.__label_on_left:
+            label_classes = \
+                'col-sm-4 col-form-label d-flex align-items-center'
+            receiver_classes = \
+                'col-sm-8 d-flex align-items-center'
             return f'''
-                <div {attr('class', self.classes)}>
-                    {wc_input_n_label}
+                <div {attr('class', 'form-group row')}>
+                    <label {attr('class', label_classes)}
+                        {attr('for', self.identifier)}>
+                        {self._label}
+                    </label>
+                    <div {attr('class', receiver_classes)}>
+                        <input {attr('id', self.identifier)}
+                            {attr('name', self._name)}
+                            {attr('class', 'form-check-input')}
+                            {attr('value', "true" if self.__value is None else self.__value)}
+                            type="checkbox"
+                            autocomplete="off"
+                            {attr('checked', self.__checked)}
+                            {attr('disabled', self._disabled)}>
+                        </input>    
+                        <input type="hidden" name="{self._name}" value="false">
+                        </input> 
+                    </div>
                 </div>
             '''
+        else:
+            self.add_classes('form-check')
+            type = "checkbox" if self.__value is None else "radio"
+            if self.__inline:
+                self.add_classes('form-check-inline')
+            if self.__switch:
+                self.add_classes('form-switch')
+            # Sets input class (for the button look)
+            input_classes = "form-check-input"    
+            if self.__button:
+                input_classes = "btn-check"
+            # Sets label class (for the button look)
+            label_classes = "form-check-label"    
+            if self.__button:
+                label_classes = "btn"
+                if self._category:
+                    if self._border:
+                        label_classes += f' btn-outline-{self._category}'
+                    else:
+                        label_classes += f' btn-{self._category}'
+
+            wc_input_n_label = f'''
+                <input {attr('id', self.identifier)}
+                    {attr('name', self._name)}
+                    {attr('value', "true" if self.__value is None else self.__value)}
+                    {attr('class', input_classes)}
+                    type="{type}"
+                    autocomplete="off"
+                    {attr('checked', self.__checked)}
+                    {attr('disabled', self._disabled)}>
+                </input>    
+                <input type="hidden" name="{self._name}" value="false">
+                </input> 
+                <label {attr('class', label_classes)} 
+                    {attr('for', self.identifier)}>
+                    {self._label or ''}
+                </label>
+            '''
+
+            if self.__button:
+                return wc_input_n_label
+            else:
+                return f'''
+                    <div {attr('class', self.classes)}>
+                        {wc_input_n_label}
+                    </div>
+                '''
         
 
 class Freehand(Input):
@@ -580,27 +630,31 @@ class JsonInput(Input):
         input_attr = [
             attr('id', self.identifier),
             attr('name', self._name),
-            attr('value', escape(self.__value)),
+            attr('value', escape(
+                dumps(self.__value, ensure_ascii=False, indent=4).strip())
+            ),
             attr('type', "hidden"),
         ]
         input_tag = tag('input', input_attr, '')
 
         json_attr = [
-            attr('class', 'language-json')
+            attr('class', 'language-json'),
         ]
-        code_tag = tag('code', json_attr, dedent(self.__value))
+        json_tag = tag('code', json_attr, escape(
+            dumps(self.__value, ensure_ascii=False, indent=4).strip(),
+            quote=False
+        ))
 
         onkeyup = 'javascript:$(\'#'+self.identifier+'\').val($(this).text())'
         pre_attr = [
             attr('contenteditable', 'false' if self._disabled else 'true'),
             attr('class', "w-100"),
-            attr('onkeyup', onkeyup)
+            attr('onkeyup', onkeyup),
+            
         ]
-        pre_tag = tag('pre', pre_attr, dedent(code_tag))
+        pre_tag = tag('pre', pre_attr, json_tag)
 
         return pre_tag + input_tag
-
-    
 
 class HiddenInput(Input):
     """A hidden input.

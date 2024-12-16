@@ -103,8 +103,11 @@ def test_checkbox_input():
                 name="somename"
                 class="form-check-input"
                 type="checkbox"
+                value="true"
                 autocomplete="off">
-            </input>    
+            </input>
+            <input type="hidden" name="somename" value="false">
+            </input>
             <label class="form-check-label" 
                 for="{checkbox.identifier}">
                 somelabel
@@ -122,9 +125,12 @@ def test_checkbox_input():
                 name="somename"
                 class="form-check-input"
                 type="checkbox"
+                value="true"
                 autocomplete="off"
                 checked disabled>
-            </input>    
+            </input>
+            <input type="hidden" name="somename" value="false">
+            </input>
             <label class="form-check-label" 
                 for="{checkbox.identifier}">
                 somelabel
@@ -143,8 +149,11 @@ def test_checkbox_input():
                 name="somename"
                 class="form-check-input"
                 type="checkbox"
+                value="true"
                 autocomplete="off">
-            </input>    
+            </input>
+            <input type="hidden" name="somename" value="false">
+            </input>
             <label class="form-check-label" 
                 for="{checkbox.identifier}">
                 somelabel
@@ -165,7 +174,9 @@ def test_checkbox_input():
                 value="1"
                 type="radio"
                 autocomplete="off">
-            </input>    
+            </input>
+            <input type="hidden" name="somename" value="false">
+            </input>
             <label class="form-check-label" 
                 for="{checkbox.identifier}">
                 somelabel
@@ -183,8 +194,11 @@ def test_checkbox_input():
             name="somename"
             class="btn-check"
             type="checkbox"
+            value="true"
             autocomplete="off">
-        </input>    
+        </input>
+        <input type="hidden" name="somename" value="false">
+        </input>
         <label class="btn btn-primary" 
             for="{checkbox.identifier}">
             somelabel
@@ -200,8 +214,11 @@ def test_checkbox_input():
             name="somename"
             class="btn-check"
             type="checkbox"
+            value="true"
             autocomplete="off">
-        </input>    
+        </input>
+        <input type="hidden" name="somename" value="false">
+        </input>
         <label class="btn btn-outline-primary" 
             for="{checkbox.identifier}">
             somelabel
@@ -219,8 +236,11 @@ def test_checkbox_input():
                 name="somename"
                 class="form-check-input"
                 type="checkbox"
+                value="true"
                 autocomplete="off">
-            </input>    
+            </input>
+            <input type="hidden" name="somename" value="false">
+            </input>
             <label class="form-check-label" 
                 for="{checkbox.identifier}">
                 somelabel
@@ -483,7 +503,7 @@ def test_radio_input():
 def test_json_input():
     # testing json-input...
     json = JsonInput(
-        'somelabel', 'somename', '{ "hello": "test" }'
+        'somelabel', 'somename', { "hello": "test" }
     )
     actual = HelperHTMLParser.parse(str(json))
     expected = HelperHTMLParser.parse(f'''
@@ -494,16 +514,16 @@ def test_json_input():
             </label>
             <div class="col-sm-8 d-flex align-items-center">
                 <pre contenteditable="true" class="w-100" onkeyup="javascript:$('#{json.identifier}').val($(this).text())">
-                    <code class="language-json">{{ "hello": "test" }}</code>
+                    <code class="language-json">...</code>
                 </pre>
-                <input id="{json.identifier}" name="somename" value="{{ &quot;hello&quot;: &quot;test&quot; }}" type="hidden"></input>
+                <input id="{json.identifier}" name="somename" value="..." type="hidden"></input>
             </div>
         </div>
     ''')
     assert actual == expected
 
     json = JsonInput(
-        'somelabel', 'somename', '{ "hello": "test" }'
+        'somelabel', 'somename', { "hello": "test" }
     ).as_disabled()
     actual = HelperHTMLParser.parse(str(json))
     expected = HelperHTMLParser.parse(f'''
@@ -514,15 +534,13 @@ def test_json_input():
             </label>
             <div class="col-sm-8 d-flex align-items-center">
                 <pre contenteditable="false" class="w-100" onkeyup="javascript:$('#{json.identifier}').val($(this).text())">
-                    <code class="language-json">{{ "hello": "test" }}</code>
+                    <code class="language-json">...</code>
                 </pre>
-                <input id="{json.identifier}" name="somename" value="{{ &quot;hello&quot;: &quot;test&quot; }}" type="hidden"></input>
+                <input id="{json.identifier}" name="somename" value="..." type="hidden"></input>
             </div>
         </div>
     ''')
     assert actual == expected
-
-
 
 
 @pytest.mark.form

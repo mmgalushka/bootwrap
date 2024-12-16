@@ -40,7 +40,7 @@ def test_navigation():
                 </a>
             </li>
         </ul>
-        <div class="tab-content">
+        <div class="tab-content w-100">
             <div id="..."
                 class="show active tab-pane fade">
                 <span id="{textA.identifier}">a-text</span>
@@ -68,7 +68,7 @@ def test_navigation_vertical():
                 class="nav flex-column"
                 role="tablist">
             </ul>
-            <div class="tab-content"></div>
+            <div class="tab-content w-100"></div>
         </div>
     ''')
     assert actual == expected
@@ -85,7 +85,7 @@ def test_navigation_tabs():
             class="nav nav-tabs"
             role="tablist">
         </ul>
-        <div class="tab-content"></div>
+        <div class="tab-content w-100"></div>
     ''')
     assert len(actual) == 2
     assert len(expected) == 2
@@ -103,7 +103,7 @@ def test_navigation_pills():
             class="nav nav-pills"
             role="tablist">
         </ul>
-        <div class="tab-content"></div>
+        <div class="tab-content w-100"></div>
     ''')
     assert len(actual) == 2
     assert len(expected) == 2
