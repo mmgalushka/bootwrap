@@ -16,7 +16,7 @@ from bootwrap import (
     HiddenInput,
     FileInput,
     InputGroup,
-    Text
+    Text,
 )
 from .helper import HelperHTMLParser
 
@@ -25,13 +25,12 @@ from .helper import HelperHTMLParser
 def test_form():
     class Dummy(WebComponent):
         def __str__(self):
-            return '<dummy>dummy</dummy>'
+            return "<dummy>dummy</dummy>"
 
-    form = Form(Dummy()).\
-        on_submit('somelink').\
-        add_classes('someclass')
+    form = Form(Dummy()).on_submit("somelink").add_classes("someclass")
     actual = HelperHTMLParser.parse(str(form))
-    expected = HelperHTMLParser.parse(f'''
+    expected = HelperHTMLParser.parse(
+        f"""
         <form id="{form.identifier}"
             action="somelink"
             class="someclass"
@@ -39,7 +38,8 @@ def test_form():
             enctype="multipart/form-data">
             <dummy>dummy</dummy>
         </form>
-    ''')
+    """
+    )
     assert actual == expected
 
 
@@ -50,10 +50,10 @@ def test_generic_input():
             return f'<xyz id="{self.identifier}">{self._name}</xyz>'
 
     # the label on the same row as input...
-    generic = GenericInput('somelabel', 'somename').\
-        add_classes('someclass')
+    generic = GenericInput("somelabel", "somename").add_classes("someclass")
     actual = HelperHTMLParser.parse(str(generic))
-    expected = HelperHTMLParser.parse(f'''
+    expected = HelperHTMLParser.parse(
+        f"""
         <div class="form-group someclass row">
             <label class="col-sm-4 col-form-label d-flex align-items-center"
                 for="{generic.identifier}">
@@ -63,15 +63,19 @@ def test_generic_input():
                 <xyz id="{generic.identifier}">somename</xyz>
             </div>
         </div>
-    ''')
+    """
+    )
     assert actual == expected
 
     # the label on the top, input at the bottom...
-    generic = GenericInput('somelabel', 'somename').\
-        add_classes('someclass').\
-        label_on_top()
+    generic = (
+        GenericInput("somelabel", "somename")
+        .add_classes("someclass")
+        .label_on_top()
+    )
     actual = HelperHTMLParser.parse(str(generic))
-    expected = HelperHTMLParser.parse(f'''
+    expected = HelperHTMLParser.parse(
+        f"""
         <div class="form-group someclass">
             <label for="{generic.identifier}">
                 somelabel
@@ -80,24 +84,27 @@ def test_generic_input():
                 <xyz id="{generic.identifier}">somename</xyz>
             </div>
         </div>
-    ''')
+    """
+    )
     assert actual == expected
 
     # with no label...
-    generic = GenericInput(None, 'somename').\
-        add_classes('someclass')
+    generic = GenericInput(None, "somename").add_classes("someclass")
     actual = HelperHTMLParser.parse(str(generic))
-    expected = HelperHTMLParser.parse(f'''
+    expected = HelperHTMLParser.parse(
+        f"""
         <xyz id="{generic.identifier}">somename</xyz>
-    ''')
+    """
+    )
     assert actual == expected
 
 
 @pytest.mark.form
 def test_checkbox_input():
-    checkbox = CheckboxInput('somelabel', 'somename')
+    checkbox = CheckboxInput("somelabel", "somename")
     actual = HelperHTMLParser.parse(str(checkbox))
-    expected = HelperHTMLParser.parse(f'''
+    expected = HelperHTMLParser.parse(
+        f"""
         <div class="form-check">
             <input id="{checkbox.identifier}"
                 name="somename"
@@ -106,20 +113,21 @@ def test_checkbox_input():
                 value="true"
                 autocomplete="off">
             </input>
-            <input type="hidden" name="somename" value="false">
-            </input>
             <label class="form-check-label" 
                 for="{checkbox.identifier}">
                 somelabel
+                <input type="hidden" name="somename" value="false">
+                </input>
             </label>
         </div>
-    ''')
+    """
+    )
     assert actual == expected
 
-
-    checkbox = CheckboxInput('somelabel', 'somename').label_on_left()
+    checkbox = CheckboxInput("somelabel", "somename").label_on_left()
     actual = HelperHTMLParser.parse(str(checkbox))
-    expected = HelperHTMLParser.parse(f'''
+    expected = HelperHTMLParser.parse(
+        f"""
         <div class="form-group row">
             <label class="col-sm-4 col-form-label d-flex align-items-center"
                 for="...">
@@ -137,13 +145,14 @@ def test_checkbox_input():
                 </input> 
             </div>
         </div>
-    ''')
+    """
+    )
     assert actual == expected
 
-    checkbox = CheckboxInput('somelabel', 'somename', True).\
-        as_disabled()
+    checkbox = CheckboxInput("somelabel", "somename", True).as_disabled()
     actual = HelperHTMLParser.parse(str(checkbox))
-    expected = HelperHTMLParser.parse(f'''
+    expected = HelperHTMLParser.parse(
+        f"""
         <div class="form-check">
             <input id="{checkbox.identifier}"
                 name="somename"
@@ -153,21 +162,22 @@ def test_checkbox_input():
                 autocomplete="off"
                 checked disabled>
             </input>
-            <input type="hidden" name="somename" value="false">
-            </input>
             <label class="form-check-label" 
                 for="{checkbox.identifier}">
                 somelabel
+                <input type="hidden" name="somename" value="false">
+                </input>
             </label>
         </div>
-    ''')
+    """
+    )
     assert actual == expected
 
     # testing checkbox as switch
-    checkbox = CheckboxInput('somelabel', 'somename', False).\
-        as_switch()
+    checkbox = CheckboxInput("somelabel", "somename", False).as_switch()
     actual = HelperHTMLParser.parse(str(checkbox))
-    expected = HelperHTMLParser.parse(f'''
+    expected = HelperHTMLParser.parse(
+        f"""
         <div class="form-check form-switch">
             <input id="{checkbox.identifier}"
                 name="somename"
@@ -176,21 +186,22 @@ def test_checkbox_input():
                 value="true"
                 autocomplete="off">
             </input>
-            <input type="hidden" name="somename" value="false">
-            </input>
             <label class="form-check-label" 
                 for="{checkbox.identifier}">
                 somelabel
+                <input type="hidden" name="somename" value="false">
+                </input>
             </label>
         </div>
-    ''')
+    """
+    )
     assert actual == expected
 
     # testing checkbox as radio
-    checkbox = CheckboxInput('somelabel', 'somename', False).\
-        as_radio(1)
+    checkbox = CheckboxInput("somelabel", "somename", False).as_radio(1)
     actual = HelperHTMLParser.parse(str(checkbox))
-    expected = HelperHTMLParser.parse(f'''
+    expected = HelperHTMLParser.parse(
+        f"""
         <div class="form-check">
             <input id="{checkbox.identifier}"
                 name="somename"
@@ -199,41 +210,50 @@ def test_checkbox_input():
                 type="radio"
                 autocomplete="off">
             </input>
-            <input type="hidden" name="somename" value="false">
-            </input>
             <label class="form-check-label" 
                 for="{checkbox.identifier}">
                 somelabel
+                <input type="hidden" name="somename" value="false">
+                </input>
             </label>
         </div>
-    ''')
+    """
+    )
     assert actual == expected
 
     # testing checkbox as button
-    checkbox = CheckboxInput('somelabel', 'somename', False).\
-        as_button().as_primary()
+    checkbox = (
+        CheckboxInput("somelabel", "somename", False).as_button().as_primary()
+    )
     actual = HelperHTMLParser.parse(str(checkbox))
-    expected = HelperHTMLParser.parse(f'''
+    expected = HelperHTMLParser.parse(
+        f"""
         <input id="{checkbox.identifier}"
             name="somename"
             class="btn-check"
             type="checkbox"
             value="true"
             autocomplete="off">
-        </input>
-        <input type="hidden" name="somename" value="false">
         </input>
         <label class="btn btn-primary" 
             for="{checkbox.identifier}">
             somelabel
+            <input type="hidden" name="somename" value="false">
+            </input>
         </label>
-    ''')
+    """
+    )
     assert actual == expected
 
-    checkbox = CheckboxInput('somelabel', 'somename', False).\
-        as_button().as_primary().as_outline()
+    checkbox = (
+        CheckboxInput("somelabel", "somename", False)
+        .as_button()
+        .as_primary()
+        .as_outline()
+    )
     actual = HelperHTMLParser.parse(str(checkbox))
-    expected = HelperHTMLParser.parse(f'''
+    expected = HelperHTMLParser.parse(
+        f"""
         <input id="{checkbox.identifier}"
             name="somename"
             class="btn-check"
@@ -241,20 +261,21 @@ def test_checkbox_input():
             value="true"
             autocomplete="off">
         </input>
-        <input type="hidden" name="somename" value="false">
-        </input>
         <label class="btn btn-outline-primary" 
             for="{checkbox.identifier}">
             somelabel
+            <input type="hidden" name="somename" value="false">
+            </input>
         </label>
-    ''')
+    """
+    )
     assert actual == expected
 
     # testing checkbox inline
-    checkbox = CheckboxInput('somelabel', 'somename', False).\
-        inline()
+    checkbox = CheckboxInput("somelabel", "somename", False).inline()
     actual = HelperHTMLParser.parse(str(checkbox))
-    expected = HelperHTMLParser.parse(f'''
+    expected = HelperHTMLParser.parse(
+        f"""
         <div class="form-check form-check-inline">
             <input id="{checkbox.identifier}"
                 name="somename"
@@ -263,28 +284,30 @@ def test_checkbox_input():
                 value="true"
                 autocomplete="off">
             </input>
-            <input type="hidden" name="somename" value="false">
-            </input>
             <label class="form-check-label" 
                 for="{checkbox.identifier}">
                 somelabel
+                <input type="hidden" name="somename" value="false">
+                </input>
             </label>
         </div>
-    ''')
+    """
+    )
     assert actual == expected
 
     # make sure that reciver is empty
-    assert CheckboxInput('somelabel', 'somename', False)._receiver() == ""
+    assert CheckboxInput("somelabel", "somename", False)._receiver() == ""
 
 
 @pytest.mark.form
 def test_text_input():
     # testing text-input...
     text = TextInput(
-        'somelabel', 'somename', 'somevalue', placeholder='someplaceholder'
+        "somelabel", "somename", "somevalue", placeholder="someplaceholder"
     )
     actual = HelperHTMLParser.parse(str(text))
-    expected = HelperHTMLParser.parse(f'''
+    expected = HelperHTMLParser.parse(
+        f"""
         <div class="form-group row">
             <label class="col-sm-4 col-form-label d-flex align-items-center"
                 for="{text.identifier}">
@@ -299,13 +322,15 @@ def test_text_input():
                     placeholder="someplaceholder"/>
             </div>
         </div>
-    ''')
+    """
+    )
     assert actual == expected
 
     # testing email-input...
-    email = TextInput('somelabel', 'somename').for_email()
+    email = TextInput("somelabel", "somename").for_email()
     actual = HelperHTMLParser.parse(str(email))
-    expected = HelperHTMLParser.parse(f'''
+    expected = HelperHTMLParser.parse(
+        f"""
         <div class="form-group row">
             <label class="col-sm-4 col-form-label d-flex align-items-center"
                 for="{email.identifier}">
@@ -318,13 +343,15 @@ def test_text_input():
                     class="form-control"/>
             </div>
         </div>
-    ''')
+    """
+    )
     assert actual == expected
 
     # testing password-input...
-    password = TextInput('somelabel', 'somename').for_password()
+    password = TextInput("somelabel", "somename").for_password()
     actual = HelperHTMLParser.parse(str(password))
-    expected = HelperHTMLParser.parse(f'''
+    expected = HelperHTMLParser.parse(
+        f"""
         <div class="form-group row">
             <label class="col-sm-4 col-form-label d-flex align-items-center"
                 for="{password.identifier}">
@@ -337,26 +364,29 @@ def test_text_input():
                     class="form-control"/>
             </div>
         </div>
-    ''')
+    """
+    )
     assert actual == expected
 
     # testing exception...
     with pytest.raises(AssertionError):
         str(
-            TextInput('somelabel', 'somename', 'somevalue').
-            with_multirows(5).for_email()
+            TextInput("somelabel", "somename", "somevalue")
+            .with_multirows(5)
+            .for_email()
         )
     with pytest.raises(AssertionError):
         str(
-            TextInput('somelabel', 'somename', 'somevalue').
-            with_multirows(5).for_password()
+            TextInput("somelabel", "somename", "somevalue")
+            .with_multirows(5)
+            .for_password()
         )
 
 
 @pytest.mark.form
 def test_text_area():
     def get_expected(element, disabled=False):
-        return f'''
+        return f"""
             <div class="form-group row">
                 <label class="col-sm-4 col-form-label d-flex
                     align-items-center"
@@ -372,18 +402,22 @@ def test_text_area():
                         >somevalue</textarea>
                 </div>
             </div>
-        '''
+        """
 
     textarea = TextInput(
-        'somelabel', 'somename', 'somevalue', placeholder='someplaceholder'
+        "somelabel", "somename", "somevalue", placeholder="someplaceholder"
     ).with_multirows(5)
     actual = HelperHTMLParser.parse(str(textarea))
     expected = HelperHTMLParser.parse(get_expected(textarea))
     assert actual == expected
 
-    textarea = TextInput(
-        'somelabel', 'somename', 'somevalue', placeholder='someplaceholder'
-    ).with_multirows(5).as_disabled()
+    textarea = (
+        TextInput(
+            "somelabel", "somename", "somevalue", placeholder="someplaceholder"
+        )
+        .with_multirows(5)
+        .as_disabled()
+    )
     actual = HelperHTMLParser.parse(str(textarea))
     expected = HelperHTMLParser.parse(get_expected(textarea, disabled=True))
     assert actual == expected
@@ -392,10 +426,11 @@ def test_text_area():
 @pytest.mark.form
 def test_numeric_input():
     numeric = NumericInput(
-        'somelabel', 'somename', 'somevalue', placeholder='someplaceholder'
+        "somelabel", "somename", "somevalue", placeholder="someplaceholder"
     )
     actual = HelperHTMLParser.parse(str(numeric))
-    expected = HelperHTMLParser.parse(f'''
+    expected = HelperHTMLParser.parse(
+        f"""
         <div class="form-group row">
             <label class="col-sm-4 col-form-label d-flex align-items-center"
                 for="{numeric.identifier}">
@@ -410,20 +445,22 @@ def test_numeric_input():
                     placeholder="someplaceholder"/>
             </div>
         </div>
-    ''')
+    """
+    )
     assert actual == expected
 
 
 @pytest.mark.form
 def test_select_input():
-    option_0 = SelectInput.Option('Zero', 0, False)
-    option_1 = SelectInput.Option('One', 1, True)
+    option_0 = SelectInput.Option("Zero", 0, False)
+    option_1 = SelectInput.Option("One", 1, True)
     options = [option_0, option_1]
 
     # testing select-input...
-    select = SelectInput('somelabel', 'somename', 0, options)
+    select = SelectInput("somelabel", "somename", 0, options)
     actual = HelperHTMLParser.parse(str(select))
-    expected = HelperHTMLParser.parse(f'''
+    expected = HelperHTMLParser.parse(
+        f"""
         <div class="form-group row">
             <label class="col-sm-4 col-form-label d-flex align-items-center"
                 for="{select.identifier}">
@@ -444,12 +481,14 @@ def test_select_input():
                 </select>
             </div>
         </div>
-    ''')
+    """
+    )
     assert actual == expected
 
-    select = SelectInput('somelabel', 'somename', 0, options).as_disabled()
+    select = SelectInput("somelabel", "somename", 0, options).as_disabled()
     actual = HelperHTMLParser.parse(str(select))
-    expected = HelperHTMLParser.parse(f'''
+    expected = HelperHTMLParser.parse(
+        f"""
         <div class="form-group row">
             <label class="col-sm-4 col-form-label d-flex align-items-center"
                 for="{select.identifier}">
@@ -471,20 +510,22 @@ def test_select_input():
                 </select>
             </div>
         </div>
-    ''')
+    """
+    )
     assert actual == expected
 
 
 @pytest.mark.form
 def test_radio_input():
-    option_0 = SelectInput.Option('Zero', 0, False)
-    option_1 = SelectInput.Option('One', 1, True)
+    option_0 = SelectInput.Option("Zero", 0, False)
+    option_1 = SelectInput.Option("One", 1, True)
     options = [option_0, option_1]
 
     # testing select-input...
-    radio = SelectInput('somelabel', 'somename', 0, options).as_radio()
+    radio = SelectInput("somelabel", "somename", 0, options).as_radio()
     actual = HelperHTMLParser.parse(str(radio))
-    expected = HelperHTMLParser.parse(f'''
+    expected = HelperHTMLParser.parse(
+        f"""
         <div class="form-group row">
             <label class="col-sm-4 col-form-label d-flex align-items-center"
                 for="{radio.identifier}">
@@ -519,18 +560,18 @@ def test_radio_input():
                 </div>
             </div>
         </div>
-    ''')
+    """
+    )
     assert actual == expected
 
 
 @pytest.mark.form
 def test_json_input():
     # testing json-input...
-    json = JsonInput(
-        'somelabel', 'somename', { "hello": "test" }
-    )
+    json = JsonInput("somelabel", "somename", {"hello": "test"})
     actual = HelperHTMLParser.parse(str(json))
-    expected = HelperHTMLParser.parse(f'''
+    expected = HelperHTMLParser.parse(
+        f"""
         <div class="form-group row">
             <label class="col-sm-4 col-form-label d-flex align-items-center"
                 for="{json.identifier}">
@@ -543,14 +584,14 @@ def test_json_input():
                 <input id="{json.identifier}" name="somename" value="..." type="hidden"></input>
             </div>
         </div>
-    ''')
+    """
+    )
     assert actual == expected
 
-    json = JsonInput(
-        'somelabel', 'somename', { "hello": "test" }
-    ).as_disabled()
+    json = JsonInput("somelabel", "somename", {"hello": "test"}).as_disabled()
     actual = HelperHTMLParser.parse(str(json))
-    expected = HelperHTMLParser.parse(f'''
+    expected = HelperHTMLParser.parse(
+        f"""
         <div class="form-group row">
             <label class="col-sm-4 col-form-label d-flex align-items-center"
                 for="{json.identifier}">
@@ -563,29 +604,33 @@ def test_json_input():
                 <input id="{json.identifier}" name="somename" value="..." type="hidden"></input>
             </div>
         </div>
-    ''')
+    """
+    )
     assert actual == expected
 
 
 @pytest.mark.form
 def test_hidden_input():
-    hidden = HiddenInput('somename', 'somevalue')
+    hidden = HiddenInput("somename", "somevalue")
     actual = HelperHTMLParser.parse(str(hidden))
-    expected = HelperHTMLParser.parse(f'''
+    expected = HelperHTMLParser.parse(
+        f"""
         <input id="{hidden.identifier}"
             name="somename"
             value="somevalue"
             type="hidden"/>
-    ''')
+    """
+    )
     assert actual == expected
 
 
 @pytest.mark.form
 def test_file_input():
-    regexp = r'/[\|/]/'
-    file = FileInput('somelabel', 'somename').add_classes('someclass')
+    regexp = r"/[\|/]/"
+    file = FileInput("somelabel", "somename").add_classes("someclass")
     actual = HelperHTMLParser.parse(str(file))
-    expected = HelperHTMLParser.parse(f'''
+    expected = HelperHTMLParser.parse(
+        f"""
         <div class="form-group someclass row">
             <label class="col-sm-4 col-form-label d-flex align-items-center"
                 for="{file.identifier}">
@@ -608,12 +653,14 @@ def test_file_input():
                 </div>
             </div>
         </div>
-    ''')
+    """
+    )
     assert actual == expected
 
-    file = FileInput('somelabel', 'somename').as_disabled()
+    file = FileInput("somelabel", "somename").as_disabled()
     actual = HelperHTMLParser.parse(str(file))
-    expected = HelperHTMLParser.parse(f'''
+    expected = HelperHTMLParser.parse(
+        f"""
         <div class="form-group row">
             <label class="col-sm-4 col-form-label d-flex align-items-center"
                 for="{file.identifier}">
@@ -637,18 +684,19 @@ def test_file_input():
                 </div>
             </div>
         </div>
-    ''')
+    """
+    )
     assert actual == expected
 
 
 @pytest.mark.button
 def test_button_group():
     input_group = InputGroup(
-        Text("@"),
-        TextInput(None, 'username', placeholder='type username')
+        Text("@"), TextInput(None, "username", placeholder="type username")
     )
     actual = HelperHTMLParser.parse(str(input_group))
-    expected = HelperHTMLParser.parse('''
+    expected = HelperHTMLParser.parse(
+        """
         <div id="..."
             class="input-group"
             role="group">
@@ -660,5 +708,6 @@ def test_button_group():
                 placeholder="type username"
                 />
         </div>
-    ''')
+    """
+    )
     assert actual == expected
