@@ -7,9 +7,16 @@ from textwrap import dedent
 from html import escape
 from json import dumps
 
-from .base import WebComponent, ClassMixin, AvailabilityMixin, AppearanceMixin, OutlineMixin
+from .base import (
+    WebComponent,
+    ClassMixin,
+    AvailabilityMixin,
+    AppearanceMixin,
+    OutlineMixin,
+)
 from .utils import attr, tag, inject
-from .text import Text#
+from .text import Text  #
+
 
 class Form(WebComponent, ClassMixin):
     """A web component for a form.
@@ -54,7 +61,7 @@ class Form(WebComponent, ClassMixin):
         return self
 
     def __str__(self):
-        return f'''
+        return f"""
             <form {attr('id', self.identifier)}
                 {attr('action', self.__href)}
                 {attr('class', self.classes)}
@@ -62,7 +69,7 @@ class Form(WebComponent, ClassMixin):
                 enctype="multipart/form-data">
                 {inject(*self.__components)}
             </form>
-        '''
+        """
 
 
 class Input(ABC, WebComponent, ClassMixin, AvailabilityMixin):
@@ -93,18 +100,18 @@ class Input(ABC, WebComponent, ClassMixin, AvailabilityMixin):
         """A component for rendering a receiver."""
 
     def __str__(self):
-        self.add_classes('form-group')
+        self.add_classes("form-group")
 
         if self._label:
             label_classes = None
             receiver_classes = None
             if not self.__label_on_top:
-                self.add_classes('row')
-                label_classes = \
-                    'col-sm-4 col-form-label d-flex align-items-center'
-                receiver_classes = \
-                    'col-sm-8 d-flex align-items-center'
-            return f'''
+                self.add_classes("row")
+                label_classes = (
+                    "col-sm-4 col-form-label d-flex align-items-center"
+                )
+                receiver_classes = "col-sm-8 d-flex align-items-center"
+            return f"""
                 <div {attr('class', self.classes)}>
                     <label {attr('class', label_classes)}
                         {attr('for', self.identifier)}>
@@ -114,10 +121,10 @@ class Input(ABC, WebComponent, ClassMixin, AvailabilityMixin):
                         {self._receiver()}
                     </div>
                 </div>
-            '''
-        return f'''
+            """
+        return f"""
             {self._receiver()}
-        '''
+        """
 
 
 class CheckboxInput(Input, AppearanceMixin, OutlineMixin):
@@ -171,7 +178,7 @@ class CheckboxInput(Input, AppearanceMixin, OutlineMixin):
         return self
 
     def as_radio(self, value):
-        """Makes a chack box as radio button. 
+        """Makes a chack box as radio button.
 
         Returns:
             obj (self): The instance of this class.
@@ -208,7 +215,7 @@ class CheckboxInput(Input, AppearanceMixin, OutlineMixin):
         self.__switch = True
         self.__button = False
         return self
-    
+
     def as_button(self):
         """Sets the "button"-style to the check box.
 
@@ -253,11 +260,9 @@ class CheckboxInput(Input, AppearanceMixin, OutlineMixin):
 
     def __str__(self):
         if self.__label_on_left:
-            label_classes = \
-                'col-sm-4 col-form-label d-flex align-items-center'
-            receiver_classes = \
-                'col-sm-8 d-flex align-items-center'
-            return f'''
+            label_classes = "col-sm-4 col-form-label d-flex align-items-center"
+            receiver_classes = "col-sm-8 d-flex align-items-center"
+            return f"""
                 <div {attr('class', 'form-group row')}>
                     <label {attr('class', label_classes)}
                         {attr('for', self.identifier)}>
@@ -277,29 +282,28 @@ class CheckboxInput(Input, AppearanceMixin, OutlineMixin):
                         </input> 
                     </div>
                 </div>
-            '''
+            """
         else:
-            self.add_classes('form-check')
+            self.add_classes("form-check")
             type = "checkbox" if self.__value is None else "radio"
             if self.__inline:
-                self.add_classes('form-check-inline')
+                self.add_classes("form-check-inline")
             if self.__switch:
-                self.add_classes('form-switch')
+                self.add_classes("form-switch")
+
             # Sets input class (for the button look)
-            input_classes = "form-check-input"    
+            input_classes = "form-check-input"
+            label_classes = "form-check-label"
             if self.__button:
                 input_classes = "btn-check"
-            # Sets label class (for the button look)
-            label_classes = "form-check-label"    
-            if self.__button:
                 label_classes = "btn"
                 if self._category:
                     if self._border:
-                        label_classes += f' btn-outline-{self._category}'
+                        label_classes += f" btn-outline-{self._category}"
                     else:
-                        label_classes += f' btn-{self._category}'
+                        label_classes += f" btn-{self._category}"
 
-            wc_input_n_label = f'''
+            wc_input_n_label = f"""
                 <input {attr('id', self.identifier)}
                     {attr('name', self._name)}
                     {attr('value', "true" if self.__value is None else self.__value)}
@@ -309,23 +313,23 @@ class CheckboxInput(Input, AppearanceMixin, OutlineMixin):
                     {attr('checked', self.__checked)}
                     {attr('disabled', self._disabled)}>
                 </input>    
-                <input type="hidden" name="{self._name}" value="false">
-                </input> 
                 <label {attr('class', label_classes)} 
                     {attr('for', self.identifier)}>
                     {self._label or ''}
+                    <input type="hidden" name="{self._name}" value="false">
+                    </input> 
                 </label>
-            '''
+            """
 
             if self.__button:
                 return wc_input_n_label
             else:
-                return f'''
+                return f"""
                     <div {attr('class', self.classes)}>
                         {wc_input_n_label}
                     </div>
-                '''
-        
+                """
+
 
 class Freehand(Input):
     """A freehand value input.
@@ -346,10 +350,11 @@ class Freehand(Input):
 
     def _receiver(self):
         if self._rows > 1:
-            assert self._type == 'text',\
-                f'The <class "TextInput"> of type "{self._type}" ' +\
-                f'can not have {self._rows} rows.'
-            return f'''
+            assert self._type == "text", (
+                f'The <class "TextInput"> of type "{self._type}" '
+                + f"can not have {self._rows} rows."
+            )
+            return f"""
                 <textarea {attr('id', self.identifier)}
                     {attr('name', self._name)}
                     class="form-control"
@@ -357,9 +362,9 @@ class Freehand(Input):
                     {attr('disabled', self._disabled)}>
                     {self.__value or ''}
                 </textarea>
-            '''
+            """
         else:
-            return f'''
+            return f"""
                 <input {attr('id', self.identifier)}
                     {attr('name', self._name)}
                     {attr('value', self.__value)}
@@ -367,7 +372,7 @@ class Freehand(Input):
                     class="form-control"
                     {attr('placeholder', self.__placeholder)}
                     {attr('disabled', self._disabled)}/>
-            '''
+            """
 
 
 class TextInput(Freehand):
@@ -395,7 +400,7 @@ class TextInput(Freehand):
 
     def __init__(self, label, name, value=None, placeholder=None):
         super().__init__(label, name, value, placeholder)
-        self._type = 'text'
+        self._type = "text"
 
     def with_multirows(self, n):
         """Sets the number of rows.
@@ -429,7 +434,7 @@ class TextInput(Freehand):
                 TextInput('Email', 'email', 'my@email.com').for_email()
             )
         """
-        self._type = 'email'
+        self._type = "email"
         return self
 
     def for_password(self):
@@ -445,7 +450,7 @@ class TextInput(Freehand):
                 TextInput('Password', 'password', '********').for_password()
             )
         """
-        self._type = 'password'
+        self._type = "password"
         return self
 
 
@@ -474,7 +479,7 @@ class NumericInput(Freehand):
 
     def __init__(self, label, name, value=None, placeholder=None):
         super().__init__(label, name, value, placeholder)
-        self._type = 'number'
+        self._type = "number"
 
 
 class SelectInput(Input):
@@ -564,7 +569,8 @@ class SelectInput(Input):
         if self.__radio:
             options = []
             for option in self.__options:
-                options.append(f'''
+                options.append(
+                    f"""
                     <div class="form-check me-3">
                         <input {attr('id', option.identifier)}
                             {attr('name', self._name)}
@@ -579,21 +585,24 @@ class SelectInput(Input):
                             {option.name}
                         </label>
                     </div>
-                ''')
+                """
+                )
             return inject(*options)
         else:
             options = []
             for option in self.__options:
-                options.append(f'''
+                options.append(
+                    f"""
                     <option {attr('id', option.identifier)}
                         {attr('value', option.value)}
                         {attr('selected', option.value == self.__value)}
                         {attr('disabled', option.disabled)}>
                         {option.name}
                     </option>
-                ''')
+                """
+                )
 
-            return f'''
+            return f"""
                 <select {attr('id', self.identifier)}
                     {attr('name', self._name)}
                     class="form-control"
@@ -601,7 +610,7 @@ class SelectInput(Input):
                     {attr('disabled', self._disabled)}>
                     {inject(*options)}
                 </select>
-            '''
+            """
 
 
 class JsonInput(Input):
@@ -628,33 +637,42 @@ class JsonInput(Input):
 
     def _receiver(self):
         input_attr = [
-            attr('id', self.identifier),
-            attr('name', self._name),
-            attr('value', escape(
-                dumps(self.__value, ensure_ascii=False, indent=4).strip())
+            attr("id", self.identifier),
+            attr("name", self._name),
+            attr(
+                "value",
+                escape(
+                    dumps(self.__value, ensure_ascii=False, indent=4).strip()
+                ),
             ),
-            attr('type', "hidden"),
+            attr("type", "hidden"),
         ]
-        input_tag = tag('input', input_attr, '')
+        input_tag = tag("input", input_attr, "")
 
         json_attr = [
-            attr('class', 'language-json'),
+            attr("class", "language-json"),
         ]
-        json_tag = tag('code', json_attr, escape(
-            dumps(self.__value, ensure_ascii=False, indent=4).strip(),
-            quote=False
-        ))
+        json_tag = tag(
+            "code",
+            json_attr,
+            escape(
+                dumps(self.__value, ensure_ascii=False, indent=4).strip(),
+                quote=False,
+            ),
+        )
 
-        onkeyup = 'javascript:$(\'#'+self.identifier+'\').val($(this).text())'
+        onkeyup = (
+            "javascript:$('#" + self.identifier + "').val($(this).text())"
+        )
         pre_attr = [
-            attr('contenteditable', 'false' if self._disabled else 'true'),
-            attr('class', "w-100"),
-            attr('onkeyup', onkeyup),
-            
+            attr("contenteditable", "false" if self._disabled else "true"),
+            attr("class", "w-100"),
+            attr("onkeyup", onkeyup),
         ]
-        pre_tag = tag('pre', pre_attr, json_tag)
+        pre_tag = tag("pre", pre_attr, json_tag)
 
         return pre_tag + input_tag
+
 
 class HiddenInput(Input):
     """A hidden input.
@@ -676,12 +694,12 @@ class HiddenInput(Input):
         self.__value = value
 
     def _receiver(self):
-        return f'''
+        return f"""
             <input {attr('id', self.identifier)}
                 {attr('name', self._name)}
                 {attr('value', self.__value)}
                 type="hidden"/>
-        '''
+        """
 
     def __str__(self):
         return self._receiver()
@@ -710,11 +728,11 @@ class FileInput(Input):
         super().__init__(label, name)
 
     def _receiver(self):
-        browse_button_class = 'btn btn-secondary'
+        browse_button_class = "btn btn-secondary"
         if self._disabled:
-            browse_button_class += ' disabled'
+            browse_button_class += " disabled"
 
-        return f'''
+        return f"""
             <div class="input-group">
                 <span class="form-control input-group-append"></span>
                 <div class="input-group-append">
@@ -730,7 +748,8 @@ class FileInput(Input):
                         {attr('disabled', self._disabled)}/>
                 </div>
             </div>
-        '''
+        """
+
 
 class InputGroup(WebComponent, ClassMixin):
     """A web component for an input group.
@@ -767,6 +786,7 @@ class InputGroup(WebComponent, ClassMixin):
 
         output=Form(ig1,ig2,ig3,ig4)
     """
+
     def __init__(self, *inputs):
         super().__init__()
         self.__inputs = inputs
@@ -778,10 +798,10 @@ class InputGroup(WebComponent, ClassMixin):
             if isinstance(input, Text):
                 input.add_classes("input-group-text")
 
-        return f'''
+        return f"""
             <div {attr("id", self.identifier)}
                 {attr("class", self.classes)}
                 role="group">
                 {inject(*self.__inputs)}
             </div>
-        '''
+        """
