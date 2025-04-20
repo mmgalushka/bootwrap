@@ -646,7 +646,7 @@ def test_file_input():
                         </span>
                         <input id="{file.identifier}"
                             name="somename"
-                            onchange="$(this).parent().parent().find('.form-control').htms($(this).val().split({regexp}).pop());"
+                            onchange="$(this).parent().parent().find('.form-control').html($(this).val().split({regexp}).pop());"
                             style="display: none;"
                             type="file"/>
                     </div>
@@ -676,7 +676,7 @@ def test_file_input():
                         </span>
                         <input id="{file.identifier}"
                             name="somename"
-                            onchange="$(this).parent().parent().find('.form-control').htms($(this).val().split({regexp}).pop());"
+                            onchange="$(this).parent().parent().find('.form-control').html($(this).val().split({regexp}).pop());"
                             style="display: none;"
                             type="file"
                             disabled/>

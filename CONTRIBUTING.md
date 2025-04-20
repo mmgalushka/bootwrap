@@ -94,7 +94,7 @@ System Commands:
       -c generates code coverage summary;
       -r generates code coverage report;
    preview runs web-server with documentation preview;
-   docs generates documentation (HTms-pages);
+   docs generates documentation (HTML-pages);
    demo runs web-server with showcase project;
    build generates distribution archives;
 ```
