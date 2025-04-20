@@ -742,7 +742,7 @@ class FileInput(Input):
                     </span>
                     <input {attr('id', self.identifier)}
                         {attr('name', self._name)}
-                        onchange="$(this).parent().parent().find('.form-control').htms($(this).val().split(/[\\|/]/).pop());"
+                        onchange="$(this).parent().parent().find('.form-control').html($(this).val().split(/[\\|/]/).pop());"
                         style="display: none;"
                         type="file"
                         {attr('disabled', self._disabled)}/>
