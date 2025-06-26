@@ -83,31 +83,11 @@ class Page:
 
     def __str__(self):
         """Renders an HTML page."""
-        # Collects CSS supporting Bootstrap stypes.
-        links = [
-            Link('https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css'),                 # NOQA
-            Link('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css'),               # NOQA
-            Link('https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css')        # NOQA
-        ]
-
-        # Collects FABICON showing in tab.
-        if self.__favicon:
-            links.append(Link(self.__favicon, 'icon', 'image/x-icon'))
-
-        # Collects JS scriptis supporting JQuery and code highlights.
-        scripts = [
-            Javascript('https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js'),                  # NOQA
-            Javascript('https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.11.8/umd/popper.min.js'),          # NOQA
-            Javascript('https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js'),       # NOQA
-            Javascript('https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js'),        # NOQA
-            Javascript('https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/python.min.js'), # NOQA
-            Javascript('https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/json.min.js'),   # NOQA
-            Javascript('https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/yaml.min.js'),   # NOQA
-            Javascript('https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/bash.min.js')    # NOQA
-        ]
 
         # Adds customer defined resources which could be CSS or JS files.
         if self.__resources:
+            links = []
+            scripts = []  
             for resource in self.__resources:
                 if isinstance(resource, Link):
                     links.append(resource)
@@ -118,6 +98,29 @@ class Page:
                         'Page resource must be either <class "Link"> or '
                         f'<class "Javascript">, but got: {type(resource)};',
                     )
+        else:
+            # Collects CSS supporting Bootstrap styles.
+            links = [
+                Link('https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css'),                 # NOQA
+                Link('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css'),               # NOQA
+                Link('https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css')        # NOQA
+            ]
+
+            # Collects JS scripts supporting JQuery and code highlights.
+            scripts = [
+                Javascript('https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js'),                  # NOQA
+                Javascript('https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.11.8/umd/popper.min.js'),          # NOQA
+                Javascript('https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js'),       # NOQA
+                Javascript('https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js'),        # NOQA
+                Javascript('https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/python.min.js'), # NOQA
+                Javascript('https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/json.min.js'),   # NOQA
+                Javascript('https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/yaml.min.js'),   # NOQA
+                Javascript('https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/bash.min.js')    # NOQA
+            ]
+
+        # Collects FABICON showing in tab.
+        if self.__favicon:
+            links.append(Link(self.__favicon, 'icon', 'image/x-icon'))
 
         # Sets the page title.
         title = None
