@@ -158,26 +158,26 @@ def test_deck_card():
 @pytest.mark.deck
 def test_deck():
     dk = Deck(
-        Deck.Card('sometitle1'),
-        Deck.Card('sometitle2'),
-        Deck.Card('sometitle3')
+        Deck.Card('sometitle1').me(3),
+        Deck.Card('sometitle2').me(3),
+        Deck.Card('sometitle3').me(3)
     )
     actual = HelperHTMLParser.parse(str(dk))
     expected = HelperHTMLParser.parse(f'''
         <div id="{dk.identifier}" class="card-deck grid-container">
-            <div id="..." class="card">
+            <div id="..." class="card me-3">
                 <a></a>
                 <div class="card-body">
                     <h5 id="..." class="card-title">sometitle1</h5>
                 </div>
             </div>
-            <div id="..." class="card">
+            <div id="..." class="card me-3">
                 <a></a>
                 <div class="card-body">
                     <h5 id="..." class="card-title">sometitle2</h5>
                 </div>
             </div>
-            <div id="..." class="card">
+            <div id="..." class="card me-3">
                 <a></a>
                 <div class="card-body">
                     <h5 id="..." class="card-title">sometitle3</h5>
