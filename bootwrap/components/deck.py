@@ -29,21 +29,21 @@ class Deck(WebComponent, ClassMixin):
                 description= "Price for a single Google share",
                 figure=Image("google-logo.png", width=128).mt(3),
                 marker="12:04:58 12/01/2021"
-            ).add_menu(*actions).pack_actions().link(
+            ).me(3).add_menu(*actions).pack_actions().link(
                 "https://www.google.com"),
             Deck.Card(
                 "LinkedIn (NASDAQ: LNKD)",
                 description= "Price for a single LinkedIn share",
                 figure=Image("linkedin-logo.png", width=128).mt(3),
                 marker="12:04:58 12/01/2021"
-            ).add_menu(*actions).pack_actions().link(
+            ).me(3).add_menu(*actions).pack_actions().link(
                 "https://www.linkedin.com"),
             Deck.Card(
                 "Amazon (NASDAQ: AMZN)",
                 description= "Price for a single Amazon share",
                 figure=Image("amazon-logo.png", width=128).mt(3),
                 marker="12:04:58 12/01/2021"
-            ).add_menu(*actions).pack_actions().link(
+            ).me(3).add_menu(*actions).pack_actions().link(
                 "https://www.amazon.com")
         )
     """
@@ -59,7 +59,7 @@ class Deck(WebComponent, ClassMixin):
                 )
         self._cards = cards
 
-    class Card(WebComponent, ActionMixin):
+    class Card(WebComponent, ActionMixin, ClassMixin):
         """A deck card.
 
         Args:
@@ -159,8 +159,11 @@ class Deck(WebComponent, ClassMixin):
 
             if self._figure:
                 self._figure.add_classes("card-img-top")
+
+            self.add_classes('card')
             return f'''
-                <div {attr("id", self.identifier)} class="card">
+                <div {attr("id", self.identifier)}
+                    {attr('class', self.classes)}>
                     <a {attr('onclick', onclick)}>
                         {inject(self._figure)}
                     </a>
