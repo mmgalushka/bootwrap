@@ -2,7 +2,7 @@
 A collection of items.
 """
 
-from .base import WebComponent, ClassMixin
+from .base import WebComponent, ClassMixin, ActionMixin
 from .anchor import Anchor
 from .button import Button
 from .text import Text
@@ -60,7 +60,7 @@ class List(WebComponent, ClassMixin):
                 )
         self._items = items
 
-    class Item(Anchor):
+    class Item(WebComponent, ActionMixin, ClassMixin):
         """A list item.
 
         Args:
@@ -172,25 +172,17 @@ class List(WebComponent, ClassMixin):
                     for action in self._menu:
                         action.ms(1)
                     wc_actions = inject(*self._menu)
+                
+                # Wrap actions in a div with event stopping
                 wc_actions = f'''
                     <div class="d-flex align-items-start">
                         {inject(wc_actions)}
                     </div>
                 '''
 
-            self._inner = f'''
-                <div class="d-flex w-100 justify-content-between">
-                    {inject(self._figure)}
-                    <div class="ms-2 me-2 w-100">
-                        <div class="d-flex w-100 justify-content-between">
-                            {inject(wc_title)}
-                            {inject(wc_marker)}
-                        </div>
-                        {inject(self._description)}
-                    </div>
-                    {inject(wc_actions)}
-                </div>
-            '''
+            onclick = None
+            if self._target:
+                onclick = f"location.href='{self._target}'; return false;"
 
             self.add_classes(
                 'list-group-item list-group-item-action flex-column '
@@ -199,7 +191,43 @@ class List(WebComponent, ClassMixin):
             if self._selected:
                 self.add_classes('active')
 
-            return super().__str__()
+            # Alternative structure: Separate clickable area from actions
+            # if wc_actions:
+            return f'''
+                <div {attr("id", self.identifier)} {attr('class', self.classes)}>
+                    <div class="d-flex w-100 justify-content-between">
+                        <div class="d-flex flex-grow-1" {attr('onclick', onclick)} style="cursor: {'pointer' if onclick else 'default'};">
+                            {inject(self._figure)}
+                            <div class="ms-2 me-2 w-100">
+                                <div class="d-flex w-100 justify-content-between">
+                                    {inject(wc_title)}
+                                    {inject(wc_marker)}
+                                </div>
+                                {inject(self._description)}
+                            </div>
+                        </div>
+                        {inject(wc_actions)}
+                    </div>
+                </div>
+            '''
+            # else:
+            #     # No actions, use simpler structure
+            #     return f'''
+            #         <div {attr("id", self.identifier)}
+            #             {attr('class', self.classes)}
+            #             {attr('onclick', onclick)}>
+            #             <div class="d-flex w-100 justify-content-between">
+            #                 {inject(self._figure)}
+            #                 <div class="ms-2 me-2 w-100">
+            #                     <div class="d-flex w-100 justify-content-between">
+            #                         {inject(wc_title)}
+            #                         {inject(wc_marker)}
+            #                     </div>
+            #                     {inject(self._description)}
+            #                 </div>
+            #             </div>
+            #         </div>
+            #     '''
 
     def __str__(self):
         self.add_classes('list-group')
