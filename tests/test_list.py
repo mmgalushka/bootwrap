@@ -45,7 +45,6 @@ def test_list_item():
         figure=Icon('someicon'),
         marker=Text("somemarker")
     ).as_selected()
-
     actual = HelperHTMLParser.parse(str(item))
     expected = HelperHTMLParser.parse(f'''
         <div id="{item.identifier}"
@@ -53,6 +52,35 @@ def test_list_item():
                    align-items-start active">
             <div class="d-flex w-100 justify-content-between">
                 <div class="d-flex flex-grow-1"  style="cursor: default;">
+                    <i id="..." class="someicon"> </i>
+                    <div class="ms-2 me-2 w-100">
+                        <div class="d-flex w-100 justify-content-between">
+                            <span id="...">sometitle</span>
+                            <span id="...">somemarker</span>
+                        </div>
+                        <span id="...">somedescr</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    ''')
+    assert actual == expected
+
+    # Tests a list item with an associated link.
+    item = List.Item(
+        Text('sometitle'),
+        description=Text('somedescr'),
+        figure=Icon('someicon'),
+        marker=Text("somemarker")
+    ).link("to/somewhere")
+    print(str(item))
+    actual = HelperHTMLParser.parse(str(item))
+    expected = HelperHTMLParser.parse(f'''
+        <div id="{item.identifier}"
+            class="list-group-item list-group-item-action flex-column
+                   align-items-start">
+            <div class="d-flex w-100 justify-content-between">
+                <div class="d-flex flex-grow-1" onclick="location.href='to/somewhere'; return false;" style="cursor: pointer;">
                     <i id="..." class="someicon"> </i>
                     <div class="ms-2 me-2 w-100">
                         <div class="d-flex w-100 justify-content-between">
