@@ -19,20 +19,22 @@ def test_list_item():
     ).as_selected()
     actual = HelperHTMLParser.parse(str(item))
     expected = HelperHTMLParser.parse(f'''
-        <a id="{item.identifier}"
+        <div id="{item.identifier}"
             class="list-group-item list-group-item-action flex-column
                    align-items-start active">
             <div class="d-flex w-100 justify-content-between">
-                <i id="..." class="someicon"> </i>
-                <div class="ms-2 me-2 w-100">
-                    <div class="d-flex w-100 justify-content-between">
-                        <h5 id="...">sometitle</h5>
-                        <small id="...">somemarker</small>
-                     </div>
-                    somedescr
-                </div>
+                <div class="d-flex flex-grow-1"  style="cursor: default;">
+                    <i id="..." class="someicon"> </i>
+                    <div class="ms-2 me-2 w-100">
+                        <div class="d-flex w-100 justify-content-between">
+                            <h5 id="...">sometitle</h5>
+                            <small id="...">somemarker</small>
+                        </div>
+                        somedescr
+                    </div>
+                </div>    
             </div>
-        </a>
+        </div>
     ''')
     assert actual == expected
 
@@ -43,22 +45,25 @@ def test_list_item():
         figure=Icon('someicon'),
         marker=Text("somemarker")
     ).as_selected()
+
     actual = HelperHTMLParser.parse(str(item))
     expected = HelperHTMLParser.parse(f'''
-        <a id="{item.identifier}"
+        <div id="{item.identifier}"
             class="list-group-item list-group-item-action flex-column
                    align-items-start active">
             <div class="d-flex w-100 justify-content-between">
-                <i id="..." class="someicon"> </i>
-                <div class="ms-2 me-2 w-100">
-                    <div class="d-flex w-100 justify-content-between">
-                        <span id="...">sometitle</span>
-                        <span id="...">somemarker</span>
-                     </div>
-                    <span id="...">somedescr</span>
+                <div class="d-flex flex-grow-1"  style="cursor: default;">
+                    <i id="..." class="someicon"> </i>
+                    <div class="ms-2 me-2 w-100">
+                        <div class="d-flex w-100 justify-content-between">
+                            <span id="...">sometitle</span>
+                            <span id="...">somemarker</span>
+                        </div>
+                        <span id="...">somedescr</span>
+                    </div>
                 </div>
             </div>
-        </a>
+        </div>
     ''')
     assert actual == expected
 
@@ -67,15 +72,17 @@ def test_list_item():
     item = List.Item('sometitle').add_menu(*actions)
     actual = HelperHTMLParser.parse(str(item))
     expected = HelperHTMLParser.parse(f'''
-        <a id="{item.identifier}"
+        <div id="{item.identifier}"
             class="list-group-item list-group-item-action flex-column
                    align-items-start">
             <div class="d-flex w-100 justify-content-between">
-                <div class="ms-2 me-2 w-100">
-                    <div class="d-flex w-100 justify-content-between">
-                        <h5 id="...">sometitle</h5>
-                     </div>
-                </div>
+                <div class="d-flex flex-grow-1"  style="cursor: default;">
+                    <div class="ms-2 me-2 w-100">
+                        <div class="d-flex w-100 justify-content-between">
+                            <h5 id="...">sometitle</h5>
+                        </div>
+                    </div>
+                </div>    
                 <div class="d-flex align-items-start">
                     <button id="..."
                         class="ms-1 btn"
@@ -89,7 +96,7 @@ def test_list_item():
                     </button>
                 </div>
             </div>
-        </a>
+        </div>
     ''')
     assert actual == expected
 
@@ -98,14 +105,16 @@ def test_list_item():
     item = List.Item('sometitle').add_menu(*actions).pack_actions()
     actual = HelperHTMLParser.parse(str(item))
     expected = HelperHTMLParser.parse(f'''
-        <a id="{item.identifier}"
+        <div id="{item.identifier}"
             class="list-group-item list-group-item-action flex-column
                    align-items-start">
             <div class="d-flex w-100 justify-content-between">
-                <div class="ms-2 me-2 w-100">
-                    <div class="d-flex w-100 justify-content-between">
-                        <h5 id="...">sometitle</h5>
-                     </div>
+                <div class="d-flex flex-grow-1"  style="cursor: default;">
+                    <div class="ms-2 me-2 w-100">
+                        <div class="d-flex w-100 justify-content-between">
+                            <h5 id="...">sometitle</h5>
+                        </div>
+                    </div>
                 </div>
                 <div class="d-flex align-items-start">
                     <div class="btn-group">
@@ -130,7 +139,7 @@ def test_list_item():
                     </div>
                 </div>
             </div>
-        </a>
+        </div>
     ''')
     assert actual == expected
 
@@ -145,39 +154,45 @@ def test_list():
     actual = HelperHTMLParser.parse(str(ls))
     expected = HelperHTMLParser.parse(f'''
         <div id="{ls.identifier}" class="list-group">
-            <a id="..."
+            <div id="..."
                 class="list-group-item list-group-item-action flex-column
                        align-items-start active">
                 <div class="d-flex w-100 justify-content-between">
-                    <div class="ms-2 me-2 w-100">
-                        <div class="d-flex w-100 justify-content-between">
-                            <h5 id="...">sometitle1</h5>
+                    <div class="d-flex flex-grow-1"  style="cursor: default;">
+                        <div class="ms-2 me-2 w-100">
+                            <div class="d-flex w-100 justify-content-between">
+                                <h5 id="...">sometitle1</h5>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </a>
-            <a id="..."
+            </div>
+            <div id="..."
                 class="list-group-item list-group-item-action flex-column
                        align-items-start">
                 <div class="d-flex w-100 justify-content-between">
-                    <div class="ms-2 me-2 w-100">
-                        <div class="d-flex w-100 justify-content-between">
-                            <h5 id="...">sometitle2</h5>
+                    <div class="d-flex flex-grow-1"  style="cursor: default;">
+                        <div class="ms-2 me-2 w-100">
+                            <div class="d-flex w-100 justify-content-between">
+                                <h5 id="...">sometitle2</h5>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </a>
-            <a id="..."
+            </div>
+            <div id="..."
                 class="list-group-item list-group-item-action flex-column
                        align-items-start">
                 <div class="d-flex w-100 justify-content-between">
-                    <div class="ms-2 me-2 w-100">
-                        <div class="d-flex w-100 justify-content-between">
-                            <h5 id="...">sometitle3</h5>
+                    <div class="d-flex flex-grow-1"  style="cursor: default;">
+                        <div class="ms-2 me-2 w-100">
+                            <div class="d-flex w-100 justify-content-between">
+                                <h5 id="...">sometitle3</h5>
+                            </div>
                         </div>
-                    </div>
+                    </div>    
                 </div>
-            </a>
+            </div>
         </div>
     ''')
     assert actual == expected
