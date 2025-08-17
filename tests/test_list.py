@@ -12,13 +12,14 @@ from .helper import HelperHTMLParser
 def test_list_item():
     # Tests a default list item.
     item = List.Item(
-        'sometitle',
-        description='somedescr',
-        figure=Icon('someicon'),
+        "sometitle",
+        description="somedescr",
+        figure=Icon("someicon"),
         marker="somemarker",
     ).as_selected()
     actual = HelperHTMLParser.parse(str(item))
-    expected = HelperHTMLParser.parse(f'''
+    expected = HelperHTMLParser.parse(
+        f"""
         <div id="{item.identifier}"
             class="list-group-item list-group-item-action flex-column
                    align-items-start active">
@@ -35,18 +36,20 @@ def test_list_item():
                 </div>    
             </div>
         </div>
-    ''')
+    """
+    )
     assert actual == expected
 
     # Tests a custom list item.
     item = List.Item(
-        Text('sometitle'),
-        description=Text('somedescr'),
-        figure=Icon('someicon'),
-        marker=Text("somemarker")
+        Text("sometitle"),
+        description=Text("somedescr"),
+        figure=Icon("someicon"),
+        marker=Text("somemarker"),
     ).as_selected()
     actual = HelperHTMLParser.parse(str(item))
-    expected = HelperHTMLParser.parse(f'''
+    expected = HelperHTMLParser.parse(
+        f"""
         <div id="{item.identifier}"
             class="list-group-item list-group-item-action flex-column
                    align-items-start active">
@@ -63,19 +66,20 @@ def test_list_item():
                 </div>
             </div>
         </div>
-    ''')
+    """
+    )
     assert actual == expected
 
     # Tests a list item with an associated link.
     item = List.Item(
-        Text('sometitle'),
-        description=Text('somedescr'),
-        figure=Icon('someicon'),
-        marker=Text("somemarker")
+        Text("sometitle"),
+        description=Text("somedescr"),
+        figure=Icon("someicon"),
+        marker=Text("somemarker"),
     ).link("to/somewhere")
-    print(str(item))
     actual = HelperHTMLParser.parse(str(item))
-    expected = HelperHTMLParser.parse(f'''
+    expected = HelperHTMLParser.parse(
+        f"""
         <div id="{item.identifier}"
             class="list-group-item list-group-item-action flex-column
                    align-items-start">
@@ -92,14 +96,16 @@ def test_list_item():
                 </div>
             </div>
         </div>
-    ''')
+    """
+    )
     assert actual == expected
 
     # Tests an unpacked list item actions.
-    actions = [Button('A'), Button('B')]
-    item = List.Item('sometitle').add_menu(*actions)
+    actions = [Button("A"), Button("B")]
+    item = List.Item("sometitle").add_menu(*actions)
     actual = HelperHTMLParser.parse(str(item))
-    expected = HelperHTMLParser.parse(f'''
+    expected = HelperHTMLParser.parse(
+        f"""
         <div id="{item.identifier}"
             class="list-group-item list-group-item-action flex-column
                    align-items-start">
@@ -125,14 +131,16 @@ def test_list_item():
                 </div>
             </div>
         </div>
-    ''')
+    """
+    )
     assert actual == expected
 
     # Tests a packed list item actions.
-    actions = [Button('A'), Button('B')]
-    item = List.Item('sometitle').add_menu(*actions).pack_actions()
+    actions = [Button("A"), Button("B")]
+    item = List.Item("sometitle").add_menu(*actions).pack_actions()
     actual = HelperHTMLParser.parse(str(item))
-    expected = HelperHTMLParser.parse(f'''
+    expected = HelperHTMLParser.parse(
+        f"""
         <div id="{item.identifier}"
             class="list-group-item list-group-item-action flex-column
                    align-items-start">
@@ -168,19 +176,21 @@ def test_list_item():
                 </div>
             </div>
         </div>
-    ''')
+    """
+    )
     assert actual == expected
 
 
 @pytest.mark.list
 def test_list():
     ls = List(
-        List.Item('sometitle1').as_selected(),
-        List.Item('sometitle2'),
-        List.Item('sometitle3')
+        List.Item("sometitle1").as_selected(),
+        List.Item("sometitle2"),
+        List.Item("sometitle3"),
     )
     actual = HelperHTMLParser.parse(str(ls))
-    expected = HelperHTMLParser.parse(f'''
+    expected = HelperHTMLParser.parse(
+        f"""
         <div id="{ls.identifier}" class="list-group">
             <div id="..."
                 class="list-group-item list-group-item-action flex-column
@@ -222,7 +232,8 @@ def test_list():
                 </div>
             </div>
         </div>
-    ''')
+    """
+    )
     assert actual == expected
 
     with pytest.raises(TypeError):

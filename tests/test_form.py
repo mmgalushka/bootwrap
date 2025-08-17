@@ -54,17 +54,18 @@ def test_generic_input():
     actual = HelperHTMLParser.parse(str(generic))
     expected = HelperHTMLParser.parse(
         f"""
-        <div class="form-group someclass row">
-            <label class="col-sm-4 col-form-label d-flex align-items-center"
-                for="{generic.identifier}">
-                somelabel
-            </label>
-            <div class="col-sm-8 d-flex align-items-center">
-                <xyz id="{generic.identifier}">somename</xyz>
+            <div class="someclass form-group row">
+                <label class="col-sm-4 col-form-label"
+                    for="{generic.identifier}">
+                    somelabel
+                </label>
+                <div class="col-sm-8">
+                    <xyz id="{generic.identifier}">somename</xyz>
+                </div>
             </div>
-        </div>
-    """
+        """
     )
+
     assert actual == expected
 
     # the label on the top, input at the bottom...
@@ -94,6 +95,23 @@ def test_generic_input():
     expected = HelperHTMLParser.parse(
         f"""
         <xyz id="{generic.identifier}">somename</xyz>
+    """
+    )
+    assert actual == expected
+
+    # with no label but with tip...
+    generic = (
+        GenericInput(None, "somename")
+        .add_classes("someclass")
+        .with_tip("Here is some tip")
+    )
+    actual = HelperHTMLParser.parse(str(generic))
+    expected = HelperHTMLParser.parse(
+        f"""
+            <xyz id="{generic.identifier}">somename</xyz>
+            <small class="form-text text-secondary" style="font-size: 0.75em;">
+                Here is some tip
+            </small>
     """
     )
     assert actual == expected
@@ -309,11 +327,11 @@ def test_text_input():
     expected = HelperHTMLParser.parse(
         f"""
         <div class="form-group row">
-            <label class="col-sm-4 col-form-label d-flex align-items-center"
+            <label class="col-sm-4 col-form-label"
                 for="{text.identifier}">
                 somelabel
             </label>
-            <div class="col-sm-8 d-flex align-items-center">
+            <div class="col-sm-8">
                 <input id="{text.identifier}"
                     name="somename"
                     value="somevalue"
@@ -332,11 +350,11 @@ def test_text_input():
     expected = HelperHTMLParser.parse(
         f"""
         <div class="form-group row">
-            <label class="col-sm-4 col-form-label d-flex align-items-center"
+            <label class="col-sm-4 col-form-label"
                 for="{email.identifier}">
                 somelabel
             </label>
-            <div class="col-sm-8 d-flex align-items-center">
+            <div class="col-sm-8">
                 <input id="{email.identifier}"
                     name="somename"
                     type="email"
@@ -353,11 +371,11 @@ def test_text_input():
     expected = HelperHTMLParser.parse(
         f"""
         <div class="form-group row">
-            <label class="col-sm-4 col-form-label d-flex align-items-center"
+            <label class="col-sm-4 col-form-label"
                 for="{password.identifier}">
                 somelabel
             </label>
-            <div class="col-sm-8 d-flex align-items-center">
+            <div class="col-sm-8">
                 <input id="{password.identifier}"
                     name="somename"
                     type="password"
@@ -388,12 +406,11 @@ def test_text_area():
     def get_expected(element, disabled=False):
         return f"""
             <div class="form-group row">
-                <label class="col-sm-4 col-form-label d-flex
-                    align-items-center"
+                <label class="col-sm-4 col-form-label"
                     for="{element.identifier}">
                     somelabel
                 </label>
-                <div class="col-sm-8 d-flex align-items-center">
+                <div class="col-sm-8">
                     <textarea id="{element.identifier}"
                         name="somename"
                         class="form-control"
@@ -432,11 +449,11 @@ def test_numeric_input():
     expected = HelperHTMLParser.parse(
         f"""
         <div class="form-group row">
-            <label class="col-sm-4 col-form-label d-flex align-items-center"
+            <label class="col-sm-4 col-form-label"
                 for="{numeric.identifier}">
                 somelabel
             </label>
-            <div class="col-sm-8 d-flex align-items-center">
+            <div class="col-sm-8">
                 <input id="{numeric.identifier}"
                     name="somename"
                     value="somevalue"
@@ -462,11 +479,11 @@ def test_select_input():
     expected = HelperHTMLParser.parse(
         f"""
         <div class="form-group row">
-            <label class="col-sm-4 col-form-label d-flex align-items-center"
+            <label class="col-sm-4 col-form-label"
                 for="{select.identifier}">
                 somelabel
             </label>
-            <div class="col-sm-8 d-flex align-items-center">
+            <div class="col-sm-8">
                 <select id="{select.identifier}"
                     name="somename"
                     class="form-control"
@@ -490,11 +507,11 @@ def test_select_input():
     expected = HelperHTMLParser.parse(
         f"""
         <div class="form-group row">
-            <label class="col-sm-4 col-form-label d-flex align-items-center"
+            <label class="col-sm-4 col-form-label"
                 for="{select.identifier}">
                 somelabel
             </label>
-            <div class="col-sm-8 d-flex align-items-center">
+            <div class="col-sm-8">
                 <select id="{select.identifier}"
                     name="somename"
                     class="form-control"
@@ -527,11 +544,11 @@ def test_radio_input():
     expected = HelperHTMLParser.parse(
         f"""
         <div class="form-group row">
-            <label class="col-sm-4 col-form-label d-flex align-items-center"
+            <label class="col-sm-4 col-form-label"
                 for="{radio.identifier}">
                 somelabel
             </label>
-            <div class="col-sm-8 d-flex align-items-center">
+            <div class="col-sm-8">
                 <div class="form-check me-3">
                     <input id="{option_0.identifier}"
                         name="somename"
@@ -573,11 +590,11 @@ def test_json_input():
     expected = HelperHTMLParser.parse(
         f"""
         <div class="form-group row">
-            <label class="col-sm-4 col-form-label d-flex align-items-center"
+            <label class="col-sm-4 col-form-label"
                 for="{json.identifier}">
                 somelabel
             </label>
-            <div class="col-sm-8 d-flex align-items-center">
+            <div class="col-sm-8">
                 <pre contenteditable="true" class="w-100" onkeyup="javascript:$('#{json.identifier}').val($(this).text())">
                     <code class="language-json">...</code>
                 </pre>
@@ -593,11 +610,11 @@ def test_json_input():
     expected = HelperHTMLParser.parse(
         f"""
         <div class="form-group row">
-            <label class="col-sm-4 col-form-label d-flex align-items-center"
+            <label class="col-sm-4 col-form-label"
                 for="{json.identifier}">
                 somelabel
             </label>
-            <div class="col-sm-8 d-flex align-items-center">
+            <div class="col-sm-8">
                 <pre contenteditable="false" class="w-100" onkeyup="javascript:$('#{json.identifier}').val($(this).text())">
                     <code class="language-json">...</code>
                 </pre>
@@ -632,11 +649,11 @@ def test_file_input():
     expected = HelperHTMLParser.parse(
         f"""
         <div class="form-group someclass row">
-            <label class="col-sm-4 col-form-label d-flex align-items-center"
+            <label class="col-sm-4 col-form-label"
                 for="{file.identifier}">
                 somelabel
             </label>
-            <div class="col-sm-8 d-flex align-items-center">
+            <div class="col-sm-8">
                 <div class="input-group">
                     <span class="form-control input-group-append"></span>
                     <div class="input-group-append">
@@ -662,11 +679,11 @@ def test_file_input():
     expected = HelperHTMLParser.parse(
         f"""
         <div class="form-group row">
-            <label class="col-sm-4 col-form-label d-flex align-items-center"
+            <label class="col-sm-4 col-form-label"
                 for="{file.identifier}">
                 somelabel
             </label>
-            <div class="col-sm-8 d-flex align-items-center">
+            <div class="col-sm-8">
                 <div class="input-group">
                     <span class="form-control input-group-append"></span>
                     <div class="input-group-append">
@@ -691,6 +708,7 @@ def test_file_input():
 
 @pytest.mark.button
 def test_button_group():
+    # input group without tip
     input_group = InputGroup(
         Text("@"), TextInput(None, "username", placeholder="type username")
     )
@@ -708,6 +726,31 @@ def test_button_group():
                 placeholder="type username"
                 />
         </div>
+    """
+    )
+    assert actual == expected
+
+    # input group with tip
+    input_group = InputGroup(
+        Text("@"), TextInput(None, "username", placeholder="type username")
+    ).with_tip("Here is some tip")
+    actual = HelperHTMLParser.parse(str(input_group))
+    expected = HelperHTMLParser.parse(
+        """
+        <div id="..."
+            class="input-group"
+            role="group">
+            <span id="..." class="input-group-text">@</span>
+            <input id="..."
+                name="username"
+                type="text"
+                class="form-control"
+                placeholder="type username"
+                />
+        </div>
+        <small class="form-text text-secondary" style="font-size: 0.75em;">
+            Here is some tip
+        </small>
     """
     )
     assert actual == expected
