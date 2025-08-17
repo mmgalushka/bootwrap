@@ -344,6 +344,32 @@ def test_text_input():
     )
     assert actual == expected
 
+    # testing text-input (readonly)...
+    text = TextInput(
+        "somelabel", "somename", "somevalue", placeholder="someplaceholder"
+    ).as_readonly()
+    actual = HelperHTMLParser.parse(str(text))
+    expected = HelperHTMLParser.parse(
+        f"""
+        <div class="form-group row">
+            <label class="col-sm-4 col-form-label"
+                for="{text.identifier}">
+                somelabel
+            </label>
+            <div class="col-sm-8">
+                <input id="{text.identifier}"
+                    name="somename"
+                    value="somevalue"
+                    type="text"
+                    class="form-control"
+                    placeholder="someplaceholder"
+                    readonly/>
+            </div>
+        </div>
+    """
+    )
+    assert actual == expected
+
     # testing email-input...
     email = TextInput("somelabel", "somename").for_email()
     actual = HelperHTMLParser.parse(str(email))
@@ -460,6 +486,32 @@ def test_numeric_input():
                     type="number"
                     class="form-control"
                     placeholder="someplaceholder"/>
+            </div>
+        </div>
+    """
+    )
+    assert actual == expected
+
+    # testing text-input (readonly)...
+    numeric = NumericInput(
+        "somelabel", "somename", "somevalue", placeholder="someplaceholder"
+    ).as_readonly()
+    actual = HelperHTMLParser.parse(str(numeric))
+    expected = HelperHTMLParser.parse(
+        f"""
+        <div class="form-group row">
+            <label class="col-sm-4 col-form-label"
+                for="{numeric.identifier}">
+                somelabel
+            </label>
+            <div class="col-sm-8">
+                <input id="{numeric.identifier}"
+                    name="somename"
+                    value="somevalue"
+                    type="number"
+                    class="form-control"
+                    placeholder="someplaceholder"
+                    readonly/>
             </div>
         </div>
     """

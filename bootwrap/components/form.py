@@ -362,6 +362,16 @@ class Freehand(Input):
         self.__placeholder = placeholder
         self._type = None
         self._rows = 1
+        self._readonly = False
+
+    def as_readonly(self):
+        """Sets the freehand input components as read only.
+
+        Returns:
+            obj (self): The instance of this class.
+        """
+        self._readonly = True
+        return self
 
     def _receiver(self):
         if self._rows > 1:
@@ -374,6 +384,7 @@ class Freehand(Input):
                     {attr('name', self._name)}
                     class="form-control"
                     {attr('rows', self._rows)}
+                    {attr('readonly', self._readonly)}
                     {attr('disabled', self._disabled)}>
                     {self.__value or ''}
                 </textarea>
@@ -386,6 +397,7 @@ class Freehand(Input):
                     type="{self._type}"
                     class="form-control"
                     {attr('placeholder', self.__placeholder)}
+                    {attr('readonly', self._readonly)}
                     {attr('disabled', self._disabled)}/>
             """
 
@@ -410,7 +422,8 @@ class TextInput(Freehand):
             TextInput('Text2', 'text').with_tip('Here is some tip').mt(2),
             TextInput('Text3', 'text', placeholder='type here').mt(2),
             TextInput('Text4', 'text', 'Hello World!').mt(2),
-            TextInput('Text5', 'text').as_disabled().mt(2)
+            TextInput('Text5', 'text', 'Hello World!').as_readonly().mt(2),
+            TextInput('Text6', 'text').as_disabled().mt(2)
         )
     """
 
@@ -487,10 +500,11 @@ class NumericInput(Freehand):
 
         output = Form(
             NumericInput('Number1', 'number'),
-            NumericInput('Number1', 'number').with_tip('Here is some tip').mt(2),
-            NumericInput('Number2', 'number', placeholder='type here').mt(2),
-            NumericInput('Number3', 'number', 123).mt(2),
-            NumericInput('Number4', 'number').as_disabled().mt(2)
+            NumericInput('Number2', 'number').with_tip('Here is some tip').mt(2),
+            NumericInput('Number3', 'number', placeholder='type here').mt(2),
+            NumericInput('Number4', 'number', 123).mt(2),
+            NumericInput('Number5', 'number', 123).as_readonly().mt(2),
+            NumericInput('Number6', 'number').as_disabled().mt(2)
         )
     """
 
