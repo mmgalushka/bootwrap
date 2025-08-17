@@ -84,7 +84,12 @@ class Input(ABC, WebComponent, ClassMixin, AvailabilityMixin):
         super().__init__()
         self._label = label
         self._name = name
+        self._tip = None
         self.__label_on_top = False
+
+    def with_tip(self, tip):
+        self._tip = tip
+        return self
 
     def label_on_top(self):
         """Makes an input label showing on top.
@@ -102,28 +107,38 @@ class Input(ABC, WebComponent, ClassMixin, AvailabilityMixin):
     def __str__(self):
         self.add_classes("form-group")
 
+        tips_html = ""
+        if hasattr(self, "_tip") and self._tip:
+            tips_html = f"""
+                <small class="form-text text-secondary" style="font-size: 0.75em;">
+                    {self._tip}
+                </small>
+            """
+
         if self._label:
             label_classes = None
             receiver_classes = None
             if not self.__label_on_top:
                 self.add_classes("row")
-                label_classes = (
-                    "col-sm-4 col-form-label d-flex align-items-center"
-                )
-                receiver_classes = "col-sm-8 d-flex align-items-center"
+                label_classes = "col-sm-4 col-form-label"
+                receiver_classes = "col-sm-8"
+
             return f"""
                 <div {attr('class', self.classes)}>
-                    <label {attr('class', label_classes)}
-                        {attr('for', self.identifier)}>
+                    <label {attr('class', label_classes)} {attr('for', self.identifier)}>
                         {self._label}
                     </label>
                     <div {attr('class', receiver_classes)}>
                         {self._receiver()}
+                        {tips_html}
                     </div>
                 </div>
             """
+
+        # This part handles the case where there is no label.
         return f"""
             {self._receiver()}
+            {tips_html}
         """
 
 
@@ -145,7 +160,7 @@ class CheckboxInput(Input, AppearanceMixin, OutlineMixin):
             CheckboxInput('One', 'opt1'),
             CheckboxInput('Two', 'opt2', True),
             CheckboxInput('Three', 'opt3').as_disabled(),
-            CheckboxInput('Four', 'opt4', True).as_disabled()
+            CheckboxInput('Four', 'opt4', True).as_disabled(),
         )
     """
 
@@ -392,9 +407,10 @@ class TextInput(Freehand):
 
         output = Form(
             TextInput('Text1', 'text'),
-            TextInput('Text2', 'text', placeholder='type here'),
-            TextInput('Text3', 'text', 'Hello World!'),
-            TextInput('Text4', 'text').as_disabled()
+            TextInput('Text2', 'text').with_tip('Here is some tip').mt(2),
+            TextInput('Text3', 'text', placeholder='type here').mt(2),
+            TextInput('Text4', 'text', 'Hello World!').mt(2),
+            TextInput('Text5', 'text').as_disabled().mt(2)
         )
     """
 
@@ -471,9 +487,10 @@ class NumericInput(Freehand):
 
         output = Form(
             NumericInput('Number1', 'number'),
-            NumericInput('Number2', 'number', placeholder='type here'),
-            NumericInput('Number3', 'number', 123),
-            NumericInput('Number4', 'number').as_disabled()
+            NumericInput('Number1', 'number').with_tip('Here is some tip').mt(2),
+            NumericInput('Number2', 'number', placeholder='type here').mt(2),
+            NumericInput('Number3', 'number', 123).mt(2),
+            NumericInput('Number4', 'number').as_disabled().mt(2)
         )
     """
 
@@ -505,7 +522,8 @@ class SelectInput(Input):
 
         output = Form(
             SelectInput('Selector1', 'choice', 2, options),
-            SelectInput('Selector2', 'choice', 2, options).as_disabled()
+            SelectInput('Selector2', 'choice', 2, options).with_tip('Here is some tip').mt(2),
+            SelectInput('Selector3', 'choice', 2, options).as_disabled().mt(2)
         )
     """
 
@@ -626,7 +644,8 @@ class JsonInput(Input):
 
             output = Form(
                 JsonInput('JSON Config', 'code', '{"hello": "world enable"}'),
-                JsonInput('JSON Config', 'code', '{"hello": "world disable"}').as_disabled()
+                JsonInput('JSON Config', 'code', '{"hello": "world enable"}').with_tip('Here is some tip').mt(2),
+                JsonInput('JSON Config', 'code', '{"hello": "world disable"}').as_disabled().mt(2)
             )
 
     """
@@ -661,9 +680,7 @@ class JsonInput(Input):
             ),
         )
 
-        onkeyup = (
-            "javascript:$('#" + self.identifier + "').val($(this).text())"
-        )
+        onkeyup = "javascript:$('#" + self.identifier + "').val($(this).text())"
         pre_attr = [
             attr("contenteditable", "false" if self._disabled else "true"),
             attr("class", "w-100"),
@@ -720,7 +737,8 @@ class FileInput(Input):
 
         output = Form(
             FileInput('File', 'file'),
-            FileInput('File', 'file').as_disabled()
+            FileInput('File', 'file').with_tip('Here is some tip').mt(2),
+            FileInput('File', 'file').as_disabled().mt(2)
         )
     """
 
@@ -753,50 +771,67 @@ class FileInput(Input):
 
 class InputGroup(WebComponent, ClassMixin):
     """A web component for an input group.
-
-    Grous together a series of input components
-
+    Groups together a series of input components
     Args:
         *components (list): The list of `WebComponent`.
-
     Example:
         from bootwrap import Text, TextInput, NumericInput, InputGroup, Form
-
         at = Text("@")
         username = TextInput(None, 'username', placeholder='type username')
-        ig1 = InputGroup(at, username).mb(2)
-
+        ig1 = InputGroup(at, username)
+        ig2 = InputGroup(at, username).with_tip('Here is some tip').mt(2)
         recipient = TextInput(None, 'recipient', placeholder='Recipient username')
         domain = Text("@example.com")
-        ig2 = InputGroup(recipient, domain).mb(2)
-
+        ig3 = InputGroup(recipient, domain).mt(2)
         recipient = TextInput(None, 'recipient', placeholder='Recipient username')
         domain = Text("@example.com")
-        ig2 = InputGroup(recipient, domain).mb(2)
-
+        ig4 = InputGroup(recipient, domain).mt(2)
         money = Text("$")
         amount = NumericInput(None, 'amount', placeholder='Amount (to the nearest dollar)')
         cents = Text(".00")
-        ig3 = InputGroup(money, amount, cents).mb(2)
-
+        ig5 = InputGroup(money, amount, cents).mt(2)
         login = TextInput(None, 'login', placeholder='Login')
         at = Text("@")
         password = TextInput(None, 'password', placeholder='Password').for_password()
-        ig4 = InputGroup(login, at, password).mb(2)
-
-        output=Form(ig1,ig2,ig3,ig4)
+        ig6 = InputGroup(login, at, password).mt(2)
+        output=Form(ig1,ig2,ig3,ig4,ig5,ig6)
     """
 
     def __init__(self, *inputs):
         super().__init__()
         self.__inputs = inputs
+        self._tip = None
+
+    def with_tip(self, tip):
+        """Add a tip text to be displayed below the input group.
+        Args:
+            tip (str): The tip text to display.
+        Returns:
+            obj (self): The instance of this class.
+
+        Example:
+            from bootwrap import Text, TextInput, InputGroup, Form
+            at = Text("@")
+            username = TextInput(None, 'username', placeholder='type username')
+            ig = InputGroup(at, username).with_tip('Here is some tip').mt(2)
+            output=Form(ig)
+        """
+        self._tip = tip
+        return self
 
     def __str__(self):
         self.add_classes("input-group")
-
         for input in self.__inputs:
             if isinstance(input, Text):
                 input.add_classes("input-group-text")
+
+        tips_html = ""
+        if hasattr(self, "_tip") and self._tip:
+            tips_html = f"""
+                <small class="form-text text-secondary" style="font-size: 0.75em;">
+                    {self._tip}
+                </small>
+            """
 
         return f"""
             <div {attr("id", self.identifier)}
@@ -804,4 +839,5 @@ class InputGroup(WebComponent, ClassMixin):
                 role="group">
                 {inject(*self.__inputs)}
             </div>
+            {tips_html}
         """
