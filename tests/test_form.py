@@ -708,7 +708,7 @@ def test_file_input():
 
 @pytest.mark.button
 def test_button_group():
-    # input group without tip
+    # input group without tip...
     input_group = InputGroup(
         Text("@"), TextInput(None, "username", placeholder="type username")
     )
@@ -730,7 +730,7 @@ def test_button_group():
     )
     assert actual == expected
 
-    # input group with tip
+    # input group with tip...
     input_group = InputGroup(
         Text("@"), TextInput(None, "username", placeholder="type username")
     ).with_tip("Here is some tip")
