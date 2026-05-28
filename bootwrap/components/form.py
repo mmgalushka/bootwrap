@@ -110,9 +110,9 @@ class Input(ABC, WebComponent, ClassMixin, AvailabilityMixin):
         tips_html = ""
         if hasattr(self, "_tip") and self._tip:
             tips_html = f"""
-                <small class="form-text text-secondary" style="font-size: 0.75em;">
+                <div class="form-text text-secondary" style="font-size: 0.75em; margin-top: 0; line-height: 1.2;">
                     {self._tip}
-                </small>
+                </div>
             """
 
         if self._label:
@@ -601,8 +601,7 @@ class SelectInput(Input):
         if self.__radio:
             options = []
             for option in self.__options:
-                options.append(
-                    f"""
+                options.append(f"""
                     <div class="form-check me-3">
                         <input {attr('id', option.identifier)}
                             {attr('name', self._name)}
@@ -617,22 +616,19 @@ class SelectInput(Input):
                             {option.name}
                         </label>
                     </div>
-                """
-                )
+                """)
             return inject(*options)
         else:
             options = []
             for option in self.__options:
-                options.append(
-                    f"""
+                options.append(f"""
                     <option {attr('id', option.identifier)}
                         {attr('value', option.value)}
                         {attr('selected', option.value == self.__value)}
                         {attr('disabled', option.disabled)}>
                         {option.name}
                     </option>
-                """
-                )
+                """)
 
             return f"""
                 <select {attr('id', self.identifier)}
@@ -694,7 +690,9 @@ class JsonInput(Input):
             ),
         )
 
-        onkeyup = "javascript:$('#" + self.identifier + "').val($(this).text())"
+        onkeyup = (
+            "javascript:$('#" + self.identifier + "').val($(this).text())"
+        )
         pre_attr = [
             attr("contenteditable", "false" if self._disabled else "true"),
             attr("class", "w-100"),
@@ -842,9 +840,9 @@ class InputGroup(WebComponent, ClassMixin):
         tips_html = ""
         if hasattr(self, "_tip") and self._tip:
             tips_html = f"""
-                <small class="form-text text-secondary" style="font-size: 0.75em;">
+                <div class="form-text text-secondary" style="font-size: 0.75em; margin-top: 0; line-height: 1.2;">
                     {self._tip}
-                </small>
+                </div>
             """
 
         return f"""
