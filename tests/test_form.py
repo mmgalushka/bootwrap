@@ -109,9 +109,9 @@ def test_generic_input():
     expected = HelperHTMLParser.parse(
         f"""
             <xyz id="{generic.identifier}">somename</xyz>
-            <small class="form-text text-secondary" style="font-size: 0.75em;">
+            <div class="form-text text-secondary" style="font-size: 0.75em; margin-top: 0; line-height: 1.2;">
                 Here is some tip
-            </small>
+            </div>
     """
     )
     assert actual == expected
@@ -800,9 +800,9 @@ def test_button_group():
                 placeholder="type username"
                 />
         </div>
-        <small class="form-text text-secondary" style="font-size: 0.75em;">
+        <div class="form-text text-secondary" style="font-size: 0.75em; margin-top: 0; line-height: 1.2;">
             Here is some tip
-        </small>
+        </div>
     """
     )
     assert actual == expected
